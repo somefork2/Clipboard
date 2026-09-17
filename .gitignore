@@ -2,16 +2,15 @@
 build/
 .build/
 *.app/
-*.ipa
 DerivedData/
 
 # Screenshots
-screenshots/
+*.png
+!Sources/
 
-# Swift Package Manager
+# Swift
 .swiftpm/
 Package.resolved
 
 # macOS
 .DS_Store
-*.xcuserstate
