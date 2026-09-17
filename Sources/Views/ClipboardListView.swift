@@ -143,7 +143,7 @@ struct ClipboardListView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
                 ScrollView {
-                    LazyVStack(spacing: 6) {
+                    LazyVStack(spacing: 2) {
                         ForEach(Array(viewModel.filteredItems.enumerated()), id: \.element.id) { index, item in
                             ClipboardItemRow(
                                 item: item,
