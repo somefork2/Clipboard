@@ -30,16 +30,16 @@ enum ContentType: String, Codable, CaseIterable {
 
     var systemImage: String {
         switch self {
-        case .text: return "doc.text.fill"
-        case .richText: return "doc.richtext.fill"
-        case .url: return "link.badge.plus"
-        case .email: return "envelope.fill"
-        case .phoneNumber: return "phone.circle.fill"
-        case .image: return "photo.fill"
+        case .text: return "doc.text"
+        case .richText: return "doc.richtext"
+        case .url: return "link"
+        case .email: return "envelope"
+        case .phoneNumber: return "phone"
+        case .image: return "photo"
         case .code: return "chevron.left.forwardslash.chevron.right"
-        case .color: return "paintpalette.fill"
-        case .password: return "lock.fill"
-        case .unknown: return "questionmark.circle.fill"
+        case .color: return "paintpalette"
+        case .password: return "lock"
+        case .unknown: return "questionmark.circle"
         }
     }
 

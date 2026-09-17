@@ -75,11 +75,11 @@ struct SidebarView: View {
             // Navigation
             List(selection: $selectedItem) {
                 Section {
-                    sidebarRow(icon: "clock.arrow.circlepath", title: "History", color: Color(hex: "3b82f6"), isSelected: selectedItem == .history)
+                    sidebarRow(icon: "clock", title: "History", color: Color(hex: "3b82f6"), isSelected: selectedItem == .history)
                         .tag(SidebarItem.history)
-                    sidebarRow(icon: "star.fill", title: "Favorites", color: Color(hex: "f59e0b"), isSelected: selectedItem == .favorites)
+                    sidebarRow(icon: "star", title: "Favorites", color: Color(hex: "f59e0b"), isSelected: selectedItem == .favorites)
                         .tag(SidebarItem.favorites)
-                    sidebarRow(icon: "square.stack.fill", title: "Paste Stack", color: Color(hex: "8b5cf6"), isSelected: selectedItem == .pasteStack)
+                    sidebarRow(icon: "square.stack", title: "Paste Stack", color: Color(hex: "8b5cf6"), isSelected: selectedItem == .pasteStack)
                         .tag(SidebarItem.pasteStack)
                 }
 
@@ -101,9 +101,9 @@ struct SidebarView: View {
                 }
 
                 Section {
-                    sidebarRow(icon: "chart.xyaxis.line", title: "Statistics", color: Color(hex: "10b981"), isSelected: selectedItem == .statistics)
+                    sidebarRow(icon: "chart.line.uptrend.xyaxis", title: "Statistics", color: Color(hex: "10b981"), isSelected: selectedItem == .statistics)
                         .tag(SidebarItem.statistics)
-                    sidebarRow(icon: "paintbrush.pointed.fill", title: "Themes", color: Color(hex: "f43f5e"), isSelected: selectedItem == .themes)
+                    sidebarRow(icon: "paintbrush.pointed", title: "Themes", color: Color(hex: "f43f5e"), isSelected: selectedItem == .themes)
                         .tag(SidebarItem.themes)
                 }
             }
@@ -157,36 +157,36 @@ struct SidebarView: View {
     }
 
     private func sidebarRow(icon: String, title: String, color: Color, isSelected: Bool, count: Int? = nil) -> some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 10) {
             ZStack {
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(isSelected ? color.opacity(0.15) : color.opacity(0.08))
-                    .frame(width: 28, height: 28)
+                RoundedRectangle(cornerRadius: 7)
+                    .fill(isSelected ? color.opacity(0.12) : Color.clear)
+                    .frame(width: 26, height: 26)
                 Image(systemName: icon)
-                    .font(.system(size: 12, weight: .semibold))
-                    .foregroundColor(isSelected ? color : color.opacity(0.7))
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundColor(isSelected ? color : .secondary)
             }
 
             Text(title)
-                .font(.system(size: 13, weight: isSelected ? .semibold : .medium, design: .rounded))
+                .font(.system(size: 13, weight: isSelected ? .semibold : .regular, design: .rounded))
                 .foregroundColor(isSelected ? Color(hex: "1a1a2e") : .secondary)
 
             Spacer()
 
             if let count {
                 Text("\(count)")
-                    .font(.system(size: 10, weight: .bold, design: .monospaced))
+                    .font(.system(size: 10, weight: .semibold, design: .monospaced))
                     .foregroundColor(.secondary)
                     .padding(.horizontal, 6)
                     .padding(.vertical, 3)
-                    .background(Color.secondary.opacity(0.1))
+                    .background(Color.secondary.opacity(0.08))
                     .clipShape(Capsule())
             }
         }
-        .padding(.vertical, 6)
+        .padding(.vertical, 5)
         .padding(.horizontal, 8)
         .background(
-            RoundedRectangle(cornerRadius: 10)
+            RoundedRectangle(cornerRadius: 8)
                 .fill(isSelected ? Color(nsColor: .controlBackgroundColor) : Color.clear)
         )
     }

@@ -38,8 +38,8 @@ struct ClipboardItemRow: View {
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                 } else {
                     Image(systemName: item.type.systemImage)
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(categoryColor)
+                        .font(.system(size: 14, weight: .light))
+                        .foregroundColor(categoryColor.opacity(0.8))
                 }
             }
 
@@ -226,11 +226,11 @@ struct ClipboardItemRow: View {
     private func actionBtn(icon: String, color: Color, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Image(systemName: icon)
-                .font(.system(size: 10, weight: .semibold))
-                .foregroundColor(color)
-                .frame(width: 24, height: 24)
-                .background(color.opacity(0.08))
-                .clipShape(RoundedRectangle(cornerRadius: 6))
+                .font(.system(size: 10, weight: .medium))
+                .foregroundColor(color.opacity(0.7))
+                .frame(width: 22, height: 22)
+                .background(color.opacity(0.06))
+                .clipShape(RoundedRectangle(cornerRadius: 5))
         }
         .buttonStyle(.plain)
     }
