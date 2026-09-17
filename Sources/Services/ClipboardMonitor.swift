@@ -13,7 +13,14 @@ final class ClipboardMonitor: ObservableObject {
     private let categorizer = SmartCategorizer.shared
     private let ocrService = OCRService.shared
 
+    static weak var shared: ClipboardMonitor?
+    private static var lastItem: ClipboardItem?
+
     var onItemCaptured: ((ClipboardItem) -> Void)?
+
+    init() {
+        ClipboardMonitor.shared = self
+    }
 
     func startMonitoring() {
         guard !isMonitoring else { return }
@@ -33,6 +40,21 @@ final class ClipboardMonitor: ObservableObject {
         monitorTask = nil
         isMonitoring = false
     }
+
+    // MARK: - Static helpers for ServiceProvider
+
+    static func sharedSave(item: ClipboardItem) {
+        guard let monitor = shared else { return }
+        monitor.onItemCaptured?(item)
+        lastItem = item
+    }
+
+    static func getLastItem() -> ClipboardItem? {
+        return lastItem
+    }
+
+    // ... rest of existing code ...
+
 
     private func checkClipboard() async {
         let pasteboard = NSPasteboard.general

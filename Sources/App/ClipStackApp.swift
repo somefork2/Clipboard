@@ -13,5 +13,9 @@ struct ClipStackApp: App {
 }
 
 class AppDelegate: NSObject, NSApplicationDelegate {
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        NSApp.servicesProvider = ServiceProvider()
+        NSUpdateDynamicServices()
+    }
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { false }
 }

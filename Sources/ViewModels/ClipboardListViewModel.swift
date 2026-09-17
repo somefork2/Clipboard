@@ -65,7 +65,9 @@ final class ClipboardListViewModel {
         let descriptor = FetchDescriptor<ClipboardItem>(predicate: #Predicate { !$0.isDeleted }, sortBy: [SortDescriptor(\.createdAt, order: .reverse)])
         do {
             items = try context.fetch(descriptor)
+            print("Loaded \(items.count) items")
             applyFilters()
+            print("Filtered \(filteredItems.count) items")
         } catch { print("Failed to load: \(error)") }
     }
 

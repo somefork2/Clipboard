@@ -118,7 +118,7 @@ struct ClipboardListView: View {
 
     private var itemList: some View {
         Group {
-            if viewModel.filteredItems.isEmpty {
+            if viewModel.filteredItems.isEmpty && viewModel.items.isEmpty {
                 VStack(spacing: 28) {
                     ZStack {
                         Circle()
