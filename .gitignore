@@ -1,0 +1,17 @@
+# Build
+build/
+.build/
+*.app/
+*.ipa
+DerivedData/
+
+# Screenshots
+screenshots/
+
+# Swift Package Manager
+.swiftpm/
+Package.resolved
+
+# macOS
+.DS_Store
+*.xcuserstate
