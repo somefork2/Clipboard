@@ -169,7 +169,7 @@ struct SidebarView: View {
 
             Text(title)
                 .font(.system(size: 13, weight: isSelected ? .semibold : .medium, design: .rounded))
-                .foregroundColor(isSelected ? .primary : .secondary)
+                .foregroundColor(isSelected ? Color(hex: "1a1a2e") : .secondary)
 
             Spacer()
 
