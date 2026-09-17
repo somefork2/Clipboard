@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct PasteStackView: View {
-    @Bindable var viewModel: ClipboardListViewModel
+    @ObservedObject var viewModel: ClipboardListViewModel
     @State private var animateProgress = false
 
     var body: some View {

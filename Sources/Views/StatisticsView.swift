@@ -9,7 +9,7 @@ struct DayStat: Identifiable {
 }
 
 struct StatisticsView: View {
-    @Bindable var viewModel: ClipboardListViewModel
+    @ObservedObject var viewModel: ClipboardListViewModel
     @State private var animatedTotal = 0
     @State private var animatedPasted = 0
     @State private var animatedDaily = 0

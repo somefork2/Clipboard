@@ -1,13 +1,16 @@
 import SwiftUI
 
 struct ClipboardListView: View {
-    @Bindable var viewModel: ClipboardListViewModel
+    @ObservedObject var viewModel: ClipboardListViewModel
 
     var body: some View {
         VStack(spacing: 0) {
             headerBar
             filterBar
             itemList
+        }
+        .onAppear {
+            viewModel.applyFilters()
         }
     }
 

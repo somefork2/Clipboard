@@ -2,7 +2,7 @@ import SwiftUI
 import SwiftData
 
 struct MainView: View {
-    @State private var viewModel = ClipboardListViewModel()
+    @StateObject private var viewModel = ClipboardListViewModel()
     @State private var columnVisibility = NavigationSplitViewVisibility.all
     @State private var pinboards: [Pinboard] = []
 

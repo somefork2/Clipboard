@@ -3,17 +3,16 @@ import SwiftData
 import SwiftUI
 
 @MainActor
-@Observable
-final class ClipboardListViewModel {
-    var items: [ClipboardItem] = []
-    var filteredItems: [ClipboardItem] = []
-    var searchText: String = ""
-    var selectedFilter: ContentType? = nil
-    var selectedSidebarItem: SidebarItem = .history
-    var pasteStackManager = PasteStackManager()
-    var statistics = StatisticsViewModel()
-    var isSyncing = false
-    var isPaused = false
+final class ClipboardListViewModel: ObservableObject {
+    @Published var items: [ClipboardItem] = []
+    @Published var filteredItems: [ClipboardItem] = []
+    @Published var searchText: String = ""
+    @Published var selectedFilter: ContentType? = nil
+    @Published var selectedSidebarItem: SidebarItem = .history
+    @Published var pasteStackManager = PasteStackManager()
+    @Published var statistics = StatisticsViewModel()
+    @Published var isSyncing = false
+    @Published var isPaused = false
 
     private let monitor = ClipboardMonitor()
     private let typeDetector = TypeDetector()
@@ -65,10 +64,10 @@ final class ClipboardListViewModel {
         let descriptor = FetchDescriptor<ClipboardItem>(predicate: #Predicate { !$0.isDeleted }, sortBy: [SortDescriptor(\.createdAt, order: .reverse)])
         do {
             items = try context.fetch(descriptor)
-            print("Loaded \(items.count) items")
+            NSLog("ClipStack: Loaded \(items.count) items")
             applyFilters()
-            print("Filtered \(filteredItems.count) items")
-        } catch { print("Failed to load: \(error)") }
+            NSLog("ClipStack: Filtered \(filteredItems.count) items")
+        } catch { NSLog("ClipStack: Failed to load: \(error)") }
     }
 
     func saveItem(_ item: ClipboardItem) {
@@ -115,24 +114,20 @@ final class ClipboardListViewModel {
         if !searchText.isEmpty {
             let query = searchText.lowercased()
             result = result.filter { item in
-                // Текстовый поиск
                 if item.text?.lowercased().contains(query) == true { return true }
                 if item.url?.lowercased().contains(query) == true { return true }
-                // Поиск по тегам
                 if item.tags.contains(where: { $0.lowercased().contains(query) }) { return true }
-                // Поиск по категории
                 if item.category.lowercased().contains(query) { return true }
-                // Поиск по сущностям
                 if item.entities.contains(where: { $0.value.lowercased().contains(query) }) { return true }
-                // Поиск по OCR
                 if item.extractedText?.lowercased().contains(query) == true { return true }
-                // Поиск по языку
                 if item.detectedLanguage?.lowercased().contains(query) == true { return true }
                 return false
             }
         }
 
         if let filter = selectedFilter { result = result.filter { $0.type == filter } }
+
+        NSLog("ClipStack applyFilters: items=\(items.count) result=\(result.count) sidebar=\(selectedSidebarItem)")
 
         switch selectedSidebarItem {
         case .history: filteredItems = result
@@ -141,6 +136,8 @@ final class ClipboardListViewModel {
         case .pasteStack: filteredItems = pasteStackManager.stackItems
         case .statistics, .themes: filteredItems = []
         }
+
+        NSLog("ClipStack applyFilters: filteredItems=\(filteredItems.count)")
     }
 
     // MARK: - Sync
