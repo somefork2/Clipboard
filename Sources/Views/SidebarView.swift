@@ -160,7 +160,7 @@ struct SidebarView: View {
         HStack(spacing: 10) {
             ZStack {
                 RoundedRectangle(cornerRadius: 7)
-                    .fill(isSelected ? color.opacity(0.12) : Color.clear)
+                    .fill(isSelected ? color.opacity(0.15) : Color.clear)
                     .frame(width: 26, height: 26)
                 Image(systemName: icon)
                     .font(.system(size: 12, weight: .medium))
@@ -169,7 +169,7 @@ struct SidebarView: View {
 
             Text(title)
                 .font(.system(size: 13, weight: isSelected ? .semibold : .regular, design: .rounded))
-                .foregroundColor(isSelected ? Color(hex: "1a1a2e") : .secondary)
+                .foregroundColor(isSelected ? .primary : .secondary)
 
             Spacer()
 

@@ -72,7 +72,7 @@ struct ClipboardListView: View {
                 .padding(.horizontal, 10)
                 .padding(.vertical, 5)
                 .background(
-                    LinearGradient(colors: [Color(hex: "1a1a2e"), Color(hex: "0f172a")], startPoint: .leading, endPoint: .trailing)
+                    LinearGradient(colors: [Color.accentColor, Color.accentColor.opacity(0.7)], startPoint: .leading, endPoint: .trailing)
                 )
                 .clipShape(Capsule())
             }
@@ -122,14 +122,14 @@ struct ClipboardListView: View {
                 VStack(spacing: 28) {
                     ZStack {
                         Circle()
-                            .fill(Color(hex: "1a1a2e").opacity(0.08))
+                            .fill(Color.secondary.opacity(0.08))
                             .frame(width: 120, height: 120)
                         Circle()
-                            .stroke(Color(hex: "3b82f6").opacity(0.15), lineWidth: 1)
+                            .stroke(Color.secondary.opacity(0.15), lineWidth: 1)
                             .frame(width: 120, height: 120)
                         Image(systemName: "doc.on.clipboard")
                             .font(.system(size: 44, weight: .light))
-                            .foregroundColor(Color(hex: "3b82f6"))
+                            .foregroundColor(.secondary)
                     }
                     VStack(spacing: 12) {
                         Text("Clipboard is empty")
@@ -196,7 +196,7 @@ struct FilterChip: View {
             .background(
                 Capsule()
                     .fill(isSelected ?
-                        LinearGradient(colors: [Color(hex: "1a1a2e"), Color(hex: "0f172a")], startPoint: .leading, endPoint: .trailing) :
+                        LinearGradient(colors: [Color.accentColor, Color.accentColor.opacity(0.8)], startPoint: .leading, endPoint: .trailing) :
                         LinearGradient(colors: [Color(nsColor: .controlBackgroundColor)], startPoint: .leading, endPoint: .trailing)
                     )
                     .overlay(
@@ -205,7 +205,7 @@ struct FilterChip: View {
                     )
             )
             .foregroundColor(isSelected ? .white : .primary)
-            .shadow(color: isSelected ? .black.opacity(0.2) : .clear, radius: 4, y: 2)
+            .shadow(color: isSelected ? Color.accentColor.opacity(0.3) : .clear, radius: 4, y: 2)
         }
         .buttonStyle(.plain)
     }
