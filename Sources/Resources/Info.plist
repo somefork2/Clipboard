@@ -110,6 +110,42 @@
             <key>NSMenuItem</key>
             <dict>
                 <key>default</key>
+                <string>Copy Text in Image</string>
+            </dict>
+            <key>NSMessage</key>
+            <string>recognizeTextFromClipStack</string>
+            <key>NSPortName</key>
+            <string>ClipStack</string>
+            <key>NSSendTypes</key>
+            <array>
+                <string>public.png</string>
+                <string>public.tiff</string>
+                <string>public.file-url</string>
+            </array>
+            <key>NSReturnTypes</key>
+            <array>
+                <string>public.utf8-plain-text</string>
+            </array>
+        </dict>
+        <dict>
+            <key>NSMenuItem</key>
+            <dict>
+                <key>default</key>
+                <string>Paste as Plain Text from ClipStack</string>
+            </dict>
+            <key>NSMessage</key>
+            <string>pastePlainFromClipStack</string>
+            <key>NSPortName</key>
+            <string>ClipStack</string>
+            <key>NSReturnTypes</key>
+            <array>
+                <string>public.utf8-plain-text</string>
+            </array>
+        </dict>
+        <dict>
+            <key>NSMenuItem</key>
+            <dict>
+                <key>default</key>
                 <string>Paste from ClipStack</string>
             </dict>
             <key>NSMessage</key>

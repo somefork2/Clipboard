@@ -29,6 +29,7 @@ struct MainView: View {
     @State private var typeFilter: ContentType?
     @State private var columnVisibility = NavigationSplitViewVisibility.all
     @State private var showingClearConfirmation = false
+    @State private var showingWelcome = false
 
     var body: some View {
         @Bindable var subscriptions = subscriptions
@@ -47,6 +48,12 @@ struct MainView: View {
         .frame(minWidth: 860, minHeight: 520)
         .toolbar { toolbar }
         .searchable(text: $searchText, placement: .toolbar, prompt: "Search clips")
+        .sheet(isPresented: $showingWelcome) {
+            WelcomeView { showingWelcome = false }
+        }
+        .onAppear {
+            showingWelcome = !AppSettings.shared.hasCompletedOnboarding
+        }
         .sheet(isPresented: $subscriptions.showingPaywall) {
             PaywallView()
                 .environment(subscriptions)

@@ -5,6 +5,31 @@ import Foundation
 actor OCRService {
     static let shared = OCRService()
 
+    /// Vision's request handler is synchronous by nature. A macOS Service has to
+    /// answer on the spot, so this path exists for it; everything else uses the
+    /// async wrapper below and stays off the main thread.
+    nonisolated static func recognizeSynchronously(in imageData: Data) -> String? {
+        guard let image = NSImage(data: imageData),
+              let tiff = image.tiffRepresentation,
+              let bitmap = NSBitmapImageRep(data: tiff),
+              let cgImage = bitmap.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
+            return nil
+        }
+
+        let request = VNRecognizeTextRequest()
+        request.recognitionLevel = .accurate
+        request.usesLanguageCorrection = true
+
+        let handler = VNImageRequestHandler(cgImage: cgImage, options: [:])
+        guard (try? handler.perform([request])) != nil,
+              let results = request.results else { return nil }
+
+        let text = results
+            .compactMap { $0.topCandidates(1).first?.string }
+            .joined(separator: "\n")
+        return text.isEmpty ? nil : text
+    }
+
     func recognizeText(in imageData: Data) async -> String? {
         guard let image = NSImage(data: imageData),
               let tiffData = image.tiffRepresentation,

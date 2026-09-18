@@ -70,6 +70,45 @@ final class ServiceProvider: NSObject {
         StatisticsTracker.shared.recordPaste()
     }
 
+    // MARK: - Paste as plain text
+
+    /// Same as above but with formatting stripped, for pasting into a document
+    /// that should not inherit the source's styling.
+    @objc func pastePlainFromClipStack(
+        _ pboard: NSPasteboard,
+        userData: String,
+        error: AutoreleasingUnsafeMutablePointer<NSString>
+    ) {
+        guard let latest = ClipboardStore.shared.items.first,
+              !latest.isSensitive,
+              let text = latest.body, !text.isEmpty else {
+            error.pointee = "ClipStack has nothing to paste." as NSString
+            return
+        }
+        pboard.clearContents()
+        pboard.setString(text, forType: .string)
+        ClipboardStore.shared.recordUse(latest)
+    }
+
+    // MARK: - Read text out of an image
+
+    /// Returns the text found in the selected image or image file, so any app
+    /// can lift text out of a screenshot through the Services menu.
+    @objc func recognizeTextFromClipStack(
+        _ pboard: NSPasteboard,
+        userData: String,
+        error: AutoreleasingUnsafeMutablePointer<NSString>
+    ) {
+        guard let image = images(from: pboard).first,
+              let data = ImageStore.png(from: image, maxSize: nil),
+              let text = OCRService.recognizeSynchronously(in: data) else {
+            error.pointee = "No text was found in that image." as NSString
+            return
+        }
+        pboard.clearContents()
+        pboard.setString(text, forType: .string)
+    }
+
     // MARK: - Ingest
 
     private func ingest(
