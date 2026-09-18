@@ -28,6 +28,8 @@ All global shortcuts are remappable in Settings ▸ Shortcuts.
 | ⌃⌥P | Pause / resume recording |
 | ⌥⌘S | Paste the next item from the Paste Stack |
 
+In the main window, pinboards included: click a clip's icon or thumbnail to preview it, ⌘Y or Space for the selected row, ⏎ to paste, ⌥⏎ as plain text, ⌘D to favourite, ⌘⌫ to delete.
+
 Inside the palette:
 
 | Key | Action |

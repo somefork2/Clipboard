@@ -119,7 +119,25 @@ struct ClipboardItemRow: View {
             .help("Show this image")
             .accessibilityLabel("Show image")
         } else {
-            TypeBadge(type: item.type)
+            // Not only images: clicking the badge of any clip opens its preview,
+            // which is the only way to read a long clip in full.
+            Button(action: onPreview) {
+                TypeBadge(type: item.type)
+                    .overlay {
+                        if isHovered {
+                            RoundedRectangle(cornerRadius: Theme.Metric.corner)
+                                .fill(Color(nsColor: .controlBackgroundColor))
+                                .overlay(
+                                    Image(systemName: "eye")
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                )
+                        }
+                    }
+            }
+            .buttonStyle(.plain)
+            .help("Show this clip")
+            .accessibilityLabel("Show clip")
         }
     }
 

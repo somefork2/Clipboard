@@ -20,6 +20,48 @@ struct ClipboardListView: View {
         .sheet(item: $previewItem) { item in
             ClipPreviewSheet(item: item) { previewItem = nil }
         }
+        .overlay { keyboardCommands }
+        .onReceive(NotificationCenter.default.publisher(for: .clipStackRequestPreviewSelection)) { _ in
+            previewSelection()
+        }
+    }
+
+    /// Keyboard equivalents for the selected row. The list is the focus here, so
+    /// Space is free — unlike in the palette, where the search field owns it.
+    private var keyboardCommands: some View {
+        ZStack {
+            Button("") { previewSelection() }.keyboardShortcut(.space, modifiers: [])
+            Button("") { pasteSelection() }.keyboardShortcut(.return, modifiers: [])
+            Button("") { pasteSelection(plainText: true) }.keyboardShortcut(.return, modifiers: .option)
+            Button("") { favoriteSelection() }.keyboardShortcut("d", modifiers: .command)
+        }
+        .opacity(0)
+        .frame(width: 0, height: 0)
+        .accessibilityHidden(true)
+    }
+
+    /// The row the user has selected, or the first one when nothing is selected
+    /// yet — pressing Space on a fresh list should show something.
+    private var selectedItem: ClipboardItem? {
+        if let selection, let item = items.first(where: { $0.persistentModelID == selection }) {
+            return item
+        }
+        return items.first
+    }
+
+    private func previewSelection() {
+        guard let item = selectedItem else { return }
+        previewItem = item
+    }
+
+    private func pasteSelection(plainText: Bool = false) {
+        guard let item = selectedItem else { return }
+        paste(item, plainText: plainText)
+    }
+
+    private func favoriteSelection() {
+        guard let item = selectedItem else { return }
+        store.toggleFavorite(item)
     }
 
     // MARK: - Filter bar
@@ -69,6 +111,7 @@ struct ClipboardListView: View {
                     onPaste: { paste(item, plainText: false) },
                     onPreview: { previewItem = item }
                 )
+                .tag(item.persistentModelID)
                 .listRowInsets(EdgeInsets(top: 2, leading: 6, bottom: 2, trailing: 6))
                 .contextMenu {
                     ClipContextMenu(

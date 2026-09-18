@@ -61,6 +61,11 @@ struct ClipStackCommands: Commands {
         CommandMenu("Clipboard") {
             Button("Open Palette") { QuickPastePanel.shared.toggle() }
                 .keyboardShortcut("v", modifiers: [.option, .command])
+            Button("Quick Look") {
+                NotificationCenter.default.post(name: .clipStackRequestPreviewSelection, object: nil)
+            }
+            .keyboardShortcut("y", modifiers: .command)
+            Divider()
             Button(AppCoordinator.shared.isPaused ? "Resume Recording" : "Pause Recording") {
                 AppCoordinator.shared.togglePause()
             }
@@ -142,4 +147,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
 extension Notification.Name {
     static let clipStackRequestClearHistory = Notification.Name("clipStackRequestClearHistory")
+    /// Menu-driven Quick Look: a menu item is both a reliable key handler and a
+    /// discoverable one, unlike a hidden button holding a shortcut.
+    static let clipStackRequestPreviewSelection = Notification.Name("clipStackRequestPreviewSelection")
 }
