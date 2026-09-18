@@ -96,7 +96,20 @@ final class SubscriptionManager {
 
     private init() {}
 
+    #if DEBUG
+    /// Unlocks everything in a development build, so the paid experience can be
+    /// looked at before the products exist in App Store Connect.
+    ///
+    /// Compiled out of release entirely: there is no runtime flag, no hidden
+    /// preference and no code path in the shipping app that can reach it.
+    var simulatedPro: Bool = UserDefaults.standard.bool(forKey: "debug_simulated_pro") {
+        didSet { UserDefaults.standard.set(simulatedPro, forKey: "debug_simulated_pro") }
+    }
+
+    var isPro: Bool { simulatedPro || currentTier == .pro }
+    #else
     var isPro: Bool { currentTier == .pro }
+    #endif
 
     /// True only when the active subscription is still inside its introductory
     /// free-trial period. Never assumed — StoreKit tells us.
@@ -257,6 +270,19 @@ final class SubscriptionManager {
     // MARK: - Gating
 
     func checkAccess(for feature: PremiumFeature) -> Bool { isPro }
+
+    #if DEBUG
+    var statusDescription: String {
+        if simulatedPro { return "Pro (simulated for development)" }
+        if isInTrial { return "Pro — free trial" }
+        return isPro ? "Pro" : "Free"
+    }
+    #else
+    var statusDescription: String {
+        if isInTrial { return "Pro — free trial" }
+        return isPro ? "Pro" : "Free"
+    }
+    #endif
 
     /// Returns true when the feature may be used; otherwise surfaces the paywall.
     @discardableResult

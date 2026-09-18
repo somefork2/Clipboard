@@ -157,6 +157,15 @@ struct MenuBarContentView: View {
 
                 Button {
                     MenuBarPopover.dismiss()
+                    coordinator.showSetupGuide()
+                } label: {
+                    Image(systemName: "questionmark.circle")
+                }
+                .buttonStyle(.plain)
+                .help("Setup guide")
+
+                Button {
+                    MenuBarPopover.dismiss()
                     openSettings()
                 } label: {
                     Image(systemName: "gearshape")

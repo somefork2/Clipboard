@@ -105,6 +105,18 @@ final class AppCoordinator {
         paste(item, plainText: false)
     }
 
+    /// Reopens the first-run guide.
+    ///
+    /// The guide lives in the main window, so it has to be open and in front
+    /// before the request is posted — otherwise nothing is listening and the
+    /// menu item appears to do nothing.
+    func showSetupGuide() {
+        openMainWindow()
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: .copyWellRequestSetupWizard, object: nil)
+        }
+    }
+
     // MARK: - Windows
 
     func openMainWindow() {

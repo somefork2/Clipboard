@@ -61,6 +61,14 @@ struct CopyWellCommands: Commands {
         CommandGroup(after: .appInfo) {
             Button("CopyWell Pro…") { SubscriptionManager.shared.showingPaywall = true }
         }
+        CommandGroup(replacing: .help) {
+            Button("CopyWell Setup Guide") {
+                AppCoordinator.shared.showSetupGuide()
+            }
+            Divider()
+            Link("Support", destination: LegalLinks.support)
+            Link("Privacy Policy", destination: LegalLinks.privacyPolicy)
+        }
         CommandMenu("Clipboard") {
             Button("Open Palette") { QuickPastePanel.shared.toggle() }
                 .keyboardShortcut("v", modifiers: [.option, .command])

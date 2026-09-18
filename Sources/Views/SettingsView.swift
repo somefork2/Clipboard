@@ -75,8 +75,7 @@ struct GeneralSettings: View {
 
             Section {
                 Button("Show the setup guide again") {
-                    settings.hasCompletedOnboarding = false
-                    NotificationCenter.default.post(name: .copyWellRequestSetupWizard, object: nil)
+                    AppCoordinator.shared.showSetupGuide()
                 }
             }
 
@@ -506,6 +505,18 @@ struct SubscriptionSettings: View {
                 }
             }
 
+            #if DEBUG
+            Section {
+                @Bindable var manager = manager
+                Toggle("Simulate Pro", isOn: $manager.simulatedPro)
+                Text("Development builds only — this section does not exist in a release build. It unlocks every paid feature so the full experience can be reviewed before the products are live.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            } header: {
+                Text("Developer")
+            }
+            #endif
+
             Section("Legal") {
                 Link("Privacy Policy", destination: LegalLinks.privacyPolicy)
                 Link("Terms of Use", destination: LegalLinks.termsOfUse)
@@ -516,8 +527,5 @@ struct SubscriptionSettings: View {
         .task { await manager.refreshEntitlement() }
     }
 
-    private var statusText: String {
-        if manager.isInTrial { return "Pro — free trial" }
-        return manager.isPro ? "Pro" : "Free"
-    }
+    private var statusText: String { manager.statusDescription }
 }
