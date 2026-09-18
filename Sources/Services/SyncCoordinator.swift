@@ -126,9 +126,14 @@ final class SyncCoordinator {
         let result = await manager.sync(localItems: payload, deletedHashes: deletions)
 
         switch result {
-        case .success(let incoming):
-            for clip in incoming {
+        case .success(let changes):
+            for clip in changes.incoming {
                 store.insert(clip, origin: .remote)
+            }
+            // A clip another device deleted goes here too, without being logged
+            // back as a local deletion — the zone already knows about it.
+            if !changes.removedHashes.isEmpty {
+                store.deleteFromRemote(contentHashes: changes.removedHashes)
             }
             DeletionLog.clear(deletions)
             status = .synced(Date())

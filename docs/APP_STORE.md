@@ -32,25 +32,20 @@ committed to the repository.
 - [ ] Change `PRODUCT_BUNDLE_IDENTIFIER` from `com.clipstack.app` to your own
       reverse-domain identifier, then regenerate the project.
 - [ ] Register the App ID with App Sandbox, iCloud and In-App Purchase enabled.
-- [ ] Create the CloudKit container `iCloud.<your bundle id>` and deploy the
-      `ClipboardItemRecord` record type to production:
+- [ ] Turn on the iCloud capability with CloudKit in Xcode (Signing &
+      Capabilities ▸ + Capability ▸ iCloud ▸ CloudKit) and let it create the
+      container `iCloud.<your bundle id>`. That is the whole CloudKit setup.
 
-      | Field | Type | Index |
-      |---|---|---|
-      | `contentHash` | String | Queryable |
-      | `contentType` | String | — |
-      | `text` | String | — |
-      | `url` | String | — |
-      | `urlTitle` | String | — |
-      | `sourceApp` | String | — |
-      | `category` | String | — |
-      | `tags` | List\<String\> | — |
-      | `isFavorite` | Int64 | — |
-      | `createdAt` | Date/Time | Queryable, Sortable |
+      **No schema work is needed.** Sync uses a custom record zone and server
+      change tokens rather than queries, so there are no record types, fields or
+      indexes to define in the CloudKit console. The zone, the record type and
+      its fields are created automatically the first time the app saves a clip.
 
-      Records use a deterministic name derived from `contentHash`, so the same
-      clip maps to one record on every device. Without the indexes above the
-      query fails at runtime and sync silently returns nothing.
+- [ ] Before submitting, run the app once while signed into iCloud so the schema
+      exists in the Development environment, then open the CloudKit console and
+      press **Deploy Schema Changes** to copy it to Production. Development and
+      Production are separate databases, and the App Store build only ever talks
+      to Production. This is one button; it is the only console step.
 
 ### 2. In-app purchases
 

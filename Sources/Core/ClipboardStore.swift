@@ -163,6 +163,21 @@ final class ClipboardStore {
         SyncCoordinator.shared.localHistoryChanged()
     }
 
+    /// Applies a deletion that arrived from another device. It deliberately does
+    /// not go through `delete`, which would log the deletion again and push it
+    /// straight back to iCloud.
+    func deleteFromRemote(contentHashes: [String]) {
+        let wanted = Set(contentHashes)
+        let doomed = items.filter { wanted.contains(ContentHasher.recordName(for: $0.contentHash)) || wanted.contains($0.contentHash) }
+        guard !doomed.isEmpty else { return }
+        for item in doomed {
+            if let fileName = item.imageFileName { ImageStore.remove(fileName: fileName) }
+            context.delete(item)
+        }
+        save()
+        reload()
+    }
+
     func deleteAll(fromApp app: String) {
         delete(items.filter { $0.sourceApp == app })
     }
