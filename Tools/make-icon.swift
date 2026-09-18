@@ -16,13 +16,34 @@ let sizes: [(px: Int, name: String)] = [
 let outputDir = URL(fileURLWithPath: "Sources/Resources/Assets.xcassets/AppIcon.appiconset")
 try? FileManager.default.createDirectory(at: outputDir, withIntermediateDirectories: true)
 
-func drawIcon(size: CGFloat) -> NSImage {
-    let image = NSImage(size: NSSize(width: size, height: size))
-    image.lockFocus()
-    guard let context = NSGraphicsContext.current?.cgContext else {
-        image.unlockFocus()
-        return image
+/// Draws at exact pixel dimensions.
+///
+/// `NSImage.lockFocus` renders through the current display's scale, so on a
+/// Retina Mac every icon came out at twice its declared size. actool then found
+/// a 32×32 file where the manifest promised 16×16, produced nothing, and the app
+/// shipped with the generic icon — silently, with no diagnostic at all.
+func drawIcon(size: CGFloat) -> NSBitmapImageRep? {
+    guard let rep = NSBitmapImageRep(
+        bitmapDataPlanes: nil,
+        pixelsWide: Int(size),
+        pixelsHigh: Int(size),
+        bitsPerSample: 8,
+        samplesPerPixel: 4,
+        hasAlpha: true,
+        isPlanar: false,
+        colorSpaceName: .deviceRGB,
+        bytesPerRow: 0,
+        bitsPerPixel: 0
+    ) else { return nil }
+    rep.size = NSSize(width: size, height: size)
+
+    NSGraphicsContext.saveGraphicsState()
+    guard let graphicsContext = NSGraphicsContext(bitmapImageRep: rep) else {
+        NSGraphicsContext.restoreGraphicsState()
+        return nil
     }
+    NSGraphicsContext.current = graphicsContext
+    let context = graphicsContext.cgContext
     context.setAllowsAntialiasing(true)
     context.interpolationQuality = .high
 
@@ -80,17 +101,15 @@ func drawIcon(size: CGFloat) -> NSImage {
         NSBezierPath(roundedRect: line, xRadius: 13 * unit, yRadius: 13 * unit).fill()
     }
 
-    image.unlockFocus()
-    return image
+    NSGraphicsContext.restoreGraphicsState()
+    return rep
 }
 
 for entry in sizes {
-    let image = drawIcon(size: CGFloat(entry.px))
-    guard let tiff = image.tiffRepresentation,
-          let rep = NSBitmapImageRep(data: tiff),
+    guard let rep = drawIcon(size: CGFloat(entry.px)),
           let png = rep.representation(using: .png, properties: [:]) else { continue }
     try png.write(to: outputDir.appendingPathComponent(entry.name))
-    print("wrote \(entry.name) (\(entry.px)px)")
+    print("wrote \(entry.name) — \(rep.pixelsWide)×\(rep.pixelsHigh)")
 }
 
 // Asset catalogue manifest.

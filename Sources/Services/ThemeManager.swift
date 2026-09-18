@@ -235,10 +235,16 @@ private extension ThemePalette {
         guard let name, let appearance = NSAppearance(named: name) else {
             return Color(nsColor: color)
         }
-        var resolved = color
-        appearance.performAsCurrentDrawingAppearance {
-            resolved = color.usingColorSpace(.sRGB) ?? color
+        // `performAsCurrentDrawingAppearance` hands the closure back synchronously,
+        // so a local box is enough and nothing escapes.
+        final class Box: @unchecked Sendable {
+            var value: NSColor
+            init(_ value: NSColor) { self.value = value }
         }
-        return Color(nsColor: resolved)
+        let box = Box(color)
+        appearance.performAsCurrentDrawingAppearance {
+            box.value = color.usingColorSpace(.sRGB) ?? color
+        }
+        return Color(nsColor: box.value)
     }
 }

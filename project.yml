@@ -25,6 +25,11 @@ targets:
         excludes:
           - "Resources/Info.plist"
           - "Resources/CopyWell.entitlements"
+          - "Resources/Assets.xcassets"
+      # Declared explicitly: picked up by the generic include above it never
+      # reached actool, so the app shipped with no icon at all.
+      - path: Sources/Resources/Assets.xcassets
+        buildPhase: resources
       - path: Sources/Resources/PrivacyInfo.xcprivacy
         buildPhase: resources
     dependencies:

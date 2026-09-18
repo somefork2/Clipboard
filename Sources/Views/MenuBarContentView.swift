@@ -5,17 +5,37 @@ import SwiftUI
 /// without ever opening the app window.
 /// Closing the menu bar popover.
 ///
-/// `MenuBarExtra(.window)` hands out no binding or environment action to dismiss
-/// itself, and it does not close when something else takes focus. Opening the
-/// main window therefore left a small panel stranded on screen with no obvious
-/// way to get rid of it. Its window sits at the pop-up-menu level, which nothing
-/// else in this app uses, so we can close it the way the system would.
+/// `MenuBarExtra(.window)` offers no way to dismiss itself and does not close
+/// when something else takes focus, so opening the main window left a small
+/// panel stranded on screen.
+///
+/// Ordering that window out directly was worse: SwiftUI still believed the
+/// popover was presented, so the next click on the icon only flipped its idea
+/// of the state back and the icon looked dead. Clicking the status item's own
+/// button goes through SwiftUI's path, so both sides agree.
 @MainActor
 enum MenuBarPopover {
     static func dismiss() {
+        if let button = statusItemButton() {
+            button.performClick(nil)
+            return
+        }
+        // Last resort: at least get it off the screen.
         for window in NSApp.windows where window.level == .popUpMenu && window.isVisible {
             window.orderOut(nil)
         }
+    }
+
+    /// The status item lives in a window the system owns at the status bar level;
+    /// its button is the control the user actually clicks.
+    private static func statusItemButton() -> NSStatusBarButton? {
+        for window in NSApp.windows where window.level == .statusBar {
+            if let button = window.contentView as? NSStatusBarButton { return button }
+            if let button = window.contentView?.subviews.compactMap({ $0 as? NSStatusBarButton }).first {
+                return button
+            }
+        }
+        return nil
     }
 }
 
