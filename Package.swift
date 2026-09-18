@@ -6,20 +6,20 @@ import PackageDescription
 // `xcodegen generate`). This package exists so the sources can be type-checked
 // quickly from the command line; it cannot produce a signed, sandboxed bundle.
 let package = Package(
-    name: "ClipStack",
+    name: "CopyWell",
     platforms: [
         .macOS(.v14)
     ],
     products: [
-        .executable(name: "ClipStack", targets: ["ClipStack"])
+        .executable(name: "CopyWell", targets: ["CopyWell"])
     ],
     targets: [
         .executableTarget(
-            name: "ClipStack",
+            name: "CopyWell",
             path: "Sources",
             exclude: [
                 "Resources/Info.plist",
-                "Resources/ClipStack.entitlements",
+                "Resources/CopyWell.entitlements",
                 "Resources/PrivacyInfo.xcprivacy"
             ]
         )

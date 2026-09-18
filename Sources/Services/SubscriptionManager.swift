@@ -78,8 +78,8 @@ enum PremiumFeature: String, CaseIterable, Identifiable {
 final class SubscriptionManager {
     static let shared = SubscriptionManager()
 
-    static let monthlyID = "com.clipstack.pro.monthly"
-    static let annualID = "com.clipstack.pro.annual"
+    static let monthlyID = "com.copywell.pro.monthly"
+    static let annualID = "com.copywell.pro.annual"
     static let productIDs = [monthlyID, annualID]
 
     private(set) var products: [Product] = []

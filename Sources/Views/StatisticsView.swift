@@ -10,9 +10,9 @@ struct StatisticsView: View {
         if !subscriptions.isPro {
             EmptyStateView(
                 icon: "chart.bar",
-                title: "Statistics are part of ClipStack Pro",
+                title: "Statistics are part of CopyWell Pro",
                 message: "See what you copy most, which apps you copy from, and how your history grows over time.",
-                actionTitle: "See ClipStack Pro",
+                actionTitle: "See CopyWell Pro",
                 action: { subscriptions.showingPaywall = true }
             )
         } else {

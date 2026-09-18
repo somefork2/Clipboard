@@ -1,6 +1,6 @@
 import Testing
 import Foundation
-@testable import ClipStack
+@testable import CopyWell
 
 // MARK: - Hashing
 

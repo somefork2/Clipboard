@@ -1,4 +1,4 @@
-# ClipStack
+# CopyWell
 
 Clipboard manager for macOS 14+. Keyboard-first, on-device, no account required.
 
@@ -12,7 +12,7 @@ Clipboard manager for macOS 14+. Keyboard-first, on-device, no account required.
 - **On-device analysis** — Natural Language for type, language, entities and tags; Vision for text in screenshots. Nothing leaves the Mac.
 - **Privacy first** — items marked secret by password managers are never recorded; items you mark sensitive are encrypted with a key in your login keychain; windows can be hidden from screen recordings.
 - **Export** — JSON, CSV, Markdown, HTML.
-- **iCloud sync** — optional, through your own private CloudKit database. A custom record zone with server change tokens, so edits and deletions both propagate. Syncs on launch, when you switch back to ClipStack, on a timer and shortly after you copy. Images and clips marked sensitive never leave the Mac.
+- **iCloud sync** — optional, through your own private CloudKit database. A custom record zone with server change tokens, so edits and deletions both propagate. Syncs on launch, when you switch back to CopyWell, on a timer and shortly after you copy. Images and clips marked sensitive never leave the Mac.
 - **Themes** — System, Light, Dark, plus Paper, Graphite, Slate and Ink.
 - **Accessible** — five text sizes that scale every label and grow the rows with them.
 - **Retention you choose** — keep the last N clips, or only the last N days, or everything. Favourites and pinboards are never dropped.
@@ -45,16 +45,21 @@ Inside the palette:
 | ⌘⌫ | Delete |
 | ⎋ | Close |
 
-ClipStack also installs Services entries (Save to ClipStack, Pin to ClipStack, Add to Paste Stack, Paste from ClipStack) that appear in the right-click ▸ Services menu of any app. Enable them in System Settings ▸ Keyboard ▸ Keyboard Shortcuts ▸ Services.
+CopyWell adds a **CopyWell** item to the top level of Finder's right-click menu
+through a Finder extension: save the selected files, copy their paths, or copy
+their text contents. Enable it in System Settings ▸ General ▸ Login Items &
+Extensions ▸ Finder Extensions.
+
+CopyWell also installs Services entries (Save to CopyWell, Pin to CopyWell, Add to Paste Stack, Paste from CopyWell) that appear in the right-click ▸ Services menu of any app. Enable them in System Settings ▸ Keyboard ▸ Keyboard Shortcuts ▸ Services.
 
 ## Permissions
 
-**ClipStack asks for none.**
+**CopyWell asks for none.**
 
 It never synthesises keystrokes, so it does not need Accessibility access —
 choosing a clip puts it on the clipboard and hands focus back to the app you
 came from, one ⌘V away. To insert a clip without pressing anything, use
-Services ▸ Paste from ClipStack, which is the mechanism macOS provides for one
+Services ▸ Paste from CopyWell, which is the mechanism macOS provides for one
 app to hand text to another and requires no permission.
 
 iCloud is used only if you turn sync on, and only in your own private database.
@@ -65,7 +70,7 @@ The App Store build comes from the Xcode project, which carries the sandbox, ent
 
 ```bash
 xcodegen generate
-open ClipStack.xcodeproj
+open CopyWell.xcodeproj
 ```
 
 Set `DEVELOPMENT_TEAM` in `project.yml` (or pick your team in Xcode) before archiving. `Products.storekit` is attached to the Run scheme so purchases can be exercised without App Store Connect.

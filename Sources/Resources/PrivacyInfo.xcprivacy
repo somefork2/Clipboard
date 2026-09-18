@@ -7,7 +7,7 @@
     <key>NSPrivacyTrackingDomains</key>
     <array/>
 
-    <!-- ClipStack keeps clipboard history on device (and, if the user turns it
+    <!-- CopyWell keeps clipboard history on device (and, if the user turns it
          on, in their own private iCloud database). Nothing is collected by us. -->
     <key>NSPrivacyCollectedDataTypes</key>
     <array/>

@@ -98,7 +98,7 @@ actor CloudKitSyncManager {
     static let shared = CloudKitSyncManager()
 
     private let recordType = "ClipboardItemRecord"
-    private let zoneName = "ClipStackHistory"
+    private let zoneName = "CopyWellHistory"
     private let tokenKey = "sync_server_change_token"
 
     private var container: CKContainer?
@@ -178,9 +178,9 @@ actor CloudKitSyncManager {
         case .quotaExceeded:
             return "Your iCloud storage is full."
         case .permissionFailure:
-            return "ClipStack does not have permission to use iCloud on this Mac."
+            return "CopyWell does not have permission to use iCloud on this Mac."
         case .serviceUnavailable, .requestRateLimited:
-            return "iCloud is busy. ClipStack will try again shortly."
+            return "iCloud is busy. CopyWell will try again shortly."
         default:
             return "Sync failed: \(error.localizedDescription)"
         }

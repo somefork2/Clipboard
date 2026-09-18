@@ -52,7 +52,7 @@ final class ClipboardStore {
         } catch {
             loadError = "Could not read the clipboard history."
         }
-        NotificationCenter.default.post(name: .clipStackHistoryChanged, object: nil)
+        NotificationCenter.default.post(name: .copyWellHistoryChanged, object: nil)
     }
 
     /// The most recent clips, for the menu bar and the palette.

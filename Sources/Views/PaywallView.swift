@@ -49,10 +49,10 @@ struct PaywallView: View {
                 .symbolRenderingMode(.hierarchical)
                 .foregroundStyle(Theme.accent)
 
-            Text("ClipStack Pro")
+            Text("CopyWell Pro")
                 .font(.title2.weight(.semibold))
 
-            Text("Everything in ClipStack, without the free-tier limits.")
+            Text("Everything in CopyWell, without the free-tier limits.")
                 .font(.callout)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
@@ -279,7 +279,7 @@ struct PlanCard: View {
 /// Both links are mandatory on the subscription screen and in App Store Connect.
 /// Replace the hosts with your own before submitting.
 enum LegalLinks {
-    static let privacyPolicy = URL(string: "https://clipstack.app/privacy")!
+    static let privacyPolicy = URL(string: "https://copywell.app/privacy")!
     static let termsOfUse = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!
-    static let support = URL(string: "https://clipstack.app/support")!
+    static let support = URL(string: "https://copywell.app/support")!
 }

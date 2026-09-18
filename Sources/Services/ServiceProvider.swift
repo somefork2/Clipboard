@@ -2,7 +2,7 @@ import AppKit
 import Foundation
 import UniformTypeIdentifiers
 
-/// Backs the entries ClipStack adds to the system Services menu, which is how a
+/// Backs the entries CopyWell adds to the system Services menu, which is how a
 /// Mac app legitimately appears in the right-click menu of other applications.
 ///
 /// macOS does not let a third-party app inject items into the top level of
@@ -13,7 +13,7 @@ final class ServiceProvider: NSObject {
 
     // MARK: - Save selection
 
-    @objc func saveSelectionToClipStack(
+    @objc func saveSelectionToCopyWell(
         _ pboard: NSPasteboard,
         userData: String,
         error: AutoreleasingUnsafeMutablePointer<NSString>
@@ -23,7 +23,7 @@ final class ServiceProvider: NSObject {
 
     // MARK: - Pin selection
 
-    @objc func pinToClipStack(
+    @objc func pinToCopyWell(
         _ pboard: NSPasteboard,
         userData: String,
         error: AutoreleasingUnsafeMutablePointer<NSString>
@@ -44,7 +44,7 @@ final class ServiceProvider: NSObject {
         }
     }
 
-    // MARK: - Paste from ClipStack
+    // MARK: - Paste from CopyWell
 
     /// Hands the most recent clip back to the requesting app, which inserts it
     /// at the insertion point.
@@ -53,7 +53,7 @@ final class ServiceProvider: NSObject {
     /// field without any permission at all — no Accessibility, no synthesised
     /// keystrokes. A Service has to answer synchronously, so it returns the
     /// latest clip; choosing a specific one is what the palette is for.
-    @objc func quickPasteFromClipStack(
+    @objc func quickPasteFromCopyWell(
         _ pboard: NSPasteboard,
         userData: String,
         error: AutoreleasingUnsafeMutablePointer<NSString>
@@ -61,7 +61,7 @@ final class ServiceProvider: NSObject {
         guard let latest = ClipboardStore.shared.items.first,
               let text = latest.isSensitive ? nil : latest.body,
               !text.isEmpty else {
-            error.pointee = "ClipStack has nothing to paste." as NSString
+            error.pointee = "CopyWell has nothing to paste." as NSString
             return
         }
         pboard.clearContents()
@@ -74,7 +74,7 @@ final class ServiceProvider: NSObject {
 
     /// Same as above but with formatting stripped, for pasting into a document
     /// that should not inherit the source's styling.
-    @objc func pastePlainFromClipStack(
+    @objc func pastePlainFromCopyWell(
         _ pboard: NSPasteboard,
         userData: String,
         error: AutoreleasingUnsafeMutablePointer<NSString>
@@ -82,7 +82,7 @@ final class ServiceProvider: NSObject {
         guard let latest = ClipboardStore.shared.items.first,
               !latest.isSensitive,
               let text = latest.body, !text.isEmpty else {
-            error.pointee = "ClipStack has nothing to paste." as NSString
+            error.pointee = "CopyWell has nothing to paste." as NSString
             return
         }
         pboard.clearContents()
@@ -94,7 +94,7 @@ final class ServiceProvider: NSObject {
 
     /// Returns the text found in the selected image or image file, so any app
     /// can lift text out of a screenshot through the Services menu.
-    @objc func recognizeTextFromClipStack(
+    @objc func recognizeTextFromCopyWell(
         _ pboard: NSPasteboard,
         userData: String,
         error: AutoreleasingUnsafeMutablePointer<NSString>

@@ -7,8 +7,8 @@ import Security
 /// The symmetric key lives in the login keychain; the ciphertext lives in the
 /// SwiftData store. A database copied off the machine is useless without it.
 enum SecureStore {
-    private static let account = "com.clipstack.contentKey"
-    private static let service = "ClipStack"
+    private static let account = "com.copywell.contentKey"
+    private static let service = "CopyWell"
 
     /// Guarded by `lock`: the key is fetched once and reused for the process.
     nonisolated(unsafe) private static var cachedKey: SymmetricKey?

@@ -99,7 +99,7 @@ struct SidebarView: View {
                 Text("Older clips are removed once you reach the limit.")
                     .font(.caption2)
                     .foregroundStyle(.secondary)
-                Button("See ClipStack Pro") { subscriptions.showingPaywall = true }
+                Button("See CopyWell Pro") { subscriptions.showingPaywall = true }
                     .buttonStyle(.link)
                     .font(.caption)
             }

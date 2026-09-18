@@ -13,7 +13,7 @@ enum ImageStore {
     private static let directory: URL = {
         let base = FileManager.default
             .urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("ClipStack/Images", isDirectory: true)
+            .appendingPathComponent("CopyWell/Images", isDirectory: true)
         try? FileManager.default.createDirectory(at: base, withIntermediateDirectories: true)
         return base
     }()

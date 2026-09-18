@@ -3,14 +3,14 @@ import Foundation
 
 /// Puts clips on the system pasteboard.
 ///
-/// ClipStack deliberately does **not** synthesise the ⌘V keystroke. Doing so
+/// CopyWell deliberately does **not** synthesise the ⌘V keystroke. Doing so
 /// requires the Accessibility permission, which is a common reason for Mac App
 /// Store rejection for clipboard utilities and asks the user for blanket
 /// control of their Mac in exchange for saving one keypress.
 ///
 /// Instead, choosing a clip puts it on the pasteboard and returns focus to the
 /// app the user came from, so ⌘V lands immediately. For insertion without any
-/// keypress at all, ClipStack ships a Service ("Paste from ClipStack"), which is
+/// keypress at all, CopyWell ships a Service ("Paste from CopyWell"), which is
 /// the mechanism macOS sanctions for one app to hand text to another and needs
 /// no permission whatsoever.
 @MainActor

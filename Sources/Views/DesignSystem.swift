@@ -202,3 +202,45 @@ extension Color {
         }
     }
 }
+
+
+/// Applies the current theme to the window this view ends up in.
+///
+/// A window cannot be themed before it exists, and SwiftUI gives no hook for
+/// "my window is ready". Reaching it through a backing view is the reliable
+/// way, and it re-applies whenever the theme changes.
+private struct WindowThemeApplier: NSViewRepresentable {
+    let themeID: String
+    let accentID: String
+
+    func makeNSView(context: Context) -> NSView {
+        let view = NSView(frame: .zero)
+        apply(view)
+        return view
+    }
+
+    func updateNSView(_ nsView: NSView, context: Context) {
+        apply(nsView)
+    }
+
+    private func apply(_ view: NSView) {
+        // The window is attached one run loop turn after the view is made.
+        DispatchQueue.main.async {
+            guard let window = view.window else { return }
+            ThemeManager.shared.apply(to: window)
+        }
+    }
+}
+
+extension View {
+    /// Keeps the enclosing window's appearance in step with the chosen theme.
+    func themedWindow() -> some View {
+        background(
+            WindowThemeApplier(
+                themeID: ThemeManager.shared.currentTheme.rawValue,
+                accentID: ThemeManager.shared.accentColorName ?? "theme"
+            )
+            .frame(width: 0, height: 0)
+        )
+    }
+}

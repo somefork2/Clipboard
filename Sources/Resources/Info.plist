@@ -5,9 +5,9 @@
     <key>CFBundleDevelopmentRegion</key>
     <string>en</string>
     <key>CFBundleName</key>
-    <string>ClipStack</string>
+    <string>CopyWell</string>
     <key>CFBundleDisplayName</key>
-    <string>ClipStack</string>
+    <string>CopyWell</string>
     <key>CFBundleIdentifier</key>
     <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
     <key>CFBundleInfoDictionaryVersion</key>
@@ -31,7 +31,7 @@
     <key>NSHighResolutionCapable</key>
     <true/>
     <key>NSHumanReadableCopyright</key>
-    <string>Copyright © 2026 ClipStack. All rights reserved.</string>
+    <string>Copyright © 2026 CopyWell. All rights reserved.</string>
     <key>NSSupportsAutomaticTermination</key>
     <false/>
     <key>NSSupportsSuddenTermination</key>
@@ -39,11 +39,27 @@
     <key>ITSAppUsesNonExemptEncryption</key>
     <false/>
 
-    <!-- ClipStack requests no privacy-protected data and declares no usage
+    <!-- CopyWell requests no privacy-protected data and declares no usage
          descriptions, because it calls none of the APIs that need one. It does
          not synthesise keystrokes, so it needs no Accessibility access; clips
          are placed on the pasteboard and the user presses ⌘V, or inserts them
          through the Services entries below. -->
+
+    <!-- The Finder extension runs in its own sandbox and cannot reach the app's
+         database, so it hands the selection over through this scheme. -->
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLName</key>
+            <string>com.copywell.app</string>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>copywell</string>
+            </array>
+        </dict>
+    </array>
 
     <key>NSServices</key>
     <array>
@@ -51,12 +67,12 @@
             <key>NSMenuItem</key>
             <dict>
                 <key>default</key>
-                <string>Save to ClipStack</string>
+                <string>Save to CopyWell</string>
             </dict>
             <key>NSMessage</key>
-            <string>saveSelectionToClipStack</string>
+            <string>saveSelectionToCopyWell</string>
             <key>NSPortName</key>
-            <string>ClipStack</string>
+            <string>CopyWell</string>
             <key>NSKeyEquivalent</key>
             <dict>
                 <key>default</key>
@@ -75,12 +91,12 @@
             <key>NSMenuItem</key>
             <dict>
                 <key>default</key>
-                <string>Pin to ClipStack</string>
+                <string>Pin to CopyWell</string>
             </dict>
             <key>NSMessage</key>
-            <string>pinToClipStack</string>
+            <string>pinToCopyWell</string>
             <key>NSPortName</key>
-            <string>ClipStack</string>
+            <string>CopyWell</string>
             <key>NSSendTypes</key>
             <array>
                 <string>public.utf8-plain-text</string>
@@ -94,12 +110,12 @@
             <key>NSMenuItem</key>
             <dict>
                 <key>default</key>
-                <string>Add to ClipStack Paste Stack</string>
+                <string>Add to CopyWell Paste Stack</string>
             </dict>
             <key>NSMessage</key>
             <string>addToPasteStack</string>
             <key>NSPortName</key>
-            <string>ClipStack</string>
+            <string>CopyWell</string>
             <key>NSSendTypes</key>
             <array>
                 <string>public.utf8-plain-text</string>
@@ -113,9 +129,9 @@
                 <string>Copy Text in Image</string>
             </dict>
             <key>NSMessage</key>
-            <string>recognizeTextFromClipStack</string>
+            <string>recognizeTextFromCopyWell</string>
             <key>NSPortName</key>
-            <string>ClipStack</string>
+            <string>CopyWell</string>
             <key>NSSendTypes</key>
             <array>
                 <string>public.png</string>
@@ -131,12 +147,12 @@
             <key>NSMenuItem</key>
             <dict>
                 <key>default</key>
-                <string>Paste as Plain Text from ClipStack</string>
+                <string>Paste as Plain Text from CopyWell</string>
             </dict>
             <key>NSMessage</key>
-            <string>pastePlainFromClipStack</string>
+            <string>pastePlainFromCopyWell</string>
             <key>NSPortName</key>
-            <string>ClipStack</string>
+            <string>CopyWell</string>
             <key>NSReturnTypes</key>
             <array>
                 <string>public.utf8-plain-text</string>
@@ -146,12 +162,12 @@
             <key>NSMenuItem</key>
             <dict>
                 <key>default</key>
-                <string>Paste from ClipStack</string>
+                <string>Paste from CopyWell</string>
             </dict>
             <key>NSMessage</key>
-            <string>quickPasteFromClipStack</string>
+            <string>quickPasteFromCopyWell</string>
             <key>NSPortName</key>
-            <string>ClipStack</string>
+            <string>CopyWell</string>
             <key>NSReturnTypes</key>
             <array>
                 <string>public.utf8-plain-text</string>

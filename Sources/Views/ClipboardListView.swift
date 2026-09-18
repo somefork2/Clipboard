@@ -21,7 +21,7 @@ struct ClipboardListView: View {
             ClipPreviewSheet(item: item) { previewItem = nil }
         }
         .overlay { keyboardCommands }
-        .onReceive(NotificationCenter.default.publisher(for: .clipStackRequestPreviewSelection)) { _ in
+        .onReceive(NotificationCenter.default.publisher(for: .copyWellRequestPreviewSelection)) { _ in
             previewSelection()
         }
     }
@@ -130,7 +130,7 @@ struct ClipboardListView: View {
             .themedScrollBackground()
             .contextMenu {
                 Button("Clear History…") {
-                    NotificationCenter.default.post(name: .clipStackRequestClearHistory, object: nil)
+                    NotificationCenter.default.post(name: .copyWellRequestClearHistory, object: nil)
                 }
             }
             .onDeleteCommand { deleteSelection() }

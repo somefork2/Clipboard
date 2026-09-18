@@ -1,5 +1,5 @@
 {
-  "identifier" : "ClipStackProducts",
+  "identifier" : "CopyWellProducts",
   "nonRenewingSubscriptions" : [],
   "products" : [],
   "settings" : {
@@ -10,7 +10,7 @@
     {
       "id" : "21563421",
       "localizations" : [],
-      "name" : "ClipStack Pro",
+      "name" : "CopyWell Pro",
       "subscriptions" : [
         {
           "adHocOffers" : [],
@@ -27,11 +27,11 @@
           "localizations" : [
             {
               "description" : "Unlimited history, paste stack, iCloud sync and export.",
-              "displayName" : "ClipStack Pro Monthly",
+              "displayName" : "CopyWell Pro Monthly",
               "locale" : "en_US"
             }
           ],
-          "productID" : "com.clipstack.pro.monthly",
+          "productID" : "com.copywell.pro.monthly",
           "recurringSubscriptionPeriod" : "P1M",
           "referenceName" : "Pro Monthly",
           "subscriptionGroupID" : "21563421",
@@ -52,11 +52,11 @@
           "localizations" : [
             {
               "description" : "Unlimited history, paste stack, iCloud sync and export.",
-              "displayName" : "ClipStack Pro Annual",
+              "displayName" : "CopyWell Pro Annual",
               "locale" : "en_US"
             }
           ],
-          "productID" : "com.clipstack.pro.annual",
+          "productID" : "com.copywell.pro.annual",
           "recurringSubscriptionPeriod" : "P1Y",
           "referenceName" : "Pro Annual",
           "subscriptionGroupID" : "21563421",

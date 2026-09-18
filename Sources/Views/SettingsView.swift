@@ -19,6 +19,7 @@ struct SettingsView: View {
                 .tabItem { Label("Subscription", systemImage: "creditcard") }
         }
         .frame(width: 560)
+        .themedWindow()
     }
 }
 
@@ -38,11 +39,11 @@ struct GeneralSettings: View {
 
         Form {
             Section {
-                Toggle("Launch ClipStack at login", isOn: $settings.launchAtLogin)
+                Toggle("Launch CopyWell at login", isOn: $settings.launchAtLogin)
                 Toggle("Show icon in the Dock", isOn: $settings.showInDock)
                 Toggle("Show icon in the menu bar", isOn: $settings.showInMenuBar)
             } footer: {
-                Text("With the Dock icon hidden, the menu bar item stays available so ClipStack is always reachable.")
+                Text("With the Dock icon hidden, the menu bar item stays available so CopyWell is always reachable.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -56,7 +57,7 @@ struct GeneralSettings: View {
             } header: {
                 Text("Accessibility")
             } footer: {
-                Text("Scales every label in ClipStack, and the rows grow with it. Independent of the system-wide setting.")
+                Text("Scales every label in CopyWell, and the rows grow with it. Independent of the system-wide setting.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -117,11 +118,11 @@ struct PrivacySettings: View {
             Section {
                 Toggle("Ignore items marked secret by other apps", isOn: $settings.skipConcealedPasteboard)
                 Toggle("Never record anything that looks like a password", isOn: $settings.skipPasswords)
-                Toggle("Hide ClipStack windows from screen recordings", isOn: $settings.hideFromScreenCapture)
+                Toggle("Hide CopyWell windows from screen recordings", isOn: $settings.hideFromScreenCapture)
             } footer: {
                 Text("""
                 Password managers mark their copies with the standard \
-                org.nspasteboard.ConcealedType flag; ClipStack skips those and never \
+                org.nspasteboard.ConcealedType flag; CopyWell skips those and never \
                 records copies made in known password managers. Items you mark as \
                 sensitive yourself are encrypted with a key kept in your login keychain.
                 """)
@@ -181,10 +182,10 @@ struct ShortcutSettings: View {
             } footer: {
                 VStack(alignment: .leading, spacing: 6) {
                     if !subscriptions.isPro {
-                        Text("Rebinding every shortcut is part of ClipStack Pro. The palette and pause shortcuts stay editable on the free plan.")
+                        Text("Rebinding every shortcut is part of CopyWell Pro. The palette and pause shortcuts stay editable on the free plan.")
                     }
                     Text("Inside the palette: ↑↓ to move, ⌘1–9 to jump, ⏎ to copy the clip and return to your app, ⌥⏎ without formatting, ⌘Y to preview, ⌘⌫ to delete, ⎋ to close. Press ⌘V to paste.")
-                    Text("ClipStack never presses keys for you, so it needs no Accessibility access. To insert a clip without pressing ⌘V, use Services ▸ Paste from ClipStack.")
+                    Text("CopyWell never presses keys for you, so it needs no Accessibility access. To insert a clip without pressing ⌘V, use Services ▸ Paste from CopyWell.")
                 }
                 .font(.caption)
                 .foregroundStyle(.secondary)
@@ -399,7 +400,7 @@ struct SyncSettings: View {
                 }
                 .disabled(!settings.iCloudSync || sync.status == .syncing || !subscriptions.isPro)
 
-                Text("ClipStack syncs on launch, when you switch back to it, and a few seconds after you copy something. Images and items marked sensitive stay on this Mac.")
+                Text("CopyWell syncs on launch, when you switch back to it, and a few seconds after you copy something. Images and items marked sensitive stay on this Mac.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -435,7 +436,7 @@ struct SyncSettings: View {
         guard let data = ExportManager.export(items: store.items, format: exportFormat) else { return }
 
         let panel = NSSavePanel()
-        panel.nameFieldStringValue = "ClipStack Export.\(exportFormat.fileExtension)"
+        panel.nameFieldStringValue = "CopyWell Export.\(exportFormat.fileExtension)"
         panel.allowedContentTypes = [exportFormat.contentType]
         panel.canCreateDirectories = true
         guard panel.runModal() == .OK, let url = panel.url else { return }
@@ -459,7 +460,7 @@ struct SubscriptionSettings: View {
                     )
                 }
                 if !manager.isPro {
-                    Button("See ClipStack Pro") { manager.showingPaywall = true }
+                    Button("See CopyWell Pro") { manager.showingPaywall = true }
                 }
                 Button("Restore Purchases") {
                     Task { await manager.restorePurchases() }

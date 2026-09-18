@@ -19,7 +19,7 @@ final class AppSettings {
     var showInMenuBar: Bool { didSet { persist() } }
     var skipPasswords: Bool { didSet { persist() } }
     var skipConcealedPasteboard: Bool { didSet { persist() } }
-    var hideFromScreenCapture: Bool { didSet { persist(); NotificationCenter.default.post(name: .clipStackWindowPrivacyChanged, object: nil) } }
+    var hideFromScreenCapture: Bool { didSet { persist(); NotificationCenter.default.post(name: .copyWellWindowPrivacyChanged, object: nil) } }
     var retention: RetentionPolicy { didSet { retention.save(); ClipboardStore.shared.enforceLimits() } }
     var textSize: TextSizePreference { didSet { persist() } }
     var iCloudSync: Bool { didSet { persist() } }
@@ -91,6 +91,6 @@ final class AppSettings {
 }
 
 extension Notification.Name {
-    static let clipStackWindowPrivacyChanged = Notification.Name("clipStackWindowPrivacyChanged")
-    static let clipStackHistoryChanged = Notification.Name("clipStackHistoryChanged")
+    static let copyWellWindowPrivacyChanged = Notification.Name("copyWellWindowPrivacyChanged")
+    static let copyWellHistoryChanged = Notification.Name("copyWellHistoryChanged")
 }

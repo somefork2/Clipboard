@@ -68,10 +68,29 @@ final class ThemeManager {
         let appearance = palette.appearance.map { NSAppearance(named: $0) } ?? nil
         for window in NSApp.windows where !Self.isSystemOwned(window) {
             window.appearance = appearance
+            window.contentView?.appearance = appearance
             // The title bar is drawn by AppKit, so a themed window has to be
             // told which colour to use or the toolbar floats on another shade.
             window.backgroundColor = palette.usesSystemMaterials ? nil : NSColor(palette.background)
         }
+    }
+
+    /// Applies the theme to one window.
+    ///
+    /// Looping `NSApp.windows` misses a window that does not exist yet — the
+    /// Settings scene builds its window after `onAppear` runs, so it kept the
+    /// system appearance while every other window followed the theme.
+    @MainActor
+    func apply(to window: NSWindow) {
+        guard !Self.isSystemOwned(window) else { return }
+        let palette = self.palette
+        let appearance = palette.appearance.map { NSAppearance(named: $0) } ?? nil
+        window.appearance = appearance
+        // The hosting view does not always pick the window's appearance up: the
+        // chrome went dark while the SwiftUI content stayed light. Setting it on
+        // the content view too makes the whole hierarchy agree.
+        window.contentView?.appearance = appearance
+        window.backgroundColor = palette.usesSystemMaterials ? nil : NSColor(palette.background)
     }
 
     /// The status item's button is hosted in a window the system owns; theming
@@ -192,17 +211,34 @@ enum AppTheme: String, CaseIterable, Identifiable {
 }
 
 private extension ThemePalette {
-    /// Defers entirely to AppKit's own colours, which already adapt to light and
-    /// dark and to the user's accent and contrast settings.
+    /// Defers to AppKit's own colours, which already adapt to light and dark and
+    /// to the user's accent and contrast settings.
+    ///
+    /// The colours are resolved against the theme's *own* appearance, not the
+    /// one currently in effect. A dynamic `NSColor` asked for its value while
+    /// the app is dark answers with its dark value, which made the Light
+    /// preview in Settings render dark. `nil` — the System theme — stays
+    /// dynamic on purpose, because following the Mac is what it means.
     static func systemPalette(appearance: NSAppearance.Name?) -> ThemePalette {
         ThemePalette(
             appearance: appearance,
-            background: Color(nsColor: .windowBackgroundColor),
-            surface: Color(nsColor: .controlBackgroundColor),
-            elevated: Color(nsColor: .controlBackgroundColor),
-            separator: Color(nsColor: .separatorColor),
-            accent: Color(nsColor: .controlAccentColor),
+            background: resolve(.windowBackgroundColor, in: appearance),
+            surface: resolve(.controlBackgroundColor, in: appearance),
+            elevated: resolve(.controlBackgroundColor, in: appearance),
+            separator: resolve(.separatorColor, in: appearance),
+            accent: resolve(.controlAccentColor, in: appearance),
             usesSystemMaterials: true
         )
+    }
+
+    static func resolve(_ color: NSColor, in name: NSAppearance.Name?) -> Color {
+        guard let name, let appearance = NSAppearance(named: name) else {
+            return Color(nsColor: color)
+        }
+        var resolved = color
+        appearance.performAsCurrentDrawingAppearance {
+            resolved = color.usingColorSpace(.sRGB) ?? color
+        }
+        return Color(nsColor: resolved)
     }
 }

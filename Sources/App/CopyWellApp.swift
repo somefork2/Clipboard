@@ -2,7 +2,7 @@ import AppKit
 import SwiftUI
 
 @main
-struct ClipStackApp: App {
+struct CopyWellApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
     @State private var store = ClipboardStore.shared
@@ -23,9 +23,9 @@ struct ClipStackApp: App {
         .windowStyle(.titleBar)
         .windowToolbarStyle(.unified)
         .defaultSize(width: 980, height: 640)
-        .commands { ClipStackCommands() }
+        .commands { CopyWellCommands() }
 
-        MenuBarExtra("ClipStack", systemImage: coordinator.isPaused ? "clipboard" : "clipboard.fill", isInserted: menuBarBinding) {
+        MenuBarExtra("CopyWell", systemImage: coordinator.isPaused ? "clipboard" : "clipboard.fill", isInserted: menuBarBinding) {
             MenuBarContentView()
                 .environment(store)
                 .environment(coordinator)
@@ -56,16 +56,16 @@ struct ClipStackApp: App {
 
 /// App menu additions, so every shortcut is discoverable from the menu bar and
 /// not only from a settings screen.
-struct ClipStackCommands: Commands {
+struct CopyWellCommands: Commands {
     var body: some Commands {
         CommandGroup(after: .appInfo) {
-            Button("ClipStack Pro…") { SubscriptionManager.shared.showingPaywall = true }
+            Button("CopyWell Pro…") { SubscriptionManager.shared.showingPaywall = true }
         }
         CommandMenu("Clipboard") {
             Button("Open Palette") { QuickPastePanel.shared.toggle() }
                 .keyboardShortcut("v", modifiers: [.option, .command])
             Button("Quick Look") {
-                NotificationCenter.default.post(name: .clipStackRequestPreviewSelection, object: nil)
+                NotificationCenter.default.post(name: .copyWellRequestPreviewSelection, object: nil)
             }
             .keyboardShortcut("y", modifiers: .command)
             Divider()
@@ -75,7 +75,7 @@ struct ClipStackCommands: Commands {
             .keyboardShortcut("p", modifiers: [.control, .option])
             Divider()
             Button("Clear History…") {
-                NotificationCenter.default.post(name: .clipStackRequestClearHistory, object: nil)
+                NotificationCenter.default.post(name: .copyWellRequestClearHistory, object: nil)
             }
         }
     }
@@ -92,6 +92,53 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         observeWindowPrivacy()
+    }
+
+    /// Handles `copywell://save?path=…` and `copywell://open` from the Finder
+    /// extension. Paths arrive from a user's right-click on files they selected,
+    /// which is what grants us access to them.
+    func application(_ application: NSApplication, open urls: [URL]) {
+        for url in urls {
+            guard url.scheme == "copywell" else { continue }
+            switch url.host {
+            case "open":
+                MainActor.assumeIsolated { AppCoordinator.shared.openMainWindow() }
+            case "save":
+                let paths = URLComponents(url: url, resolvingAgainstBaseURL: false)?
+                    .queryItems?
+                    .filter { $0.name == "path" }
+                    .compactMap(\.value) ?? []
+                MainActor.assumeIsolated { Self.ingest(paths: paths) }
+            default:
+                break
+            }
+        }
+    }
+
+    @MainActor
+    private static func ingest(paths: [String]) {
+        for path in paths {
+            let fileURL = URL(fileURLWithPath: path)
+            Task {
+                if let image = NSImage(contentsOf: fileURL),
+                   let clip = await ClipboardMonitor.makeClip(
+                        image: image,
+                        sourceApp: "Finder",
+                        sourceBundleID: "com.apple.finder"
+                   ) {
+                    ClipboardStore.shared.insert(clip)
+                    return
+                }
+                let body = (try? String(contentsOf: fileURL, encoding: .utf8)) ?? fileURL.path
+                if let clip = await ClipboardMonitor.makeClip(
+                    text: body,
+                    sourceApp: "Finder",
+                    sourceBundleID: "com.apple.finder"
+                ) {
+                    ClipboardStore.shared.insert(clip)
+                }
+            }
+        }
     }
 
     func applicationWillTerminate(_ notification: Notification) {
@@ -117,7 +164,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func observeWindowPrivacy() {
         applyWindowPrivacy()
         NotificationCenter.default.addObserver(
-            forName: .clipStackWindowPrivacyChanged,
+            forName: .copyWellWindowPrivacyChanged,
             object: nil,
             queue: .main
         ) { _ in
@@ -141,7 +188,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         MainActor.assumeIsolated { AppDelegate.applyPrivacyToAllWindows() }
     }
 
-    /// When enabled, ClipStack's windows are excluded from screen recordings and
+    /// When enabled, CopyWell's windows are excluded from screen recordings and
     /// screenshots — a clipboard manager shows exactly the things you do not want
     /// captured during a screen share.
     @MainActor
@@ -154,8 +201,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 }
 
 extension Notification.Name {
-    static let clipStackRequestClearHistory = Notification.Name("clipStackRequestClearHistory")
+    static let copyWellRequestClearHistory = Notification.Name("copyWellRequestClearHistory")
     /// Menu-driven Quick Look: a menu item is both a reliable key handler and a
     /// discoverable one, unlike a hidden button holding a shortcut.
-    static let clipStackRequestPreviewSelection = Notification.Name("clipStackRequestPreviewSelection")
+    static let copyWellRequestPreviewSelection = Notification.Name("copyWellRequestPreviewSelection")
 }

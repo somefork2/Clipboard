@@ -1,5 +1,5 @@
 #!/usr/bin/env swift
-// Draws the ClipStack app icon at every size the Mac App Store requires.
+// Draws the CopyWell app icon at every size the Mac App Store requires.
 // Run: swift Tools/make-icon.swift
 
 import AppKit

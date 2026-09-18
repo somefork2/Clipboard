@@ -42,6 +42,7 @@ struct MainView: View {
         }
         .navigationSplitViewStyle(.balanced)
         .background(Theme.background)
+        .themedWindow()
         // The title bar is a separate AppKit surface; without this it keeps the
         // default white and floats above a themed window.
         .toolbarBackground(Theme.background, for: .windowToolbar)
@@ -73,7 +74,7 @@ struct MainView: View {
         } message: {
             Text("This permanently removes the clips and any images stored with them. It cannot be undone.")
         }
-        .onReceive(NotificationCenter.default.publisher(for: .clipStackRequestClearHistory)) { _ in
+        .onReceive(NotificationCenter.default.publisher(for: .copyWellRequestClearHistory)) { _ in
             showingClearConfirmation = true
         }
         .overlay(alignment: .top) { conflictBanner }

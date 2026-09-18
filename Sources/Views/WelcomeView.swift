@@ -18,7 +18,7 @@ struct WelcomeView: View {
                     .font(.system(size: 28))
                     .symbolRenderingMode(.hierarchical)
                     .foregroundStyle(Theme.accent)
-                Text("ClipStack is recording")
+                Text("CopyWell is recording")
                     .font(.title2.weight(.semibold))
                 Text("Everything you copy is kept on this Mac. Nothing is sent anywhere.")
                     .font(.callout)
@@ -40,7 +40,7 @@ struct WelcomeView: View {
                 step(
                     icon: "contextualmenu.and.cursorarrow",
                     title: "Turn on the right-click items",
-                    detail: "ClipStack adds entries to the Services menu of every app. macOS ships them switched off."
+                    detail: "CopyWell adds entries to the Services menu of every app. macOS ships them switched off."
                 )
             }
 
@@ -57,7 +57,7 @@ struct WelcomeView: View {
             Spacer(minLength: 16)
 
             HStack {
-                Text("Everything here is optional and ClipStack asks for no permissions.")
+                Text("Everything here is optional and CopyWell asks for no permissions.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 Spacer()

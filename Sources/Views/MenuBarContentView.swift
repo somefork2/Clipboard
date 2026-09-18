@@ -122,7 +122,7 @@ struct MenuBarContentView: View {
                     .padding(.top, 6)
             }
             HStack(spacing: 10) {
-                Button("Open ClipStack") {
+                Button("Open CopyWell") {
                     MenuBarPopover.dismiss()
                     coordinator.openMainWindow()
                 }
@@ -150,7 +150,7 @@ struct MenuBarContentView: View {
                     Image(systemName: "power")
                 }
                 .buttonStyle(.plain)
-                .help("Quit ClipStack")
+                .help("Quit CopyWell")
             }
             .font(.callout)
             .padding(.horizontal, 12)

@@ -9,7 +9,7 @@ committed to the repository.
 - Xcode project (`project.yml` → `xcodegen generate`) with App Sandbox, Hardened
   Runtime and automatic signing. The Swift package alone can never produce an
   App Store binary.
-- `Sources/Resources/ClipStack.entitlements`: sandbox, network client (StoreKit),
+- `Sources/Resources/CopyWell.entitlements`: sandbox, network client (StoreKit),
   user-selected files, CloudKit container, keychain group.
 - `Sources/Resources/PrivacyInfo.xcprivacy`: required-reason declarations for
   `UserDefaults`, file timestamps and disk space. Without this the upload is
@@ -28,8 +28,15 @@ committed to the repository.
 
 ### 1. Identifiers and signing
 
+The Finder extension is a second target and needs its own App ID
+(`com.copywell.app.finder`). macOS refuses to load a Finder extension that is
+not signed with a development certificate, so it cannot be verified at all
+until `DEVELOPMENT_TEAM` is set — plan to test it as the first thing after
+signing works.
+
+
 - [ ] Set `DEVELOPMENT_TEAM` in `project.yml`.
-- [ ] Change `PRODUCT_BUNDLE_IDENTIFIER` from `com.clipstack.app` to your own
+- [ ] Change `PRODUCT_BUNDLE_IDENTIFIER` from `com.copywell.app` to your own
       reverse-domain identifier, then regenerate the project.
 - [ ] Register the App ID with App Sandbox, iCloud and In-App Purchase enabled.
 - [ ] Turn on the iCloud capability with CloudKit in Xcode (Signing &
@@ -49,8 +56,8 @@ committed to the repository.
 
 ### 2. In-app purchases
 
-- [ ] Create the subscription group **ClipStack Pro** with
-      `com.clipstack.pro.monthly` and `com.clipstack.pro.annual`
+- [ ] Create the subscription group **CopyWell Pro** with
+      `com.copywell.pro.monthly` and `com.copywell.pro.annual`
       (rename to match your bundle prefix and update `SubscriptionManager`).
 - [ ] Add an introductory free trial if you want one. The UI shows a trial only
       when StoreKit reports one — it never claims a trial that does not exist.
@@ -65,16 +72,16 @@ committed to the repository.
 - [ ] Terms of use: the standard Apple EULA is already linked; replace it if you
       use your own.
 - [ ] Host a support page and set `LegalLinks.support`.
-- [ ] App Privacy questionnaire: ClipStack collects nothing. Clipboard contents
+- [ ] App Privacy questionnaire: CopyWell collects nothing. Clipboard contents
       stay on device, or in the user's own private CloudKit database. Say exactly
       that.
 
 ### 4. Review notes to include
 
-ClipStack requests no privacy-protected data at all, which removes the usual
+CopyWell requests no privacy-protected data at all, which removes the usual
 reason clipboard utilities get rejected. Say so plainly:
 
-> ClipStack does not request Accessibility, Automation or any other privacy
+> CopyWell does not request Accessibility, Automation or any other privacy
 > permission. It never synthesises keystrokes: selecting a clip places it on the
 > system pasteboard and the user presses ⌘V. Optional insertion without a
 > keypress is provided through a standard macOS Service.

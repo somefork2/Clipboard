@@ -89,7 +89,7 @@ enum ExportManager {
     }
 
     private static func markdown(_ items: [ClipboardItem]) -> String {
-        var output = "# ClipStack Export\n\nExported \(Date().formatted(date: .long, time: .shortened))\n\n"
+        var output = "# CopyWell Export\n\nExported \(Date().formatted(date: .long, time: .shortened))\n\n"
         for item in items {
             output += "## \(item.displayTitle)\n\n"
             output += "- Type: \(item.type.displayName)\n"
@@ -113,7 +113,7 @@ enum ExportManager {
         <html lang="en">
         <head>
         <meta charset="utf-8">
-        <title>ClipStack Export</title>
+        <title>CopyWell Export</title>
         <style>
           :root { color-scheme: light dark; }
           body { font: 15px/1.5 -apple-system, system-ui, sans-serif; max-width: 760px; margin: 2rem auto; padding: 0 1rem; }
@@ -123,7 +123,7 @@ enum ExportManager {
         </style>
         </head>
         <body>
-        <h1>ClipStack Export</h1>
+        <h1>CopyWell Export</h1>
         """
         for item in items {
             output += "<div class=\"clip\"><strong>\(escapeHTML(item.displayTitle))</strong>"
