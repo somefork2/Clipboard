@@ -114,26 +114,44 @@ struct SidebarView: View {
         }
     }
 
-    /// Free-tier users should always know where they stand, without a modal.
+    /// Where the user stands, stated plainly and without a modal.
+    ///
+    /// During the trial it counts down; afterwards it says what the free plan
+    /// actually keeps. Nothing is shown to a subscriber.
     @ViewBuilder
     private var statusFooter: some View {
         if !subscriptions.isPro {
-            let limit = SubscriptionTier.free.maxItems
             VStack(alignment: .leading, spacing: 5) {
                 Divider()
-                HStack {
+
+                if subscriptions.isInFreeTrial {
+                    let trial = TrialManager.shared
+                    HStack {
+                        Text("Trial")
+                            .font(.caption.weight(.medium))
+                        Spacer()
+                        Text("\(trial.daysRemaining) \(trial.daysRemaining == 1 ? "day" : "days") left")
+                            .font(.caption.monospacedDigit())
+                            .foregroundStyle(.secondary)
+                    }
+                    ProgressView(
+                        value: max(0, TrialManager.duration - trial.endDate.timeIntervalSinceNow),
+                        total: TrialManager.duration
+                    )
+                    .progressViewStyle(.linear)
+                    Text("Everything is unlocked. Afterwards CopyWell keeps the last 48 hours.")
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                } else {
                     Text("Free plan")
                         .font(.caption.weight(.medium))
-                    Spacer()
-                    Text("\(min(store.items.count, limit))/\(limit)")
-                        .font(.caption.monospacedDigit())
+                    Text("The last 48 hours are kept. Favourites and pinboards are never removed.")
+                        .font(.caption2)
                         .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
-                ProgressView(value: Double(min(store.items.count, limit)), total: Double(limit))
-                    .progressViewStyle(.linear)
-                Text("Older clips are removed once you reach the limit.")
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
+
                 Button("See CopyWell Pro") { subscriptions.showingPaywall = true }
                     .buttonStyle(.link)
                     .font(.caption)

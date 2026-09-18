@@ -95,14 +95,9 @@ enum RetentionPolicy: Codable, Hashable, Identifiable {
         }
     }
 
-    /// The free tier keeps the most recent 100 clips whatever this says.
-    var requiresPro: Bool {
-        switch self {
-        case .count(let n): return n > SubscriptionTier.free.maxItems
-        case .days: return true
-        case .forever: return true
-        }
-    }
+    /// The free tier keeps a fixed window of recent history, so choosing any
+    /// policy at all is a paid choice.
+    var requiresPro: Bool { true }
 
     // MARK: Persistence
 

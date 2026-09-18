@@ -29,9 +29,13 @@ struct GeneralSettings: View {
     @Environment(AppSettings.self) private var settings
     @Environment(SubscriptionManager.self) private var subscriptions
 
-    /// What is actually in force: the free tier ignores the chosen policy.
-    private var effectiveRetention: RetentionPolicy {
-        subscriptions.isPro ? settings.retention : .count(SubscriptionTier.free.maxItems)
+    /// What is actually in force: the free tier ignores the chosen policy and
+    /// keeps a fixed window of recent history instead.
+    private var effectiveRetentionText: String {
+        guard subscriptions.checkAccess(for: .autoCleanup) else {
+            return "On the free plan CopyWell keeps the last 48 hours. Favourites and pinboards are never removed."
+        }
+        return settings.retention.explanation
     }
 
     var body: some View {
@@ -107,9 +111,9 @@ struct GeneralSettings: View {
                     }
                     Text(RetentionPolicy.forever.displayName).tag(RetentionPolicy.forever)
                 }
-                .disabled(!subscriptions.isPro)
+                .disabled(!subscriptions.checkAccess(for: .autoCleanup))
 
-                Text(effectiveRetention.explanation)
+                Text(effectiveRetentionText)
                     .font(.caption)
                     .foregroundStyle(.secondary)
 
@@ -117,12 +121,12 @@ struct GeneralSettings: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
 
-                if !subscriptions.isPro {
+                if !subscriptions.hasFullAccess {
                     LabeledContent("Free plan") {
                         HStack {
-                            Text("100 most recent clips")
+                            Text("Last 48 hours")
                                 .foregroundStyle(.secondary)
-                            Button("Upgrade") { subscriptions.showingPaywall = true }
+                            Button("See CopyWell Pro") { subscriptions.showingPaywall = true }
                                 .buttonStyle(.link)
                         }
                     }

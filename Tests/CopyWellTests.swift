@@ -171,11 +171,14 @@ struct ClipShortcutTests {
 @Suite("Subscription tiers")
 struct SubscriptionTierTests {
 
-    @Test("Free tier is capped, Pro is not")
+    /// The free tier keeps a window of recent history rather than a fixed
+    /// number of clips, so nothing is ever refused — old clips age out.
+    @Test("Free tier keeps a 48-hour window, Pro keeps everything")
     func limits() {
-        #expect(SubscriptionTier.free.maxItems == 100)
-        #expect(SubscriptionTier.pro.maxItems == -1)
+        #expect(SubscriptionTier.free.historyWindow == TimeInterval(48 * 60 * 60))
+        #expect(SubscriptionTier.pro.historyWindow == nil)
         #expect(SubscriptionTier.free.maxPinboards == 1)
+        #expect(SubscriptionTier.pro.maxPinboards == -1)
     }
 
     /// Every advertised feature must have a description; blank marketing copy on
@@ -327,13 +330,12 @@ struct RetentionPolicyTests {
         }
     }
 
-    /// The free tier keeps 100 clips, so only a larger count is a paid choice.
-    @Test("Only policies beyond the free tier need Pro")
+    /// The free tier keeps a fixed window, so choosing any policy is paid.
+    @Test("Every retention choice is a paid one")
     func proRequirement() {
-        #expect(RetentionPolicy.count(100).requiresPro == false)
-        #expect(RetentionPolicy.count(500).requiresPro)
-        #expect(RetentionPolicy.days(7).requiresPro)
-        #expect(RetentionPolicy.forever.requiresPro)
+        for policy in RetentionPolicy.presets {
+            #expect(policy.requiresPro)
+        }
     }
 
     @Test("Policies round-trip through storage")
@@ -385,5 +387,36 @@ struct CloudClipTests {
         #expect(captured.text == "hello")
         #expect(captured.tags == ["a", "b"])
         #expect(captured.isSensitive == false)
+    }
+}
+
+
+// MARK: - Trial
+
+@Suite("Free trial")
+@MainActor
+struct TrialTests {
+
+    /// 30 days, because a clipboard manager proves itself the day you need
+    /// something from weeks ago — a week is not long enough for that to happen.
+    @Test("The trial lasts 30 days")
+    func duration() {
+        #expect(TrialManager.duration == TimeInterval(30 * 24 * 60 * 60))
+    }
+
+    @Test("A fresh install is inside the trial")
+    func freshInstallIsActive() {
+        let trial = TrialManager.shared
+        #expect(trial.isActive)
+        #expect(trial.daysRemaining > 0)
+        #expect(trial.daysRemaining <= 30)
+        #expect(!trial.summary.isEmpty)
+    }
+
+    /// The end date is derived, never stored, so it cannot drift from the start.
+    @Test("End date follows the start date")
+    func endDateDerived() {
+        let trial = TrialManager.shared
+        #expect(abs(trial.endDate.timeIntervalSince(trial.startDate) - TrialManager.duration) < 1)
     }
 }

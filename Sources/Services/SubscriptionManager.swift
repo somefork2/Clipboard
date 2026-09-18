@@ -6,8 +6,14 @@ import StoreKit
 enum SubscriptionTier: String, CaseIterable {
     case free, pro
 
-    /// `-1` means unlimited.
-    var maxItems: Int { self == .free ? 100 : -1 }
+    /// How far back the free tier keeps history.
+    ///
+    /// Replaces the old cap of 100 clips, which ran out in a couple of days and
+    /// stopped the app being useful exactly when the habit was still forming. An
+    /// age limit degrades instead of blocking: recent clips always work, and the
+    /// day someone needs something older is the day a subscription makes sense.
+    var historyWindow: TimeInterval? { self == .free ? 48 * 60 * 60 : nil }
+
     var maxPinboards: Int { self == .free ? 1 : -1 }
 }
 
@@ -55,7 +61,7 @@ enum PremiumFeature: String, CaseIterable, Identifiable {
     /// Plain, checkable claims — every one of these is implemented.
     var summary: String {
         switch self {
-        case .unlimitedHistory: return "Keep more than the free tier's 100 most recent clips."
+        case .unlimitedHistory: return "Keep everything, instead of only the last 48 hours."
         case .unlimitedPinboards: return "Organise clips into as many boards as you need."
         case .pasteStack: return "Queue several clips and paste them one after another."
         case .smartCategorize: return "On-device analysis tags clips by type, language and entities."
@@ -110,6 +116,13 @@ final class SubscriptionManager {
     #else
     var isPro: Bool { currentTier == .pro }
     #endif
+
+    /// True while the 30-day trial is running.
+    var isInFreeTrial: Bool { TrialManager.shared.isActive }
+
+    /// Everything is unlocked while the trial runs, without anyone having to
+    /// subscribe first.
+    var hasFullAccess: Bool { isPro || isInFreeTrial }
 
     /// True only when the active subscription is still inside its introductory
     /// free-trial period. Never assumed — StoreKit tells us.
@@ -269,20 +282,17 @@ final class SubscriptionManager {
 
     // MARK: - Gating
 
-    func checkAccess(for feature: PremiumFeature) -> Bool { isPro }
+    func checkAccess(for feature: PremiumFeature) -> Bool { hasFullAccess }
 
-    #if DEBUG
     var statusDescription: String {
+        #if DEBUG
         if simulatedPro { return "Pro (simulated for development)" }
-        if isInTrial { return "Pro — free trial" }
-        return isPro ? "Pro" : "Free"
+        #endif
+        if isInTrial { return "Pro — subscription trial" }
+        if isPro { return "Pro" }
+        if isInFreeTrial { return "Trial — \(TrialManager.shared.daysRemaining) days left" }
+        return "Free"
     }
-    #else
-    var statusDescription: String {
-        if isInTrial { return "Pro — free trial" }
-        return isPro ? "Pro" : "Free"
-    }
-    #endif
 
     /// Returns true when the feature may be used; otherwise surfaces the paywall.
     @discardableResult
@@ -292,7 +302,11 @@ final class SubscriptionManager {
         return false
     }
 
-    var historyLimit: Int { currentTier.maxItems }
-    var pinboardLimit: Int { currentTier.maxPinboards }
+    /// `nil` means unlimited.
+    var historyWindow: TimeInterval? {
+        hasFullAccess ? nil : SubscriptionTier.free.historyWindow
+    }
+
+    var pinboardLimit: Int { hasFullAccess ? -1 : SubscriptionTier.free.maxPinboards }
 }
 
