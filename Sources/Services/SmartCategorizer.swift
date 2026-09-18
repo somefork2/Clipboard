@@ -3,7 +3,7 @@ import Foundation
 
 // MARK: - Результат категоризации
 
-struct CategorizationResult {
+struct CategorizationResult: Sendable {
     let category: ContentCategory
     let language: String?
     let confidence: Double
@@ -14,14 +14,14 @@ struct CategorizationResult {
     let isSensitive: Bool
 }
 
-struct ExtractedEntity: Identifiable, Codable {
+struct ExtractedEntity: Identifiable, Codable, Sendable, Hashable {
     var id = UUID()
     let type: EntityType
     let value: String
     let range: NSRange?
 }
 
-enum EntityType: String, Codable, CaseIterable {
+enum EntityType: String, Codable, CaseIterable, Sendable {
     case email
     case phoneNumber
     case url
@@ -394,7 +394,7 @@ actor SmartCategorizer {
 
 // MARK: - ContentCategory (обновлённый)
 
-enum ContentCategory: String, Codable, CaseIterable {
+enum ContentCategory: String, Codable, CaseIterable, Sendable {
     case text
     case code
     case links

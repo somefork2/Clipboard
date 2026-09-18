@@ -1,31 +1,40 @@
+import AppKit
 import Foundation
 import SwiftData
 
 @Model
 final class ClipboardItem {
-    var id: UUID
-    var createdAt: Date
-    var updatedAt: Date
-    var contentType: String
-    var contentHash: String
+    var id: UUID = UUID()
+    var createdAt: Date = Date()
+    var updatedAt: Date = Date()
+    var contentType: String = ContentType.text.rawValue
+    var contentHash: String = ""
+
+    /// Plaintext body. `nil` for sensitive clips — those live in `encryptedText`.
     var text: String?
-    var imageData: Data?
+    /// ChaCha20-Poly1305 ciphertext for clips detected as secrets.
+    var encryptedText: Data?
+
+    /// Full-size image lives on disk (see `ImageStore`); only its file name is stored.
+    var imageFileName: String?
+    /// Small PNG preview, safe to keep in the database.
     var imageThumbnail: Data?
-    var extractedText: String?  // OCR результат
+
+    var extractedText: String?
     var url: String?
     var urlTitle: String?
     var sourceApp: String?
     var sourceAppBundleId: String?
-    var isPassword: Bool
-    var isFavorite: Bool
-    var isDeleted: Bool
-    var tags: [String]
-    var category: String
+    var isSensitive: Bool = false
+    var isFavorite: Bool = false
+    var isTrashed: Bool = false
+    var tags: [String] = []
+    var category: String = "uncategorized"
     var detectedLanguage: String?
-    var sentiment: Double
-    var aiConfidence: Double
-    var entitiesData: Data?  // JSON encoded [ExtractedEntity]
-    var searchText: String?
+    var sentiment: Double = 0
+    var aiConfidence: Double = 0.5
+    var entitiesData: Data?
+    var useCount: Int = 0
 
     @Relationship(inverse: \Pinboard.items)
     var pinboard: Pinboard?
@@ -35,30 +44,79 @@ final class ClipboardItem {
         contentType: ContentType,
         contentHash: String,
         text: String? = nil,
-        imageData: Data? = nil,
+        imageFileName: String? = nil,
         url: String? = nil,
         sourceApp: String? = nil,
         sourceAppBundleId: String? = nil,
-        isPassword: Bool = false
+        isSensitive: Bool = false
     ) {
         self.id = id
         self.createdAt = Date()
         self.updatedAt = Date()
         self.contentType = contentType.rawValue
         self.contentHash = contentHash
-        self.text = text
-        self.imageData = imageData
+        self.imageFileName = imageFileName
         self.url = url
         self.sourceApp = sourceApp
         self.sourceAppBundleId = sourceAppBundleId
-        self.isPassword = isPassword
-        self.isFavorite = false
-        self.isDeleted = false
+        self.isSensitive = isSensitive
         self.tags = []
         self.category = "uncategorized"
-        self.sentiment = 0.0
-        self.aiConfidence = 0.5
+        setBody(text)
     }
+
+    // MARK: - Body access
+
+    /// Stores `body`, encrypting it when the clip is sensitive.
+    func setBody(_ body: String?) {
+        guard let body else {
+            text = nil
+            encryptedText = nil
+            return
+        }
+        if isSensitive {
+            text = nil
+            encryptedText = SecureStore.seal(body)
+        } else {
+            text = body
+            encryptedText = nil
+        }
+    }
+
+    /// The clip's text, decrypting on demand. Returns `nil` if the key is gone.
+    var body: String? {
+        if let text { return text }
+        if let encryptedText { return SecureStore.open(encryptedText) }
+        return nil
+    }
+
+    /// Text safe to render in lists and previews.
+    var displayBody: String {
+        isSensitive ? "••••••••••••" : (body ?? "")
+    }
+
+    /// Promotes an existing clip to sensitive, re-encrypting its body.
+    func markSensitive() {
+        guard !isSensitive else { return }
+        let existing = body
+        isSensitive = true
+        contentType = ContentType.password.rawValue
+        setBody(existing)
+    }
+
+    // MARK: - Image access
+
+    var imageData: Data? {
+        guard let imageFileName else { return nil }
+        return ImageStore.read(fileName: imageFileName)
+    }
+
+    var thumbnailImage: NSImage? {
+        guard let imageThumbnail else { return nil }
+        return NSImage(data: imageThumbnail)
+    }
+
+    // MARK: - Derived
 
     var type: ContentType {
         get { ContentType(rawValue: contentType) ?? .unknown }
@@ -67,43 +125,65 @@ final class ClipboardItem {
 
     var entities: [ExtractedEntity] {
         get {
-            guard let data = entitiesData else { return [] }
-            return (try? JSONDecoder().decode([ExtractedEntity].self, from: data)) ?? []
+            guard let entitiesData else { return [] }
+            return (try? JSONDecoder().decode([ExtractedEntity].self, from: entitiesData)) ?? []
         }
-        set {
-            entitiesData = try? JSONEncoder().encode(newValue)
-        }
+        set { entitiesData = try? JSONEncoder().encode(newValue) }
     }
 
     var previewText: String {
         switch type {
-        case .text, .richText: return text ?? ""
-        case .url: return url ?? urlTitle ?? ""
-        case .image: return "[Image]"
-        case .code: return text ?? ""
-        case .email: return text ?? ""
-        case .phoneNumber: return text ?? ""
-        case .color: return text ?? ""
-        case .password: return "••••••••"
-        case .unknown: return text ?? "Unknown"
+        case .image: return extractedText.map { "Image · \($0.prefix(60))" } ?? "Image"
+        case .password: return "••••••••••••"
+        case .url: return url ?? displayBody
+        default: return displayBody
         }
     }
 
     var displayTitle: String {
         switch type {
         case .url: return urlTitle ?? URL(string: url ?? "")?.host() ?? "Link"
-        case .image: return "Screenshot"
+        case .image: return "Image"
         case .code: return "Code Snippet"
-        case .password: return "Password"
+        case .password: return "Protected Item"
         default:
-            let preview = String((text ?? "").prefix(50))
-            return preview.isEmpty ? "Empty" : preview
+            let preview = displayBody
+                .replacingOccurrences(of: "\n", with: " ")
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+                .prefix(60)
+            return preview.isEmpty ? "Empty" : String(preview)
         }
+    }
+
+    /// Everything the search index should consider, built once per change.
+    var searchCorpus: String {
+        var parts: [String] = []
+        if !isSensitive { parts.append(body ?? "") }
+        parts.append(url ?? "")
+        parts.append(urlTitle ?? "")
+        parts.append(extractedText ?? "")
+        parts.append(category)
+        parts.append(sourceApp ?? "")
+        parts.append(contentsOf: tags)
+        parts.append(contentsOf: entities.map(\.value))
+        return parts.joined(separator: " ").lowercased()
+    }
+
+    /// Content to place on the pasteboard for this clip.
+    var pasteContent: PasteContent? {
+        if type == .image, let data = imageData { return .image(data) }
+        if let body { return .text(body) }
+        return nil
     }
 }
 
 extension Date {
+    /// Short relative time. Clamped at the low end: a clip captured a moment ago
+    /// otherwise renders as "in 0 sec" because capture completes fractionally
+    /// after the timestamp is taken.
     var relativeFormatted: String {
+        let elapsed = Date().timeIntervalSince(self)
+        if elapsed < 10 { return "now" }
         let formatter = RelativeDateTimeFormatter()
         formatter.unitsStyle = .abbreviated
         return formatter.localizedString(for: self, relativeTo: Date())

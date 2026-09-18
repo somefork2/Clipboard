@@ -1,0 +1,73 @@
+name: ClipStack
+options:
+  bundleIdPrefix: com.clipstack
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+  xcodeVersion: "26.0"
+
+settings:
+  base:
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    SWIFT_VERSION: "5.10"
+    DEVELOPMENT_TEAM: "" # ← set your Team ID here (Xcode ▸ Settings ▸ Accounts)
+    CODE_SIGN_STYLE: Automatic
+    ENABLE_HARDENED_RUNTIME: YES
+    SWIFT_STRICT_CONCURRENCY: complete
+
+targets:
+  ClipStack:
+    type: application
+    platform: macOS
+    sources:
+      - path: Sources
+        excludes:
+          - "Resources/Info.plist"
+          - "Resources/ClipStack.entitlements"
+      - path: Sources/Resources/PrivacyInfo.xcprivacy
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.clipstack.app
+        PRODUCT_NAME: ClipStack
+        INFOPLIST_FILE: Sources/Resources/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Sources/Resources/ClipStack.entitlements
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        COMBINE_HIDPI_IMAGES: YES
+        ENABLE_APP_SANDBOX: YES
+        LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/../Frameworks"
+      configs:
+        debug:
+          # Lets the paywall run against Products.storekit without App Store Connect.
+          OTHER_SWIFT_FLAGS: "$(inherited) -DDEBUG"
+    info:
+      path: Sources/Resources/Info.plist
+
+  ClipStackTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - Tests
+    dependencies:
+      - target: ClipStack
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.clipstack.app.tests
+        GENERATE_INFOPLIST_FILE: YES
+
+schemes:
+  ClipStack:
+    build:
+      targets:
+        ClipStack: all
+        ClipStackTests: [test]
+    test:
+      config: Debug
+      targets:
+        - ClipStackTests
+    run:
+      config: Debug
+      storeKitConfiguration: Products.storekit
+    archive:
+      config: Release

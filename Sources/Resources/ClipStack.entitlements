@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Required for the Mac App Store. -->
+    <key>com.apple.security.app-sandbox</key>
+    <true/>
+
+    <!-- StoreKit purchases and App Store receipt validation. -->
+    <key>com.apple.security.network.client</key>
+    <true/>
+
+    <!-- Files the user hands us explicitly (Services, drag and drop, save panels). -->
+    <key>com.apple.security.files.user-selected.read-write</key>
+    <true/>
+
+    <!-- Private CloudKit database for optional history sync. -->
+    <key>com.apple.developer.icloud-services</key>
+    <array>
+        <string>CloudKit</string>
+    </array>
+    <key>com.apple.developer.icloud-container-identifiers</key>
+    <array>
+        <string>iCloud.$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    </array>
+
+    <!-- Keychain group holding the key that encrypts sensitive clips. -->
+    <key>keychain-access-groups</key>
+    <array>
+        <string>$(AppIdentifierPrefix)$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    </array>
+</dict>
+</plist>

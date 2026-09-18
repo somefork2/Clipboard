@@ -1,137 +1,211 @@
 import CloudKit
-import SwiftData
 import Foundation
 
+/// A clip flattened into something that can cross actor boundaries.
+struct CloudClip: Sendable {
+    var contentHash: String
+    var contentType: String
+    var text: String?
+    var url: String?
+    var urlTitle: String?
+    var sourceApp: String?
+    var category: String
+    var tags: [String]
+    var isFavorite: Bool
+    var createdAt: Date
+
+    init?(_ item: ClipboardItem) {
+        // Sensitive clips stay on the device that captured them.
+        guard !item.isSensitive else { return nil }
+        contentHash = item.contentHash
+        contentType = item.contentType
+        text = item.body
+        url = item.url
+        urlTitle = item.urlTitle
+        sourceApp = item.sourceApp
+        category = item.category
+        tags = item.tags
+        isFavorite = item.isFavorite
+        createdAt = item.createdAt
+    }
+
+    init(record: CKRecord) throws {
+        guard let hash = record["contentHash"] as? String,
+              let type = record["contentType"] as? String else {
+            throw SyncError.malformedRecord
+        }
+        contentHash = hash
+        contentType = type
+        text = record["text"] as? String
+        url = record["url"] as? String
+        urlTitle = record["urlTitle"] as? String
+        sourceApp = record["sourceApp"] as? String
+        category = record["category"] as? String ?? "uncategorized"
+        tags = (record["tags"] as? [String]) ?? []
+        isFavorite = (record["isFavorite"] as? Int).map { $0 == 1 } ?? false
+        createdAt = record["createdAt"] as? Date ?? Date()
+    }
+
+    /// Converts back into the shape the store inserts.
+    var captured: CapturedClip {
+        CapturedClip(
+            contentType: ContentType(rawValue: contentType) ?? .text,
+            contentHash: contentHash,
+            text: text,
+            url: url,
+            urlTitle: urlTitle,
+            imageFileName: nil,
+            imageThumbnail: nil,
+            extractedText: nil,
+            sourceApp: sourceApp,
+            sourceAppBundleId: nil,
+            isSensitive: false,
+            category: category,
+            tags: tags,
+            detectedLanguage: nil,
+            sentiment: 0,
+            confidence: 0.5,
+            entities: []
+        )
+    }
+}
+
+enum SyncError: Error {
+    case unavailable
+    case malformedRecord
+}
+
+enum SyncResult: Sendable {
+    case success([CapturedClip])
+    case failure(String)
+}
+
+/// Optional history sync through the user's private CloudKit database.
+///
+/// Records are keyed by content hash, so the same clip resolves to the same
+/// record name on every device — that is what makes updates and deletions work
+/// at all (the previous version saved with a random record ID and then tried to
+/// delete by UUID, so nothing was ever removed).
 actor CloudKitSyncManager {
     static let shared = CloudKitSyncManager()
 
-    private let container: CKContainer?
-    private let database: CKDatabase?
     private let recordType = "ClipboardItemRecord"
+    private var container: CKContainer?
+    private var database: CKDatabase?
 
-    init() {
-        // Only initialize CloudKit if container identifier is configured
-        if Bundle.main.object(forInfoDictionaryKey: "CKContainerIdentifier") != nil {
-            self.container = CKContainer.default()
-            self.database = container?.privateCloudDatabase
-        } else {
-            self.container = nil
-            self.database = nil
-        }
+    private init() {}
+
+    /// Resolves the container lazily. Touching CloudKit without the iCloud
+    /// entitlement traps at runtime, so we only do it once, on demand, and keep
+    /// `nil` when the build is not configured for sync.
+    private func resolveDatabase() -> CKDatabase? {
+        if let database { return database }
+        guard let bundleID = Bundle.main.bundleIdentifier else { return nil }
+        let container = CKContainer(identifier: "iCloud.\(bundleID)")
+        self.container = container
+        let database = container.privateCloudDatabase
+        self.database = database
+        return database
     }
 
-    // MARK: - Проверка доступности
-
     func checkAccountStatus() async -> Bool {
+        _ = resolveDatabase()
         guard let container else { return false }
+
         do {
-            let status = try await container.accountStatus()
-            return status == .available
+            return try await container.accountStatus() == .available
         } catch {
             return false
         }
     }
 
-    func saveItem(_ item: ClipboardItem) async throws {
-        guard let database else { return }
-        let record = CKRecord(recordType: recordType)
-        record["text"] = item.text as NSString? ?? "" as NSString
-        record["contentType"] = item.contentType as NSString
-        record["url"] = item.url as NSString? ?? "" as NSString
-        record["sourceApp"] = item.sourceApp as NSString? ?? "" as NSString
-        record["category"] = item.category as NSString
-        record["tags"] = item.tags.joined(separator: ",") as NSString
-        record["isFavorite"] = item.isFavorite as NSNumber
-        record["createdAt"] = item.createdAt as NSDate
-        record["contentHash"] = item.contentHash as NSString
+    // MARK: - Sync
 
-        if let imageData = item.imageData {
-            record["imageData"] = imageData as NSData
+    /// Two-way reconciliation: push local clips the server lacks, and return the
+    /// server's clips the local store lacks so the caller can insert them.
+    func sync(localItems: [CloudClip?]) async -> SyncResult {
+        let local = localItems.compactMap { $0 }
+        guard let database = resolveDatabase() else {
+            return .failure("iCloud sync is not configured for this build.")
+        }
+        guard await checkAccountStatus() else {
+            return .failure("Sign in to iCloud in System Settings to use sync.")
         }
 
-        try await database.save(record)
+        do {
+            let remote = try await fetchAll(from: database)
+            let remoteHashes = Set(remote.map(\.contentHash))
+            let localHashes = Set(local.map(\.contentHash))
+
+            let toPush = local.filter { !remoteHashes.contains($0.contentHash) }
+            if !toPush.isEmpty {
+                try await push(toPush, to: database)
+            }
+
+            let incoming = remote
+                .filter { !localHashes.contains($0.contentHash) }
+                .map(\.captured)
+
+            return .success(incoming)
+        } catch let error as CKError where error.code == .networkUnavailable || error.code == .networkFailure {
+            return .failure("No network connection. Sync will resume when you are back online.")
+        } catch {
+            return .failure("Sync failed: \(error.localizedDescription)")
+        }
     }
 
-    // MARK: - Загрузка
-
-    func fetchAllItems() async throws -> [ClipboardItem] {
-        guard let database else { return [] }
+    private func fetchAll(from database: CKDatabase) async throws -> [CloudClip] {
         let query = CKQuery(recordType: recordType, predicate: NSPredicate(value: true))
         query.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
 
-        let (matchResults, _) = try await database.records(matching: query)
-        var items: [ClipboardItem] = []
-
-        for (recordID, result) in matchResults {
-            switch result {
-            case .success(let record):
-                if let item = parseRecord(record) {
-                    items.append(item)
-                }
-            case .failure(let error):
-                print("Failed to fetch record \(recordID): \(error)")
+        var clips: [CloudClip] = []
+        var cursor: CKQueryOperation.Cursor?
+        repeat {
+            let page: (matchResults: [(CKRecord.ID, Result<CKRecord, Error>)], queryCursor: CKQueryOperation.Cursor?)
+            if let current = cursor {
+                page = try await database.records(continuingMatchFrom: current)
+            } else {
+                page = try await database.records(matching: query)
             }
-        }
+            for (_, result) in page.matchResults {
+                if case .success(let record) = result, let clip = try? CloudClip(record: record) {
+                    clips.append(clip)
+                }
+            }
+            cursor = page.queryCursor
+        } while cursor != nil
 
-        return items
+        return clips
     }
 
-    // MARK: - Удаление
+    private func push(_ clips: [CloudClip], to database: CKDatabase) async throws {
+        let records = clips.map { clip -> CKRecord in
+            // Deterministic record name keyed by content, so the same clip from
+            // another Mac maps onto the same record instead of duplicating.
+            let id = CKRecord.ID(recordName: ContentHasher.recordName(for: clip.contentHash))
+            let record = CKRecord(recordType: recordType, recordID: id)
+            record["contentHash"] = clip.contentHash as CKRecordValue
+            record["contentType"] = clip.contentType as CKRecordValue
+            record["text"] = (clip.text ?? "") as CKRecordValue
+            record["url"] = (clip.url ?? "") as CKRecordValue
+            record["urlTitle"] = (clip.urlTitle ?? "") as CKRecordValue
+            record["sourceApp"] = (clip.sourceApp ?? "") as CKRecordValue
+            record["category"] = clip.category as CKRecordValue
+            record["tags"] = clip.tags as CKRecordValue
+            record["isFavorite"] = (clip.isFavorite ? 1 : 0) as CKRecordValue
+            record["createdAt"] = clip.createdAt as CKRecordValue
+            return record
+        }
 
-    func deleteItem(withID id: UUID) async throws {
-        guard let database else { return }
-        let recordID = CKRecord.ID(recordName: id.uuidString)
-        try await database.deleteRecord(withID: recordID)
+        // Batch in chunks; CloudKit rejects oversized modify operations.
+        for chunk in stride(from: 0, to: records.count, by: 200).map({ Array(records[$0..<min($0 + 200, records.count)]) }) {
+            _ = try await database.modifyRecords(saving: chunk, deleting: [], savePolicy: .changedKeys)
+        }
     }
 
-    // MARK: - Синхронизация
-
-    func sync(localItems: [ClipboardItem]) async throws {
-        // 1. Загружаем с сервера
-        let remoteItems = try await fetchAllItems()
-        let remoteHashes = Set(remoteItems.map { $0.contentHash })
-        let localHashes = Set(localItems.map { $0.contentHash })
-
-        // 2. Отправляем новые локальные элементы
-        for item in localItems where !remoteHashes.contains(item.contentHash) {
-            try await saveItem(item)
-        }
-
-        // 3. Получаем новые удалённые с сервера
-        let newRemoteHashes = remoteHashes.subtracting(localHashes)
-        let newRemoteItems = remoteItems.filter { newRemoteHashes.contains($0.contentHash) }
-
-        // Возвращаем новые элементы для вставки в локальную БД
-        // (вызывающий код должен сохранить их)
-        _ = newRemoteItems
-    }
-
-    // MARK: - Парсинг
-
-    private func parseRecord(_ record: CKRecord) -> ClipboardItem? {
-        guard let contentType = record["contentType"] as? String,
-              let contentHash = record["contentHash"] as? String,
-              let type = ContentType(rawValue: contentType) else {
-            return nil
-        }
-
-        let item = ClipboardItem(
-            contentType: type,
-            contentHash: contentHash,
-            text: record["text"] as? String,
-            imageData: record["imageData"] as? Data,
-            url: record["url"] as? String,
-            sourceApp: record["sourceApp"] as? String
-        )
-
-        item.category = record["category"] as? String ?? "uncategorized"
-        item.tags = (record["tags"] as? String)?.components(separatedBy: ",").filter { !$0.isEmpty } ?? []
-        item.isFavorite = record["isFavorite"] as? Bool ?? false
-
-        if let createdAt = record["createdAt"] as? Date {
-            item.createdAt = createdAt
-        }
-
-        return item
+    func delete(contentHash: String) async throws {
+        guard let database = resolveDatabase() else { throw SyncError.unavailable }
+        let id = CKRecord.ID(recordName: ContentHasher.recordName(for: contentHash))
+        try await database.deleteRecord(withID: id)
     }
 }

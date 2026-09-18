@@ -1,7 +1,6 @@
 import Foundation
-import SwiftUI
 
-enum ContentType: String, Codable, CaseIterable {
+enum ContentType: String, Codable, CaseIterable, Sendable {
     case text
     case richText
     case url
@@ -40,21 +39,6 @@ enum ContentType: String, Codable, CaseIterable {
         case .color: return "paintpalette"
         case .password: return "lock"
         case .unknown: return "questionmark.circle"
-        }
-    }
-
-    var gradient: (Color, Color) {
-        switch self {
-        case .text: return (.blue, .cyan)
-        case .richText: return (.purple, .pink)
-        case .url: return (.indigo, .blue)
-        case .email: return (.orange, .yellow)
-        case .phoneNumber: return (.green, .mint)
-        case .image: return (.pink, .red)
-        case .code: return (.green, .teal)
-        case .color: return (.purple, .indigo)
-        case .password: return (.gray, .secondary)
-        case .unknown: return (.secondary, .gray)
         }
     }
 }

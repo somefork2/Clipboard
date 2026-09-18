@@ -3,10 +3,12 @@ build/
 .build/
 *.app/
 DerivedData/
+*.xcodeproj/
+*.xcworkspace/
 
-# Screenshots
-*.png
-!Sources/
+# Scratch screenshots (app assets are kept, see below)
+/screenshot*.png
+!Sources/Resources/Assets.xcassets/**/*.png
 
 # Swift
 .swiftpm/

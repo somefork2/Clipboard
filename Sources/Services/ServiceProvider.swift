@@ -2,172 +2,143 @@ import AppKit
 import Foundation
 import UniformTypeIdentifiers
 
+/// Backs the entries ClipStack adds to the system Services menu, which is how a
+/// Mac app legitimately appears in the right-click menu of other applications.
+///
+/// macOS does not let a third-party app inject items into the top level of
+/// another app's context menu; Services is the supported route, and the entries
+/// appear under the Services submenu (or at the top level in Finder for files).
 @MainActor
 final class ServiceProvider: NSObject {
 
-    // MARK: - Save selected text to ClipStack (from any app)
+    // MARK: - Save selection
 
     @objc func saveSelectionToClipStack(
         _ pboard: NSPasteboard,
         userData: String,
         error: AutoreleasingUnsafeMutablePointer<NSString>
     ) {
-        // Get selected text from any app
-        if let text = pboard.string(forType: .string), !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            let sourceApp = NSWorkspace.shared.frontmostApplication?.localizedName
-            let sourceBundleId = NSWorkspace.shared.frontmostApplication?.bundleIdentifier
-
-            let item = ClipboardItem(
-                contentType: TypeDetector().detectType(for: text),
-                contentHash: "",
-                text: text,
-                sourceApp: sourceApp,
-                sourceAppBundleId: sourceBundleId
-            )
-            ClipboardMonitor.sharedSave(item: item)
-        }
-
-        // Get file URLs from Finder
-        if let urls = pboard.readObjects(forClasses: [NSURL.self], options: [
-            .urlReadingFileURLsOnly: true
-        ]) as? [URL], !urls.isEmpty {
-            for url in urls {
-                saveFileToClipStack(url: url)
-            }
-        }
-
-        // Get images
-        if let tiffData = pboard.data(forType: .tiff),
-           let image = NSImage(data: tiffData) {
-            let item = ClipboardItem(
-                contentType: .image,
-                contentHash: "",
-                imageData: tiffData,
-                sourceApp: NSWorkspace.shared.frontmostApplication?.localizedName,
-                sourceAppBundleId: NSWorkspace.shared.frontmostApplication?.bundleIdentifier
-            )
-            item.imageThumbnail = generateThumbnail(from: image)
-            ClipboardMonitor.sharedSave(item: item)
-        }
-
-        // Get RTF
-        if let rtfData = pboard.data(forType: .rtf),
-           let attributedString = NSAttributedString(rtf: rtfData, documentAttributes: nil) {
-            let text = attributedString.string
-            if !text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).isEmpty {
-                let item = ClipboardItem(
-                    contentType: .richText,
-                    contentHash: "",
-                    text: text,
-                    sourceApp: NSWorkspace.shared.frontmostApplication?.localizedName,
-                    sourceAppBundleId: NSWorkspace.shared.frontmostApplication?.bundleIdentifier
-                )
-                ClipboardMonitor.sharedSave(item: item)
-            }
-        }
+        ingest(pboard, favorite: false)
     }
 
-    // MARK: - Quick Paste from ClipStack (into any text field)
-
-    @objc func quickPasteFromClipStack(
-        _ pboard: NSPasteboard,
-        userData: String,
-        error: AutoreleasingUnsafeMutablePointer<NSString>
-    ) {
-        // Get the last copied item from ClipStack
-        guard let lastItem = ClipboardMonitor.getLastItem() else { return }
-
-        pboard.clearContents()
-        if let text = lastItem.text {
-            pboard.setString(text, forType: .string)
-        } else if let imageData = lastItem.imageData, let image = NSImage(data: imageData) {
-            pboard.writeObjects([image])
-        }
-    }
-
-    // MARK: - Pin to ClipStack
+    // MARK: - Pin selection
 
     @objc func pinToClipStack(
         _ pboard: NSPasteboard,
         userData: String,
         error: AutoreleasingUnsafeMutablePointer<NSString>
     ) {
-        if let text = pboard.string(forType: .string), !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            let item = ClipboardItem(
-                contentType: TypeDetector().detectType(for: text),
-                contentHash: "",
+        ingest(pboard, favorite: true)
+    }
+
+    // MARK: - Add to paste stack
+
+    @objc func addToPasteStack(
+        _ pboard: NSPasteboard,
+        userData: String,
+        error: AutoreleasingUnsafeMutablePointer<NSString>
+    ) {
+        ingest(pboard, favorite: false) { item in
+            guard SubscriptionManager.shared.requestAccess(for: .pasteStack) else { return }
+            PasteStackManager.shared.add(item)
+        }
+    }
+
+    // MARK: - Paste from ClipStack
+
+    /// Returns a clip to the requesting app. Opens the palette so the user picks
+    /// which one, rather than silently inserting whatever happened to be last.
+    @objc func quickPasteFromClipStack(
+        _ pboard: NSPasteboard,
+        userData: String,
+        error: AutoreleasingUnsafeMutablePointer<NSString>
+    ) {
+        QuickPastePanel.shared.show()
+    }
+
+    // MARK: - Ingest
+
+    private func ingest(
+        _ pboard: NSPasteboard,
+        favorite: Bool,
+        then completion: (@MainActor (ClipboardItem) -> Void)? = nil
+    ) {
+        // Respect the same privacy rules as automatic capture.
+        if AppSettings.shared.skipConcealedPasteboard, PasteboardPrivacy.isConcealed(pboard) { return }
+
+        let app = NSWorkspace.shared.frontmostApplication
+        let appName = app?.localizedName
+        let bundleID = app?.bundleIdentifier
+
+        if let image = images(from: pboard).first {
+            Task { @MainActor in
+                guard let clip = await ClipboardMonitor.makeClip(
+                    image: image,
+                    sourceApp: appName,
+                    sourceBundleID: bundleID
+                ) else { return }
+                finish(clip, favorite: favorite, completion: completion)
+            }
+            return
+        }
+
+        guard let text = text(from: pboard) else { return }
+        Task { @MainActor in
+            guard let clip = await ClipboardMonitor.makeClip(
                 text: text,
-                sourceApp: NSWorkspace.shared.frontmostApplication?.localizedName,
-                sourceAppBundleId: NSWorkspace.shared.frontmostApplication?.bundleIdentifier
-            )
-            item.isFavorite = true
-            ClipboardMonitor.sharedSave(item: item)
+                sourceApp: appName,
+                sourceBundleID: bundleID
+            ) else { return }
+            finish(clip, favorite: favorite, completion: completion)
         }
     }
 
-    // MARK: - Helpers
-
-    private func saveFileToClipStack(url: URL) {
-        let fileName = url.lastPathComponent
-        let fileExtension = url.pathExtension.lowercased()
-
-        if let textContent = try? String(contentsOf: url, encoding: .utf8) {
-            let item = ClipboardItem(
-                contentType: .text,
-                contentHash: "",
-                text: "[\(fileName)]\n\(textContent)",
-                sourceApp: "Finder",
-                sourceAppBundleId: "com.apple.finder"
-            )
-            ClipboardMonitor.sharedSave(item: item)
-        } else if ["png", "jpg", "jpeg", "gif", "tiff", "bmp", "webp", "heic"].contains(fileExtension),
-                  let imageData = try? Data(contentsOf: url),
-                  let image = NSImage(data: imageData) {
-            let item = ClipboardItem(
-                contentType: .image,
-                contentHash: "",
-                imageData: imageData,
-                sourceApp: "Finder",
-                sourceAppBundleId: "com.apple.finder"
-            )
-            item.imageThumbnail = generateThumbnail(from: image)
-            ClipboardMonitor.sharedSave(item: item)
-        } else {
-            let item = ClipboardItem(
-                contentType: .url,
-                contentHash: "",
-                text: url.path,
-                sourceApp: "Finder",
-                sourceAppBundleId: "com.apple.finder"
-            )
-            item.url = url.absoluteString
-            ClipboardMonitor.sharedSave(item: item)
+    private func finish(
+        _ clip: CapturedClip,
+        favorite: Bool,
+        completion: (@MainActor (ClipboardItem) -> Void)?
+    ) {
+        guard let item = ClipboardStore.shared.insert(clip) else { return }
+        if favorite && !item.isFavorite {
+            ClipboardStore.shared.toggleFavorite(item)
         }
+        completion?(item)
     }
 
-    private func generateThumbnail(from image: NSImage) -> Data? {
-        let maxSize: CGFloat = 200
-        let aspectRatio = image.size.width / max(image.size.height, 1)
-        let newSize = CGSize(
-            width: min(maxSize, image.size.width),
-            height: min(maxSize / aspectRatio, image.size.height)
-        )
-        guard let bitmapRep = NSBitmapImageRep(
-            bitmapDataPlanes: nil,
-            pixelsWide: Int(newSize.width),
-            pixelsHigh: Int(newSize.height),
-            bitsPerSample: 8,
-            samplesPerPixel: 4,
-            hasAlpha: true,
-            isPlanar: false,
-            colorSpaceName: .deviceRGB,
-            bytesPerRow: 0,
-            bitsPerPixel: 0
-        ) else { return nil }
-        NSGraphicsContext.saveGraphicsState()
-        NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: bitmapRep)
-        image.draw(in: NSRect(origin: .zero, size: newSize))
-        NSGraphicsContext.restoreGraphicsState()
-        return bitmapRep.representation(using: .png, properties: [:])
+    // MARK: - Pasteboard reading
+
+    private func text(from pboard: NSPasteboard) -> String? {
+        if let string = pboard.string(forType: .string),
+           !string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            return string
+        }
+        if let rtf = pboard.data(forType: .rtf),
+           let attributed = NSAttributedString(rtf: rtf, documentAttributes: nil),
+           !attributed.string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            return attributed.string
+        }
+        // Files handed to us by the user through Services: the sandbox grants
+        // access to exactly these, so we record their paths and read images.
+        if let urls = pboard.readObjects(forClasses: [NSURL.self],
+                                         options: [.urlReadingFileURLsOnly: true]) as? [URL],
+           !urls.isEmpty {
+            return urls.map(\.path).joined(separator: "\n")
+        }
+        return nil
+    }
+
+    private func images(from pboard: NSPasteboard) -> [NSImage] {
+        if let data = pboard.data(forType: .png) ?? pboard.data(forType: .tiff),
+           let image = NSImage(data: data) {
+            return [image]
+        }
+        if let urls = pboard.readObjects(forClasses: [NSURL.self],
+                                         options: [.urlReadingFileURLsOnly: true]) as? [URL] {
+            let imageTypes: Set<String> = ["png", "jpg", "jpeg", "gif", "tiff", "heic", "bmp", "webp"]
+            return urls
+                .filter { imageTypes.contains($0.pathExtension.lowercased()) }
+                .compactMap { NSImage(contentsOf: $0) }
+        }
+        return []
     }
 }

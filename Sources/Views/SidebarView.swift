@@ -1,247 +1,109 @@
 import SwiftUI
-import SwiftData
 
 struct SidebarView: View {
-    @Binding var selectedItem: SidebarItem
-    var pinboards: [Pinboard] = []
-    @State private var showNewPinboard = false
+    @Binding var selection: SidebarSection
+
+    @Environment(ClipboardStore.self) private var store
+    @Environment(SubscriptionManager.self) private var subscriptions
+
+    @State private var isCreatingPinboard = false
     @State private var newPinboardName = ""
-    @State private var showPaywall = false
-    let subscription = SubscriptionManager.shared
 
     var body: some View {
-        VStack(spacing: 0) {
-            // Logo
-            HStack(spacing: 12) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 14)
-                        .fill(
-                            LinearGradient(colors: [Color(hex: "1a1a2e"), Color(hex: "16213e")], startPoint: .topLeading, endPoint: .bottomTrailing)
-                        )
-                        .frame(width: 38, height: 38)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 14)
-                                .stroke(LinearGradient(colors: [.white.opacity(0.1), .white.opacity(0.05)], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 1)
-                        )
-                    Image(systemName: "doc.on.clipboard.fill")
-                        .font(.system(size: 16, weight: .medium))
-                        .foregroundColor(.white)
-                }
-                VStack(alignment: .leading, spacing: 1) {
-                    Text("ClipStack")
-                        .font(.system(size: 17, weight: .semibold, design: .rounded))
-                    Text("Clipboard Manager")
-                        .font(.system(size: 9, weight: .medium, design: .rounded))
-                        .foregroundColor(.secondary)
-                }
-                Spacer()
-            }
-            .padding(.horizontal, 18)
-            .padding(.top, 20)
+        List(selection: $selection) {
+            Section("Library") {
+                Label("History", systemImage: "clock")
+                    .badge(store.items.count)
+                    .tag(SidebarSection.history)
 
-            // Free plan badge
-            if !subscription.isPro {
-                HStack(spacing: 10) {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(LinearGradient(colors: [Color(hex: "f59e0b"), Color(hex: "d97706")], startPoint: .topLeading, endPoint: .bottomTrailing))
-                            .frame(width: 28, height: 28)
-                        Image(systemName: "sparkles")
-                            .font(.system(size: 12, weight: .semibold))
-                            .foregroundColor(.white)
-                    }
-                    VStack(alignment: .leading, spacing: 1) {
-                        Text("Free Plan")
-                            .font(.system(size: 11, weight: .semibold, design: .rounded))
-                        Text("100 items max")
-                            .font(.system(size: 9, weight: .medium, design: .rounded))
-                            .foregroundColor(.secondary)
-                    }
+                Label("Favourites", systemImage: "star")
+                    .badge(store.items.count(where: \.isFavorite))
+                    .tag(SidebarSection.favorites)
+
+                Label("Paste Stack", systemImage: "square.stack")
+                    .badge(PasteStackManager.shared.stackItems.count)
+                    .tag(SidebarSection.pasteStack)
+            }
+
+            Section {
+                ForEach(store.pinboards) { board in
+                    Label(board.name, systemImage: board.icon)
+                        .badge(board.items.count)
+                        .tag(SidebarSection.pinboard(board.id))
+                        .contextMenu {
+                            Button("Delete Pinboard", role: .destructive) {
+                                store.deletePinboard(board)
+                            }
+                        }
+                }
+            } header: {
+                HStack {
+                    Text("Pinboards")
                     Spacer()
+                    Button {
+                        startCreatingPinboard()
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                    .buttonStyle(.plain)
+                    .help("New pinboard")
                 }
-                .padding(12)
-                .background(
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(Color(nsColor: .controlBackgroundColor).opacity(0.6))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.secondary.opacity(0.08), lineWidth: 1)
-                        )
-                )
-                .padding(.horizontal, 14)
-                .padding(.top, 16)
             }
 
-            // Navigation
-            List(selection: $selectedItem) {
-                Section {
-                    sidebarRow(icon: "clock", title: "History", color: Color(hex: "3b82f6"), isSelected: selectedItem == .history)
-                        .tag(SidebarItem.history)
-                    sidebarRow(icon: "star", title: "Favorites", color: Color(hex: "f59e0b"), isSelected: selectedItem == .favorites)
-                        .tag(SidebarItem.favorites)
-                    sidebarRow(icon: "square.stack", title: "Paste Stack", color: Color(hex: "8b5cf6"), isSelected: selectedItem == .pasteStack)
-                        .tag(SidebarItem.pasteStack)
-                }
-
-                Section("Pinboards") {
-                    ForEach(pinboards) { pinboard in
-                        sidebarRow(icon: pinboard.icon, title: pinboard.name, color: Color(hex: pinboard.color), isSelected: false, count: pinboard.items.count)
-                            .tag(SidebarItem.pinboard(pinboard.id, pinboard.name))
-                    }
-                    Button(action: { if subscription.isPro || pinboards.count < 1 { showNewPinboard = true } else { showPaywall = true } }) {
-                        HStack(spacing: 8) {
-                            Image(systemName: "plus.circle.fill")
-                                .font(.system(size: 14, weight: .medium))
-                                .foregroundColor(Color(hex: "3b82f6"))
-                            Text("New Pinboard")
-                                .font(.system(size: 12, weight: .medium, design: .rounded))
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                }
-
-                Section {
-                    sidebarRow(icon: "chart.line.uptrend.xyaxis", title: "Statistics", color: Color(hex: "10b981"), isSelected: selectedItem == .statistics)
-                        .tag(SidebarItem.statistics)
-                    sidebarRow(icon: "paintbrush.pointed", title: "Themes", color: Color(hex: "f43f5e"), isSelected: selectedItem == .themes)
-                        .tag(SidebarItem.themes)
-                }
-            }
-            .listStyle(.sidebar)
-
-            Spacer()
-
-            // Upgrade button
-            if !subscription.isPro {
-                Button(action: { showPaywall = true }) {
-                    HStack(spacing: 10) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(LinearGradient(colors: [.white.opacity(0.2), .white.opacity(0.05)], startPoint: .top, endPoint: .bottom))
-                                .frame(width: 28, height: 28)
-                            Image(systemName: "crown.fill")
-                                .font(.system(size: 12, weight: .semibold))
-                                .foregroundColor(.white)
-                        }
-                        VStack(alignment: .leading, spacing: 1) {
-                            Text("Upgrade to Pro")
-                                .font(.system(size: 12, weight: .semibold, design: .rounded))
-                            Text("Unlimited everything")
-                                .font(.system(size: 9, weight: .medium, design: .rounded))
-                                .opacity(0.7)
-                        }
-                        Spacer()
-                        Image(systemName: "arrow.up.right")
-                            .font(.system(size: 10, weight: .bold))
-                            .opacity(0.5)
-                    }
-                    .foregroundColor(.white)
-                    .padding(12)
-                    .background(
-                        LinearGradient(colors: [Color(hex: "1a1a2e"), Color(hex: "0f172a")], startPoint: .leading, endPoint: .trailing)
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(LinearGradient(colors: [.white.opacity(0.1), .white.opacity(0.05)], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 1)
-                    )
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                    .shadow(color: .black.opacity(0.3), radius: 12, y: 6)
-                }
-                .buttonStyle(.plain)
-                .padding(14)
+            Section("Insights") {
+                Label("Statistics", systemImage: "chart.bar")
+                    .tag(SidebarSection.statistics)
             }
         }
-        .frame(width: 250)
-        .sheet(isPresented: $showNewPinboard) { newPinboardSheet }
-        .sheet(isPresented: $showPaywall) { PaywallView() }
-    }
-
-    private func sidebarRow(icon: String, title: String, color: Color, isSelected: Bool, count: Int? = nil) -> some View {
-        HStack(spacing: 10) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 7)
-                    .fill(isSelected ? color.opacity(0.15) : Color.clear)
-                    .frame(width: 26, height: 26)
-                Image(systemName: icon)
-                    .font(.system(size: 12, weight: .medium))
-                    .foregroundColor(isSelected ? color : .secondary)
-            }
-
-            Text(title)
-                .font(.system(size: 13, weight: isSelected ? .semibold : .regular, design: .rounded))
-                .foregroundColor(isSelected ? .primary : .secondary)
-
-            Spacer()
-
-            if let count {
-                Text("\(count)")
-                    .font(.system(size: 10, weight: .semibold, design: .monospaced))
-                    .foregroundColor(.secondary)
-                    .padding(.horizontal, 6)
-                    .padding(.vertical, 3)
-                    .background(Color.secondary.opacity(0.08))
-                    .clipShape(Capsule())
-            }
-        }
-        .padding(.vertical, 5)
-        .padding(.horizontal, 8)
-        .background(
-            RoundedRectangle(cornerRadius: 8)
-                .fill(isSelected ? Color(nsColor: .controlBackgroundColor) : Color.clear)
-        )
-    }
-
-    private var newPinboardSheet: some View {
-        VStack(spacing: 20) {
-            HStack {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(LinearGradient(colors: [Color(hex: "3b82f6"), Color(hex: "8b5cf6")], startPoint: .topLeading, endPoint: .bottomTrailing))
-                        .frame(width: 32, height: 32)
-                    Image(systemName: "pin.fill")
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundColor(.white)
-                }
-                Text("New Pinboard")
-                    .font(.system(size: 16, weight: .semibold, design: .rounded))
-            }
+        .listStyle(.sidebar)
+        .safeAreaInset(edge: .bottom) { statusFooter }
+        .alert("New Pinboard", isPresented: $isCreatingPinboard) {
             TextField("Name", text: $newPinboardName)
-                .textFieldStyle(.roundedBorder)
-                .font(.system(size: 14, design: .rounded))
-                .frame(width: 280)
-            HStack(spacing: 12) {
-                Button("Cancel") { showNewPinboard = false }
-                    .keyboardShortcut(.cancelAction)
-                Button("Create") {
-                    if let container = try? ModelContainer(for: Pinboard.self) {
-                        let context = ModelContext(container)
-                        let pb = Pinboard(name: newPinboardName)
-                        context.insert(pb)
-                        try? context.save()
-                    }
-                    newPinboardName = ""
-                    showNewPinboard = false
-                }
-                .keyboardShortcut(.defaultAction)
-                .disabled(newPinboardName.isEmpty)
+            Button("Create") {
+                let name = newPinboardName.trimmingCharacters(in: .whitespacesAndNewlines)
+                guard !name.isEmpty else { return }
+                store.createPinboard(name: name)
+                newPinboardName = ""
             }
+            Button("Cancel", role: .cancel) { newPinboardName = "" }
         }
-        .padding(28)
-        .frame(width: 360)
     }
-}
 
-extension Color {
-    init(hex: String) {
-        let hex = hex.trimmingCharacters(in: .alphanumerics.inverted)
-        var int: UInt64 = 0
-        Scanner(string: hex).scanHexInt64(&int)
-        let a, r, g, b: UInt64
-        switch hex.count {
-        case 3: (a,r,g,b) = (255,(int>>8)*17,(int>>4&0xF)*17,(int&0xF)*17)
-        case 6: (a,r,g,b) = (255,int>>16,int>>8&0xFF,int&0xFF)
-        default: (a,r,g,b) = (255,0,0,0)
+    private func startCreatingPinboard() {
+        let limit = subscriptions.pinboardLimit
+        if limit >= 0 && store.pinboards.count >= limit {
+            subscriptions.requestAccess(for: .unlimitedPinboards)
+            return
         }
-        self.init(.sRGB, red: Double(r)/255, green: Double(g)/255, blue: Double(b)/255, opacity: Double(a)/255)
+        isCreatingPinboard = true
+    }
+
+    /// Free-tier users should always know where they stand, without a modal.
+    @ViewBuilder
+    private var statusFooter: some View {
+        if !subscriptions.isPro {
+            let limit = SubscriptionTier.free.maxItems
+            VStack(alignment: .leading, spacing: 5) {
+                Divider()
+                HStack {
+                    Text("Free plan")
+                        .font(.caption.weight(.medium))
+                    Spacer()
+                    Text("\(min(store.items.count, limit))/\(limit)")
+                        .font(.caption.monospacedDigit())
+                        .foregroundStyle(.secondary)
+                }
+                ProgressView(value: Double(min(store.items.count, limit)), total: Double(limit))
+                    .progressViewStyle(.linear)
+                Text("Older clips are removed once you reach the limit.")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                Button("See ClipStack Pro") { subscriptions.showingPaywall = true }
+                    .buttonStyle(.link)
+                    .font(.caption)
+            }
+            .padding(.horizontal, 10)
+            .padding(.bottom, 8)
+        }
     }
 }

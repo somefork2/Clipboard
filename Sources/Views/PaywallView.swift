@@ -1,225 +1,285 @@
+import StoreKit
 import SwiftUI
 
+/// The subscription screen.
+///
+/// Everything shown here comes from StoreKit: price, currency, billing period
+/// and whether an introductory free trial actually exists. App Review requires
+/// the period, the price per period, a restore control and links to the privacy
+/// policy and terms — all present below.
 struct PaywallView: View {
     @Environment(\.dismiss) private var dismiss
-    let manager = SubscriptionManager.shared
-    @State private var selectedPlan = "annual"
-    @State private var showFeatures = false
+    @Environment(SubscriptionManager.self) private var manager
+
+    @State private var selectedProductID = SubscriptionManager.annualID
 
     var body: some View {
         VStack(spacing: 0) {
-            // Header with close button
-            VStack(spacing: 16) {
-                HStack {
-                    Spacer()
-                    Button(action: { dismiss() }) {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.title2)
-                            .foregroundColor(.secondary)
-                    }
-                    .buttonStyle(.plain)
-                }
-
-                ZStack {
-                    Circle()
-                        .fill(LinearGradient(colors: [.yellow.opacity(0.2), .orange.opacity(0.1)], startPoint: .topLeading, endPoint: .bottomTrailing))
-                        .frame(width: 100, height: 100)
-                    Circle()
-                        .stroke(LinearGradient(colors: [.yellow, .orange], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2)
-                        .frame(width: 100, height: 100)
-                    Image(systemName: "crown.fill")
-                        .font(.system(size: 42, weight: .semibold))
-                        .foregroundStyle(LinearGradient(colors: [.yellow, .orange], startPoint: .topLeading, endPoint: .bottomTrailing))
-                        .shadow(color: .orange.opacity(0.4), radius: 12)
-                }
-
-                VStack(spacing: 6) {
-                    Text("Unlock ClipStack Pro")
-                        .font(.system(size: 24, weight: .bold, design: .rounded))
-                    Text("Supercharge your clipboard with AI\nand unlimited power")
-                        .font(.system(size: 13, design: .rounded))
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                }
-            }
-            .padding(.top, 24)
-            .padding(.horizontal, 32)
-
+            header
             Divider()
-                .padding(.vertical, 16)
-
-            // Features
-            ScrollView {
-                VStack(spacing: 10) {
-                    FeatureRow(icon: "infinity", title: "Unlimited History", subtitle: "Save every clip forever", gradient: [.blue, .cyan])
-                    FeatureRow(icon: "brain.head.profile.fill", title: "AI Categorize", subtitle: "Auto-organize your clips", gradient: [.purple, .pink])
-                    FeatureRow(icon: "sparkle.magnifyingglass", title: "Smart Search", subtitle: "Find anything with AI", gradient: [.indigo, .blue])
-                    FeatureRow(icon: "square.stack.fill", title: "Paste Stack", subtitle: "Queue multiple pastes", gradient: [.orange, .yellow])
-                    FeatureRow(icon: "arrow.up.arrow.down", title: "Export / Import", subtitle: "JSON, CSV, Markdown", gradient: [.green, .mint])
-                    FeatureRow(icon: "paintbrush.pointed.fill", title: "Custom Themes", subtitle: "Dark, Light, Neon", gradient: [.pink, .red])
-                }
-                .padding(.horizontal, 24)
-            }
-
+            featureList
             Divider()
-                .padding(.top, 16)
+            plans
+            purchaseControls
+        }
+        .frame(width: 460, height: 660)
+        .task {
+            if manager.products.isEmpty { await manager.loadProducts() }
+        }
+    }
 
-            // Pricing
-            VStack(spacing: 16) {
-                HStack(spacing: 16) {
-                    PriceCard(
-                        title: "Monthly",
-                        price: "$2.99",
-                        period: "/month",
-                        isSelected: selectedPlan == "monthly"
-                    ) {
-                        withAnimation(.spring(response: 0.3)) { selectedPlan = "monthly" }
-                    }
+    // MARK: - Header
 
-                    PriceCard(
-                        title: "Annual",
-                        price: "$24.99",
-                        period: "/year",
-                        badge: "Save 30%",
-                        isSelected: selectedPlan == "annual"
-                    ) {
-                        withAnimation(.spring(response: 0.3)) { selectedPlan = "annual" }
+    private var header: some View {
+        VStack(spacing: 8) {
+            HStack {
+                Spacer()
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                        .foregroundStyle(.secondary)
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Close")
+            }
+
+            Image(systemName: "clipboard")
+                .font(.system(size: 34))
+                .symbolRenderingMode(.hierarchical)
+                .foregroundStyle(Theme.accent)
+
+            Text("ClipStack Pro")
+                .font(.title2.weight(.semibold))
+
+            Text("Everything in ClipStack, without the free-tier limits.")
+                .font(.callout)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+        }
+        .padding(.horizontal, 24)
+        .padding(.top, 16)
+        .padding(.bottom, 16)
+    }
+
+    // MARK: - Features
+
+    private var featureList: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 12) {
+                ForEach(PremiumFeature.allCases) { feature in
+                    HStack(alignment: .top, spacing: 10) {
+                        Image(systemName: feature.icon)
+                            .symbolRenderingMode(.hierarchical)
+                            .foregroundStyle(Theme.accent)
+                            .frame(width: 20)
+                        VStack(alignment: .leading, spacing: 1) {
+                            Text(feature.title)
+                                .font(.callout.weight(.medium))
+                            Text(feature.summary)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                        Spacer(minLength: 0)
                     }
                 }
             }
-            .padding(.horizontal, 32)
+            .padding(.horizontal, 24)
             .padding(.vertical, 16)
-
-            // Subscribe button
-            VStack(spacing: 12) {
-                Button(action: { manager.subscribe(); dismiss() }) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "crown.fill")
-                            .font(.system(size: 14, weight: .semibold))
-                        Text("Start 7-Day Free Trial")
-                            .font(.system(size: 15, weight: .semibold, design: .rounded))
-                    }
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 14)
-                    .background(
-                        LinearGradient(colors: [.indigo, .purple], startPoint: .leading, endPoint: .trailing)
-                    )
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                    .shadow(color: .indigo.opacity(0.4), radius: 10, y: 5)
-                }
-                .buttonStyle(.plain)
-
-                Button(action: { manager.subscribe(); dismiss() }) {
-                    Text("Subscribe Now — \(selectedPlan == "monthly" ? "$2.99/month" : "$24.99/year")")
-                        .font(.system(size: 13, weight: .medium, design: .rounded))
-                        .foregroundColor(.indigo)
-                }
-                .buttonStyle(.plain)
-
-                Text("Cancel anytime. No questions asked.")
-                    .font(.system(size: 10, design: .rounded))
-                    .foregroundColor(.secondary)
-            }
-            .padding(.horizontal, 32)
-            .padding(.bottom, 24)
         }
-        .frame(width: 480, height: 680)
-        .background(
-            LinearGradient(colors: [Color(nsColor: .windowBackgroundColor)], startPoint: .top, endPoint: .bottom)
-        )
     }
-}
 
-struct FeatureRow: View {
-    let icon: String
-    let title: String
-    let subtitle: String
-    let gradient: [Color]
+    // MARK: - Plans
 
-    var body: some View {
-        HStack(spacing: 14) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(LinearGradient(colors: gradient, startPoint: .topLeading, endPoint: .bottomTrailing))
-                    .frame(width: 38, height: 38)
-                Image(systemName: icon)
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.white)
-            }
-
-            VStack(alignment: .leading, spacing: 2) {
-                Text(title)
-                    .font(.system(size: 13, weight: .semibold, design: .rounded))
-                Text(subtitle)
-                    .font(.system(size: 11, design: .rounded))
-                    .foregroundColor(.secondary)
-            }
-
-            Spacer()
-
-            Image(systemName: "checkmark.circle.fill")
-                .foregroundColor(.green)
-                .font(.system(size: 18))
-        }
-        .padding(12)
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color(nsColor: .controlBackgroundColor).opacity(0.5))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.secondary.opacity(0.1), lineWidth: 0.5)
-                )
-        )
-    }
-}
-
-struct PriceCard: View {
-    let title: String
-    let price: String
-    let period: String
-    var badge: String? = nil
-    let isSelected: Bool
-    var action: (() -> Void)? = nil
-
-    var body: some View {
-        Button(action: { action?() }) {
+    @ViewBuilder
+    private var plans: some View {
+        if manager.isLoadingProducts {
+            ProgressView()
+                .padding(24)
+        } else if manager.products.isEmpty {
             VStack(spacing: 8) {
-                if let badge {
-                    Text(badge)
-                        .font(.system(size: 10, weight: .bold, design: .rounded))
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 10).padding(.vertical, 4)
-                        .background(
-                            LinearGradient(colors: [.green, .mint], startPoint: .leading, endPoint: .trailing)
-                        )
-                        .clipShape(Capsule())
+                Text(manager.lastError ?? "Plans are unavailable right now.")
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                Button("Try Again") {
+                    Task { await manager.loadProducts() }
+                }
+            }
+            .padding(24)
+        } else {
+            HStack(spacing: 12) {
+                ForEach(manager.products, id: \.id) { product in
+                    PlanCard(
+                        product: product,
+                        introOffer: manager.introductoryOffer(for: product.id),
+                        savingsBadge: product.id == SubscriptionManager.annualID
+                            ? manager.annualSavingsPercent.map { "Save \($0)%" }
+                            : nil,
+                        isSelected: selectedProductID == product.id
+                    ) {
+                        selectedProductID = product.id
+                    }
+                }
+            }
+            .padding(.horizontal, 24)
+            .padding(.top, 16)
+        }
+    }
+
+    // MARK: - Purchase
+
+    private var purchaseControls: some View {
+        VStack(spacing: 10) {
+            Button {
+                Task { await manager.purchase(selectedProductID) }
+            } label: {
+                Group {
+                    if manager.purchaseInFlight {
+                        ProgressView().controlSize(.small)
+                    } else {
+                        Text(primaryButtonTitle)
+                    }
+                }
+                .frame(maxWidth: .infinity)
+            }
+            .controlSize(.large)
+            .buttonStyle(.borderedProminent)
+            .disabled(manager.products.isEmpty || manager.purchaseInFlight)
+
+            // Required by App Review: restoring must always be possible.
+            Button("Restore Purchases") {
+                Task { await manager.restorePurchases() }
+            }
+            .buttonStyle(.link)
+            .disabled(manager.purchaseInFlight)
+
+            if let error = manager.lastError, !manager.products.isEmpty {
+                Text(error)
+                    .font(.caption)
+                    .foregroundStyle(.red)
+                    .multilineTextAlignment(.center)
+            }
+
+            Text(renewalDisclosure)
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
+
+            HStack(spacing: 10) {
+                Link("Privacy Policy", destination: LegalLinks.privacyPolicy)
+                Text("·").foregroundStyle(.secondary)
+                Link("Terms of Use", destination: LegalLinks.termsOfUse)
+                Text("·").foregroundStyle(.secondary)
+                Button("Manage Subscription") { manager.showManageSubscriptions() }
+                    .buttonStyle(.link)
+            }
+            .font(.caption2)
+        }
+        .padding(.horizontal, 24)
+        .padding(.vertical, 16)
+    }
+
+    private var primaryButtonTitle: String {
+        guard let product = manager.product(for: selectedProductID) else { return "Subscribe" }
+        if let trial = manager.introductoryOffer(for: product.id) {
+            return "Start \(trial), then \(product.displayPrice)/\(periodName(product))"
+        }
+        return "Subscribe — \(product.displayPrice)/\(periodName(product))"
+    }
+
+    /// Plain-language renewal terms, stated on the purchase screen itself.
+    private var renewalDisclosure: String {
+        guard let product = manager.product(for: selectedProductID) else {
+            return "Subscriptions renew automatically until cancelled."
+        }
+        let period = periodName(product)
+        let trialSentence = manager.introductoryOffer(for: product.id).map {
+            " The \($0) trial converts to a paid subscription unless cancelled at least 24 hours before it ends."
+        } ?? ""
+        return "\(product.displayPrice) per \(period), billed through your Apple Account and renewed automatically until cancelled.\(trialSentence) Manage or cancel in App Store ▸ Subscriptions."
+    }
+
+    private func periodName(_ product: Product) -> String {
+        guard let unit = product.subscription?.subscriptionPeriod.unit else { return "period" }
+        switch unit {
+        case .day: return "day"
+        case .week: return "week"
+        case .month: return "month"
+        case .year: return "year"
+        @unknown default: return "period"
+        }
+    }
+}
+
+struct PlanCard: View {
+    let product: Product
+    let introOffer: String?
+    let savingsBadge: String?
+    let isSelected: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            VStack(spacing: 5) {
+                if let savingsBadge {
+                    Text(savingsBadge)
+                        .font(.caption2.weight(.semibold))
+                        .padding(.horizontal, 7)
+                        .padding(.vertical, 2)
+                        .background(Theme.accent.opacity(0.15), in: Capsule())
                 }
 
-                Text(title)
-                    .font(.system(size: 13, weight: .medium, design: .rounded))
-                    .foregroundColor(.secondary)
+                Text(product.displayName)
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
 
-                HStack(alignment: .firstTextBaseline, spacing: 2) {
-                    Text(price)
-                        .font(.system(size: 30, weight: .bold, design: .rounded))
-                    Text(period)
-                        .font(.system(size: 12, design: .rounded))
-                        .foregroundColor(.secondary)
+                Text(product.displayPrice)
+                    .font(.title.weight(.semibold))
+
+                Text(periodLabel)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+
+                if let introOffer {
+                    Text(introOffer)
+                        .font(.caption2)
+                        .foregroundStyle(Theme.accent)
                 }
             }
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 18)
+            .padding(.vertical, 14)
             .background(
-                RoundedRectangle(cornerRadius: 14)
-                    .fill(isSelected ? Color.indigo.opacity(0.1) : Color(nsColor: .controlBackgroundColor))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 14)
-                            .stroke(isSelected ? Color.indigo : Color.secondary.opacity(0.2), lineWidth: isSelected ? 2 : 1)
-                    )
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(isSelected ? Theme.accent.opacity(0.08) : Theme.secondaryBackground)
             )
-            .shadow(color: isSelected ? .indigo.opacity(0.2) : .clear, radius: 8, y: 4)
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(isSelected ? Theme.accent : Theme.separator, lineWidth: isSelected ? 1.5 : 0.5)
+            )
         }
         .buttonStyle(.plain)
+        .accessibilityAddTraits(isSelected ? [.isSelected] : [])
     }
+
+    private var periodLabel: String {
+        guard let unit = product.subscription?.subscriptionPeriod.unit else { return "" }
+        switch unit {
+        case .day: return "per day"
+        case .week: return "per week"
+        case .month: return "per month"
+        case .year: return "per year"
+        @unknown default: return ""
+        }
+    }
+}
+
+/// Both links are mandatory on the subscription screen and in App Store Connect.
+/// Replace the hosts with your own before submitting.
+enum LegalLinks {
+    static let privacyPolicy = URL(string: "https://clipstack.app/privacy")!
+    static let termsOfUse = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!
+    static let support = URL(string: "https://clipstack.app/support")!
 }

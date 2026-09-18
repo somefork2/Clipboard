@@ -1,42 +1,151 @@
 import Foundation
+import UniformTypeIdentifiers
 
-struct ExportManager {
-    static func exportToJSON(items: [ClipboardItem]) -> Data? {
-        let exportData = items.map { item in
-            ["id": item.id.uuidString, "text": item.text ?? "", "url": item.url ?? "",
-             "type": item.contentType, "source": item.sourceApp ?? "",
-             "date": ISO8601DateFormatter().string(from: item.createdAt)]
+enum ExportFormat: String, CaseIterable, Identifiable {
+    case json, csv, markdown, html
+
+    var id: String { rawValue }
+
+    var fileExtension: String {
+        switch self {
+        case .json: return "json"
+        case .csv: return "csv"
+        case .markdown: return "md"
+        case .html: return "html"
         }
-        return try? JSONSerialization.data(withJSONObject: exportData, options: .prettyPrinted)
     }
 
-    static func exportToCSV(items: [ClipboardItem]) -> String {
-        var csv = "ID,Text,URL,Type,Source,Date\n"
-        for item in items {
-            let text = (item.text ?? "").replacingOccurrences(of: "\"", with: "\"\"")
-            csv += "\"\(item.id.uuidString)\",\"\(text)\",\"\(item.url ?? "")\",\"\(item.contentType)\",\"\(item.sourceApp ?? "")\",\"\(ISO8601DateFormatter().string(from: item.createdAt))\"\n"
+    var contentType: UTType {
+        switch self {
+        case .json: return .json
+        case .csv: return .commaSeparatedText
+        case .markdown: return UTType(filenameExtension: "md") ?? .plainText
+        case .html: return .html
         }
-        return csv
+    }
+}
+
+enum ExportManager {
+    /// Exports history in the requested format.
+    ///
+    /// Clips marked sensitive are deliberately left out: an export is a plain
+    /// file the user may email or sync, and decrypting secrets into it would
+    /// defeat the point of encrypting them.
+    static func export(items: [ClipboardItem], format: ExportFormat) -> Data? {
+        let exportable = items.filter { !$0.isSensitive }
+        switch format {
+        case .json: return json(exportable)
+        case .csv: return csv(exportable).data(using: .utf8)
+        case .markdown: return markdown(exportable).data(using: .utf8)
+        case .html: return html(exportable).data(using: .utf8)
+        }
     }
 
-    static func exportToMarkdown(items: [ClipboardItem]) -> String {
-        var md = "# ClipStack Export\n\nExported: \(Date().formatted())\n\n---\n\n"
-        for item in items {
-            md += "## \(item.displayTitle)\n\n- **Type:** \(item.contentType)\n- **Source:** \(item.sourceApp ?? "Unknown")\n- **Date:** \(item.createdAt.formatted())\n\n"
-            if let text = item.text { md += "```\n\(text)\n```\n\n" }
-            else if let url = item.url { md += "Link: \(url)\n\n" }
-            md += "---\n\n"
+    /// `ISO8601DateFormatter` is thread-safe for formatting; we only ever read from it.
+    nonisolated(unsafe) private static let dateFormatter = ISO8601DateFormatter()
+
+    private static func json(_ items: [ClipboardItem]) -> Data? {
+        let payload: [[String: Any]] = items.map { item in
+            [
+                "id": item.id.uuidString,
+                "type": item.contentType,
+                "title": item.displayTitle,
+                "text": item.body ?? "",
+                "url": item.url ?? "",
+                "extractedText": item.extractedText ?? "",
+                "source": item.sourceApp ?? "",
+                "category": item.category,
+                "tags": item.tags,
+                "favorite": item.isFavorite,
+                "createdAt": dateFormatter.string(from: item.createdAt)
+            ]
         }
-        return md
+        return try? JSONSerialization.data(withJSONObject: payload, options: [.prettyPrinted, .sortedKeys])
     }
 
-    static func exportToHTML(items: [ClipboardItem]) -> String {
-        var html = "<!DOCTYPE html><html><head><title>ClipStack Export</title><style>body{font-family:-apple-system,sans-serif;max-width:800px;margin:0 auto;padding:20px}.item{border:1px solid #ddd;border-radius:8px;padding:16px;margin:12px 0}</style></head><body><h1>📋 ClipStack Export</h1>"
+    private static func csv(_ items: [ClipboardItem]) -> String {
+        var rows = ["ID,Type,Text,URL,Source,Category,Tags,Favourite,Date"]
         for item in items {
-            html += "<div class=\"item\"><h3>\(item.displayTitle)</h3><p>\(item.contentType) • \(item.sourceApp ?? "Unknown")</p>"
-            if let text = item.text { html += "<pre>\(text)</pre>" }
-            html += "</div>"
+            let fields = [
+                item.id.uuidString,
+                item.contentType,
+                item.body ?? "",
+                item.url ?? "",
+                item.sourceApp ?? "",
+                item.category,
+                item.tags.joined(separator: " "),
+                item.isFavorite ? "yes" : "no",
+                dateFormatter.string(from: item.createdAt)
+            ]
+            rows.append(fields.map(escapeCSV).joined(separator: ","))
         }
-        return html + "</body></html>"
+        return rows.joined(separator: "\n") + "\n"
+    }
+
+    /// Quotes a CSV field and doubles embedded quotes, so text containing commas,
+    /// quotes or newlines survives a round trip through a spreadsheet.
+    private static func escapeCSV(_ value: String) -> String {
+        "\"" + value.replacingOccurrences(of: "\"", with: "\"\"") + "\""
+    }
+
+    private static func markdown(_ items: [ClipboardItem]) -> String {
+        var output = "# ClipStack Export\n\nExported \(Date().formatted(date: .long, time: .shortened))\n\n"
+        for item in items {
+            output += "## \(item.displayTitle)\n\n"
+            output += "- Type: \(item.type.displayName)\n"
+            output += "- Source: \(item.sourceApp ?? "Unknown")\n"
+            output += "- Date: \(item.createdAt.formatted(date: .abbreviated, time: .shortened))\n"
+            if !item.tags.isEmpty { output += "- Tags: \(item.tags.joined(separator: ", "))\n" }
+            output += "\n"
+            if let body = item.body, !body.isEmpty {
+                output += "```\n\(body)\n```\n\n"
+            } else if let url = item.url {
+                output += "<\(url)>\n\n"
+            }
+            output += "---\n\n"
+        }
+        return output
+    }
+
+    private static func html(_ items: [ClipboardItem]) -> String {
+        var output = """
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="utf-8">
+        <title>ClipStack Export</title>
+        <style>
+          :root { color-scheme: light dark; }
+          body { font: 15px/1.5 -apple-system, system-ui, sans-serif; max-width: 760px; margin: 2rem auto; padding: 0 1rem; }
+          .clip { border: 1px solid color-mix(in srgb, currentColor 18%, transparent); border-radius: 8px; padding: 1rem; margin: 0.75rem 0; }
+          .meta { color: color-mix(in srgb, currentColor 55%, transparent); font-size: 0.85em; }
+          pre { white-space: pre-wrap; word-break: break-word; margin: 0.5rem 0 0; }
+        </style>
+        </head>
+        <body>
+        <h1>ClipStack Export</h1>
+        """
+        for item in items {
+            output += "<div class=\"clip\"><strong>\(escapeHTML(item.displayTitle))</strong>"
+            output += "<div class=\"meta\">\(escapeHTML(item.type.displayName)) · \(escapeHTML(item.sourceApp ?? "Unknown")) · \(escapeHTML(item.createdAt.formatted()))</div>"
+            if let body = item.body, !body.isEmpty {
+                output += "<pre>\(escapeHTML(body))</pre>"
+            } else if let url = item.url {
+                output += "<p><a href=\"\(escapeHTML(url))\">\(escapeHTML(url))</a></p>"
+            }
+            output += "</div>"
+        }
+        return output + "\n</body>\n</html>\n"
+    }
+
+    /// Clip text is arbitrary user content and goes straight into markup —
+    /// escaping it is not optional.
+    private static func escapeHTML(_ value: String) -> String {
+        value
+            .replacingOccurrences(of: "&", with: "&amp;")
+            .replacingOccurrences(of: "<", with: "&lt;")
+            .replacingOccurrences(of: ">", with: "&gt;")
+            .replacingOccurrences(of: "\"", with: "&quot;")
+            .replacingOccurrences(of: "'", with: "&#39;")
     }
 }

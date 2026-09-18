@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 struct StatisticsTracker {
     static let shared = StatisticsTracker()
     private let defaults = UserDefaults.standard
@@ -34,6 +35,4 @@ struct StatisticsTracker {
         (defaults.dictionary(forKey: "stats_topApps") as? [String: Int] ?? [:])
             .sorted { $0.value > $1.value }.prefix(limit).map { (app: $0.key, count: $0.value) }
     }
-
-    func getWeeklyStats() -> [Int] { [12, 25, 18, 32, 28, 15, 8] }
 }
