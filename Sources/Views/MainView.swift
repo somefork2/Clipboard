@@ -50,7 +50,7 @@ struct MainView: View {
         .toolbar { toolbar }
         .searchable(text: $searchText, placement: .toolbar, prompt: "Search clips")
         .sheet(isPresented: $showingWelcome) {
-            WelcomeView { showingWelcome = false }
+            SetupWizard { showingWelcome = false }
         }
         .onAppear {
             showingWelcome = !AppSettings.shared.hasCompletedOnboarding
@@ -77,7 +77,11 @@ struct MainView: View {
         .onReceive(NotificationCenter.default.publisher(for: .copyWellRequestClearHistory)) { _ in
             showingClearConfirmation = true
         }
+        .onReceive(NotificationCenter.default.publisher(for: .copyWellRequestSetupWizard)) { _ in
+            showingWelcome = true
+        }
         .overlay(alignment: .top) { conflictBanner }
+        .overlay(alignment: .bottom) { skipNotice }
     }
 
     // MARK: - Detail
@@ -148,6 +152,22 @@ struct MainView: View {
             if !subscriptions.isPro {
                 Button("Upgrade") { subscriptions.showingPaywall = true }
             }
+        }
+    }
+
+    /// A clip that was refused on purpose is announced, because a copy that
+    /// simply never appears looks like a bug.
+    @ViewBuilder
+    private var skipNotice: some View {
+        if PrivacyLog.shared.hasRecentSkip {
+            Label("A clip that looked like a password was not recorded.", systemImage: "lock")
+                .font(.callout)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .background(.regularMaterial, in: Capsule())
+                .overlay(Capsule().stroke(Theme.separator, lineWidth: 0.5))
+                .padding(.bottom, 12)
+                .transition(.move(edge: .bottom).combined(with: .opacity))
         }
     }
 

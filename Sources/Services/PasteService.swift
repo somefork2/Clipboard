@@ -44,6 +44,7 @@ enum PasteService {
     /// leaving the user one ⌘V away.
     static func deliver(_ content: PasteContent, plainText: Bool = false) {
         write(content, plainText: plainText)
+        SoundPlayer.play(.pasted)
         previousApp?.activate()
     }
 

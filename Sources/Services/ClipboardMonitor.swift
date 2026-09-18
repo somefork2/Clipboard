@@ -15,6 +15,7 @@ struct CapturedClip: Sendable {
     var urlTitle: String?
     var imageFileName: String?
     var imageThumbnail: Data?
+    var richTextData: Data?
     var pixelWidth: Int = 0
     var pixelHeight: Int = 0
     var imageByteSize: Int = 0
@@ -89,6 +90,10 @@ final class ClipboardMonitor {
         lastChangeCount = pasteboard.changeCount
 
         let settings = AppSettings.shared
+        // Language, entities and tags are the Pro half of categorisation; type
+        // detection stays free. Read here, on the main actor, before the work
+        // moves to a background task.
+        let analyse = SubscriptionManager.shared.checkAccess(for: .smartCategorize)
 
         // Never record what a password manager marked as secret.
         if settings.skipConcealedPasteboard, PasteboardPrivacy.isConcealed(pasteboard) { return }
@@ -111,7 +116,8 @@ final class ClipboardMonitor {
                 sourceApp: sourceApp,
                 sourceBundleID: sourceBundleID,
                 typeDetector: typeDetector,
-                skipPasswords: settings.skipPasswords
+                skipPasswords: settings.skipPasswords,
+                analyse: analyse
             ) else { return }
 
             await MainActor.run { [weak self] in
@@ -132,7 +138,8 @@ final class ClipboardMonitor {
         sourceApp: String?,
         sourceBundleID: String?,
         typeDetector: TypeDetector,
-        skipPasswords: Bool
+        skipPasswords: Bool,
+        analyse: Bool = true
     ) async -> CapturedClip? {
         // Images first: a copied screenshot also carries a string on some pasteboards.
         if let imageData = snapshot.png ?? snapshot.tiff, let image = NSImage(data: imageData) {
@@ -147,7 +154,7 @@ final class ClipboardMonitor {
 
             var category = "uncategorized"
             var tags: [String] = []
-            if let ocrText {
+            if analyse, let ocrText {
                 let result = await SmartCategorizer.shared.categorize(ocrText)
                 category = result.category.rawValue
                 tags = result.tags
@@ -177,17 +184,27 @@ final class ClipboardMonitor {
             )
         }
 
-        guard let raw = snapshot.string else { return nil }
+        // Prefer the styled version when the source offered one; the plain
+        // string stays alongside it for search and for plain-text pasting.
+        guard let raw = snapshot.string
+            ?? snapshot.rtf.flatMap({ NSAttributedString(rtf: $0, documentAttributes: nil)?.string })
+        else { return nil }
         let trimmed = raw.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return nil }
 
         let detected = typeDetector.detectType(for: trimmed)
-        let analysis = await SmartCategorizer.shared.categorize(trimmed)
-        let sensitive = analysis.isSensitive || detected == .password
+        // Sensitivity is never gated: skipping a password is a safety promise,
+        // not a feature.
+        let analysis = analyse ? await SmartCategorizer.shared.categorize(trimmed) : nil
+        let sensitive = (analysis?.isSensitive ?? false) || detected == .password
 
         // The user asked us not to keep secrets at all — honour that over storing
-        // an encrypted copy.
-        if sensitive && skipPasswords { return nil }
+        // an encrypted copy. It is recorded as a count so the app can say a clip
+        // was skipped instead of appearing broken.
+        if sensitive && skipPasswords {
+            await MainActor.run { PrivacyLog.shared.recordSkip() }
+            return nil
+        }
 
         var url: String?
         var urlTitle: String?
@@ -197,23 +214,24 @@ final class ClipboardMonitor {
         }
 
         return CapturedClip(
-            contentType: sensitive ? .password : detected,
+            contentType: sensitive ? .password : (snapshot.rtf != nil && detected == .text ? .richText : detected),
             contentHash: ContentHasher.hash(text: trimmed, url: url, imageData: nil),
             text: trimmed,
             url: url,
             urlTitle: urlTitle,
             imageFileName: nil,
             imageThumbnail: nil,
+            richTextData: sensitive ? nil : snapshot.rtf,
             extractedText: nil,
             sourceApp: sourceApp,
             sourceAppBundleId: sourceBundleID,
             isSensitive: sensitive,
-            category: analysis.category.rawValue,
-            tags: analysis.tags,
-            detectedLanguage: analysis.language,
-            sentiment: analysis.sentiment,
-            confidence: analysis.confidence,
-            entities: analysis.entities
+            category: analysis?.category.rawValue ?? "uncategorized",
+            tags: analysis?.tags ?? [],
+            detectedLanguage: analysis?.language,
+            sentiment: analysis?.sentiment ?? 0,
+            confidence: analysis?.confidence ?? 0.5,
+            entities: analysis?.entities ?? []
         )
     }
 
@@ -230,7 +248,8 @@ final class ClipboardMonitor {
             sourceApp: sourceApp,
             sourceBundleID: sourceBundleID,
             typeDetector: TypeDetector(),
-            skipPasswords: await AppSettings.shared.skipPasswords
+            skipPasswords: await AppSettings.shared.skipPasswords,
+            analyse: await SubscriptionManager.shared.checkAccess(for: .smartCategorize)
         )
     }
 

@@ -105,6 +105,7 @@ final class ClipboardStore {
         item.setBody(clip.text)
         item.urlTitle = clip.urlTitle
         item.imageThumbnail = clip.imageThumbnail
+        item.richTextData = clip.richTextData
         item.pixelWidth = clip.pixelWidth
         item.pixelHeight = clip.pixelHeight
         item.imageByteSize = clip.imageByteSize
@@ -119,6 +120,7 @@ final class ClipboardStore {
         context.insert(item)
         save()
         StatisticsTracker.shared.recordCopy(from: clip.sourceApp)
+        if origin == .local { SoundPlayer.play(.captured) }
         enforceLimits()
         reload()
         SyncCoordinator.shared.localHistoryChanged()
@@ -203,6 +205,35 @@ final class ClipboardStore {
         return board
     }
 
+    func rename(_ board: Pinboard, to name: String) {
+        let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return }
+        board.name = trimmed
+        board.updatedAt = Date()
+        save()
+        reload()
+    }
+
+    func update(_ board: Pinboard, icon: String, color: String) {
+        board.icon = icon
+        board.color = color
+        board.updatedAt = Date()
+        save()
+        reload()
+    }
+
+    /// Reorders the sidebar. `sortOrder` is rewritten for every board so the
+    /// order is stable rather than dependent on insertion time.
+    func movePinboards(from source: IndexSet, to destination: Int) {
+        var ordered = pinboards
+        ordered.move(fromOffsets: source, toOffset: destination)
+        for (index, board) in ordered.enumerated() {
+            board.sortOrder = index
+        }
+        save()
+        reload()
+    }
+
     func deletePinboard(_ board: Pinboard) {
         for item in board.items { item.pinboard = nil }
         context.delete(board)
@@ -224,8 +255,8 @@ final class ClipboardStore {
         let keepable = live.filter { !$0.isFavorite && $0.pinboard == nil }
         var doomed: [ClipboardItem] = []
 
-        let isPro = SubscriptionManager.shared.isPro
-        let policy = isPro ? AppSettings.shared.retention : .count(SubscriptionTier.free.maxItems)
+        let canChoose = SubscriptionManager.shared.checkAccess(for: .autoCleanup)
+        let policy = canChoose ? AppSettings.shared.retention : .count(SubscriptionTier.free.maxItems)
 
         switch policy {
         case .count(let limit):
@@ -240,7 +271,7 @@ final class ClipboardStore {
         }
 
         // The free tier keeps the most recent 100 clips whatever the policy says.
-        if !isPro {
+        if !SubscriptionManager.shared.checkAccess(for: .unlimitedHistory) {
             let cap = SubscriptionTier.free.maxItems
             let doomedIDs = Set(doomed.map(\.persistentModelID))
             let survivors = keepable.filter { !doomedIDs.contains($0.persistentModelID) }

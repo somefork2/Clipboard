@@ -6,8 +6,8 @@ struct SidebarView: View {
     @Environment(ClipboardStore.self) private var store
     @Environment(SubscriptionManager.self) private var subscriptions
 
-    @State private var isCreatingPinboard = false
-    @State private var newPinboardName = ""
+    @State private var editingBoard: Pinboard?
+    @State private var isCreatingBoard = false
 
     var body: some View {
         List(selection: $selection) {
@@ -27,15 +27,22 @@ struct SidebarView: View {
 
             Section {
                 ForEach(store.pinboards) { board in
-                    Label(board.name, systemImage: board.icon)
-                        .badge(board.items.count)
-                        .tag(SidebarSection.pinboard(board.id))
-                        .contextMenu {
-                            Button("Delete Pinboard", role: .destructive) {
-                                store.deletePinboard(board)
-                            }
+                    Label {
+                        Text(board.name)
+                    } icon: {
+                        Image(systemName: board.icon)
+                            .foregroundStyle(Color.named(board.color))
+                    }
+                    .badge(board.items.count)
+                    .tag(SidebarSection.pinboard(board.id))
+                    .contextMenu {
+                        Button("Edit…") { editingBoard = board }
+                        Button("Delete Pinboard", role: .destructive) {
+                            store.deletePinboard(board)
                         }
+                    }
                 }
+                .onMove { store.movePinboards(from: $0, to: $1) }
             } header: {
                 HStack {
                     Text("Pinboards")
@@ -58,15 +65,11 @@ struct SidebarView: View {
         .listStyle(.sidebar)
         .themedScrollBackground()
         .safeAreaInset(edge: .bottom) { statusFooter }
-        .alert("New Pinboard", isPresented: $isCreatingPinboard) {
-            TextField("Name", text: $newPinboardName)
-            Button("Create") {
-                let name = newPinboardName.trimmingCharacters(in: .whitespacesAndNewlines)
-                guard !name.isEmpty else { return }
-                store.createPinboard(name: name)
-                newPinboardName = ""
-            }
-            Button("Cancel", role: .cancel) { newPinboardName = "" }
+        .sheet(isPresented: $isCreatingBoard) {
+            PinboardEditor(board: nil) { isCreatingBoard = false }
+        }
+        .sheet(item: $editingBoard) { board in
+            PinboardEditor(board: board) { editingBoard = nil }
         }
     }
 
@@ -76,7 +79,7 @@ struct SidebarView: View {
             subscriptions.requestAccess(for: .unlimitedPinboards)
             return
         }
-        isCreatingPinboard = true
+        isCreatingBoard = true
     }
 
     /// Free-tier users should always know where they stand, without a modal.

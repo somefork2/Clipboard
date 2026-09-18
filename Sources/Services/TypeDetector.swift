@@ -12,18 +12,46 @@ struct TypeDetector {
         return .text
     }
 
+    /// Whether a clip looks like a credential.
+    ///
+    /// The old rule flagged any 8–128 character string containing an upper, a
+    /// lower, a digit and a symbol. With "never record passwords" on by default
+    /// that silently threw away tokens, hashes, IDs and one-line code — the user
+    /// copied something and it simply did not appear. The strongest signal is
+    /// the pasteboard's own concealed marker, which is honoured separately; this
+    /// is only the fallback, and it is deliberately narrow.
     func isPassword(_ text: String) -> Bool {
-        let indicators = ["password", "passwd", "pwd", "secret", "token", "api_key", "apikey"]
-        let lowercased = text.lowercased()
-        for indicator in indicators { if lowercased.contains(indicator) { return true } }
-        if text.count >= 8 && text.count <= 128 {
-            let hasUpper = text.contains { $0.isUppercase }
-            let hasLower = text.contains { $0.isLowercase }
-            let hasDigit = text.contains { $0.isNumber }
-            let hasSpecial = text.contains { !$0.isLetter && !$0.isNumber && !$0.isWhitespace }
-            if hasUpper && hasLower && hasDigit && hasSpecial { return true }
+        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        // A labelled secret: "password: hunter2", "api_key=…", "Bearer …".
+        if let range = trimmed.range(of: #"(?i)\b(pass(word|wd)?|passphrase|secret|api[_-]?key|access[_-]?token|client[_-]?secret|private[_-]?key)\b\s*[:=]"#,
+                                     options: .regularExpression),
+           range.lowerBound == trimmed.startIndex || trimmed.distance(from: trimmed.startIndex, to: range.lowerBound) < 40 {
+            return true
         }
-        return false
+
+        // Recognisable credential formats.
+        if trimmed.range(of: #"^(sk|pk|rk)_(live|test)_[A-Za-z0-9]{16,}$"#, options: .regularExpression) != nil { return true }
+        if trimmed.range(of: #"^gh[pousr]_[A-Za-z0-9]{20,}$"#, options: .regularExpression) != nil { return true }
+        if trimmed.range(of: #"^-----BEGIN [A-Z ]*PRIVATE KEY-----"#, options: .regularExpression) != nil { return true }
+
+        // A bare high-entropy token: one word, mixed classes, no punctuation that
+        // would make it a path, a URL or a sentence.
+        guard !trimmed.contains(where: { $0.isWhitespace }),
+              (12...64).contains(trimmed.count),
+              !trimmed.contains("/"),
+              !trimmed.contains("\\"),
+              !trimmed.contains("@"),
+              !trimmed.hasPrefix("#"),
+              isURL(trimmed) == false else {
+            return false
+        }
+
+        let hasUpper = trimmed.contains { $0.isUppercase }
+        let hasLower = trimmed.contains { $0.isLowercase }
+        let hasDigit = trimmed.contains { $0.isNumber }
+        let hasSymbol = trimmed.contains { !$0.isLetter && !$0.isNumber }
+        return hasUpper && hasLower && hasDigit && hasSymbol
     }
 
     private func isURL(_ text: String) -> Bool { text.range(of: #"https?://[^\s]+"#, options: .regularExpression) != nil }

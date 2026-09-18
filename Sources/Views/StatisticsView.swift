@@ -7,7 +7,7 @@ struct StatisticsView: View {
     @Environment(SubscriptionManager.self) private var subscriptions
 
     var body: some View {
-        if !subscriptions.isPro {
+        if !subscriptions.checkAccess(for: .statistics) {
             EmptyStateView(
                 icon: "chart.bar",
                 title: "Statistics are part of CopyWell Pro",

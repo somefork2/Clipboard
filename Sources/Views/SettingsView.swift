@@ -49,6 +49,38 @@ struct GeneralSettings: View {
             }
 
             Section {
+                Toggle("Play sounds", isOn: $settings.soundsEnabled)
+                Picker("When a clip is captured", selection: $settings.captureSound) {
+                    ForEach(FeedbackSound.allCases) { sound in
+                        Text(sound.displayName).tag(sound)
+                    }
+                }
+                .disabled(!settings.soundsEnabled)
+                .onChange(of: settings.captureSound) { _, new in new.play() }
+
+                Picker("When a clip is used", selection: $settings.pasteSound) {
+                    ForEach(FeedbackSound.allCases) { sound in
+                        Text(sound.displayName).tag(sound)
+                    }
+                }
+                .disabled(!settings.soundsEnabled)
+                .onChange(of: settings.pasteSound) { _, new in new.play() }
+            } header: {
+                Text("Sound")
+            } footer: {
+                Text("Off after installation. Changing a sound plays it.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+
+            Section {
+                Button("Show the setup guide again") {
+                    settings.hasCompletedOnboarding = false
+                    NotificationCenter.default.post(name: .copyWellRequestSetupWizard, object: nil)
+                }
+            }
+
+            Section {
                 Picker("Text size", selection: $settings.textSize) {
                     ForEach(TextSizePreference.allCases) { size in
                         Text(size.displayName).tag(size)
@@ -133,6 +165,7 @@ struct PrivacySettings: View {
             Section("Stored data") {
                 LabeledContent("Clips on this Mac", value: "\(store.items.count)")
                 LabeledContent("Encrypted clips", value: "\(store.items.count(where: \.isSensitive))")
+                LabeledContent("Skipped as sensitive", value: "\(PrivacyLog.shared.skippedTotal)")
                 Button("Clear History…", role: .destructive) {
                     showingClearConfirmation = true
                 }

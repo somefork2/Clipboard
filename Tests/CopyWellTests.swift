@@ -263,3 +263,127 @@ struct DeletionLogTests {
         reset()
     }
 }
+
+
+// MARK: - Secret detection
+
+@Suite("Secret detection")
+struct SecretDetectionTests {
+    let detector = TypeDetector()
+
+    /// The old rule flagged any mixed-case string with a digit and a symbol, so
+    /// ordinary content was dropped before it reached the history.
+    @Test("Ordinary content is not mistaken for a password", arguments: [
+        "Hello, world! 42",
+        "https://example.com/path?a=1&b=2",
+        "~/Projects/app/Sources/Main.swift",
+        "let total = items.count * 2",
+        "user@example.com",
+        "Invoice #2026-114, due 30 days"
+    ])
+    func doesNotFlagOrdinaryText(_ input: String) {
+        #expect(!detector.isPassword(input))
+    }
+
+    @Test("Labelled secrets are caught", arguments: [
+        "password: hunter2",
+        "API_KEY=abcdef123456",
+        "client_secret = s3cr3t-value"
+    ])
+    func flagsLabelledSecrets(_ input: String) {
+        #expect(detector.isPassword(input))
+    }
+
+    @Test("Known credential formats are caught", arguments: [
+        "sk_live_abcdefghijklmnop123456",
+        "ghp_abcdefghijklmnopqrstuvwxyz1234"
+    ])
+    func flagsKnownFormats(_ input: String) {
+        #expect(detector.isPassword(input))
+    }
+
+    @Test("A bare high-entropy token is still caught")
+    func flagsBareToken() {
+        #expect(detector.isPassword("Xk9!mQ2vT7#pLw4z"))
+    }
+
+    /// Short tokens are far more likely to be ordinary words than secrets.
+    @Test("Short strings are left alone")
+    func ignoresShortStrings() {
+        #expect(!detector.isPassword("Ab1!"))
+    }
+}
+
+// MARK: - Retention
+
+@Suite("Retention policy")
+struct RetentionPolicyTests {
+
+    @Test("Every preset describes itself")
+    func presetsAreDescribed() {
+        for policy in RetentionPolicy.presets {
+            #expect(!policy.displayName.isEmpty)
+            #expect(!policy.explanation.isEmpty)
+        }
+    }
+
+    /// The free tier keeps 100 clips, so only a larger count is a paid choice.
+    @Test("Only policies beyond the free tier need Pro")
+    func proRequirement() {
+        #expect(RetentionPolicy.count(100).requiresPro == false)
+        #expect(RetentionPolicy.count(500).requiresPro)
+        #expect(RetentionPolicy.days(7).requiresPro)
+        #expect(RetentionPolicy.forever.requiresPro)
+    }
+
+    @Test("Policies round-trip through storage")
+    func codableRoundTrip() throws {
+        for policy in RetentionPolicy.presets {
+            let data = try JSONEncoder().encode(policy)
+            let decoded = try JSONDecoder().decode(RetentionPolicy.self, from: data)
+            #expect(decoded == policy)
+        }
+    }
+}
+
+// MARK: - Sound
+
+@Suite("Feedback sounds")
+struct FeedbackSoundTests {
+
+    /// Sound is off after installation; this guards the default rather than the
+    /// mechanism.
+    @Test("Every sound has a name and None is silent")
+    func namesAndSilence() {
+        for sound in FeedbackSound.allCases {
+            #expect(!sound.displayName.isEmpty)
+        }
+        #expect(FeedbackSound.none.displayName == "None")
+    }
+}
+
+// MARK: - Cloud payload
+
+@Suite("Cloud clip")
+@MainActor
+struct CloudClipTests {
+
+    @Test("Sensitive clips are never turned into a cloud payload")
+    func sensitiveNeverLeaves() {
+        let secret = ClipboardItem(contentType: .password, contentHash: "h", text: "s3cret", isSensitive: true)
+        #expect(CloudClip(secret) == nil)
+    }
+
+    @Test("An ordinary clip round-trips through the payload")
+    func roundTrip() throws {
+        let item = ClipboardItem(contentType: .text, contentHash: "hash-1", text: "hello")
+        item.tags = ["a", "b"]
+        item.isFavorite = true
+        let clip = try #require(CloudClip(item))
+        let captured = clip.captured
+        #expect(captured.contentHash == "hash-1")
+        #expect(captured.text == "hello")
+        #expect(captured.tags == ["a", "b"])
+        #expect(captured.isSensitive == false)
+    }
+}

@@ -205,4 +205,6 @@ extension Notification.Name {
     /// Menu-driven Quick Look: a menu item is both a reliable key handler and a
     /// discoverable one, unlike a hidden button holding a shortcut.
     static let copyWellRequestPreviewSelection = Notification.Name("copyWellRequestPreviewSelection")
+    /// Reopens the first-run guide from Settings.
+    static let copyWellRequestSetupWizard = Notification.Name("copyWellRequestSetupWizard")
 }

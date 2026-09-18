@@ -23,7 +23,10 @@ final class AppSettings {
     var retention: RetentionPolicy { didSet { retention.save(); ClipboardStore.shared.enforceLimits() } }
     var textSize: TextSizePreference { didSet { persist() } }
     var iCloudSync: Bool { didSet { persist() } }
-    var playFeedbackSound: Bool { didSet { persist() } }
+    /// Off after installation on purpose.
+    var soundsEnabled: Bool { didSet { persist() } }
+    var captureSound: FeedbackSound { didSet { persist() } }
+    var pasteSound: FeedbackSound { didSet { persist() } }
     var hasCompletedOnboarding: Bool { didSet { persist() } }
 
     private init() {
@@ -34,7 +37,6 @@ final class AppSettings {
             "skipConcealedPasteboard": true,
             "hideFromScreenCapture": true,
             "icloudSync": false,
- "playFeedbackSound": false
         ])
 
         launchAtLogin = SMAppService.mainApp.status == .enabled
@@ -47,7 +49,11 @@ final class AppSettings {
         textSize = defaults.string(forKey: "textSize")
             .flatMap(TextSizePreference.init(rawValue:)) ?? .standard
         iCloudSync = defaults.bool(forKey: "icloudSync")
-        playFeedbackSound = defaults.bool(forKey: "playFeedbackSound")
+        soundsEnabled = defaults.bool(forKey: "soundsEnabled")
+        captureSound = defaults.string(forKey: "sound_captured")
+            .flatMap(FeedbackSound.init(rawValue:)) ?? .tink
+        pasteSound = defaults.string(forKey: "sound_pasted")
+            .flatMap(FeedbackSound.init(rawValue:)) ?? .pop
         hasCompletedOnboarding = defaults.bool(forKey: "hasCompletedOnboarding")
     }
 
@@ -59,7 +65,9 @@ final class AppSettings {
         defaults.set(hideFromScreenCapture, forKey: "hideFromScreenCapture")
         defaults.set(textSize.rawValue, forKey: "textSize")
         defaults.set(iCloudSync, forKey: "icloudSync")
-        defaults.set(playFeedbackSound, forKey: "playFeedbackSound")
+        defaults.set(soundsEnabled, forKey: "soundsEnabled")
+        defaults.set(captureSound.rawValue, forKey: SoundEvent.captured.settingKey)
+        defaults.set(pasteSound.rawValue, forKey: SoundEvent.pasted.settingKey)
         defaults.set(hasCompletedOnboarding, forKey: "hasCompletedOnboarding")
     }
 

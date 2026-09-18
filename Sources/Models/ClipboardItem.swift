@@ -20,6 +20,11 @@ final class ClipboardItem {
     /// Small PNG preview, safe to keep in the database.
     var imageThumbnail: Data?
 
+    /// Original rich text, when the source offered any. Kept so pasting can put
+    /// the formatting back; "paste as plain text" is only meaningful because
+    /// this exists.
+    var richTextData: Data?
+
     var extractedText: String?
     var url: String?
     var urlTitle: String?
@@ -231,9 +236,12 @@ final class ClipboardItem {
     /// Content to place on the pasteboard for this clip.
     var pasteContent: PasteContent? {
         if type == .image, let data = imageData { return .image(data) }
-        if let body { return .text(body) }
-        return nil
+        guard let body else { return nil }
+        if let richTextData, !isSensitive { return .richText(body, richTextData) }
+        return .text(body)
     }
+
+    var hasFormatting: Bool { richTextData != nil }
 }
 
 extension Date {
