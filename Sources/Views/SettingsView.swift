@@ -189,7 +189,7 @@ struct ShortcutSettings: View {
                     if !subscriptions.isPro {
                         Text("Rebinding every shortcut is part of ClipStack Pro. The palette and pause shortcuts stay editable on the free plan.")
                     }
-                    Text("Inside the palette: ↑↓ to move, ⌘1–9 to jump, ⏎ to paste, ⌥⏎ to paste as plain text, Space to preview, ⌘⌫ to delete, ⎋ to close.")
+                    Text("Inside the palette: ↑↓ to move, ⌘1–9 to jump, ⏎ to paste, ⌥⏎ to paste as plain text, ⌘Y to preview, ⌘⌫ to delete, ⎋ to close.")
                 }
                 .font(.caption)
                 .foregroundStyle(.secondary)

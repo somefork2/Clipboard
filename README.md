@@ -36,7 +36,7 @@ Inside the palette:
 | ⌘1–9 | Jump to an item |
 | ⏎ | Paste |
 | ⌥⏎ | Paste as plain text |
-| Space | Quick Look |
+| ⌘Y | Quick Look |
 | ⌘F | Focus search |
 | ⌘⌫ | Delete |
 | ⎋ | Close |

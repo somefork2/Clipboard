@@ -36,6 +36,13 @@ final class ClipboardItem {
     var entitiesData: Data?
     var useCount: Int = 0
 
+    /// True pixel dimensions of the stored image, so a row can say what the
+    /// image actually is without loading the file.
+    var pixelWidth: Int = 0
+    var pixelHeight: Int = 0
+    /// Byte size of the stored image file.
+    var imageByteSize: Int = 0
+
     @Relationship(inverse: \Pinboard.items)
     var pinboard: Pinboard?
 
@@ -133,11 +140,63 @@ final class ClipboardItem {
 
     var previewText: String {
         switch type {
-        case .image: return extractedText.map { "Image · \($0.prefix(60))" } ?? "Image"
+        case .image: return imageHeadline
         case .password: return "••••••••••••"
         case .url: return url ?? displayBody
         default: return displayBody
         }
+    }
+
+    // MARK: - Image description
+
+    /// What the image is, in one line: the first line of recognised text when
+    /// there is any, otherwise its dimensions.
+    var imageHeadline: String {
+        if let first = recognizedFirstLine { return first }
+        if let dimensions = imageDimensionsText { return "Image · \(dimensions)" }
+        return "Image"
+    }
+
+    /// The first line of recognised text, but only when it is worth showing as a
+    /// title. OCR on a screenshot with no writing in it happily returns stray
+    /// marks like "=" or "|", which say less than the dimensions would.
+    var recognizedFirstLine: String? {
+        guard let extractedText else { return nil }
+        let line = extractedText
+            .split(separator: "\n", omittingEmptySubsequences: true)
+            .lazy
+            .map { $0.trimmingCharacters(in: .whitespaces) }
+            .first { candidate in
+                candidate.count >= 3 && candidate.contains { $0.isLetter || $0.isNumber }
+            }
+        return line
+    }
+
+    var imageDimensionsText: String? {
+        guard pixelWidth > 0, pixelHeight > 0 else { return nil }
+        return "\(pixelWidth)×\(pixelHeight)"
+    }
+
+    var recognizedWordCount: Int {
+        guard let extractedText else { return 0 }
+        return extractedText.split(whereSeparator: { $0.isWhitespace || $0.isNewline }).count
+    }
+
+    /// The subtitle shown under an image row: dimensions, file size and how much
+    /// text was recognised, so the row says what the image is before it is opened.
+    var imageSummary: String {
+        var parts: [String] = []
+        if let dimensions = imageDimensionsText { parts.append(dimensions) }
+        if imageByteSize > 0 {
+            parts.append(ByteCountFormatter.string(fromByteCount: Int64(imageByteSize), countStyle: .file))
+        }
+        let words = recognizedWordCount
+        if words > 0 {
+            parts.append("\(words) word\(words == 1 ? "" : "s") recognised")
+        } else if extractedText == nil {
+            parts.append("no text recognised")
+        }
+        return parts.joined(separator: " · ")
     }
 
     var displayTitle: String {

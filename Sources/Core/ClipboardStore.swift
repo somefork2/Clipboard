@@ -94,6 +94,9 @@ final class ClipboardStore {
         item.setBody(clip.text)
         item.urlTitle = clip.urlTitle
         item.imageThumbnail = clip.imageThumbnail
+        item.pixelWidth = clip.pixelWidth
+        item.pixelHeight = clip.pixelHeight
+        item.imageByteSize = clip.imageByteSize
         item.extractedText = clip.extractedText
         item.category = clip.category
         item.tags = clip.tags
@@ -221,6 +224,33 @@ final class ClipboardStore {
             context.delete(item)
         }
         save()
+    }
+
+    /// Fills in dimensions and file size for image clips captured before the
+    /// app recorded them, so their rows can describe the picture.
+    func backfillImageMetadata() {
+        let stale = items.filter { $0.type == .image && $0.imageFileName != nil && $0.pixelWidth == 0 }
+        guard !stale.isEmpty else { return }
+
+        var changed = false
+        for item in stale {
+            guard let fileName = item.imageFileName,
+                  let data = ImageStore.read(fileName: fileName),
+                  let image = NSImage(data: data) else { continue }
+            let pixels = ImageStore.pixelSize(of: image)
+            item.pixelWidth = Int(pixels.width)
+            item.pixelHeight = Int(pixels.height)
+            item.imageByteSize = data.count
+            if item.imageThumbnail == nil {
+                item.imageThumbnail = ImageStore.thumbnail(from: image)
+            }
+            changed = true
+        }
+
+        if changed {
+            save()
+            reload()
+        }
     }
 
     /// Deletes image files left behind by clips that no longer exist.

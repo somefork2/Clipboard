@@ -15,6 +15,9 @@ struct CapturedClip: Sendable {
     var urlTitle: String?
     var imageFileName: String?
     var imageThumbnail: Data?
+    var pixelWidth: Int = 0
+    var pixelHeight: Int = 0
+    var imageByteSize: Int = 0
     var extractedText: String?
     var sourceApp: String?
     var sourceAppBundleId: String?
@@ -138,6 +141,8 @@ final class ClipboardMonitor {
             guard ImageStore.write(image, fileName: fileName) != nil else { return nil }
 
             let thumbnail = ImageStore.thumbnail(from: image)
+            let pixels = ImageStore.pixelSize(of: image)
+            let storedBytes = ImageStore.read(fileName: fileName)?.count ?? imageData.count
             let ocrText = await OCRService.shared.recognizeText(in: imageData)
 
             var category = "uncategorized"
@@ -156,6 +161,9 @@ final class ClipboardMonitor {
                 urlTitle: nil,
                 imageFileName: fileName,
                 imageThumbnail: thumbnail,
+                pixelWidth: Int(pixels.width),
+                pixelHeight: Int(pixels.height),
+                imageByteSize: storedBytes,
                 extractedText: ocrText,
                 sourceApp: sourceApp,
                 sourceAppBundleId: sourceBundleID,

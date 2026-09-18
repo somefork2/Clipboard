@@ -19,21 +19,39 @@ struct ClipboardItemRow: View {
             thumbnail
 
             VStack(alignment: .leading, spacing: 2) {
-                Text(item.previewText)
-                    .font(.body)
-                    .lineLimit(1)
-                    .truncationMode(.middle)
-                    .foregroundStyle(item.isSensitive ? .secondary : .primary)
+                HStack(spacing: 5) {
+                    Text(item.previewText)
+                        .font(.body)
+                        .lineLimit(1)
+                        .truncationMode(.middle)
+                        .foregroundStyle(item.isSensitive ? .secondary : .primary)
+
+                    // An image row leads with the text found in it, so mark that
+                    // the words come from the picture rather than from a copy.
+                    if item.type == .image, item.recognizedFirstLine != nil {
+                        Image(systemName: "text.viewfinder")
+                            .font(.caption)
+                            .foregroundStyle(.tertiary)
+                            .help("Text recognised in this image")
+                    }
+                }
 
                 HStack(spacing: 5) {
                     Text(item.type.displayName)
+                    if item.type == .image {
+                        let summary = item.imageSummary
+                        if !summary.isEmpty {
+                            Text("·")
+                            Text(summary)
+                        }
+                    }
                     if let app = item.sourceApp {
                         Text("·")
                         Text(app)
                     }
                     Text("·")
                     Text(item.createdAt.relativeFormatted)
-                    if !item.tags.isEmpty {
+                    if item.type != .image, !item.tags.isEmpty {
                         Text("·")
                         Text(item.tags.prefix(2).joined(separator: ", "))
                     }
@@ -73,11 +91,33 @@ struct ClipboardItemRow: View {
     @ViewBuilder
     private var thumbnail: some View {
         if let image = item.thumbnailImage {
-            Image(nsImage: image)
-                .resizable()
-                .scaledToFill()
-                .frame(width: Theme.Metric.iconSize, height: Theme.Metric.iconSize)
-                .clipShape(RoundedRectangle(cornerRadius: Theme.Metric.corner))
+            // Clicking the picture is the obvious way to ask "what is this?",
+            // so the thumbnail itself opens the preview.
+            Button(action: onPreview) {
+                Image(nsImage: image)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: Theme.Metric.iconSize, height: Theme.Metric.iconSize)
+                    .clipShape(RoundedRectangle(cornerRadius: Theme.Metric.corner))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: Theme.Metric.corner)
+                            .stroke(Theme.separator, lineWidth: 0.5)
+                    )
+                    .overlay {
+                        if isHovered {
+                            RoundedRectangle(cornerRadius: Theme.Metric.corner)
+                                .fill(.black.opacity(0.35))
+                                .overlay(
+                                    Image(systemName: "eye")
+                                        .font(.caption)
+                                        .foregroundStyle(.white)
+                                )
+                        }
+                    }
+            }
+            .buttonStyle(.plain)
+            .help("Show this image")
+            .accessibilityLabel("Show image")
         } else {
             TypeBadge(type: item.type)
         }

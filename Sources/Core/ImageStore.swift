@@ -51,6 +51,18 @@ enum ImageStore {
         }
     }
 
+    /// True pixel dimensions. `NSImage.size` is in points, so a Retina
+    /// screenshot reports half its real size there.
+    static func pixelSize(of image: NSImage) -> CGSize {
+        for case let rep as NSBitmapImageRep in image.representations {
+            return CGSize(width: rep.pixelsWide, height: rep.pixelsHigh)
+        }
+        if let rep = image.representations.first {
+            return CGSize(width: rep.pixelsWide, height: rep.pixelsHigh)
+        }
+        return image.size
+    }
+
     static func thumbnail(from image: NSImage) -> Data? {
         png(from: image, maxSize: thumbnailMaxSize)
     }

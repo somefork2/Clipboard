@@ -23,13 +23,15 @@ struct MenuBarContentView: View {
             header
             Divider()
             list
+            if let previewItem {
+                Divider()
+                InlineClipPreview(item: previewItem) { self.previewItem = nil }
+                    .frame(height: 210)
+            }
             Divider()
             footer
         }
         .frame(width: 340)
-        .sheet(item: $previewItem) { item in
-            ClipPreviewSheet(item: item) { previewItem = nil }
-        }
     }
 
     private var header: some View {
@@ -60,7 +62,9 @@ struct MenuBarContentView: View {
                         Button {
                             paste(item)
                         } label: {
-                            MenuBarRow(item: item)
+                            MenuBarRow(item: item) {
+                                previewItem = (previewItem?.id == item.id) ? nil : item
+                            }
                         }
                         .buttonStyle(.plain)
                         .contextMenu {
@@ -145,16 +149,22 @@ struct MenuBarContentView: View {
 
 struct MenuBarRow: View {
     let item: ClipboardItem
+    var onPreview: (() -> Void)?
+
     @State private var isHovered = false
 
     var body: some View {
         HStack(spacing: 9) {
             if let thumbnail = item.thumbnailImage {
-                Image(nsImage: thumbnail)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 22, height: 22)
-                    .clipShape(RoundedRectangle(cornerRadius: 4))
+                Button { onPreview?() } label: {
+                    Image(nsImage: thumbnail)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 22, height: 22)
+                        .clipShape(RoundedRectangle(cornerRadius: 4))
+                }
+                .buttonStyle(.plain)
+                .help("Show this image")
             } else {
                 TypeBadge(type: item.type, size: 22)
             }
@@ -163,9 +173,19 @@ struct MenuBarRow: View {
                 Text(item.previewText)
                     .lineLimit(1)
                     .truncationMode(.middle)
-                Text(item.createdAt.relativeFormatted)
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
+                HStack(spacing: 4) {
+                    if item.type == .image {
+                        let summary = item.imageSummary
+                        if !summary.isEmpty {
+                            Text(summary)
+                            Text("·")
+                        }
+                    }
+                    Text(item.createdAt.relativeFormatted)
+                }
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+                .lineLimit(1)
             }
             Spacer(minLength: 0)
         }

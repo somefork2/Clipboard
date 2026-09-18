@@ -25,6 +25,10 @@ final class QuickPastePanel: NSObject, NSWindowDelegate {
 
         let panel = self.panel ?? makePanel()
         self.panel = panel
+        // Guard against anything having resized the panel while it was hidden.
+        if panel.frame.size != QuickPasteView.panelSize {
+            panel.setContentSize(QuickPasteView.panelSize)
+        }
         applyPrivacy(to: panel)
         position(panel)
 
@@ -43,9 +47,12 @@ final class QuickPastePanel: NSObject, NSWindowDelegate {
     private func makePanel() -> NSPanel {
         // Borderless, so the palette's content fills the window edge to edge the
         // way Spotlight does — a titled panel leaves a dead strip along the top.
+        let size = QuickPasteView.panelSize
+        // Not `.resizable`: a resizable borderless panel re-fits itself to the
+        // hosting view and collapses whenever SwiftUI re-measures.
         let panel = KeyablePanel(
-            contentRect: NSRect(x: 0, y: 0, width: 460, height: 540),
-            styleMask: [.nonactivatingPanel, .borderless, .resizable],
+            contentRect: NSRect(origin: .zero, size: size),
+            styleMask: [.nonactivatingPanel, .borderless],
             backing: .buffered,
             defer: false
         )
@@ -68,8 +75,10 @@ final class QuickPastePanel: NSObject, NSWindowDelegate {
         .environment(ClipboardStore.shared)
 
         let hosting = NSHostingView(rootView: root)
-        hosting.frame = NSRect(x: 0, y: 0, width: 460, height: 540)
+        hosting.frame = NSRect(origin: .zero, size: size)
+        hosting.autoresizingMask = [.width, .height]
         panel.contentView = hosting
+        panel.setContentSize(size)
         return panel
     }
 

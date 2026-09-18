@@ -24,6 +24,7 @@ final class AppCoordinator {
     func start() {
         StatisticsTracker.shared.resetDailyIfNeeded()
         store.pruneOrphanedImages()
+        store.backfillImageMetadata()
 
         monitor.onClipCaptured = { [weak self] clip in
             self?.store.insert(clip)
