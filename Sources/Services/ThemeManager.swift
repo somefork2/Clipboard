@@ -58,15 +58,26 @@ final class ThemeManager {
     @MainActor
     func applyStoredTheme() {
         let palette = self.palette
-        NSApp.appearance = palette.appearance.map { NSAppearance(named: $0) } ?? nil
 
-        // The title bar is drawn by AppKit, so a themed window has to tell it
-        // which colour to use or the toolbar floats on a different shade.
-        for window in NSApp.windows {
-            window.backgroundColor = palette.usesSystemMaterials
-                ? nil
-                : NSColor(palette.background)
+        // Deliberately not `NSApp.appearance`: that also covers the menu bar
+        // item, which lives in the system's own menu bar. Forcing it to light
+        // while the menu bar is dark drew a pale chip behind our icon while
+        // every other icon sat flat. The appearance is applied per window.
+        NSApp.appearance = nil
+
+        let appearance = palette.appearance.map { NSAppearance(named: $0) } ?? nil
+        for window in NSApp.windows where !Self.isSystemOwned(window) {
+            window.appearance = appearance
+            // The title bar is drawn by AppKit, so a themed window has to be
+            // told which colour to use or the toolbar floats on another shade.
+            window.backgroundColor = palette.usesSystemMaterials ? nil : NSColor(palette.background)
         }
+    }
+
+    /// The status item's button is hosted in a window the system owns; theming
+    /// it is both wrong and visible.
+    private static func isSystemOwned(_ window: NSWindow) -> Bool {
+        window.level == .statusBar || window.className.contains("NSStatusBar")
     }
 
     private func persist() {

@@ -122,20 +122,18 @@ struct MainView: View {
 
     @ToolbarContentBuilder
     private var toolbar: some ToolbarContent {
-        ToolbarItem(placement: .navigation) {
+        // Both icon buttons keep the system's toolbar styling so they match each
+        // other and the Upgrade button. The stray patch behind them came from
+        // forcing the appearance app-wide, which is fixed in ThemeManager, not
+        // from the button style.
+        ToolbarItemGroup {
             Button {
                 QuickPastePanel.shared.toggle()
             } label: {
                 Label("Palette", systemImage: "rectangle.and.text.magnifyingglass")
             }
-            // Borderless: the default toolbar button draws a filled capsule in
-            // the system control colour, which does not follow the theme and
-            // showed up as a stray patch behind the icon on every theme change.
-            .buttonStyle(.borderless)
             .help("Open the clipboard palette (⌥⌘V)")
-        }
 
-        ToolbarItem {
             Button {
                 coordinator.togglePause()
             } label: {
@@ -144,11 +142,8 @@ struct MainView: View {
                     systemImage: coordinator.isPaused ? "play" : "pause"
                 )
             }
-            .buttonStyle(.borderless)
             .help(coordinator.isPaused ? "Resume recording" : "Pause recording")
-        }
 
-        ToolbarItem {
             if !subscriptions.isPro {
                 Button("Upgrade") { subscriptions.showingPaywall = true }
             }
