@@ -27,7 +27,6 @@ struct MenuBarContentView: View {
             footer
         }
         .frame(width: 340)
-        .frame(maxHeight: 520)
         .sheet(item: $previewItem) { item in
             ClipPreviewSheet(item: item) { previewItem = nil }
         }
@@ -76,7 +75,19 @@ struct MenuBarContentView: View {
                 }
                 .padding(6)
             }
+            // A ScrollView has no intrinsic height: inside a popover that sizes
+            // itself to its content it collapses to nothing, so the list has to
+            // state how tall it wants to be.
+            .frame(height: listHeight)
         }
+    }
+
+    /// Tall enough for the rows we have, capped so the popover never runs off
+    /// the screen.
+    private var listHeight: CGFloat {
+        let rows = CGFloat(results.count)
+        let content = rows * (Theme.Metric.compactRowHeight + 1) + 12
+        return min(max(content, Theme.Metric.compactRowHeight + 12), 420)
     }
 
     private var footer: some View {
