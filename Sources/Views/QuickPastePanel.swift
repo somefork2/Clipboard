@@ -63,6 +63,10 @@ final class QuickPastePanel: NSObject, NSWindowDelegate {
         panel.hidesOnDeactivate = false
         panel.isReleasedWhenClosed = false
         panel.animationBehavior = .utilityWindow
+        // A window is opaque by default, so a clear background still painted a
+        // hard square edge around the rounded content — and the shadow traced
+        // that square rather than the palette.
+        panel.isOpaque = false
         panel.backgroundColor = .clear
         panel.delegate = self
 

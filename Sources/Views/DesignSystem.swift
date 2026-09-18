@@ -1,3 +1,4 @@
+import AppKit
 import SwiftUI
 
 /// Shared visual language.
@@ -40,6 +41,22 @@ enum Theme {
     /// surfaces, because a material would blend in the desktop behind it and
     /// wash the palette out.
     @MainActor static var usesSystemMaterials: Bool { palette.usesSystemMaterials }
+
+    /// Background for row `index` of a list.
+    ///
+    /// `alternatingRowBackgrounds()` paints AppKit's own white/grey pair over
+    /// whatever the theme put behind it, which left custom themes with system
+    /// coloured rows on a themed window. We alternate ourselves and let the
+    /// system themes keep the native colours.
+    @MainActor
+    static func rowBackground(_ index: Int) -> Color {
+        if usesSystemMaterials {
+            let colors = NSColor.alternatingContentBackgroundColors
+            guard !colors.isEmpty else { return .clear }
+            return Color(nsColor: colors[index % colors.count])
+        }
+        return index.isMultiple(of: 2) ? palette.background : palette.surface
+    }
 }
 
 /// Fills a floating surface with a material under the system themes and with the

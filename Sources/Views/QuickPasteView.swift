@@ -59,7 +59,7 @@ struct QuickPasteView: View {
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Theme.separator, lineWidth: 0.5)
+                .strokeBorder(Theme.separator.opacity(0.6), lineWidth: 0.5)
         )
         .onAppear {
             searchFocused = true

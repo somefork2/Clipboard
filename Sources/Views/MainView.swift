@@ -41,6 +41,9 @@ struct MainView: View {
         }
         .navigationSplitViewStyle(.balanced)
         .background(Theme.background)
+        // The title bar is a separate AppKit surface; without this it keeps the
+        // default white and floats above a themed window.
+        .toolbarBackground(Theme.background, for: .windowToolbar)
         .frame(minWidth: 860, minHeight: 520)
         .toolbar { toolbar }
         .searchable(text: $searchText, placement: .toolbar, prompt: "Search clips")

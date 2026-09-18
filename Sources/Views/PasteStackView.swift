@@ -58,11 +58,12 @@ struct PasteStackView: View {
                     }
                 }
                 .frame(height: Theme.Metric.rowHeight)
+                .listRowBackground(Theme.rowBackground(index))
             }
             .onDelete { stack.remove(at: $0) }
             .onMove { stack.move(from: $0, to: $1) }
         }
         .listStyle(.inset)
-        .alternatingRowBackgrounds()
+        .themedScrollBackground()
     }
 }

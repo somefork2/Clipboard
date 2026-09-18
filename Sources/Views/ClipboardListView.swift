@@ -105,25 +105,28 @@ struct ClipboardListView: View {
                     : "Nothing matches “\(searchText)”."
             )
         } else {
-            List(items, selection: $selection) { item in
-                ClipboardItemRow(
-                    item: item,
-                    onPaste: { paste(item, plainText: false) },
-                    onPreview: { previewItem = item }
-                )
-                .tag(item.persistentModelID)
-                .listRowInsets(EdgeInsets(top: 2, leading: 6, bottom: 2, trailing: 6))
-                .contextMenu {
-                    ClipContextMenu(
+            List(selection: $selection) {
+                ForEach(Array(items.enumerated()), id: \.element.id) { index, item in
+                    ClipboardItemRow(
                         item: item,
                         onPaste: { paste(item, plainText: false) },
-                        onPastePlain: { paste(item, plainText: true) },
                         onPreview: { previewItem = item }
                     )
+                    .tag(item.persistentModelID)
+                    .listRowInsets(EdgeInsets(top: 2, leading: 6, bottom: 2, trailing: 6))
+                    .listRowBackground(Theme.rowBackground(index))
+                    .listRowSeparatorTint(Theme.separator)
+                    .contextMenu {
+                        ClipContextMenu(
+                            item: item,
+                            onPaste: { paste(item, plainText: false) },
+                            onPastePlain: { paste(item, plainText: true) },
+                            onPreview: { previewItem = item }
+                        )
+                    }
                 }
             }
             .listStyle(.inset)
-            .alternatingRowBackgrounds()
             .themedScrollBackground()
             .contextMenu {
                 Button("Clear History…") {
