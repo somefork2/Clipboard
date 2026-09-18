@@ -3,6 +3,22 @@ import SwiftUI
 
 /// The menu bar popover: the whole point is seeing and pasting recent clips
 /// without ever opening the app window.
+/// Closing the menu bar popover.
+///
+/// `MenuBarExtra(.window)` hands out no binding or environment action to dismiss
+/// itself, and it does not close when something else takes focus. Opening the
+/// main window therefore left a small panel stranded on screen with no obvious
+/// way to get rid of it. Its window sits at the pop-up-menu level, which nothing
+/// else in this app uses, so we can close it the way the system would.
+@MainActor
+enum MenuBarPopover {
+    static func dismiss() {
+        for window in NSApp.windows where window.level == .popUpMenu && window.isVisible {
+            window.orderOut(nil)
+        }
+    }
+}
+
 struct MenuBarContentView: View {
     @Environment(ClipboardStore.self) private var store
     @Environment(AppCoordinator.self) private var coordinator
@@ -32,6 +48,7 @@ struct MenuBarContentView: View {
             footer
         }
         .frame(width: 340)
+        .elevatedSurface()
     }
 
     private var header: some View {
@@ -106,6 +123,7 @@ struct MenuBarContentView: View {
             }
             HStack(spacing: 10) {
                 Button("Open ClipStack") {
+                    MenuBarPopover.dismiss()
                     coordinator.openMainWindow()
                 }
                 .buttonStyle(.link)
@@ -118,6 +136,7 @@ struct MenuBarContentView: View {
                 Spacer()
 
                 Button {
+                    MenuBarPopover.dismiss()
                     openSettings()
                 } label: {
                     Image(systemName: "gearshape")
@@ -140,6 +159,9 @@ struct MenuBarContentView: View {
     }
 
     private func paste(_ item: ClipboardItem, plainText: Bool = false) {
+        // The popover has to go before the paste: it is holding focus, and the
+        // keystroke needs to land in the app the user came from.
+        MenuBarPopover.dismiss()
         guard let content = item.pasteContent else { return }
         store.recordUse(item)
         StatisticsTracker.shared.recordPaste()

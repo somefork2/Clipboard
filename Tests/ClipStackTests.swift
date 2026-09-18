@@ -189,3 +189,77 @@ struct SubscriptionTierTests {
         }
     }
 }
+
+
+// MARK: - Themes
+
+@Suite("Themes")
+@MainActor
+struct ThemeTests {
+
+    @Test("Every theme defines a complete palette")
+    func palettesAreComplete() {
+        for theme in AppTheme.allCases {
+            #expect(!theme.displayName.isEmpty)
+            #expect(!theme.summary.isEmpty)
+            _ = theme.palette
+        }
+    }
+
+    /// A custom theme pins its appearance; that is what keeps system label
+    /// colours readable on its surfaces.
+    @Test("Custom themes pin an appearance, System follows the Mac")
+    func appearancePinning() {
+        #expect(AppTheme.system.palette.appearance == nil)
+        for theme in AppTheme.allCases where theme.isCustom {
+            #expect(theme.palette.appearance != nil)
+            #expect(theme.palette.usesSystemMaterials == false)
+        }
+    }
+
+    @Test("System, Light and Dark defer to AppKit's own colours")
+    func systemThemesUseMaterials() {
+        for theme in AppTheme.allCases where !theme.isCustom {
+            #expect(theme.palette.usesSystemMaterials)
+        }
+    }
+}
+
+// MARK: - Sync bookkeeping
+
+@Suite("Deletion log", .serialized)
+struct DeletionLogTests {
+
+    private func reset() {
+        UserDefaults.standard.removeObject(forKey: "sync_deleted_hashes")
+    }
+
+    @Test("A deleted clip is remembered so iCloud does not hand it back")
+    func recordsDeletion() {
+        reset()
+        DeletionLog.record("abc")
+        #expect(DeletionLog.contains("abc"))
+        #expect(DeletionLog.pending().contains("abc"))
+        reset()
+    }
+
+    /// Copying something again is an explicit act and must override an earlier
+    /// deletion, otherwise the clip could never be recorded a second time.
+    @Test("Copying the same content again clears its deletion")
+    func forgetOnRecapture() {
+        reset()
+        DeletionLog.record("abc")
+        DeletionLog.forget("abc")
+        #expect(!DeletionLog.contains("abc"))
+        reset()
+    }
+
+    @Test("Unrelated hashes are unaffected")
+    func isolation() {
+        reset()
+        DeletionLog.record("one")
+        DeletionLog.forget("two")
+        #expect(DeletionLog.contains("one"))
+        reset()
+    }
+}

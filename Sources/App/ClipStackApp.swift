@@ -125,7 +125,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             object: nil,
             queue: .main
         ) { _ in
-            MainActor.assumeIsolated { AppDelegate.applyPrivacyToAllWindows() }
+            MainActor.assumeIsolated {
+                AppDelegate.applyPrivacyToAllWindows()
+                // A window created after the theme was chosen still has AppKit's
+                // default backdrop until it is told otherwise.
+                ThemeManager.shared.applyStoredTheme()
+            }
         }
     }
 

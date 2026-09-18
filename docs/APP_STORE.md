@@ -33,8 +33,24 @@ committed to the repository.
       reverse-domain identifier, then regenerate the project.
 - [ ] Register the App ID with App Sandbox, iCloud and In-App Purchase enabled.
 - [ ] Create the CloudKit container `iCloud.<your bundle id>` and deploy the
-      `ClipboardItemRecord` record type with a queryable `contentHash` and a
-      sortable `createdAt`.
+      `ClipboardItemRecord` record type to production:
+
+      | Field | Type | Index |
+      |---|---|---|
+      | `contentHash` | String | Queryable |
+      | `contentType` | String | — |
+      | `text` | String | — |
+      | `url` | String | — |
+      | `urlTitle` | String | — |
+      | `sourceApp` | String | — |
+      | `category` | String | — |
+      | `tags` | List\<String\> | — |
+      | `isFavorite` | Int64 | — |
+      | `createdAt` | Date/Time | Queryable, Sortable |
+
+      Records use a deterministic name derived from `contentHash`, so the same
+      clip maps to one record on every device. Without the indexes above the
+      query fails at runtime and sync silently returns nothing.
 
 ### 2. In-app purchases
 

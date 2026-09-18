@@ -63,9 +63,20 @@ final class ClipboardStore {
     // MARK: - Writing
 
     /// Inserts a captured clip, or refreshes the existing one with the same content.
+    /// Where a clip came from. It decides whether a past deletion should block
+    /// it: copying something again is an explicit act and must always be
+    /// recorded, while the same clip arriving from iCloud is just a device that
+    /// has not caught up with the deletion yet.
+    enum Origin {
+        case local
+        case remote
+    }
+
     @discardableResult
-    func insert(_ clip: CapturedClip) -> ClipboardItem? {
+    func insert(_ clip: CapturedClip, origin: Origin = .local) -> ClipboardItem? {
         let hash = clip.contentHash
+        if origin == .remote, DeletionLog.contains(hash) { return nil }
+        if origin == .local { DeletionLog.forget(hash) }
         let existing = try? context.fetch(
             FetchDescriptor<ClipboardItem>(predicate: #Predicate { $0.contentHash == hash })
         ).first
@@ -110,6 +121,7 @@ final class ClipboardStore {
         StatisticsTracker.shared.recordCopy(from: clip.sourceApp)
         enforceLimits()
         reload()
+        SyncCoordinator.shared.localHistoryChanged()
         return item
     }
 
@@ -135,21 +147,20 @@ final class ClipboardStore {
 
     /// Permanently removes a clip and its image file. "Delete" means delete.
     func delete(_ item: ClipboardItem) {
-        if let fileName = item.imageFileName {
-            ImageStore.remove(fileName: fileName)
-        }
-        context.delete(item)
-        save()
-        reload()
+        delete([item])
     }
 
     func delete(_ itemsToDelete: [ClipboardItem]) {
         for item in itemsToDelete {
             if let fileName = item.imageFileName { ImageStore.remove(fileName: fileName) }
+            // Remember the deletion so iCloud replays it instead of handing the
+            // clip back on the next pull.
+            if !item.isSensitive { DeletionLog.record(item.contentHash) }
             context.delete(item)
         }
         save()
         reload()
+        SyncCoordinator.shared.localHistoryChanged()
     }
 
     func deleteAll(fromApp app: String) {

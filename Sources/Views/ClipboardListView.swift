@@ -124,6 +124,7 @@ struct ClipboardListView: View {
             }
             .listStyle(.inset)
             .alternatingRowBackgrounds()
+            .themedScrollBackground()
             .contextMenu {
                 Button("Clear History…") {
                     NotificationCenter.default.post(name: .clipStackRequestClearHistory, object: nil)

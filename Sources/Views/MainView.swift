@@ -40,6 +40,7 @@ struct MainView: View {
             detail
         }
         .navigationSplitViewStyle(.balanced)
+        .background(Theme.background)
         .frame(minWidth: 860, minHeight: 520)
         .toolbar { toolbar }
         .searchable(text: $searchText, placement: .toolbar, prompt: "Search clips")

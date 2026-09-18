@@ -12,7 +12,8 @@ Clipboard manager for macOS 14+. Keyboard-first, on-device, no account required.
 - **On-device analysis** — Natural Language for type, language, entities and tags; Vision for text in screenshots. Nothing leaves the Mac.
 - **Privacy first** — items marked secret by password managers are never recorded; items you mark sensitive are encrypted with a key in your login keychain; windows can be hidden from screen recordings.
 - **Export** — JSON, CSV, Markdown, HTML.
-- **iCloud sync** — optional, through your own private CloudKit database.
+- **iCloud sync** — optional, through your own private CloudKit database. Syncs on launch, when you switch back to ClipStack, on a timer and shortly after you copy. Images and clips marked sensitive never leave the Mac.
+- **Themes** — System, Light, Dark, plus Paper, Graphite, Slate and Ink.
 
 ## Keyboard shortcuts
 

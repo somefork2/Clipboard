@@ -55,7 +55,7 @@ struct QuickPasteView: View {
         // reports the fitting size of a ScrollView — which is nothing — and the
         // borderless panel shrinks to a stub.
         .frame(width: QuickPasteView.panelSize.width, height: QuickPasteView.panelSize.height)
-        .background(.regularMaterial)
+        .elevatedSurface()
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay(
             RoundedRectangle(cornerRadius: 12)
@@ -164,7 +164,7 @@ struct QuickPasteView: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
-        .background(.thinMaterial)
+        .elevatedSurface()
         .overlay(alignment: .center) { keyboardCommands }
     }
 

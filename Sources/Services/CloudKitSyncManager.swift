@@ -123,7 +123,7 @@ actor CloudKitSyncManager {
 
     /// Two-way reconciliation: push local clips the server lacks, and return the
     /// server's clips the local store lacks so the caller can insert them.
-    func sync(localItems: [CloudClip?]) async -> SyncResult {
+    func sync(localItems: [CloudClip?], deletedHashes: [String] = []) async -> SyncResult {
         let local = localItems.compactMap { $0 }
         guard let database = resolveDatabase() else {
             return .failure("iCloud sync is not configured for this build.")
@@ -137,13 +137,22 @@ actor CloudKitSyncManager {
             let remoteHashes = Set(remote.map(\.contentHash))
             let localHashes = Set(local.map(\.contentHash))
 
-            let toPush = local.filter { !remoteHashes.contains($0.contentHash) }
+            // Replay local deletions before anything else, so a clip removed
+            // here is not pushed straight back by the device that still has it.
+            let deletions = Set(deletedHashes)
+            if !deletions.isEmpty {
+                try await delete(Array(deletions.intersection(remoteHashes)), from: database)
+            }
+
+            let toPush = local.filter {
+                !remoteHashes.contains($0.contentHash) && !deletions.contains($0.contentHash)
+            }
             if !toPush.isEmpty {
                 try await push(toPush, to: database)
             }
 
             let incoming = remote
-                .filter { !localHashes.contains($0.contentHash) }
+                .filter { !localHashes.contains($0.contentHash) && !deletions.contains($0.contentHash) }
                 .map(\.captured)
 
             return .success(incoming)
@@ -205,7 +214,14 @@ actor CloudKitSyncManager {
 
     func delete(contentHash: String) async throws {
         guard let database = resolveDatabase() else { throw SyncError.unavailable }
-        let id = CKRecord.ID(recordName: ContentHasher.recordName(for: contentHash))
-        try await database.deleteRecord(withID: id)
+        try await delete([contentHash], from: database)
+    }
+
+    private func delete(_ contentHashes: [String], from database: CKDatabase) async throws {
+        guard !contentHashes.isEmpty else { return }
+        let ids = contentHashes.map { CKRecord.ID(recordName: ContentHasher.recordName(for: $0)) }
+        for chunk in stride(from: 0, to: ids.count, by: 200).map({ Array(ids[$0..<min($0 + 200, ids.count)]) }) {
+            _ = try await database.modifyRecords(saving: [], deleting: chunk)
+        }
     }
 }

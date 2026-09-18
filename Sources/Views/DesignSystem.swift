@@ -20,13 +20,54 @@ enum Theme {
 
     // MARK: Colours
 
-    /// One accent, chosen by the user, applied through `.tint`.
+    /// One accent: the user's choice, or the one the current theme was built
+    /// around when they have not chosen.
     @MainActor
     static var accent: Color { ThemeManager.shared.accentColor }
 
-    static let separator = Color(nsColor: .separatorColor)
-    static let secondaryBackground = Color(nsColor: .controlBackgroundColor)
-    static let selection = Color(nsColor: .selectedContentBackgroundColor)
+    @MainActor private static var palette: ThemePalette { ThemeManager.shared.palette }
+
+    /// Window and list background.
+    @MainActor static var background: Color { palette.background }
+    /// Rows, badges and wells.
+    @MainActor static var secondaryBackground: Color { palette.surface }
+    /// Floating surfaces: the palette panel, the menu bar popover.
+    @MainActor static var elevated: Color { palette.elevated }
+    @MainActor static var separator: Color { palette.separator }
+    @MainActor static var selection: Color { accent.opacity(0.9) }
+
+    /// System themes use AppKit's materials; a custom theme draws its own
+    /// surfaces, because a material would blend in the desktop behind it and
+    /// wash the palette out.
+    @MainActor static var usesSystemMaterials: Bool { palette.usesSystemMaterials }
+}
+
+/// Fills a floating surface with a material under the system themes and with the
+/// theme's own colour otherwise.
+struct ElevatedSurface: ViewModifier {
+    func body(content: Content) -> some View {
+        if Theme.usesSystemMaterials {
+            content.background(.regularMaterial)
+        } else {
+            content.background(Theme.elevated)
+        }
+    }
+}
+
+extension View {
+    func elevatedSurface() -> some View { modifier(ElevatedSurface()) }
+
+    /// Replaces a scrolling container's own backdrop with the theme background.
+    @ViewBuilder
+    func themedScrollBackground() -> some View {
+        if Theme.usesSystemMaterials {
+            self
+        } else {
+            self
+                .scrollContentBackground(.hidden)
+                .background(Theme.background)
+        }
+    }
 }
 
 /// Monochrome type badge. Content type is conveyed by symbol and label, not by

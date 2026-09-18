@@ -212,21 +212,49 @@ struct ShortcutSettings: View {
 struct AppearanceSettings: View {
     @State private var theme = ThemeManager.shared
 
+    private let columns = [GridItem(.adaptive(minimum: 150), spacing: 10)]
+
     var body: some View {
         @Bindable var theme = theme
 
         Form {
-            Section("Appearance") {
-                Picker("Theme", selection: $theme.currentTheme) {
+            Section("Theme") {
+                LazyVGrid(columns: columns, spacing: 10) {
                     ForEach(AppTheme.allCases) { option in
-                        Label(option.displayName, systemImage: option.icon).tag(option)
+                        ThemeSwatch(theme: option, isSelected: theme.currentTheme == option) {
+                            theme.currentTheme = option
+                        }
                     }
                 }
-                .pickerStyle(.inline)
+                .padding(.vertical, 4)
+
+                Text(theme.currentTheme.summary)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
 
             Section("Accent colour") {
                 HStack(spacing: 8) {
+                    // "Theme" means each theme keeps the accent it was designed
+                    // around; picking a colour overrides that everywhere.
+                    Button {
+                        theme.accentColorName = nil
+                    } label: {
+                        Circle()
+                            .fill(theme.currentTheme.palette.accent)
+                            .frame(width: 20, height: 20)
+                            .overlay(
+                                Circle()
+                                    .stroke(.primary, lineWidth: theme.accentColorName == nil ? 2 : 0)
+                                    .padding(-3)
+                            )
+                    }
+                    .buttonStyle(.plain)
+                    .help("Use the colour this theme was designed around")
+                    .accessibilityLabel("Theme accent")
+
+                    Divider().frame(height: 18)
+
                     ForEach(ThemeManager.accentOptions, id: \.self) { name in
                         Button {
                             theme.accentColorName = name
@@ -251,6 +279,91 @@ struct AppearanceSettings: View {
     }
 }
 
+/// A miniature of the app drawn in the theme's own colours, so the choice is
+/// made by looking rather than by reading colour names.
+struct ThemeSwatch: View {
+    let theme: AppTheme
+    let isSelected: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            VStack(alignment: .leading, spacing: 6) {
+                preview
+                HStack(spacing: 4) {
+                    Text(theme.displayName)
+                        .font(.callout)
+                    Spacer()
+                    if isSelected {
+                        Image(systemName: "checkmark.circle.fill")
+                            .font(.caption)
+                            .foregroundStyle(.tint)
+                    }
+                }
+            }
+            .padding(6)
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(isSelected ? Color.accentColor : Color(nsColor: .separatorColor),
+                            lineWidth: isSelected ? 2 : 0.5)
+            )
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel("\(theme.displayName) theme")
+        .accessibilityAddTraits(isSelected ? [.isSelected] : [])
+    }
+
+    @ViewBuilder
+    private var preview: some View {
+        let palette = theme.palette
+        HStack(spacing: 0) {
+            // Sidebar
+            Rectangle()
+                .fill(palette.surface)
+                .frame(width: 26)
+                .overlay(alignment: .topLeading) {
+                    VStack(alignment: .leading, spacing: 3) {
+                        ForEach(0..<3, id: \.self) { index in
+                            Capsule()
+                                .fill(index == 0 ? palette.accent : palette.separator)
+                                .frame(width: index == 0 ? 16 : 13, height: 3)
+                        }
+                    }
+                    .padding(5)
+                }
+
+            Rectangle()
+                .fill(palette.separator)
+                .frame(width: 0.5)
+
+            // Content rows
+            Rectangle()
+                .fill(palette.background)
+                .overlay(alignment: .topLeading) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        ForEach(0..<4, id: \.self) { index in
+                            HStack(spacing: 4) {
+                                RoundedRectangle(cornerRadius: 1.5)
+                                    .fill(palette.surface)
+                                    .frame(width: 8, height: 8)
+                                Capsule()
+                                    .fill(palette.separator)
+                                    .frame(width: index == 1 ? 34 : 46, height: 3)
+                            }
+                        }
+                    }
+                    .padding(6)
+                }
+        }
+        .frame(height: 68)
+        .clipShape(RoundedRectangle(cornerRadius: 5))
+        .overlay(
+            RoundedRectangle(cornerRadius: 5)
+                .stroke(palette.separator, lineWidth: 0.5)
+        )
+    }
+}
+
 // MARK: - Sync & Export
 
 struct SyncSettings: View {
@@ -258,8 +371,8 @@ struct SyncSettings: View {
     @Environment(ClipboardStore.self) private var store
     @Environment(SubscriptionManager.self) private var subscriptions
 
-    @State private var syncStatus: String?
-    @State private var isSyncing = false
+    @State private var sync = SyncCoordinator.shared
+    @State private var accountStatus: String?
     @State private var exportFormat: ExportFormat = .json
 
     var body: some View {
@@ -270,21 +383,30 @@ struct SyncSettings: View {
                 Toggle("Sync history across my Macs", isOn: $settings.iCloudSync)
                     .disabled(!subscriptions.isPro)
                     .onChange(of: settings.iCloudSync) { _, enabled in
+                        sync.settingsChanged()
                         if enabled { Task { await checkAccount() } }
                     }
 
-                if let syncStatus {
-                    Text(syncStatus)
+                if let message = sync.status.message ?? accountStatus {
+                    Text(message)
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
 
                 Button {
-                    Task { await syncNow() }
+                    Task { await sync.syncNow(userInitiated: true) }
                 } label: {
-                    if isSyncing { ProgressView().controlSize(.small) } else { Text("Sync Now") }
+                    if sync.status == .syncing {
+                        ProgressView().controlSize(.small)
+                    } else {
+                        Text("Sync Now")
+                    }
                 }
-                .disabled(!settings.iCloudSync || isSyncing || !subscriptions.isPro)
+                .disabled(!settings.iCloudSync || sync.status == .syncing || !subscriptions.isPro)
+
+                Text("ClipStack syncs on launch, when you switch back to it, and a few seconds after you copy something. Images and items marked sensitive stay on this Mac.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
 
             Section("Export") {
@@ -306,22 +428,9 @@ struct SyncSettings: View {
 
     private func checkAccount() async {
         let available = await CloudKitSyncManager.shared.checkAccountStatus()
-        syncStatus = available
+        accountStatus = available
             ? "Connected to your private iCloud database."
             : "Sign in to iCloud in System Settings to use sync."
-    }
-
-    private func syncNow() async {
-        isSyncing = true
-        defer { isSyncing = false }
-        let result = await CloudKitSyncManager.shared.sync(localItems: store.items.map(CloudClip.init))
-        switch result {
-        case .success(let incoming):
-            for clip in incoming { store.insert(clip) }
-            syncStatus = "Synced. \(incoming.count) new clip\(incoming.count == 1 ? "" : "s") from iCloud."
-        case .failure(let message):
-            syncStatus = message
-        }
     }
 
     /// Writes through an NSSavePanel, which is also how a sandboxed app gets

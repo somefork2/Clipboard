@@ -56,6 +56,7 @@ struct SidebarView: View {
             }
         }
         .listStyle(.sidebar)
+        .themedScrollBackground()
         .safeAreaInset(edge: .bottom) { statusFooter }
         .alert("New Pinboard", isPresented: $isCreatingPinboard) {
             TextField("Name", text: $newPinboardName)

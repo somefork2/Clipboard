@@ -23,6 +23,7 @@ final class AppCoordinator {
 
     func start() {
         StatisticsTracker.shared.resetDailyIfNeeded()
+        PasteService.beginTrackingFrontmostApp()
         store.pruneOrphanedImages()
         store.backfillImageMetadata()
 
@@ -33,12 +34,14 @@ final class AppCoordinator {
 
         registerShortcuts()
         SubscriptionManager.shared.start()
+        SyncCoordinator.shared.start()
         AppSettings.shared.applyActivationPolicy()
     }
 
     func stop() {
         monitor.stopMonitoring()
         shortcuts.unregisterAll()
+        SyncCoordinator.shared.stop()
     }
 
     // MARK: - Shortcuts

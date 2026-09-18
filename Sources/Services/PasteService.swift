@@ -12,6 +12,24 @@ enum PasteService {
     /// The app that was frontmost before our palette appeared.
     private(set) static var previousApp: NSRunningApplication?
 
+    /// Keeps `previousApp` current at all times.
+    ///
+    /// Only the palette used to record it, so a paste from the menu bar aimed at
+    /// whatever happened to be remembered last — or at nothing. Watching
+    /// activations means the target is always the last app the user was in.
+    static func beginTrackingFrontmostApp() {
+        NSWorkspace.shared.notificationCenter.addObserver(
+            forName: NSWorkspace.didActivateApplicationNotification,
+            object: nil,
+            queue: .main
+        ) { note in
+            guard let app = note.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication,
+                  app.processIdentifier != NSRunningApplication.current.processIdentifier else { return }
+            MainActor.assumeIsolated { previousApp = app }
+        }
+        rememberFrontmostApp()
+    }
+
     static func rememberFrontmostApp() {
         let ours = NSRunningApplication.current.processIdentifier
         if let front = NSWorkspace.shared.frontmostApplication, front.processIdentifier != ours {
