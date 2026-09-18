@@ -212,35 +212,40 @@ final class ClipboardStore {
 
     // MARK: - Retention
 
-    /// Applies the free-tier cap, the user's history cap and the age-based cleanup.
+    /// Applies the retention policy, and the free tier's hard cap on top of it.
+    ///
+    /// Favourites and anything filed on a pinboard are never removed: those are
+    /// the clips the user deliberately kept.
     func enforceLimits() {
-        let settings = AppSettings.shared
-        var doomed: [ClipboardItem] = []
-
         let live = (try? context.fetch(
             FetchDescriptor<ClipboardItem>(sortBy: [SortDescriptor(\.createdAt, order: .reverse)])
         )) ?? []
 
-        // Age-based cleanup (Pro).
-        if settings.autoCleanupDays > 0, SubscriptionManager.shared.checkAccess(for: .autoCleanup) {
-            let cutoff = Calendar.current.date(byAdding: .day, value: -settings.autoCleanupDays, to: Date()) ?? .distantPast
-            doomed += live.filter { !$0.isFavorite && $0.pinboard == nil && $0.createdAt < cutoff }
+        let keepable = live.filter { !$0.isFavorite && $0.pinboard == nil }
+        var doomed: [ClipboardItem] = []
+
+        let isPro = SubscriptionManager.shared.isPro
+        let policy = isPro ? AppSettings.shared.retention : .count(SubscriptionTier.free.maxItems)
+
+        switch policy {
+        case .count(let limit):
+            if keepable.count > limit {
+                doomed += keepable.dropFirst(limit)
+            }
+        case .days(let days):
+            let cutoff = Calendar.current.date(byAdding: .day, value: -days, to: Date()) ?? .distantPast
+            doomed += keepable.filter { $0.createdAt < cutoff }
+        case .forever:
+            break
         }
 
-        // Hard cap: the free tier keeps the 100 most recent clips. We keep
-        // recording and drop the oldest rather than blocking capture and
-        // throwing a paywall at every copy.
-        let subscriptionLimit = SubscriptionManager.shared.historyLimit
-        let userLimit = settings.maxHistoryItems > 0 ? settings.maxHistoryItems : Int.max
-        let effectiveLimit = subscriptionLimit < 0 ? userLimit : min(subscriptionLimit, userLimit)
-
-        if effectiveLimit != Int.max {
+        // The free tier keeps the most recent 100 clips whatever the policy says.
+        if !isPro {
+            let cap = SubscriptionTier.free.maxItems
             let doomedIDs = Set(doomed.map(\.persistentModelID))
-            let keepable = live.filter { item in
-                !item.isFavorite && item.pinboard == nil && !doomedIDs.contains(item.persistentModelID)
-            }
-            if keepable.count > effectiveLimit {
-                doomed += keepable.dropFirst(effectiveLimit)
+            let survivors = keepable.filter { !doomedIDs.contains($0.persistentModelID) }
+            if survivors.count > cap {
+                doomed += survivors.dropFirst(cap)
             }
         }
 

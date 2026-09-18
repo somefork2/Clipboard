@@ -121,6 +121,10 @@ struct MainView: View {
             } label: {
                 Label("Palette", systemImage: "rectangle.and.text.magnifyingglass")
             }
+            // Borderless: the default toolbar button draws a filled capsule in
+            // the system control colour, which does not follow the theme and
+            // showed up as a stray patch behind the icon on every theme change.
+            .buttonStyle(.borderless)
             .help("Open the clipboard palette (⌥⌘V)")
         }
 
@@ -133,6 +137,7 @@ struct MainView: View {
                     systemImage: coordinator.isPaused ? "play" : "pause"
                 )
             }
+            .buttonStyle(.borderless)
             .help(coordinator.isPaused ? "Resume recording" : "Pause recording")
         }
 

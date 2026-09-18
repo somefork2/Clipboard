@@ -18,6 +18,7 @@ struct ClipStackApp: App {
                 .environment(settings)
                 .environment(subscriptions)
                 .tint(ThemeManager.shared.accentColor)
+                .dynamicTypeSize(settings.textSize.dynamicTypeSize)
         }
         .windowStyle(.titleBar)
         .windowToolbarStyle(.unified)
@@ -30,6 +31,7 @@ struct ClipStackApp: App {
                 .environment(coordinator)
                 .environment(subscriptions)
                 .tint(ThemeManager.shared.accentColor)
+                .dynamicTypeSize(settings.textSize.dynamicTypeSize)
         }
         .menuBarExtraStyle(.window)
 
@@ -40,6 +42,7 @@ struct ClipStackApp: App {
                 .environment(settings)
                 .environment(subscriptions)
                 .tint(ThemeManager.shared.accentColor)
+                .dynamicTypeSize(settings.textSize.dynamicTypeSize)
         }
     }
 

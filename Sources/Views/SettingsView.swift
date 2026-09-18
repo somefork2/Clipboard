@@ -28,6 +28,11 @@ struct GeneralSettings: View {
     @Environment(AppSettings.self) private var settings
     @Environment(SubscriptionManager.self) private var subscriptions
 
+    /// What is actually in force: the free tier ignores the chosen policy.
+    private var effectiveRetention: RetentionPolicy {
+        subscriptions.isPro ? settings.retention : .count(SubscriptionTier.free.maxItems)
+    }
+
     var body: some View {
         @Bindable var settings = settings
 
@@ -49,23 +54,43 @@ struct GeneralSettings: View {
                 }
             }
 
-            Section("History") {
-                Picker("Keep at most", selection: $settings.maxHistoryItems) {
-                    Text("100 clips").tag(100)
-                    Text("500 clips").tag(500)
-                    Text("1,000 clips").tag(1000)
-                    Text("5,000 clips").tag(5000)
-                    Text("No limit").tag(0)
+            Section {
+                Picker("Text size", selection: $settings.textSize) {
+                    ForEach(TextSizePreference.allCases) { size in
+                        Text(size.displayName).tag(size)
+                    }
+                }
+            } header: {
+                Text("Accessibility")
+            } footer: {
+                Text("Scales every label in ClipStack, and the rows grow with it. Independent of the system-wide setting.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+
+            Section {
+                Picker("Keep", selection: $settings.retention) {
+                    Section("By number of clips") {
+                        ForEach(RetentionPolicy.presets.filter { if case .count = $0 { return true }; return false }) { policy in
+                            Text(policy.displayName).tag(policy)
+                        }
+                    }
+                    Section("By age") {
+                        ForEach(RetentionPolicy.presets.filter { if case .days = $0 { return true }; return false }) { policy in
+                            Text(policy.displayName).tag(policy)
+                        }
+                    }
+                    Text(RetentionPolicy.forever.displayName).tag(RetentionPolicy.forever)
                 }
                 .disabled(!subscriptions.isPro)
 
-                Picker("Delete clips older than", selection: $settings.autoCleanupDays) {
-                    Text("Never").tag(0)
-                    Text("7 days").tag(7)
-                    Text("30 days").tag(30)
-                    Text("90 days").tag(90)
-                }
-                .disabled(!subscriptions.isPro)
+                Text(effectiveRetention.explanation)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+
+                Text("Favourites and clips on a pinboard are never removed.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
 
                 if !subscriptions.isPro {
                     LabeledContent("Free plan") {
@@ -77,6 +102,8 @@ struct GeneralSettings: View {
                         }
                     }
                 }
+            } header: {
+                Text("History")
             }
         }
         .formStyle(.grouped)

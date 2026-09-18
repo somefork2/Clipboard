@@ -2,21 +2,125 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
-	<key>CFBundleVersion</key>
-	<string>1</string>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>en</string>
+    <key>CFBundleName</key>
+    <string>ClipStack</string>
+    <key>CFBundleDisplayName</key>
+    <string>ClipStack</string>
+    <key>CFBundleIdentifier</key>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleVersion</key>
+    <string>$(CURRENT_PROJECT_VERSION)</string>
+    <key>CFBundleShortVersionString</key>
+    <string>$(MARKETING_VERSION)</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleExecutable</key>
+    <string>$(EXECUTABLE_NAME)</string>
+    <key>CFBundleIconFile</key>
+    <string>AppIcon</string>
+    <key>CFBundleIconName</key>
+    <string>AppIcon</string>
+    <key>LSMinimumSystemVersion</key>
+    <string>14.0</string>
+    <key>LSApplicationCategoryType</key>
+    <string>public.app-category.productivity</string>
+    <key>NSHighResolutionCapable</key>
+    <true/>
+    <key>NSHumanReadableCopyright</key>
+    <string>Copyright © 2026 ClipStack. All rights reserved.</string>
+    <key>NSSupportsAutomaticTermination</key>
+    <false/>
+    <key>NSSupportsSuddenTermination</key>
+    <false/>
+    <key>ITSAppUsesNonExemptEncryption</key>
+    <false/>
+
+    <!-- ClipStack requests no privacy-protected data. Accessibility, which it
+         needs only to press ⌘V for you, is granted in System Settings and has
+         no usage-description key. It deliberately declares none of the others:
+         a usage string for an API the app does not call invites questions in
+         review and tells the user a lie about what the app does. -->
+
+    <key>NSServices</key>
+    <array>
+        <dict>
+            <key>NSMenuItem</key>
+            <dict>
+                <key>default</key>
+                <string>Save to ClipStack</string>
+            </dict>
+            <key>NSMessage</key>
+            <string>saveSelectionToClipStack</string>
+            <key>NSPortName</key>
+            <string>ClipStack</string>
+            <key>NSKeyEquivalent</key>
+            <dict>
+                <key>default</key>
+                <string>@$s</string>
+            </dict>
+            <key>NSSendTypes</key>
+            <array>
+                <string>public.utf8-plain-text</string>
+                <string>public.rtf</string>
+                <string>public.png</string>
+                <string>public.tiff</string>
+                <string>public.file-url</string>
+            </array>
+        </dict>
+        <dict>
+            <key>NSMenuItem</key>
+            <dict>
+                <key>default</key>
+                <string>Pin to ClipStack</string>
+            </dict>
+            <key>NSMessage</key>
+            <string>pinToClipStack</string>
+            <key>NSPortName</key>
+            <string>ClipStack</string>
+            <key>NSSendTypes</key>
+            <array>
+                <string>public.utf8-plain-text</string>
+                <string>public.rtf</string>
+                <string>public.png</string>
+                <string>public.tiff</string>
+                <string>public.file-url</string>
+            </array>
+        </dict>
+        <dict>
+            <key>NSMenuItem</key>
+            <dict>
+                <key>default</key>
+                <string>Add to ClipStack Paste Stack</string>
+            </dict>
+            <key>NSMessage</key>
+            <string>addToPasteStack</string>
+            <key>NSPortName</key>
+            <string>ClipStack</string>
+            <key>NSSendTypes</key>
+            <array>
+                <string>public.utf8-plain-text</string>
+                <string>public.rtf</string>
+            </array>
+        </dict>
+        <dict>
+            <key>NSMenuItem</key>
+            <dict>
+                <key>default</key>
+                <string>Paste from ClipStack</string>
+            </dict>
+            <key>NSMessage</key>
+            <string>quickPasteFromClipStack</string>
+            <key>NSPortName</key>
+            <string>ClipStack</string>
+            <key>NSReturnTypes</key>
+            <array>
+                <string>public.utf8-plain-text</string>
+            </array>
+        </dict>
+    </array>
 </dict>
 </plist>

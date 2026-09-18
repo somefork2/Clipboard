@@ -10,11 +10,15 @@ import SwiftUI
 enum Theme {
     // MARK: Metrics
 
+    /// Fixed metrics follow the text-size setting. A taller label in a row of
+    /// fixed height is simply clipped, so the rows have to grow with it.
     enum Metric {
-        static let rowHeight: CGFloat = 52
-        static let compactRowHeight: CGFloat = 40
+        @MainActor private static var scale: CGFloat { AppSettings.shared.textSize.metricScale }
+
+        @MainActor static var rowHeight: CGFloat { (52 * scale).rounded() }
+        @MainActor static var compactRowHeight: CGFloat { (40 * scale).rounded() }
+        @MainActor static var iconSize: CGFloat { (26 * scale).rounded() }
         static let corner: CGFloat = 6
-        static let iconSize: CGFloat = 26
         static let gutter: CGFloat = 12
         static let sectionSpacing: CGFloat = 20
     }

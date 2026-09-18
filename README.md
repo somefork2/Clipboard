@@ -14,6 +14,8 @@ Clipboard manager for macOS 14+. Keyboard-first, on-device, no account required.
 - **Export** — JSON, CSV, Markdown, HTML.
 - **iCloud sync** — optional, through your own private CloudKit database. A custom record zone with server change tokens, so edits and deletions both propagate. Syncs on launch, when you switch back to ClipStack, on a timer and shortly after you copy. Images and clips marked sensitive never leave the Mac.
 - **Themes** — System, Light, Dark, plus Paper, Graphite, Slate and Ink.
+- **Accessible** — five text sizes that scale every label and grow the rows with them.
+- **Retention you choose** — keep the last N clips, or only the last N days, or everything. Favourites and pinboards are never dropped.
 
 ## Keyboard shortcuts
 

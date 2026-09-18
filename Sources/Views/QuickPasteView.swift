@@ -6,7 +6,12 @@ import SwiftUI
 /// Entirely keyboard-driven: type to filter, ↑↓ to move, ⌘1–9 to jump, ⏎ to
 /// paste, ⌥⏎ to paste without formatting, Space to preview, ⌘⌫ to delete.
 struct QuickPasteView: View {
-    static let panelSize = CGSize(width: 460, height: 540)
+    /// Grows with the text-size setting so the same number of rows stays visible.
+    @MainActor
+    static var panelSize: CGSize {
+        let scale = AppSettings.shared.textSize.metricScale
+        return CGSize(width: (460 * min(scale, 1.25)).rounded(), height: (540 * min(scale, 1.2)).rounded())
+    }
 
     let onSelect: (ClipboardItem, Bool) -> Void
     let onDismiss: () -> Void

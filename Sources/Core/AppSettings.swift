@@ -20,8 +20,8 @@ final class AppSettings {
     var skipPasswords: Bool { didSet { persist() } }
     var skipConcealedPasteboard: Bool { didSet { persist() } }
     var hideFromScreenCapture: Bool { didSet { persist(); NotificationCenter.default.post(name: .clipStackWindowPrivacyChanged, object: nil) } }
-    var maxHistoryItems: Int { didSet { persist() } }
-    var autoCleanupDays: Int { didSet { persist() } }
+    var retention: RetentionPolicy { didSet { retention.save(); ClipboardStore.shared.enforceLimits() } }
+    var textSize: TextSizePreference { didSet { persist() } }
     var iCloudSync: Bool { didSet { persist() } }
     var playFeedbackSound: Bool { didSet { persist() } }
     var pasteDirectly: Bool { didSet { persist() } }
@@ -34,8 +34,6 @@ final class AppSettings {
             "skipPasswords": true,
             "skipConcealedPasteboard": true,
             "hideFromScreenCapture": true,
-            "maxHistoryItems": 1000,
-            "autoCleanupDays": 0,
             "icloudSync": false,
             "playFeedbackSound": false,
             "pasteDirectly": true
@@ -47,8 +45,9 @@ final class AppSettings {
         skipPasswords = defaults.bool(forKey: "skipPasswords")
         skipConcealedPasteboard = defaults.bool(forKey: "skipConcealedPasteboard")
         hideFromScreenCapture = defaults.bool(forKey: "hideFromScreenCapture")
-        maxHistoryItems = defaults.integer(forKey: "maxHistoryItems")
-        autoCleanupDays = defaults.integer(forKey: "autoCleanupDays")
+        retention = RetentionPolicy.load()
+        textSize = defaults.string(forKey: "textSize")
+            .flatMap(TextSizePreference.init(rawValue:)) ?? .standard
         iCloudSync = defaults.bool(forKey: "icloudSync")
         playFeedbackSound = defaults.bool(forKey: "playFeedbackSound")
         pasteDirectly = defaults.bool(forKey: "pasteDirectly")
@@ -61,8 +60,7 @@ final class AppSettings {
         defaults.set(skipPasswords, forKey: "skipPasswords")
         defaults.set(skipConcealedPasteboard, forKey: "skipConcealedPasteboard")
         defaults.set(hideFromScreenCapture, forKey: "hideFromScreenCapture")
-        defaults.set(maxHistoryItems, forKey: "maxHistoryItems")
-        defaults.set(autoCleanupDays, forKey: "autoCleanupDays")
+        defaults.set(textSize.rawValue, forKey: "textSize")
         defaults.set(iCloudSync, forKey: "icloudSync")
         defaults.set(playFeedbackSound, forKey: "playFeedbackSound")
         defaults.set(pasteDirectly, forKey: "pasteDirectly")

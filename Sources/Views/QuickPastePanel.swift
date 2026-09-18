@@ -77,6 +77,8 @@ final class QuickPastePanel: NSObject, NSWindowDelegate {
             onDismiss: { [weak self] in self?.hide() }
         )
         .environment(ClipboardStore.shared)
+        .tint(ThemeManager.shared.accentColor)
+        .dynamicTypeSize(AppSettings.shared.textSize.dynamicTypeSize)
 
         let hosting = NSHostingView(rootView: root)
         hosting.frame = NSRect(origin: .zero, size: size)

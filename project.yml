@@ -41,8 +41,10 @@ targets:
         debug:
           # Lets the paywall run against Products.storekit without App Store Connect.
           OTHER_SWIFT_FLAGS: "$(inherited) -DDEBUG"
-    info:
-      path: Sources/Resources/Info.plist
+    # No `info:` block on purpose: XcodeGen generates a plist at `info.path`
+    # and overwrites the file, which silently destroyed the Services entries,
+    # the app category and the encryption declaration. INFOPLIST_FILE above
+    # points at the file we maintain by hand.
 
   ClipStackTests:
     type: bundle.unit-test
