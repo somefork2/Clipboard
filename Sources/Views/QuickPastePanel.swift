@@ -93,7 +93,7 @@ final class QuickPastePanel: NSObject, NSWindowDelegate {
         guard let content = item.pasteContent else { return }
         ClipboardStore.shared.recordUse(item)
         StatisticsTracker.shared.recordPaste()
-        PasteService.paste(content, plainText: plainText)
+        PasteService.deliver(content, plainText: plainText)
     }
 
     /// Opens the palette under the mouse, kept fully on the active screen.

@@ -24,12 +24,11 @@ All global shortcuts are remappable in Settings ▸ Shortcuts.
 | Shortcut | Action |
 |---|---|
 | ⌥⌘V | Open the clipboard palette |
-| ⇧⌘V | Paste the previous item |
-| ⌃⌥⌘V | Paste as plain text |
-| ⌥⌘C | Save the selection without changing the clipboard |
+| ⇧⌘V | Put the previous item back on the clipboard |
+| ⌃⌥⌘V | Copy the latest clip without formatting |
 | ⌥⌘P | Pin the last copied item |
 | ⌃⌥P | Pause / resume recording |
-| ⌥⌘S | Paste the next item from the Paste Stack |
+| ⌥⌘S | Copy the next item from the Paste Stack |
 
 In the main window, pinboards included: click a clip's icon or thumbnail to preview it, ⌘Y or Space for the selected row, ⏎ to paste, ⌥⏎ as plain text, ⌘D to favourite, ⌘⌫ to delete.
 
@@ -39,8 +38,8 @@ Inside the palette:
 |---|---|
 | ↑ ↓ | Move |
 | ⌘1–9 | Jump to an item |
-| ⏎ | Paste |
-| ⌥⏎ | Paste as plain text |
+| ⏎ | Copy and return to your app |
+| ⌥⏎ | Copy without formatting |
 | ⌘Y | Quick Look |
 | ⌘F | Focus search |
 | ⌘⌫ | Delete |
@@ -50,12 +49,15 @@ ClipStack also installs Services entries (Save to ClipStack, Pin to ClipStack, A
 
 ## Permissions
 
-| Permission | Why | When |
-|---|---|---|
-| Accessibility | Synthesises ⌘V / ⌘C so a chosen clip lands in the app you were using | Only when "Paste directly into the active app" is on |
-| iCloud | Optional history sync in your private database | Only when sync is enabled |
+**ClipStack asks for none.**
 
-ClipStack never reads the contents of other applications; the Accessibility permission is used solely to send the paste keystroke.
+It never synthesises keystrokes, so it does not need Accessibility access —
+choosing a clip puts it on the clipboard and hands focus back to the app you
+came from, one ⌘V away. To insert a clip without pressing anything, use
+Services ▸ Paste from ClipStack, which is the mechanism macOS provides for one
+app to hand text to another and requires no permission.
+
+iCloud is used only if you turn sync on, and only in your own private database.
 
 ## Building
 

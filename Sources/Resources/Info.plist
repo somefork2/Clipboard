@@ -39,11 +39,11 @@
     <key>ITSAppUsesNonExemptEncryption</key>
     <false/>
 
-    <!-- ClipStack requests no privacy-protected data. Accessibility, which it
-         needs only to press ⌘V for you, is granted in System Settings and has
-         no usage-description key. It deliberately declares none of the others:
-         a usage string for an API the app does not call invites questions in
-         review and tells the user a lie about what the app does. -->
+    <!-- ClipStack requests no privacy-protected data and declares no usage
+         descriptions, because it calls none of the APIs that need one. It does
+         not synthesise keystrokes, so it needs no Accessibility access; clips
+         are placed on the pasteboard and the user presses ⌘V, or inserts them
+         through the Services entries below. -->
 
     <key>NSServices</key>
     <array>

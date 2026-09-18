@@ -165,7 +165,7 @@ struct MenuBarContentView: View {
         guard let content = item.pasteContent else { return }
         store.recordUse(item)
         StatisticsTracker.shared.recordPaste()
-        PasteService.paste(content, plainText: plainText)
+        PasteService.deliver(content, plainText: plainText)
     }
 }
 

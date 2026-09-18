@@ -73,7 +73,6 @@ enum ShortcutAction: String, CaseIterable, Identifiable {
     case quickPaste
     case pastePrevious
     case pastePlainText
-    case saveSelection
     case pinLast
     case togglePause
     case pasteStackNext
@@ -83,24 +82,22 @@ enum ShortcutAction: String, CaseIterable, Identifiable {
     var title: String {
         switch self {
         case .quickPaste: return "Open Clipboard Palette"
-        case .pastePrevious: return "Paste Previous Item"
-        case .pastePlainText: return "Paste as Plain Text"
-        case .saveSelection: return "Save Selection to ClipStack"
+        case .pastePrevious: return "Copy Previous Item"
+        case .pastePlainText: return "Copy Latest as Plain Text"
         case .pinLast: return "Pin Last Copied Item"
         case .togglePause: return "Pause / Resume Recording"
-        case .pasteStackNext: return "Paste Next from Stack"
+        case .pasteStackNext: return "Copy Next from Stack"
         }
     }
 
     var subtitle: String {
         switch self {
-        case .quickPaste: return "Floating palette at the cursor, without leaving the current app"
-        case .pastePrevious: return "Paste the item copied before the current one"
-        case .pastePlainText: return "Strip formatting before pasting"
-        case .saveSelection: return "Capture the selection without touching the system clipboard"
+        case .quickPaste: return "Floating palette at the cursor; pick a clip and press ⌘V"
+        case .pastePrevious: return "Put the item copied before the current one back on the clipboard"
+        case .pastePlainText: return "Put the latest clip on the clipboard with formatting stripped"
         case .pinLast: return "Add the most recent clip to Favourites"
         case .togglePause: return "Stop recording clipboard activity"
-        case .pasteStackNext: return "Paste the next queued item"
+        case .pasteStackNext: return "Put the next queued item on the clipboard"
         }
     }
 
@@ -112,8 +109,6 @@ enum ShortcutAction: String, CaseIterable, Identifiable {
             return ClipShortcut(keyCode: UInt32(kVK_ANSI_V), modifiers: UInt32(shiftKey | cmdKey))
         case .pastePlainText:
             return ClipShortcut(keyCode: UInt32(kVK_ANSI_V), modifiers: UInt32(controlKey | optionKey | cmdKey))
-        case .saveSelection:
-            return ClipShortcut(keyCode: UInt32(kVK_ANSI_C), modifiers: UInt32(optionKey | cmdKey))
         case .pinLast:
             return ClipShortcut(keyCode: UInt32(kVK_ANSI_P), modifiers: UInt32(optionKey | cmdKey))
         case .togglePause:

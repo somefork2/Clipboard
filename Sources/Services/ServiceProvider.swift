@@ -46,14 +46,28 @@ final class ServiceProvider: NSObject {
 
     // MARK: - Paste from ClipStack
 
-    /// Returns a clip to the requesting app. Opens the palette so the user picks
-    /// which one, rather than silently inserting whatever happened to be last.
+    /// Hands the most recent clip back to the requesting app, which inserts it
+    /// at the insertion point.
+    ///
+    /// This is the one way a sandboxed app can put text into another app's text
+    /// field without any permission at all — no Accessibility, no synthesised
+    /// keystrokes. A Service has to answer synchronously, so it returns the
+    /// latest clip; choosing a specific one is what the palette is for.
     @objc func quickPasteFromClipStack(
         _ pboard: NSPasteboard,
         userData: String,
         error: AutoreleasingUnsafeMutablePointer<NSString>
     ) {
-        QuickPastePanel.shared.show()
+        guard let latest = ClipboardStore.shared.items.first,
+              let text = latest.isSensitive ? nil : latest.body,
+              !text.isEmpty else {
+            error.pointee = "ClipStack has nothing to paste." as NSString
+            return
+        }
+        pboard.clearContents()
+        pboard.setString(text, forType: .string)
+        ClipboardStore.shared.recordUse(latest)
+        StatisticsTracker.shared.recordPaste()
     }
 
     // MARK: - Ingest

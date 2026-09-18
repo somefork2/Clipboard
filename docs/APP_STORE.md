@@ -71,16 +71,16 @@ committed to the repository.
 
 ### 4. Review notes to include
 
-Reviewers reject clipboard managers when they cannot tell why Accessibility is
-requested. Say it plainly in the review notes:
+ClipStack requests no privacy-protected data at all, which removes the usual
+reason clipboard utilities get rejected. Say so plainly:
 
-> ClipStack asks for Accessibility access only to synthesise the ⌘V keystroke so
-> the clip the user selects is pasted into the app they were using. It does not
-> read other apps' contents. The permission is optional — with "Paste directly
-> into the active app" off, ClipStack only writes to the system pasteboard.
+> ClipStack does not request Accessibility, Automation or any other privacy
+> permission. It never synthesises keystrokes: selecting a clip places it on the
+> system pasteboard and the user presses ⌘V. Optional insertion without a
+> keypress is provided through a standard macOS Service.
 
 Also mention that the Services entries appear under the Services submenu and how
-to enable them.
+to enable them in System Settings ▸ Keyboard ▸ Keyboard Shortcuts ▸ Services.
 
 ### 5. Store listing
 

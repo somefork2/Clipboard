@@ -24,7 +24,6 @@ final class AppSettings {
     var textSize: TextSizePreference { didSet { persist() } }
     var iCloudSync: Bool { didSet { persist() } }
     var playFeedbackSound: Bool { didSet { persist() } }
-    var pasteDirectly: Bool { didSet { persist() } }
     var hasCompletedOnboarding: Bool { didSet { persist() } }
 
     private init() {
@@ -35,8 +34,7 @@ final class AppSettings {
             "skipConcealedPasteboard": true,
             "hideFromScreenCapture": true,
             "icloudSync": false,
-            "playFeedbackSound": false,
-            "pasteDirectly": true
+ "playFeedbackSound": false
         ])
 
         launchAtLogin = SMAppService.mainApp.status == .enabled
@@ -50,7 +48,6 @@ final class AppSettings {
             .flatMap(TextSizePreference.init(rawValue:)) ?? .standard
         iCloudSync = defaults.bool(forKey: "icloudSync")
         playFeedbackSound = defaults.bool(forKey: "playFeedbackSound")
-        pasteDirectly = defaults.bool(forKey: "pasteDirectly")
         hasCompletedOnboarding = defaults.bool(forKey: "hasCompletedOnboarding")
     }
 
@@ -63,7 +60,6 @@ final class AppSettings {
         defaults.set(textSize.rawValue, forKey: "textSize")
         defaults.set(iCloudSync, forKey: "icloudSync")
         defaults.set(playFeedbackSound, forKey: "playFeedbackSound")
-        defaults.set(pasteDirectly, forKey: "pasteDirectly")
         defaults.set(hasCompletedOnboarding, forKey: "hasCompletedOnboarding")
     }
 

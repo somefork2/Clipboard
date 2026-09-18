@@ -47,13 +47,6 @@ struct GeneralSettings: View {
                     .foregroundStyle(.secondary)
             }
 
-            Section("Pasting") {
-                Toggle("Paste directly into the active app", isOn: $settings.pasteDirectly)
-                if settings.pasteDirectly {
-                    AccessibilityStatusRow()
-                }
-            }
-
             Section {
                 Picker("Text size", selection: $settings.textSize) {
                     ForEach(TextSizePreference.allCases) { size in
@@ -107,32 +100,6 @@ struct GeneralSettings: View {
             }
         }
         .formStyle(.grouped)
-    }
-}
-
-/// Shows exactly where the Accessibility permission stands, instead of failing
-/// silently the first time a paste does nothing.
-struct AccessibilityStatusRow: View {
-    @State private var trusted = PasteService.hasAccessibilityPermission
-
-    var body: some View {
-        LabeledContent("Accessibility access") {
-            HStack(spacing: 6) {
-                Image(systemName: trusted ? "checkmark.circle" : "exclamationmark.triangle")
-                    .foregroundStyle(trusted ? .green : .orange)
-                Text(trusted ? "Granted" : "Not granted")
-                    .foregroundStyle(.secondary)
-                if !trusted {
-                    Button("Grant…") {
-                        PasteService.ensurePermission()
-                    }
-                    .buttonStyle(.link)
-                }
-            }
-        }
-        .onReceive(Timer.publish(every: 2, on: .main, in: .common).autoconnect()) { _ in
-            trusted = PasteService.hasAccessibilityPermission
-        }
     }
 }
 
@@ -216,7 +183,8 @@ struct ShortcutSettings: View {
                     if !subscriptions.isPro {
                         Text("Rebinding every shortcut is part of ClipStack Pro. The palette and pause shortcuts stay editable on the free plan.")
                     }
-                    Text("Inside the palette: ↑↓ to move, ⌘1–9 to jump, ⏎ to paste, ⌥⏎ to paste as plain text, ⌘Y to preview, ⌘⌫ to delete, ⎋ to close.")
+                    Text("Inside the palette: ↑↓ to move, ⌘1–9 to jump, ⏎ to copy the clip and return to your app, ⌥⏎ without formatting, ⌘Y to preview, ⌘⌫ to delete, ⎋ to close. Press ⌘V to paste.")
+                    Text("ClipStack never presses keys for you, so it needs no Accessibility access. To insert a clip without pressing ⌘V, use Services ▸ Paste from ClipStack.")
                 }
                 .font(.caption)
                 .foregroundStyle(.secondary)

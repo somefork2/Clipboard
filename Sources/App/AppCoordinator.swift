@@ -50,7 +50,6 @@ final class AppCoordinator {
         shortcuts.setHandler(for: .quickPaste) { QuickPastePanel.shared.toggle() }
         shortcuts.setHandler(for: .pastePrevious) { [weak self] in self?.pastePrevious() }
         shortcuts.setHandler(for: .pastePlainText) { [weak self] in self?.pastePlainText() }
-        shortcuts.setHandler(for: .saveSelection) { [weak self] in self?.saveSelection() }
         shortcuts.setHandler(for: .pinLast) { [weak self] in self?.pinLast() }
         shortcuts.setHandler(for: .togglePause) { [weak self] in self?.togglePause() }
         shortcuts.setHandler(for: .pasteStackNext) { [weak self] in self?.pasteStackNext() }
@@ -92,23 +91,7 @@ final class AppCoordinator {
         PasteService.rememberFrontmostApp()
         store.recordUse(item)
         StatisticsTracker.shared.recordPaste()
-        PasteService.paste(content, plainText: plainText)
-    }
-
-    /// Captures the selection in the frontmost app without replacing the user's clipboard.
-    private func saveSelection() {
-        let app = NSWorkspace.shared.frontmostApplication
-        PasteService.captureSelection { [weak self] text in
-            guard let self, let text, !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
-            Task { @MainActor in
-                guard let clip = await ClipboardMonitor.makeClip(
-                    text: text,
-                    sourceApp: app?.localizedName,
-                    sourceBundleID: app?.bundleIdentifier
-                ) else { return }
-                self.store.insert(clip)
-            }
-        }
+        PasteService.deliver(content, plainText: plainText)
     }
 
     private func pinLast() {
