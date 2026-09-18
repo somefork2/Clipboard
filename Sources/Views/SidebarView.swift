@@ -5,6 +5,7 @@ struct SidebarView: View {
 
     @Environment(ClipboardStore.self) private var store
     @Environment(SubscriptionManager.self) private var subscriptions
+    @Environment(\.openSettings) private var openSettings
 
     @State private var editingBoard: Pinboard?
     @State private var isCreatingBoard = false
@@ -64,6 +65,7 @@ struct SidebarView: View {
         }
         .listStyle(.sidebar)
         .themedScrollBackground()
+        .safeAreaInset(edge: .bottom, spacing: 0) { settingsRow }
         .safeAreaInset(edge: .bottom) { statusFooter }
         .sheet(isPresented: $isCreatingBoard) {
             PinboardEditor(board: nil) { isCreatingBoard = false }
@@ -80,6 +82,36 @@ struct SidebarView: View {
             return
         }
         isCreatingBoard = true
+    }
+
+    /// Settings sits at the foot of the sidebar, where a utility's preferences
+    /// are easiest to find — not everyone reaches for ⌘, or the app menu.
+    private var settingsRow: some View {
+        VStack(spacing: 0) {
+            Divider()
+            HStack(spacing: 8) {
+                Button {
+                    openSettings()
+                } label: {
+                    Label("Settings", systemImage: "gearshape")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .help("Settings (⌘,)")
+
+                Button {
+                    AppCoordinator.shared.showSetupGuide()
+                } label: {
+                    Image(systemName: "questionmark.circle")
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .help("Setup guide")
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+        }
     }
 
     /// Free-tier users should always know where they stand, without a modal.
