@@ -17975,211 +17975,211 @@
         }
       }
     },
-    "CopyWell's right-click entries are macOS Services, and macOS ships them switched off. Tick the CopyWell entries under Services to get Save to CopyWell, Paste from CopyWell and the rest inside any app. The entry for files in Finder is switched on separately, under Finder Extensions.": {
+    "CopyWell's right-click entries are macOS Services, and macOS ships them switched off. The list there is grouped and the groups start collapsed — open Text, Images and Files and Folders with the arrow on the left, and tick the CopyWell entries inside. The entry for files in Finder is switched on separately, under Finder Extensions.": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "CopyWell's right-click entries are macOS Services, and macOS ships them switched off. Tick the CopyWell entries under Services to get Save to CopyWell, Paste from CopyWell and the rest inside any app. The entry for files in Finder is switched on separately, under Finder Extensions."
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "عناصر CopyWell في قائمة النقر بالزر الأيمن هي خدمات macOS، ويأتي النظام وهي مُعطَّلة. فعِّل عناصر CopyWell ضمن الخدمات للحصول على «حفظ في CopyWell» و«لصق من CopyWell» وغيرها داخل أي تطبيق. أما العنصر الخاص بالملفات في Finder فيُفعَّل بشكل منفصل ضمن إضافات Finder."
-          }
-        },
-        "ca": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Les entrades de CopyWell al menú contextual són serveis de macOS, i el sistema les entrega desactivades. Marca les entrades de CopyWell a Serveis per tenir Desa a CopyWell, Enganxa des de CopyWell i la resta dins de qualsevol app. L'entrada per a fitxers al Finder s'activa a part, a Extensions del Finder."
-          }
-        },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Položky CopyWellu v kontextové nabídce jsou služby macOS a systém je dodává vypnuté. Zaškrtněte položky CopyWell ve Službách a získáte Uložit do CopyWellu, Vložit z CopyWellu a další v každé aplikaci. Položka pro soubory ve Finderu se zapíná zvlášť, v rozšířeních Finderu."
-          }
-        },
-        "da": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "CopyWells punkter i højrekliksmenuen er macOS-tjenester, og de leveres slået fra. Sæt flueben ved CopyWell under Tjenester for at få Arkivér i CopyWell, Indsæt fra CopyWell og resten i enhver app. Punktet til filer i Finder slås til for sig under Finder-udvidelser."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Kontextmenü-Einträge von CopyWell sind macOS-Dienste, und macOS liefert sie ausgeschaltet aus. Aktiviere die CopyWell-Einträge unter Dienste, um In CopyWell sichern, Aus CopyWell einsetzen und die übrigen in jeder App zu bekommen. Der Eintrag für Dateien im Finder wird separat unter Finder-Erweiterungen aktiviert."
-          }
-        },
-        "el": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Οι εγγραφές του CopyWell στο μενού δεξιού κλικ είναι υπηρεσίες macOS και παραδίδονται απενεργοποιημένες. Επιλέξτε τις εγγραφές CopyWell στις Υπηρεσίες για να έχετε Αποθήκευση στο CopyWell, Επικόλληση από το CopyWell και τις υπόλοιπες σε κάθε εφαρμογή. Η εγγραφή για αρχεία στο Finder ενεργοποιείται ξεχωριστά, στις επεκτάσεις Finder."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Las entradas de CopyWell en el menú contextual son servicios de macOS, y el sistema las entrega desactivadas. Marca las entradas de CopyWell en Servicios para tener Guardar en CopyWell, Pegar desde CopyWell y las demás dentro de cualquier app. La entrada para archivos en el Finder se activa aparte, en Extensiones del Finder."
-          }
-        },
-        "fi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "CopyWellin kohdat kakkospainikkeen valikossa ovat macOS-palveluita, ja ne tulevat käytöstä poistettuina. Valitse CopyWellin kohdat Palveluista, niin saat Tallenna CopyWelliin, Sijoita CopyWellistä ja muut mihin tahansa ohjelmaan. Finderin tiedostokohta otetaan käyttöön erikseen Finder-laajennuksista."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Les entrées de CopyWell dans le menu contextuel sont des services macOS, et macOS les livre désactivées. Cochez les entrées CopyWell sous Services pour obtenir Enregistrer dans CopyWell, Coller depuis CopyWell et les autres dans n'importe quelle app. L'entrée pour les fichiers dans le Finder s'active à part, sous Extensions du Finder."
-          }
-        },
-        "he": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "הפריטים של CopyWell בתפריט הלחיצה הימנית הם שירותי macOS, והמערכת מגיעה כשהם כבויים. סמנו את הפריטים של CopyWell תחת שירותים כדי לקבל שמירה ב‑CopyWell, הדבקה מ‑CopyWell והשאר בכל יישום. הפריט לקבצים ב‑Finder מופעל בנפרד, תחת הרחבות Finder."
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "CopyWell के राइट-क्लिक विकल्प macOS सेवाएँ हैं, और macOS उन्हें बंद रखकर भेजता है। किसी भी ऐप में CopyWell में सहेजें, CopyWell से पेस्ट करें आदि पाने के लिए सेवाओं में CopyWell के विकल्प चुनें। Finder में फ़ाइलों वाला विकल्प अलग से Finder एक्सटेंशन में चालू होता है।"
-          }
-        },
-        "hr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stavke CopyWella u izborniku desnog klika su usluge macOS-a i isporučuju se isključene. Označite stavke CopyWell pod Uslugama da biste dobili Spremi u CopyWell, Zalijepi iz CopyWella i ostale u bilo kojem programu. Stavka za datoteke u Finderu uključuje se zasebno, u proširenjima Findera."
-          }
-        },
-        "hu": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A CopyWell helyi menüs elemei macOS-szolgáltatások, és a rendszer kikapcsolva szállítja őket. Jelölje be a CopyWell elemeit a Szolgáltatásoknál, így bármely alkalmazásban elérhető lesz a Mentés a CopyWellbe, a Beillesztés a CopyWellből és a többi. A Finder fájlokhoz tartozó eleme külön kapcsolható be, a Finder-bővítményeknél."
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Entri klik kanan CopyWell adalah Layanan macOS, dan macOS mengirimkannya dalam keadaan mati. Centang entri CopyWell di Layanan untuk mendapatkan Simpan ke CopyWell, Tempel dari CopyWell dan lainnya di aplikasi mana pun. Entri untuk berkas di Finder dinyalakan terpisah, di Ekstensi Finder."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Le voci di CopyWell nel menu contestuale sono servizi di macOS, e il sistema le fornisce disattivate. Spunta le voci CopyWell in Servizi per avere Salva in CopyWell, Incolla da CopyWell e le altre in qualsiasi app. La voce per i file nel Finder si attiva a parte, nelle estensioni del Finder."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "CopyWellの右クリック項目はmacOSのサービスで、標準ではオフになっています。サービスでCopyWellの項目にチェックを入れると、どのアプリでも「CopyWellに保存」「CopyWellからペースト」などが使えます。Finderのファイル用の項目は、Finder機能拡張で別途オンにします。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "CopyWell의 마우스 오른쪽 메뉴 항목은 macOS 서비스이며 기본적으로 꺼져 있습니다. 서비스에서 CopyWell 항목을 선택하면 어떤 앱에서든 CopyWell에 저장, CopyWell에서 붙여넣기 등을 쓸 수 있습니다. Finder의 파일 항목은 Finder 확장 프로그램에서 따로 켭니다."
-          }
-        },
-        "ms": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Entri klik kanan CopyWell ialah Perkhidmatan macOS, dan macOS menghantarnya dalam keadaan dimatikan. Tandakan entri CopyWell di bawah Perkhidmatan untuk mendapatkan Simpan ke CopyWell, Tampal dari CopyWell dan yang lain dalam mana-mana aplikasi. Entri untuk fail dalam Finder dihidupkan secara berasingan, di bawah Sambungan Finder."
-          }
-        },
-        "nb": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "CopyWells punkter i høyreklikkmenyen er macOS-tjenester, og de leveres avslått. Kryss av for CopyWell-punktene under Tjenester for å få Arkiver i CopyWell, Lim inn fra CopyWell og resten i enhver app. Punktet for filer i Finder slås på for seg, under Finder-utvidelser."
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "De rechtermuisknop-items van CopyWell zijn macOS-diensten, en macOS levert ze uitgeschakeld. Vink de CopyWell-items aan onder Diensten om Bewaar in CopyWell, Plak uit CopyWell en de rest in elke app te krijgen. Het item voor bestanden in de Finder schakel je apart in, onder Finder-extensies."
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pozycje CopyWell w menu prawego przycisku to usługi macOS i system dostarcza je wyłączone. Zaznacz pozycje CopyWell w Usługach, aby mieć Zapisz w CopyWell, Wklej z CopyWell i pozostałe w dowolnej aplikacji. Pozycja dla plików w Finderze włącza się osobno, w rozszerzeniach Findera."
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Os itens do CopyWell no menu de clique direito são Serviços do macOS, e o sistema os entrega desligados. Marque os itens do CopyWell em Serviços para ter Salvar no CopyWell, Colar do CopyWell e os demais dentro de qualquer app. O item para arquivos no Finder é ligado à parte, em Extensões do Finder."
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Os itens do CopyWell no menu do botão direito são Serviços do macOS, e o sistema entrega-os desligados. Marque os itens do CopyWell em Serviços para ter Guardar no CopyWell, Colar do CopyWell e os restantes dentro de qualquer app. O item para ficheiros no Finder liga-se à parte, em Extensões do Finder."
-          }
-        },
-        "ro": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Intrările CopyWell din meniul contextual sunt servicii macOS, iar sistemul le livrează dezactivate. Bifează intrările CopyWell la Servicii pentru a avea Salvează în CopyWell, Lipește din CopyWell și celelalte în orice aplicație. Intrarea pentru fișiere în Finder se activează separat, la extensiile Finder."
+            "value": "CopyWell's right-click entries are macOS Services, and macOS ships them switched off. The list there is grouped and the groups start collapsed — open Text, Images and Files and Folders with the arrow on the left, and tick the CopyWell entries inside. The entry for files in Finder is switched on separately, under Finder Extensions."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Пункты CopyWell в контекстном меню — это службы macOS, и система поставляет их выключенными. Отметьте пункты CopyWell в разделе «Службы», чтобы в любом приложении появились «Сохранить в CopyWell», «Вставить из CopyWell» и остальные. Пункт для файлов в Finder включается отдельно, в расширениях Finder."
+            "value": "Пункты CopyWell в контекстном меню — это службы macOS, и система поставляет их выключенными. Список там разбит на группы, и группы свёрнуты: раскройте «Текст», «Изображения» и «Файлы и папки» стрелкой слева и отметьте пункты CopyWell внутри. Пункт для файлов в Finder включается отдельно, в расширениях Finder."
           }
         },
-        "sk": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Položky CopyWellu v kontextovej ponuke sú služby macOS a systém ich dodáva vypnuté. Začiarknite položky CopyWell v Službách a v každej aplikácii získate Uložiť do CopyWellu, Vložiť z CopyWellu a ďalšie. Položka pre súbory vo Finderi sa zapína zvlášť, v rozšíreniach Findera."
+            "value": "Die Kontextmenü-Einträge von CopyWell sind macOS-Dienste und werden ausgeschaltet ausgeliefert. Die Liste dort ist gruppiert und die Gruppen sind zugeklappt — öffne Text, Bilder sowie Dateien und Ordner mit dem Pfeil links und aktiviere die CopyWell-Einträge darin. Der Eintrag für Dateien im Finder wird separat unter Finder-Erweiterungen aktiviert."
           }
         },
-        "sv": {
+        "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "CopyWells poster i högerklicksmenyn är macOS-tjänster, och macOS levererar dem avstängda. Kryssa för CopyWell-posterna under Tjänster för att få Spara i CopyWell, Klistra in från CopyWell och de övriga i vilken app som helst. Posten för filer i Finder slås på separat, under Finder-tillägg."
+            "value": "Les entrées de CopyWell dans le menu contextuel sont des services macOS, livrés désactivés. La liste y est groupée et les groupes sont repliés : ouvrez Texte, Images et Fichiers et dossiers avec la flèche à gauche, puis cochez les entrées CopyWell. L'entrée pour les fichiers dans le Finder s'active à part, sous Extensions du Finder."
           }
         },
-        "th": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "รายการคลิกขวาของ CopyWell คือบริการของ macOS และระบบส่งมาโดยปิดไว้ ติ๊กรายการ CopyWell ในบริการ เพื่อให้มี บันทึกไปยัง CopyWell, วางจาก CopyWell และรายการอื่นในทุกแอป ส่วนรายการสำหรับไฟล์ใน Finder เปิดแยกต่างหากที่ส่วนขยาย Finder"
+            "value": "Las entradas de CopyWell en el menú contextual son servicios de macOS y se entregan desactivadas. La lista está agrupada y los grupos vienen plegados: abre Texto, Imágenes y Archivos y carpetas con la flecha de la izquierda y marca las entradas de CopyWell. La entrada para archivos en el Finder se activa aparte, en Extensiones del Finder."
           }
         },
-        "tr": {
+        "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "CopyWell'in sağ tık girişleri macOS Hizmetleridir ve macOS bunları kapalı gönderir. Herhangi bir uygulamada CopyWell'e Kaydet, CopyWell'den Yapıştır ve diğerlerini almak için Hizmetler altındaki CopyWell girişlerini işaretleyin. Finder'daki dosyalara ait giriş ayrıca, Finder Uzantıları altından açılır."
+            "value": "Le voci di CopyWell nel menu contestuale sono servizi di macOS e arrivano disattivate. L'elenco è raggruppato e i gruppi sono chiusi: apri Testo, Immagini e File e cartelle con la freccia a sinistra e spunta le voci CopyWell. La voce per i file nel Finder si attiva a parte, nelle estensioni del Finder."
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Пункти CopyWell у контекстному меню — це служби macOS, і система постачає їх вимкненими. Позначте пункти CopyWell у розділі «Служби», щоб у будь-якому застосунку з'явилися «Зберегти в CopyWell», «Вставити з CopyWell» та інші. Пункт для файлів у Finder вмикається окремо, у розширеннях Finder."
+            "value": "Пункти CopyWell у контекстному меню — це служби macOS, і система постачає їх вимкненими. Список там поділено на групи, і групи згорнуті: розгорніть «Текст», «Зображення» та «Файли та теки» стрілкою ліворуч і позначте пункти CopyWell. Пункт для файлів у Finder вмикається окремо, у розширеннях Finder."
           }
         },
-        "vi": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Các mục chuột phải của CopyWell là Dịch vụ của macOS, và macOS để chúng tắt sẵn. Hãy tích các mục CopyWell trong Dịch vụ để có Lưu vào CopyWell, Dán từ CopyWell và những mục còn lại trong mọi ứng dụng. Mục dành cho tệp trong Finder được bật riêng, ở phần tiện ích Finder."
+            "value": "Pozycje CopyWell w menu kontekstowym to usługi macOS i są dostarczane wyłączone. Lista jest pogrupowana, a grupy są zwinięte: rozwiń Tekst, Obrazy oraz Pliki i foldery strzałką po lewej i zaznacz pozycje CopyWell. Pozycja dla plików w Finderze włącza się osobno, w rozszerzeniach Findera."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De rechtermuisknop-items van CopyWell zijn macOS-diensten en worden uitgeschakeld geleverd. De lijst is gegroepeerd en de groepen staan dichtgeklapt: open Tekst, Afbeeldingen en Bestanden en mappen met het pijltje links en vink de CopyWell-items aan. Het item voor bestanden in de Finder schakel je apart in, onder Finder-extensies."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os itens do CopyWell no menu de clique direito são Serviços do macOS e vêm desligados. A lista é agrupada e os grupos vêm recolhidos: abra Texto, Imagens e Arquivos e pastas na seta à esquerda e marque os itens do CopyWell. O item para arquivos no Finder é ligado à parte, em Extensões do Finder."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os itens do CopyWell no menu do botão direito são Serviços do macOS e vêm desligados. A lista é agrupada e os grupos vêm recolhidos: abra Texto, Imagens e Ficheiros e pastas na seta à esquerda e marque os itens do CopyWell. O item para ficheiros no Finder liga-se à parte, em Extensões do Finder."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWellの右クリック項目はmacOSのサービスで、標準ではオフです。一覧はグループ分けされ、最初は折りたたまれています。左の矢印で「テキスト」「イメージ」「ファイルとフォルダ」を開き、CopyWellの項目にチェックを入れてください。Finderのファイル用の項目は、Finder機能拡張で別途オンにします。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell의 마우스 오른쪽 메뉴 항목은 macOS 서비스이며 기본적으로 꺼져 있습니다. 목록은 그룹으로 묶여 있고 처음에는 접혀 있습니다. 왼쪽 화살표로 텍스트, 이미지, 파일 및 폴더를 펼치고 안에 있는 CopyWell 항목을 선택하세요. Finder의 파일 항목은 Finder 확장 프로그램에서 따로 켭니다."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "CopyWell 的右键菜单项是 macOS 的「服务」，系统默认将其关闭。在「服务」中勾选 CopyWell 的条目，即可在任何 App 中使用「保存到 CopyWell」「从 CopyWell 粘贴」等。访达中针对文件的条目需在「访达扩展」中单独开启。"
+            "value": "CopyWell 的右键菜单项是 macOS 的「服务」，默认关闭。列表按组显示且默认折叠：用左侧箭头展开「文本」「图像」「文件和文件夹」，勾选其中的 CopyWell 条目。访达中针对文件的条目需在「访达扩展」中单独开启。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "CopyWell 的右鍵選單項目是 macOS 的「服務」，系統預設將其關閉。在「服務」中勾選 CopyWell 的項目，即可在任何 App 中使用「儲存到 CopyWell」「從 CopyWell 貼上」等。Finder 中針對檔案的項目需在「Finder 延伸功能」中另外開啟。"
+            "value": "CopyWell 的右鍵選單項目是 macOS 的「服務」，預設關閉。列表按群組顯示且預設收合：用左側箭頭展開「文字」「影像」「檔案與檔案夾」，勾選其中的 CopyWell 項目。Finder 中針對檔案的項目需在「Finder 延伸功能」中另外開啟。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell'in sağ tık girişleri macOS Hizmetleridir ve kapalı gelir. Oradaki liste gruplanmıştır ve gruplar kapalı başlar: soldaki okla Metin, Görüntüler ve Dosyalar ve Klasörler'i açıp içindeki CopyWell girişlerini işaretleyin. Finder'daki dosyalara ait giriş ayrıca Finder Uzantıları altından açılır."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Položky CopyWellu v kontextové nabídce jsou služby macOS a jsou dodávány vypnuté. Seznam je rozdělen do skupin a ty jsou sbalené: šipkou vlevo rozbalte Text, Obrázky a Soubory a složky a zaškrtněte položky CopyWell. Položka pro soubory ve Finderu se zapíná zvlášť, v rozšířeních Finderu."
+          }
+        },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Položky CopyWellu v kontextovej ponuke sú služby macOS a dodávajú sa vypnuté. Zoznam je rozdelený do skupín a tie sú zbalené: šípkou vľavo rozbaľte Text, Obrázky a Súbory a priečinky a začiarknite položky CopyWell. Položka pre súbory vo Finderi sa zapína zvlášť, v rozšíreniach Findera."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWells poster i högerklicksmenyn är macOS-tjänster och levereras avstängda. Listan är grupperad och grupperna är hopfällda: öppna Text, Bilder samt Filer och mappar med pilen till vänster och kryssa för CopyWell-posterna. Posten för filer i Finder slås på separat, under Finder-tillägg."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWells punkter i højrekliksmenuen er macOS-tjenester og leveres slået fra. Listen er grupperet, og grupperne er foldet sammen: åbn Tekst, Billeder samt Filer og mapper med pilen til venstre, og sæt flueben ved CopyWell-punkterne. Punktet til filer i Finder slås til for sig under Finder-udvidelser."
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWells punkter i høyreklikkmenyen er macOS-tjenester og leveres avslått. Listen er gruppert og gruppene er slått sammen: åpne Tekst, Bilder og Filer og mapper med pilen til venstre, og kryss av for CopyWell-punktene. Punktet for filer i Finder slås på for seg, under Finder-utvidelser."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWellin kohdat kakkospainikkeen valikossa ovat macOS-palveluita ja ne tulevat pois käytöstä. Luettelo on ryhmitelty ja ryhmät ovat suljettuina: avaa Teksti, Kuvat sekä Tiedostot ja kansiot vasemmalla olevalla nuolella ja valitse CopyWellin kohdat. Finderin tiedostokohta otetaan käyttöön erikseen Finder-laajennuksista."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Οι εγγραφές του CopyWell στο μενού δεξιού κλικ είναι υπηρεσίες macOS και παραδίδονται απενεργοποιημένες. Η λίστα είναι ομαδοποιημένη και οι ομάδες ξεκινούν κλειστές: ανοίξτε Κείμενο, Εικόνες και Αρχεία και φάκελοι με το βέλος αριστερά και επιλέξτε τις εγγραφές CopyWell. Η εγγραφή για αρχεία στο Finder ενεργοποιείται ξεχωριστά, στις επεκτάσεις Finder."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A CopyWell helyi menüs elemei macOS-szolgáltatások, és kikapcsolva érkeznek. A lista csoportosítva van, a csoportok pedig összecsukva: a bal oldali nyíllal nyissa ki a Szöveg, Képek, valamint Fájlok és mappák csoportot, és jelölje be a CopyWell elemeit. A Finder fájlokhoz tartozó eleme külön kapcsolható be, a Finder-bővítményeknél."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Intrările CopyWell din meniul contextual sunt servicii macOS și sunt livrate dezactivate. Lista este grupată, iar grupurile sunt restrânse: deschide Text, Imagini și Fișiere și dosare cu săgeata din stânga și bifează intrările CopyWell. Intrarea pentru fișiere în Finder se activează separat, la extensiile Finder."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stavke CopyWella u kontekstnom izborniku su usluge macOS-a i isporučuju se isključene. Popis je grupiran, a grupe su sklopljene: strelicom slijeva otvorite Tekst, Slike te Datoteke i mape i označite stavke CopyWell. Stavka za datoteke u Finderu uključuje se zasebno, u proširenjima Findera."
+          }
+        },
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les entrades de CopyWell al menú contextual són serveis de macOS i s'entreguen desactivades. La llista està agrupada i els grups comencen plegats: obre Text, Imatges i Fitxers i carpetes amb la fletxa de l'esquerra i marca les entrades de CopyWell. L'entrada per a fitxers al Finder s'activa a part, a Extensions del Finder."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entri klik kanan CopyWell adalah Layanan macOS dan dikirim dalam keadaan mati. Daftarnya dikelompokkan dan grupnya tertutup: buka Teks, Gambar, serta Berkas dan Folder dengan panah di kiri, lalu centang entri CopyWell di dalamnya. Entri untuk berkas di Finder dinyalakan terpisah, di Ekstensi Finder."
+          }
+        },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entri klik kanan CopyWell ialah Perkhidmatan macOS dan dihantar dalam keadaan dimatikan. Senarainya dikumpulkan dan kumpulan itu tertutup: buka Teks, Imej, serta Fail dan Folder dengan anak panah di kiri, dan tandakan entri CopyWell di dalamnya. Entri untuk fail dalam Finder dihidupkan berasingan, di Sambungan Finder."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Các mục chuột phải của CopyWell là Dịch vụ của macOS và được để tắt sẵn. Danh sách ở đó được chia nhóm và các nhóm đang thu gọn: dùng mũi tên bên trái để mở Văn bản, Hình ảnh và Tệp và thư mục, rồi tích các mục CopyWell bên trong. Mục dành cho tệp trong Finder được bật riêng, ở phần tiện ích Finder."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "รายการคลิกขวาของ CopyWell คือบริการของ macOS และถูกปิดมาตั้งแต่ต้น รายการจัดเป็นกลุ่มและกลุ่มถูกย่อไว้ ให้กดลูกศรทางซ้ายเพื่อเปิด ข้อความ, ภาพ และ ไฟล์และโฟลเดอร์ แล้วติ๊กรายการ CopyWell ข้างใน ส่วนรายการสำหรับไฟล์ใน Finder เปิดแยกที่ส่วนขยาย Finder"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell के राइट-क्लिक विकल्प macOS सेवाएँ हैं और बंद अवस्था में आते हैं। वहाँ सूची समूहों में है और समूह सिमटे हुए हैं: बाईं ओर के तीर से टेक्स्ट, इमेज तथा फ़ाइलें और फ़ोल्डर खोलें और अंदर CopyWell के विकल्प चुनें। Finder में फ़ाइलों वाला विकल्प अलग से Finder एक्सटेंशन में चालू होता है।"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عناصر CopyWell في قائمة النقر بالزر الأيمن هي خدمات macOS وتأتي مُعطَّلة. القائمة هناك مُقسَّمة إلى مجموعات وهي مطوية: افتح «نص» و«صور» و«ملفات ومجلدات» بالسهم على اليسار وفعِّل عناصر CopyWell بداخلها. أما عنصر الملفات في Finder فيُفعَّل بشكل منفصل ضمن إضافات Finder."
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "הפריטים של CopyWell בתפריט הלחיצה הימנית הם שירותי macOS והם מגיעים כבויים. הרשימה שם מחולקת לקבוצות והקבוצות מכווצות: פתחו את טקסט, תמונות וכן קבצים ותיקיות בעזרת החץ שמשמאל, וסמנו את פריטי CopyWell שבתוכן. הפריט לקבצים ב‑Finder מופעל בנפרד, תחת הרחבות Finder."
           }
         }
       }
@@ -29679,211 +29679,211 @@
         }
       }
     },
-    "Keyboard ▸ Keyboard Shortcuts ▸ Services, then tick the CopyWell entries. In Finder, CopyWell also appears as its own menu — enable it in General ▸ Login Items & Extensions ▸ Finder Extensions.": {
+    "Keyboard ▸ Keyboard Shortcuts ▸ Services. The groups there start collapsed: open Text, Images and Files and Folders with the arrow on the left, and tick the CopyWell entries inside. In Finder, CopyWell also appears as its own menu — enable it in General ▸ Login Items & Extensions ▸ Finder Extensions.": {
       "extractionState": "manual",
       "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "لوحة المفاتيح ▸ اختصارات لوحة المفاتيح ▸ الخدمات، ثم علّم على بنود CopyWell. في Finder يظهر CopyWell كقائمة خاصة به أيضًا — فعّلها من عام ▸ عناصر تسجيل الدخول والإضافات ▸ إضافات Finder."
-          }
-        },
-        "ca": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Teclat ▸ Dreceres de teclat ▸ Serveis i marca les entrades del CopyWell. Al Finder, el CopyWell també apareix com a menú propi: activa’l a General ▸ Ítems d’inici i extensions ▸ Extensions del Finder."
-          }
-        },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Klávesnice ▸ Klávesové zkratky ▸ Služby a zaškrtněte položky CopyWellu. Ve Finderu se CopyWell objeví i jako vlastní nabídka – zapněte ji v Obecné ▸ Položky po přihlášení a rozšíření ▸ Rozšíření Finderu."
-          }
-        },
-        "da": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tastatur ▸ Tastaturgenveje ▸ Tjenester, og sæt flueben ved CopyWells punkter. I Finder vises CopyWell også som sin egen menu – slå den til under Generelt ▸ Login-emner og udvidelser ▸ Finder-udvidelser."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tastatur ▸ Kurzbefehle ▸ Dienste, dann die CopyWell-Einträge aktivieren. Im Finder erscheint CopyWell zusätzlich als eigenes Menü – einzuschalten unter Allgemein ▸ Anmeldeobjekte & Erweiterungen ▸ Finder-Erweiterungen."
-          }
-        },
-        "el": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Πληκτρολόγιο ▸ Συντομεύσεις πληκτρολογίου ▸ Υπηρεσίες και τσεκάρετε τις καταχωρίσεις του CopyWell. Στο Finder το CopyWell εμφανίζεται και ως δικό του μενού — ενεργοποιήστε το στα Γενικά ▸ Στοιχεία σύνδεσης και επεκτάσεις ▸ Επεκτάσεις Finder."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Keyboard ▸ Keyboard Shortcuts ▸ Services, then tick the CopyWell entries. In Finder, CopyWell also appears as its own menu — enable it in General ▸ Login Items & Extensions ▸ Finder Extensions."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Teclado ▸ Funciones rápidas de teclado ▸ Servicios y marca las entradas de CopyWell. En el Finder, CopyWell aparece además como menú propio: actívalo en General ▸ Ítems de inicio y extensiones ▸ Extensiones del Finder."
-          }
-        },
-        "fi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Näppäimistö ▸ Näppäinoikotiet ▸ Palvelut ja rastita CopyWellin kohdat. Finderissa CopyWell näkyy myös omana valikkonaan – ota se käyttöön kohdassa Yleiset ▸ Kirjautumiskohteet ja laajennukset ▸ Finder-laajennukset."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Clavier ▸ Raccourcis clavier ▸ Services, puis cochez les entrées CopyWell. Dans le Finder, CopyWell apparaît aussi comme son propre menu : activez-le dans Général ▸ Ouverture et extensions ▸ Extensions du Finder."
-          }
-        },
-        "he": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "מקלדת ▸ קיצורי מקלדת ▸ שירותים, ואז סמנו את הפריטים של CopyWell. ב-Finder, CopyWell מופיע גם כתפריט משלו — הפעילו אותו בכללי ▸ פריטי כניסה והרחבות ▸ הרחבות Finder."
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "कीबोर्ड ▸ कीबोर्ड शॉर्टकट ▸ सेवाएँ में जाकर CopyWell की प्रविष्टियाँ चुनें। Finder में CopyWell का अपना मेनू भी दिखता है — उसे सामान्य ▸ लॉगिन आइटम और एक्सटेंशन ▸ Finder एक्सटेंशन में चालू करें।"
-          }
-        },
-        "hr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tipkovnica ▸ Prečaci tipkovnice ▸ Usluge pa označite stavke CopyWella. U Finderu se CopyWell pojavljuje i kao vlastiti izbornik — uključite ga u Općenito ▸ Stavke prijave i proširenja ▸ Proširenja Findera."
-          }
-        },
-        "hu": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Billentyűzet ▸ Billentyűparancsok ▸ Szolgáltatások, majd pipálja ki a CopyWell bejegyzéseit. A Finderben a CopyWell saját menüként is megjelenik – kapcsolja be az Általános ▸ Bejelentkezési elemek és bővítmények ▸ Finder-bővítmények alatt."
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Papan Ketik ▸ Pintasan Papan Ketik ▸ Layanan, lalu centang entri CopyWell. Di Finder, CopyWell juga muncul sebagai menunya sendiri — aktifkan di Umum ▸ Item Masuk & Ekstensi ▸ Ekstensi Finder."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tastiera ▸ Abbreviazioni da tastiera ▸ Servizi, poi spunta le voci di CopyWell. Nel Finder, CopyWell compare anche come menu a sé: attivalo in Generali ▸ Elementi login ed estensioni ▸ Estensioni Finder."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "キーボード ▸ キーボードショートカット ▸ サービス で、CopyWellの項目にチェックを入れます。Finderでは独自のメニューとしても表示されます。一般 ▸ ログイン項目と機能拡張 ▸ Finder機能拡張 で有効にしてください。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "키보드 ▸ 키보드 단축키 ▸ 서비스에서 CopyWell 항목을 켜십시오. Finder에서는 CopyWell이 자체 메뉴로도 표시됩니다. 일반 ▸ 로그인 항목 및 확장 프로그램 ▸ Finder 확장 프로그램에서 켜십시오."
-          }
-        },
-        "ms": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Papan Kekunci ▸ Pintasan Papan Kekunci ▸ Perkhidmatan, kemudian tandakan entri CopyWell. Dalam Finder, CopyWell juga muncul sebagai menunya sendiri — hidupkannya di Umum ▸ Item Log Masuk & Sambungan ▸ Sambungan Finder."
-          }
-        },
-        "nb": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tastatur ▸ Tastatursnarveier ▸ Tjenester, og kryss av for CopyWell-oppføringene. I Finder vises CopyWell også som sin egen meny – slå den på under Generelt ▸ Påloggingsobjekter og utvidelser ▸ Finder-utvidelser."
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Toetsenbord ▸ Toetscombinaties ▸ Diensten, en vink de CopyWell-onderdelen aan. In de Finder verschijnt CopyWell ook als eigen menu — schakel het in bij Algemeen ▸ Inlogonderdelen en extensies ▸ Finder-extensies."
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Klawiatura ▸ Skróty klawiszowe ▸ Usługi, a następnie zaznacz pozycje CopyWell. W Finderze CopyWell pojawia się też jako własne menu — włącz je w Ogólne ▸ Elementy logowania i rozszerzenia ▸ Rozszerzenia Findera."
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Teclado ▸ Atalhos de Teclado ▸ Serviços e marque os itens do CopyWell. No Finder, o CopyWell também aparece como menu próprio: ative em Geral ▸ Itens de Início e Extensões ▸ Extensões do Finder."
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Teclado ▸ Atalhos de teclado ▸ Serviços e assinale as entradas do CopyWell. No Finder, o CopyWell aparece também como menu próprio — ative-o em Geral ▸ Itens de início e extensões ▸ Extensões do Finder."
-          }
-        },
-        "ro": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tastatură ▸ Scurtături de tastatură ▸ Servicii, apoi bifați intrările CopyWell. În Finder, CopyWell apare și ca meniu propriu — activați-l din General ▸ Elemente de conectare și extensii ▸ Extensii Finder."
+            "value": "Keyboard ▸ Keyboard Shortcuts ▸ Services. The groups there start collapsed: open Text, Images and Files and Folders with the arrow on the left, and tick the CopyWell entries inside. In Finder, CopyWell also appears as its own menu — enable it in General ▸ Login Items & Extensions ▸ Finder Extensions."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Клавиатура ▸ Сочетания клавиш ▸ Службы, затем отметьте пункты CopyWell. В Finder CopyWell появляется и как отдельное меню — включите его в Основные ▸ Объекты входа и расширения ▸ Расширения Finder."
-          }
-        },
-        "sk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Klávesnica ▸ Klávesové skratky ▸ Služby a začiarknite položky CopyWellu. Vo Finderi sa CopyWell objaví aj ako vlastná ponuka – zapnite ju vo Všeobecné ▸ Položky po prihlásení a rozšírenia ▸ Rozšírenia Findera."
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tangentbord ▸ Kortkommandon ▸ Tjänster, kryssa sedan i CopyWells alternativ. I Finder visas CopyWell även som en egen meny – slå på den under Allmänt ▸ Inloggningsobjekt och tillägg ▸ Findertillägg."
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "แป้นพิมพ์ ▸ ปุ่มลัดแป้นพิมพ์ ▸ บริการ แล้วติ๊กรายการของ CopyWell ใน Finder นั้น CopyWell จะมีเมนูของตัวเองด้วย — เปิดใช้ที่ ทั่วไป ▸ รายการเข้าสู่ระบบและส่วนขยาย ▸ ส่วนขยาย Finder"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Klavye ▸ Klavye Kısayolları ▸ Hizmetler yolunu izleyip CopyWell girişlerini işaretleyin. Finder’da CopyWell ayrı bir menü olarak da görünür — Genel ▸ Giriş Öğeleri ve Uzantılar ▸ Finder Uzantıları bölümünden açın."
+            "value": "Клавиатура ▸ Сочетания клавиш ▸ Службы. Группы там свёрнуты: раскройте «Текст», «Изображения» и «Файлы и папки» стрелкой слева и отметьте пункты CopyWell внутри. В Finder CopyWell появляется своим меню — включите его в «Основные ▸ Объекты входа и расширения ▸ Расширения Finder»."
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Клавіатура ▸ Сполучення клавіш ▸ Служби, потім позначте пункти CopyWell. У Finder CopyWell з’являється і як окреме меню — увімкніть його в Загальні ▸ Об’єкти входу та розширення ▸ Розширення Finder."
+            "value": "Клавіатура ▸ Сполучення клавіш ▸ Служби. Групи там згорнуті: розгорніть «Текст», «Зображення» та «Файли та теки» стрілкою ліворуч і позначте пункти CopyWell. У Finder CopyWell з'являється власним меню — увімкніть його в «Основні ▸ Об'єкти входу та розширення ▸ Розширення Finder»."
           }
         },
-        "vi": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bàn phím ▸ Phím tắt ▸ Dịch vụ, rồi đánh dấu các mục CopyWell. Trong Finder, CopyWell còn có trình đơn riêng — hãy bật ở Chung ▸ Mục đăng nhập và tiện ích mở rộng ▸ Tiện ích Finder."
+            "value": "Tastatur ▸ Kurzbefehle ▸ Dienste. Die Gruppen dort sind zugeklappt: Öffne Text, Bilder sowie Dateien und Ordner mit dem Pfeil links und aktiviere die CopyWell-Einträge darin. Im Finder erscheint CopyWell als eigenes Menü — aktiviere es unter Allgemein ▸ Anmeldeobjekte & Erweiterungen ▸ Finder-Erweiterungen."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clavier ▸ Raccourcis clavier ▸ Services. Les groupes y sont repliés : ouvrez Texte, Images et Fichiers et dossiers avec la flèche à gauche, puis cochez les entrées CopyWell. Dans le Finder, CopyWell apparaît comme son propre menu — activez-le dans Général ▸ Ouverture et extensions ▸ Extensions du Finder."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teclado ▸ Funciones rápidas ▸ Servicios. Los grupos vienen plegados: abre Texto, Imágenes y Archivos y carpetas con la flecha de la izquierda y marca las entradas de CopyWell. En el Finder, CopyWell aparece como menú propio: actívalo en General ▸ Ítems de inicio y extensiones ▸ Extensiones del Finder."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tastiera ▸ Abbreviazioni da tastiera ▸ Servizi. I gruppi sono chiusi: apri Testo, Immagini e File e cartelle con la freccia a sinistra e spunta le voci CopyWell. Nel Finder, CopyWell compare come menu a sé — attivalo in Generali ▸ Elementi login ed estensioni ▸ Estensioni del Finder."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klawiatura ▸ Skróty klawiszowe ▸ Usługi. Grupy są zwinięte: rozwiń Tekst, Obrazy oraz Pliki i foldery strzałką po lewej i zaznacz pozycje CopyWell. W Finderze CopyWell pojawia się jako własne menu — włącz je w Ogólne ▸ Elementy logowania i rozszerzenia ▸ Rozszerzenia Findera."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toetsenbord ▸ Toetscombinaties ▸ Diensten. De groepen staan dichtgeklapt: open Tekst, Afbeeldingen en Bestanden en mappen met het pijltje links en vink de CopyWell-items aan. In de Finder verschijnt CopyWell als eigen menu — schakel dat in bij Algemeen ▸ Inlogonderdelen en extensies ▸ Finder-extensies."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teclado ▸ Atalhos de teclado ▸ Serviços. Os grupos vêm recolhidos: abra Texto, Imagens e Arquivos e pastas na seta à esquerda e marque os itens do CopyWell. No Finder, o CopyWell aparece como menu próprio — ative em Geral ▸ Itens de início e extensões ▸ Extensões do Finder."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teclado ▸ Atalhos de teclado ▸ Serviços. Os grupos vêm recolhidos: abra Texto, Imagens e Ficheiros e pastas na seta à esquerda e marque os itens do CopyWell. No Finder, o CopyWell aparece como menu próprio — ative em Geral ▸ Itens de início e extensões ▸ Extensões do Finder."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "キーボード ▸ キーボードショートカット ▸ サービス。グループは折りたたまれています。左の矢印で「テキスト」「イメージ」「ファイルとフォルダ」を開き、CopyWellの項目にチェックを入れてください。FinderではCopyWellが独自のメニューとして表示されます。「一般 ▸ ログイン項目と機能拡張 ▸ Finder機能拡張」で有効にしてください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "키보드 ▸ 키보드 단축키 ▸ 서비스. 그룹은 접혀 있습니다. 왼쪽 화살표로 텍스트, 이미지, 파일 및 폴더를 펼치고 안의 CopyWell 항목을 선택하세요. Finder에서는 CopyWell이 자체 메뉴로 나타납니다 — 일반 ▸ 로그인 항목 및 확장 프로그램 ▸ Finder 확장 프로그램에서 켜세요."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "键盘 ▸ 键盘快捷键 ▸ 服务，勾选 CopyWell 的条目。在访达中，CopyWell 还会有自己的菜单——请在 通用 ▸ 登录项与扩展 ▸ 访达扩展 中启用。"
+            "value": "键盘 ▸ 键盘快捷键 ▸ 服务。其中的分组默认折叠：用左侧箭头展开「文本」「图像」「文件和文件夹」，勾选其中的 CopyWell 条目。在访达中，CopyWell 会显示为独立菜单——请在「通用 ▸ 登录项与扩展 ▸ 访达扩展」中启用。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "鍵盤 ▸ 鍵盤快速鍵 ▸ 服務，勾選 CopyWell 的項目。在 Finder 中，CopyWell 還會有自己的選單——請在 一般 ▸ 登入項目與延伸功能 ▸ Finder 延伸功能 中啟用。"
+            "value": "鍵盤 ▸ 鍵盤快速鍵 ▸ 服務。其中的群組預設收合：用左側箭頭展開「文字」「影像」「檔案與檔案夾」，勾選其中的 CopyWell 項目。在 Finder 中，CopyWell 會顯示為獨立選單——請在「一般 ▸ 登入項目與延伸功能 ▸ Finder 延伸功能」中啟用。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klavye ▸ Klavye Kısayolları ▸ Hizmetler. Oradaki gruplar kapalı başlar: soldaki okla Metin, Görüntüler ve Dosyalar ve Klasörler'i açıp içindeki CopyWell girişlerini işaretleyin. Finder'da CopyWell kendi menüsü olarak görünür — Genel ▸ Giriş Ögeleri ve Uzantılar ▸ Finder Uzantıları'ndan açın."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klávesnice ▸ Klávesové zkratky ▸ Služby. Skupiny jsou sbalené: šipkou vlevo rozbalte Text, Obrázky a Soubory a složky a zaškrtněte položky CopyWell. Ve Finderu se CopyWell objeví jako vlastní nabídka — zapněte ji v Obecné ▸ Položky přihlášení a rozšíření ▸ Rozšíření Finderu."
+          }
+        },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klávesnica ▸ Klávesové skratky ▸ Služby. Skupiny sú zbalené: šípkou vľavo rozbaľte Text, Obrázky a Súbory a priečinky a začiarknite položky CopyWell. Vo Finderi sa CopyWell objaví ako vlastná ponuka — zapnite ju v Všeobecné ▸ Položky prihlásenia a rozšírenia ▸ Rozšírenia Findera."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tangentbord ▸ Kortkommandon ▸ Tjänster. Grupperna är hopfällda: öppna Text, Bilder samt Filer och mappar med pilen till vänster och kryssa för CopyWell-posterna. I Finder visas CopyWell som en egen meny — slå på den under Allmänt ▸ Inloggningsobjekt och tillägg ▸ Finder-tillägg."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tastatur ▸ Tastaturgenveje ▸ Tjenester. Grupperne er foldet sammen: åbn Tekst, Billeder samt Filer og mapper med pilen til venstre, og sæt flueben ved CopyWell-punkterne. I Finder vises CopyWell som sin egen menu — slå den til under Generelt ▸ Loginemner og udvidelser ▸ Finder-udvidelser."
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tastatur ▸ Tastatursnarveier ▸ Tjenester. Gruppene er slått sammen: åpne Tekst, Bilder og Filer og mapper med pilen til venstre, og kryss av for CopyWell-punktene. I Finder vises CopyWell som sin egen meny — slå den på under Generelt ▸ Påloggingsobjekter og utvidelser ▸ Finder-utvidelser."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Näppäimistö ▸ Näppäinoikotiet ▸ Palvelut. Ryhmät ovat suljettuina: avaa Teksti, Kuvat sekä Tiedostot ja kansiot vasemmalla olevalla nuolella ja valitse CopyWellin kohdat. Finderissä CopyWell näkyy omana valikkonaan — ota se käyttöön kohdassa Yleiset ▸ Kirjautumiskohteet ja laajennukset ▸ Finder-laajennukset."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Πληκτρολόγιο ▸ Συντομεύσεις ▸ Υπηρεσίες. Οι ομάδες ξεκινούν κλειστές: ανοίξτε Κείμενο, Εικόνες και Αρχεία και φάκελοι με το βέλος αριστερά και επιλέξτε τις εγγραφές CopyWell. Στο Finder το CopyWell εμφανίζεται ως δικό του μενού — ενεργοποιήστε το στο Γενικά ▸ Στοιχεία σύνδεσης και επεκτάσεις ▸ Επεκτάσεις Finder."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Billentyűzet ▸ Billentyűparancsok ▸ Szolgáltatások. A csoportok összecsukva indulnak: a bal oldali nyíllal nyissa ki a Szöveg, Képek, valamint Fájlok és mappák csoportot, és jelölje be a CopyWell elemeit. A Finderben a CopyWell saját menüként jelenik meg — kapcsolja be az Általános ▸ Bejelentkezési elemek és bővítmények ▸ Finder-bővítmények alatt."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tastatură ▸ Scurtături tastatură ▸ Servicii. Grupurile sunt restrânse: deschide Text, Imagini și Fișiere și dosare cu săgeata din stânga și bifează intrările CopyWell. În Finder, CopyWell apare ca meniu propriu — activează-l în General ▸ Elemente de conectare și extensii ▸ Extensii Finder."
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipkovnica ▸ Tipkovni prečaci ▸ Usluge. Grupe su sklopljene: strelicom slijeva otvorite Tekst, Slike te Datoteke i mape i označite stavke CopyWell. U Finderu se CopyWell pojavljuje kao vlastiti izbornik — uključite ga u Općenito ▸ Stavke prijave i proširenja ▸ Proširenja Findera."
+          }
+        },
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teclat ▸ Dreceres de teclat ▸ Serveis. Els grups comencen plegats: obre Text, Imatges i Fitxers i carpetes amb la fletxa de l'esquerra i marca les entrades de CopyWell. Al Finder, el CopyWell apareix com a menú propi: activa'l a General ▸ Ítems d'inici i extensions ▸ Extensions del Finder."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Papan Ketik ▸ Pintasan Papan Ketik ▸ Layanan. Grup di sana tertutup: buka Teks, Gambar, serta Berkas dan Folder dengan panah di kiri, lalu centang entri CopyWell. Di Finder, CopyWell muncul sebagai menu sendiri — nyalakan di Umum ▸ Item Masuk & Ekstensi ▸ Ekstensi Finder."
+          }
+        },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Papan Kekunci ▸ Pintasan Papan Kekunci ▸ Perkhidmatan. Kumpulan di sana tertutup: buka Teks, Imej, serta Fail dan Folder dengan anak panah di kiri, dan tandakan entri CopyWell. Dalam Finder, CopyWell muncul sebagai menu sendiri — hidupkannya di Umum ▸ Item Log Masuk & Sambungan ▸ Sambungan Finder."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bàn phím ▸ Phím tắt ▸ Dịch vụ. Các nhóm ở đó đang thu gọn: dùng mũi tên bên trái để mở Văn bản, Hình ảnh và Tệp và thư mục, rồi tích các mục CopyWell. Trong Finder, CopyWell xuất hiện như một menu riêng — bật ở Cài đặt chung ▸ Mục đăng nhập và tiện ích ▸ Tiện ích Finder."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "แป้นพิมพ์ ▸ แป้นลัด ▸ บริการ กลุ่มต่าง ๆ ถูกย่อไว้ ให้กดลูกศรทางซ้ายเพื่อเปิด ข้อความ, ภาพ และ ไฟล์และโฟลเดอร์ แล้วติ๊กรายการ CopyWell ข้างใน ส่วนใน Finder นั้น CopyWell จะปรากฏเป็นเมนูของตัวเอง — เปิดได้ที่ ทั่วไป ▸ รายการเข้าสู่ระบบและส่วนขยาย ▸ ส่วนขยาย Finder"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "कीबोर्ड ▸ कीबोर्ड शॉर्टकट ▸ सेवाएँ। वहाँ समूह सिमटे हुए हैं: बाईं ओर के तीर से टेक्स्ट, इमेज तथा फ़ाइलें और फ़ोल्डर खोलें और अंदर CopyWell के विकल्प चुनें। Finder में CopyWell अपने मेन्यू के रूप में दिखता है — इसे सामान्य ▸ लॉगिन आइटम और एक्सटेंशन ▸ Finder एक्सटेंशन में चालू करें।"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لوحة المفاتيح ◂ اختصارات لوحة المفاتيح ◂ الخدمات. المجموعات هناك مطوية: افتح «نص» و«صور» و«ملفات ومجلدات» بالسهم على اليسار وفعِّل عناصر CopyWell بداخلها. في Finder يظهر CopyWell بقائمة خاصة به — فعِّلها من «عام ◂ عناصر تسجيل الدخول والإضافات ◂ إضافات Finder»."
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "מקלדת ◂ קיצורי מקלדת ◂ שירותים. הקבוצות שם מכווצות: פתחו את טקסט, תמונות וכן קבצים ותיקיות בעזרת החץ שמשמאל, וסמנו את פריטי CopyWell. ב‑Finder מופיע CopyWell כתפריט משלו — הפעילו אותו ב«כללי ◂ פריטי כניסה והרחבות ◂ הרחבות Finder»."
           }
         }
       }

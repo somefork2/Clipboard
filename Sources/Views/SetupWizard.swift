@@ -207,7 +207,7 @@ struct SetupWizard: View {
                 }
             }
 
-            Text("Keyboard ▸ Keyboard Shortcuts ▸ Services, then tick the CopyWell entries. In Finder, CopyWell also appears as its own menu — enable it in General ▸ Login Items & Extensions ▸ Finder Extensions.")
+            Text("Keyboard ▸ Keyboard Shortcuts ▸ Services. The groups there start collapsed: open Text, Images and Files and Folders with the arrow on the left, and tick the CopyWell entries inside. In Finder, CopyWell also appears as its own menu — enable it in General ▸ Login Items & Extensions ▸ Finder Extensions.")
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)

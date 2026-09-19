@@ -102,7 +102,7 @@ struct GeneralSettings: View {
             } header: {
                 Text("Right-click menu")
             } footer: {
-                Text("CopyWell's right-click entries are macOS Services, and macOS ships them switched off. Tick the CopyWell entries under Services to get Save to CopyWell, Paste from CopyWell and the rest inside any app. The entry for files in Finder is switched on separately, under Finder Extensions.")
+                Text("CopyWell's right-click entries are macOS Services, and macOS ships them switched off. The list there is grouped and the groups start collapsed — open Text, Images and Files and Folders with the arrow on the left, and tick the CopyWell entries inside. The entry for files in Finder is switched on separately, under Finder Extensions.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
