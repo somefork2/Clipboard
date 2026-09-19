@@ -1,14 +1,14 @@
 import NaturalLanguage
 import Foundation
 
-// MARK: - Результат категоризации
+// MARK: - Categorisation result
 
 struct CategorizationResult: Sendable {
     let category: ContentCategory
     let language: String?
     let confidence: Double
     let entities: [ExtractedEntity]
-    let sentiment: Double  // -1.0 (негатив) ... 0.0 (нейтрально) ... +1.0 (позитив)
+    let sentiment: Double  // -1.0 negative ... 0.0 neutral ... +1.0 positive
     let tags: [String]
     let suggestedTitle: String
     let isSensitive: Bool
@@ -67,46 +67,36 @@ actor SmartCategorizer {
 
     static let shared = SmartCategorizer()
 
-    // Kэш для определения языка
+    // Cache for language detection
     private let languageRecognizer = NLLanguageRecognizer()
     private var cachedModels: [String: NLModel] = [:]
 
-    // MARK: - Основная функция категоризации
+    // MARK: - Categorising
 
     func categorize(_ text: String) async -> CategorizationResult {
-        // 1. Определяем язык
+        // 1. Language
         let language = detectLanguage(text)
 
-        // 2. Извлекаем сущности (NER)
+        // 2. Named entities
         let entities = extractEntities(from: text)
 
-        // 3. Определяем категорию контента
+        // 3. Content category
         let category = classifyContent(text, entities: entities)
 
-        // 4. Анализируем sentiment
+        // 4. Sentiment
         let sentiment = analyzeSentiment(text)
 
-        // 5. Извлекаем теги
+        // 5. Tags
         let tags = extractTags(from: text, entities: entities)
 
-        // 6. Проверяем чувствительность
+        // 6. Sensitivity
         let isSensitive = checkSensitivity(text, entities: entities)
 
-        // 7. Предлагаем заголовок
+        // 7. Suggested title
         let title = suggestTitle(text, category: category, entities: entities)
 
-        // 8. Confidence score
+        // 8. Confidence
         let confidence = calculateConfidence(entities: entities, category: category)
-
-        // 9. Если доступен Apple Intelligence — обогащаем результат
-        if #available(macOS 26.0, *) {
-            let enriched = await appleIntelligenceEnrich(text, baseResult: CategorizationResult(
-                category: category, language: language, confidence: confidence,
-                entities: entities, sentiment: sentiment, tags: tags,
-                suggestedTitle: title, isSensitive: isSensitive
-            ))
-            return enriched
-        }
 
         return CategorizationResult(
             category: category, language: language, confidence: confidence,
@@ -115,7 +105,7 @@ actor SmartCategorizer {
         )
     }
 
-    // MARK: - Определение языка
+    // MARK: - Language
 
     private func detectLanguage(_ text: String) -> String? {
         languageRecognizer.reset()
@@ -124,7 +114,7 @@ actor SmartCategorizer {
         return lang.rawValue
     }
 
-    // MARK: - Извлечение сущностей (NER)
+    // MARK: - Named entities
 
     private func extractEntities(from text: String) -> [ExtractedEntity] {
         var entities: [ExtractedEntity] = []
@@ -152,7 +142,7 @@ actor SmartCategorizer {
             return true
         }
 
-        // Дополнительно: regex для email, phone, URL, дат
+        // Plus regex for email, phone, URL and dates
         entities.append(contentsOf: extractRegexEntities(from: text))
 
         return entities
@@ -211,25 +201,25 @@ actor SmartCategorizer {
         return entities
     }
 
-    // MARK: - Классификация контента
+    // MARK: - Content classification
 
     private func classifyContent(_ text: String, entities: [ExtractedEntity]) -> ContentCategory {
-        // Код
+        // Code
         if looksLikeCode(text) { return .code }
 
-        // Ссылки
+        // Links
         if entities.contains(where: { $0.type == .url }) { return .links }
 
-        // Контакты
+        // Contacts
         let hasEmail = entities.contains(where: { $0.type == .email })
         let hasPhone = entities.contains(where: { $0.type == .phoneNumber })
         let hasName = entities.contains(where: { $0.type == .personalName })
         if hasEmail || hasPhone || hasName { return .contacts }
 
-        // Адреса
+        // Addresses
         if entities.contains(where: { $0.type == .placeName }) { return .addresses }
 
-        // Длинный текст = заметки
+        // Long text reads as a note
         if text.count > 300 { return .notes }
 
         return .text
@@ -248,7 +238,7 @@ actor SmartCategorizer {
             if trimmed.lowercased().contains(indicator.lowercased()) { return true }
         }
 
-        // Проверка на баланс скобок
+        // Balanced brackets
         let openBraces = text.filter { $0 == "{" }.count
         let closeBraces = text.filter { $0 == "}" }.count
         if openBraces > 0 && openBraces == closeBraces { return true }
@@ -278,7 +268,7 @@ actor SmartCategorizer {
         var tags: [String] = []
         let lowercased = text.lowercased()
 
-        // Теги по содержимому
+        // Tags from the content
         if lowercased.contains("todo") || lowercased.contains("задача") || lowercased.contains("task") { tags.append("todo") }
         if lowercased.contains("meeting") || lowercased.contains("встреча") || lowercased.contains("sync") { tags.append("meeting") }
         if lowercased.contains("deadline") || lowercased.contains("дедлайн") || lowercased.contains("крайний срок") { tags.append("deadline") }
@@ -288,12 +278,12 @@ actor SmartCategorizer {
         if lowercased.contains("link") || lowercased.contains("ссылка") || lowercased.contains("check") { tags.append("link") }
         if lowercased.contains("address") || lowercased.contains("адрес") || lowercased.contains("улица") { tags.append("address") }
 
-        // Теги по сущностям
+        // Tags from the entities
         if entities.contains(where: { $0.type == .email }) { tags.append("email") }
         if entities.contains(where: { $0.type == .phoneNumber }) { tags.append("phone") }
         if entities.contains(where: { $0.type == .organizationName }) { tags.append("company") }
 
-        // Убираем дубликаты
+        // Drop duplicates
         return Array(Set(tags)).sorted()
     }
 
@@ -311,7 +301,7 @@ actor SmartCategorizer {
             if lowercased.contains(pattern) { return true }
         }
 
-        // Если найдены персональные данные — тоже чувствительно
+        // Personal data counts as sensitive too
         if entities.contains(where: { $0.type == .email }) && text.count < 100 { return true }
 
         return false
@@ -366,33 +356,19 @@ actor SmartCategorizer {
     // MARK: - Confidence Score
 
     private func calculateConfidence(entities: [ExtractedEntity], category: ContentCategory) -> Double {
-        var confidence: Double = 0.5  // базовый
+        var confidence: Double = 0.5  // baseline
 
-        // Если нашли сущности — уверенность выше
+        // Entities found raises it
         if !entities.isEmpty { confidence += 0.15 * Double(min(entities.count, 3)) }
 
-        // Если категория не "text" — выше
+        // A category other than plain text raises it
         if category != .text { confidence += 0.1 }
 
         return min(confidence, 1.0)
     }
-
-    // MARK: - Apple Intelligence (macOS 26+)
-
-    @available(macOS 26.0, *)
-    private func appleIntelligenceEnrich(_ text: String, baseResult: CategorizationResult) async -> CategorizationResult {
-        // Apple Intelligence API доступен через FoundationModels
-        // Пока используем fallback — в будущем здесь будет вызов LLM
-
-        // TODO: Интеграция с Apple Intelligence
-        // let session = LanguageModelSession()
-        // let response = await session.respond(to: "Категоризируй: \(text)")
-
-        return baseResult
-    }
 }
 
-// MARK: - ContentCategory (обновлённый)
+// MARK: - ContentCategory
 
 enum ContentCategory: String, Codable, CaseIterable, Sendable {
     case text

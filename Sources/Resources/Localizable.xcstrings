@@ -17975,6 +17975,215 @@
         }
       }
     },
+    "CopyWell's right-click entries are macOS Services, and macOS ships them switched off. Tick the CopyWell entries under Services to get Save to CopyWell, Paste from CopyWell and the rest inside any app. The entry for files in Finder is switched on separately, under Finder Extensions.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell's right-click entries are macOS Services, and macOS ships them switched off. Tick the CopyWell entries under Services to get Save to CopyWell, Paste from CopyWell and the rest inside any app. The entry for files in Finder is switched on separately, under Finder Extensions."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عناصر CopyWell في قائمة النقر بالزر الأيمن هي خدمات macOS، ويأتي النظام وهي مُعطَّلة. فعِّل عناصر CopyWell ضمن الخدمات للحصول على «حفظ في CopyWell» و«لصق من CopyWell» وغيرها داخل أي تطبيق. أما العنصر الخاص بالملفات في Finder فيُفعَّل بشكل منفصل ضمن إضافات Finder."
+          }
+        },
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les entrades de CopyWell al menú contextual són serveis de macOS, i el sistema les entrega desactivades. Marca les entrades de CopyWell a Serveis per tenir Desa a CopyWell, Enganxa des de CopyWell i la resta dins de qualsevol app. L'entrada per a fitxers al Finder s'activa a part, a Extensions del Finder."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Položky CopyWellu v kontextové nabídce jsou služby macOS a systém je dodává vypnuté. Zaškrtněte položky CopyWell ve Službách a získáte Uložit do CopyWellu, Vložit z CopyWellu a další v každé aplikaci. Položka pro soubory ve Finderu se zapíná zvlášť, v rozšířeních Finderu."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWells punkter i højrekliksmenuen er macOS-tjenester, og de leveres slået fra. Sæt flueben ved CopyWell under Tjenester for at få Arkivér i CopyWell, Indsæt fra CopyWell og resten i enhver app. Punktet til filer i Finder slås til for sig under Finder-udvidelser."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Kontextmenü-Einträge von CopyWell sind macOS-Dienste, und macOS liefert sie ausgeschaltet aus. Aktiviere die CopyWell-Einträge unter Dienste, um In CopyWell sichern, Aus CopyWell einsetzen und die übrigen in jeder App zu bekommen. Der Eintrag für Dateien im Finder wird separat unter Finder-Erweiterungen aktiviert."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Οι εγγραφές του CopyWell στο μενού δεξιού κλικ είναι υπηρεσίες macOS και παραδίδονται απενεργοποιημένες. Επιλέξτε τις εγγραφές CopyWell στις Υπηρεσίες για να έχετε Αποθήκευση στο CopyWell, Επικόλληση από το CopyWell και τις υπόλοιπες σε κάθε εφαρμογή. Η εγγραφή για αρχεία στο Finder ενεργοποιείται ξεχωριστά, στις επεκτάσεις Finder."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las entradas de CopyWell en el menú contextual son servicios de macOS, y el sistema las entrega desactivadas. Marca las entradas de CopyWell en Servicios para tener Guardar en CopyWell, Pegar desde CopyWell y las demás dentro de cualquier app. La entrada para archivos en el Finder se activa aparte, en Extensiones del Finder."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWellin kohdat kakkospainikkeen valikossa ovat macOS-palveluita, ja ne tulevat käytöstä poistettuina. Valitse CopyWellin kohdat Palveluista, niin saat Tallenna CopyWelliin, Sijoita CopyWellistä ja muut mihin tahansa ohjelmaan. Finderin tiedostokohta otetaan käyttöön erikseen Finder-laajennuksista."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les entrées de CopyWell dans le menu contextuel sont des services macOS, et macOS les livre désactivées. Cochez les entrées CopyWell sous Services pour obtenir Enregistrer dans CopyWell, Coller depuis CopyWell et les autres dans n'importe quelle app. L'entrée pour les fichiers dans le Finder s'active à part, sous Extensions du Finder."
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "הפריטים של CopyWell בתפריט הלחיצה הימנית הם שירותי macOS, והמערכת מגיעה כשהם כבויים. סמנו את הפריטים של CopyWell תחת שירותים כדי לקבל שמירה ב‑CopyWell, הדבקה מ‑CopyWell והשאר בכל יישום. הפריט לקבצים ב‑Finder מופעל בנפרד, תחת הרחבות Finder."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell के राइट-क्लिक विकल्प macOS सेवाएँ हैं, और macOS उन्हें बंद रखकर भेजता है। किसी भी ऐप में CopyWell में सहेजें, CopyWell से पेस्ट करें आदि पाने के लिए सेवाओं में CopyWell के विकल्प चुनें। Finder में फ़ाइलों वाला विकल्प अलग से Finder एक्सटेंशन में चालू होता है।"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stavke CopyWella u izborniku desnog klika su usluge macOS-a i isporučuju se isključene. Označite stavke CopyWell pod Uslugama da biste dobili Spremi u CopyWell, Zalijepi iz CopyWella i ostale u bilo kojem programu. Stavka za datoteke u Finderu uključuje se zasebno, u proširenjima Findera."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A CopyWell helyi menüs elemei macOS-szolgáltatások, és a rendszer kikapcsolva szállítja őket. Jelölje be a CopyWell elemeit a Szolgáltatásoknál, így bármely alkalmazásban elérhető lesz a Mentés a CopyWellbe, a Beillesztés a CopyWellből és a többi. A Finder fájlokhoz tartozó eleme külön kapcsolható be, a Finder-bővítményeknél."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entri klik kanan CopyWell adalah Layanan macOS, dan macOS mengirimkannya dalam keadaan mati. Centang entri CopyWell di Layanan untuk mendapatkan Simpan ke CopyWell, Tempel dari CopyWell dan lainnya di aplikasi mana pun. Entri untuk berkas di Finder dinyalakan terpisah, di Ekstensi Finder."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le voci di CopyWell nel menu contestuale sono servizi di macOS, e il sistema le fornisce disattivate. Spunta le voci CopyWell in Servizi per avere Salva in CopyWell, Incolla da CopyWell e le altre in qualsiasi app. La voce per i file nel Finder si attiva a parte, nelle estensioni del Finder."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWellの右クリック項目はmacOSのサービスで、標準ではオフになっています。サービスでCopyWellの項目にチェックを入れると、どのアプリでも「CopyWellに保存」「CopyWellからペースト」などが使えます。Finderのファイル用の項目は、Finder機能拡張で別途オンにします。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell의 마우스 오른쪽 메뉴 항목은 macOS 서비스이며 기본적으로 꺼져 있습니다. 서비스에서 CopyWell 항목을 선택하면 어떤 앱에서든 CopyWell에 저장, CopyWell에서 붙여넣기 등을 쓸 수 있습니다. Finder의 파일 항목은 Finder 확장 프로그램에서 따로 켭니다."
+          }
+        },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entri klik kanan CopyWell ialah Perkhidmatan macOS, dan macOS menghantarnya dalam keadaan dimatikan. Tandakan entri CopyWell di bawah Perkhidmatan untuk mendapatkan Simpan ke CopyWell, Tampal dari CopyWell dan yang lain dalam mana-mana aplikasi. Entri untuk fail dalam Finder dihidupkan secara berasingan, di bawah Sambungan Finder."
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWells punkter i høyreklikkmenyen er macOS-tjenester, og de leveres avslått. Kryss av for CopyWell-punktene under Tjenester for å få Arkiver i CopyWell, Lim inn fra CopyWell og resten i enhver app. Punktet for filer i Finder slås på for seg, under Finder-utvidelser."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De rechtermuisknop-items van CopyWell zijn macOS-diensten, en macOS levert ze uitgeschakeld. Vink de CopyWell-items aan onder Diensten om Bewaar in CopyWell, Plak uit CopyWell en de rest in elke app te krijgen. Het item voor bestanden in de Finder schakel je apart in, onder Finder-extensies."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pozycje CopyWell w menu prawego przycisku to usługi macOS i system dostarcza je wyłączone. Zaznacz pozycje CopyWell w Usługach, aby mieć Zapisz w CopyWell, Wklej z CopyWell i pozostałe w dowolnej aplikacji. Pozycja dla plików w Finderze włącza się osobno, w rozszerzeniach Findera."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os itens do CopyWell no menu de clique direito são Serviços do macOS, e o sistema os entrega desligados. Marque os itens do CopyWell em Serviços para ter Salvar no CopyWell, Colar do CopyWell e os demais dentro de qualquer app. O item para arquivos no Finder é ligado à parte, em Extensões do Finder."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os itens do CopyWell no menu do botão direito são Serviços do macOS, e o sistema entrega-os desligados. Marque os itens do CopyWell em Serviços para ter Guardar no CopyWell, Colar do CopyWell e os restantes dentro de qualquer app. O item para ficheiros no Finder liga-se à parte, em Extensões do Finder."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Intrările CopyWell din meniul contextual sunt servicii macOS, iar sistemul le livrează dezactivate. Bifează intrările CopyWell la Servicii pentru a avea Salvează în CopyWell, Lipește din CopyWell și celelalte în orice aplicație. Intrarea pentru fișiere în Finder se activează separat, la extensiile Finder."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пункты CopyWell в контекстном меню — это службы macOS, и система поставляет их выключенными. Отметьте пункты CopyWell в разделе «Службы», чтобы в любом приложении появились «Сохранить в CopyWell», «Вставить из CopyWell» и остальные. Пункт для файлов в Finder включается отдельно, в расширениях Finder."
+          }
+        },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Položky CopyWellu v kontextovej ponuke sú služby macOS a systém ich dodáva vypnuté. Začiarknite položky CopyWell v Službách a v každej aplikácii získate Uložiť do CopyWellu, Vložiť z CopyWellu a ďalšie. Položka pre súbory vo Finderi sa zapína zvlášť, v rozšíreniach Findera."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWells poster i högerklicksmenyn är macOS-tjänster, och macOS levererar dem avstängda. Kryssa för CopyWell-posterna under Tjänster för att få Spara i CopyWell, Klistra in från CopyWell och de övriga i vilken app som helst. Posten för filer i Finder slås på separat, under Finder-tillägg."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "รายการคลิกขวาของ CopyWell คือบริการของ macOS และระบบส่งมาโดยปิดไว้ ติ๊กรายการ CopyWell ในบริการ เพื่อให้มี บันทึกไปยัง CopyWell, วางจาก CopyWell และรายการอื่นในทุกแอป ส่วนรายการสำหรับไฟล์ใน Finder เปิดแยกต่างหากที่ส่วนขยาย Finder"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell'in sağ tık girişleri macOS Hizmetleridir ve macOS bunları kapalı gönderir. Herhangi bir uygulamada CopyWell'e Kaydet, CopyWell'den Yapıştır ve diğerlerini almak için Hizmetler altındaki CopyWell girişlerini işaretleyin. Finder'daki dosyalara ait giriş ayrıca, Finder Uzantıları altından açılır."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пункти CopyWell у контекстному меню — це служби macOS, і система постачає їх вимкненими. Позначте пункти CopyWell у розділі «Служби», щоб у будь-якому застосунку з'явилися «Зберегти в CopyWell», «Вставити з CopyWell» та інші. Пункт для файлів у Finder вмикається окремо, у розширеннях Finder."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Các mục chuột phải của CopyWell là Dịch vụ của macOS, và macOS để chúng tắt sẵn. Hãy tích các mục CopyWell trong Dịch vụ để có Lưu vào CopyWell, Dán từ CopyWell và những mục còn lại trong mọi ứng dụng. Mục dành cho tệp trong Finder được bật riêng, ở phần tiện ích Finder."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell 的右键菜单项是 macOS 的「服务」，系统默认将其关闭。在「服务」中勾选 CopyWell 的条目，即可在任何 App 中使用「保存到 CopyWell」「从 CopyWell 粘贴」等。访达中针对文件的条目需在「访达扩展」中单独开启。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell 的右鍵選單項目是 macOS 的「服務」，系統預設將其關閉。在「服務」中勾選 CopyWell 的項目，即可在任何 App 中使用「儲存到 CopyWell」「從 CopyWell 貼上」等。Finder 中針對檔案的項目需在「Finder 延伸功能」中另外開啟。"
+          }
+        }
+      }
+    },
     "Could not reach the App Store. Check your connection and try again.": {
       "extractionState": "manual",
       "localizations": {
@@ -40965,6 +41174,424 @@
         }
       }
     },
+    "Open Finder Extensions…": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Finder Extensions…"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فتح إضافات Finder…"
+          }
+        },
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obre les extensions del Finder…"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otevřít rozšíření Finderu…"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Åbn Finder-udvidelser…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finder-Erweiterungen öffnen…"
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Άνοιγμα επεκτάσεων Finder…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir extensiones del Finder…"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avaa Finder-laajennukset…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir les extensions du Finder…"
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "פתיחת הרחבות Finder…"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finder एक्सटेंशन खोलें…"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otvori proširenja Findera…"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finder-bővítmények megnyitása…"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buka Ekstensi Finder…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apri le estensioni del Finder…"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finder機能拡張を開く…"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finder 확장 프로그램 열기…"
+          }
+        },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buka Sambungan Finder…"
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Åpne Finder-utvidelser…"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finder-extensies openen…"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otwórz rozszerzenia Findera…"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir extensões do Finder…"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir extensões do Finder…"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deschide extensiile Finder…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открыть расширения Finder…"
+          }
+        },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otvoriť rozšírenia Findera…"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öppna Finder-tillägg…"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "เปิดส่วนขยาย Finder…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finder Uzantılarını Aç…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відкрити розширення Finder…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mở tiện ích Finder…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打开访达扩展…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打開 Finder 延伸功能…"
+          }
+        }
+      }
+    },
+    "Open Keyboard Shortcuts ▸ Services…": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Keyboard Shortcuts ▸ Services…"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فتح اختصارات لوحة المفاتيح ◂ الخدمات…"
+          }
+        },
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obre Dreceres de teclat ▸ Serveis…"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otevřít Klávesové zkratky ▸ Služby…"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Åbn Tastaturgenveje ▸ Tjenester…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kurzbefehle ▸ Dienste öffnen…"
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Άνοιγμα Συντομεύσεων ▸ Υπηρεσίες…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir Funciones rápidas ▸ Servicios…"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avaa Näppäinoikotiet ▸ Palvelut…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir Raccourcis clavier ▸ Services…"
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "פתיחת קיצורי מקלדת ◂ שירותים…"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "कीबोर्ड शॉर्टकट ▸ सेवाएँ खोलें…"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otvori Tipkovni prečaci ▸ Usluge…"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Billentyűparancsok ▸ Szolgáltatások megnyitása…"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buka Pintasan Papan Ketik ▸ Layanan…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apri Abbreviazioni da tastiera ▸ Servizi…"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "キーボードショートカット ▸ サービスを開く…"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "키보드 단축키 ▸ 서비스 열기…"
+          }
+        },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buka Pintasan Papan Kekunci ▸ Perkhidmatan…"
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Åpne Tastatursnarveier ▸ Tjenester…"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toetscombinaties ▸ Diensten openen…"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otwórz Skróty klawiszowe ▸ Usługi…"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir Atalhos de teclado ▸ Serviços…"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir Atalhos de teclado ▸ Serviços…"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deschide Scurtături tastatură ▸ Servicii…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открыть Сочетания клавиш ▸ Службы…"
+          }
+        },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otvoriť Klávesové skratky ▸ Služby…"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öppna Kortkommandon ▸ Tjänster…"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "เปิดแป้นลัด ▸ บริการ…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klavye Kısayolları ▸ Hizmetler’i Aç…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відкрити Сполучення клавіш ▸ Служби…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mở Phím tắt ▸ Dịch vụ…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打开“键盘快捷键 ▸ 服务”…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打開「鍵盤快速鍵 ▸ 服務」…"
+          }
+        }
+      }
+    },
     "Open Keyboard Shortcuts…": {
       "extractionState": "manual",
       "localizations": {
@@ -53501,6 +54128,215 @@
           "stringUnit": {
             "state": "translated",
             "value": "在任一項目上按右鍵，選擇「加入貼上堆疊」，然後用 ⌥⌘S 依序貼上。"
+          }
+        }
+      }
+    },
+    "Right-click menu": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Right-click menu"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قائمة النقر بالزر الأيمن"
+          }
+        },
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menú contextual"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kontextová nabídka"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Højrekliksmenu"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kontextmenü"
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Μενού δεξιού κλικ"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menú contextual"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kakkospainikkeen valikko"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menu contextuel"
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "תפריט לחיצה ימנית"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "राइट-क्लिक मेन्यू"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Izbornik desnog klika"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jobb kattintásos menü"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menu klik kanan"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menu contestuale"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "右クリックメニュー"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "마우스 오른쪽 메뉴"
+          }
+        },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menu klik kanan"
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Høyreklikkmeny"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rechtermuisknopmenu"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menu prawego przycisku"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menu de clique direito"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menu do botão direito"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meniu clic dreapta"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Контекстное меню"
+          }
+        },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kontextová ponuka"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Högerklicksmeny"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "เมนูคลิกขวา"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağ tık menüsü"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Контекстне меню"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menu chuột phải"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "右键菜单"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "右鍵選單"
           }
         }
       }

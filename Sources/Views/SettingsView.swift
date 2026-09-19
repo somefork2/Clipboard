@@ -1,4 +1,5 @@
 import AppKit
+import FinderSync
 import SwiftUI
 import UniformTypeIdentifiers
 
@@ -80,10 +81,30 @@ struct GeneralSettings: View {
                     .foregroundStyle(.secondary)
             }
 
+            // macOS ships both of these switched off, and neither can be
+            // turned on from inside an app — only pointed at. Without this
+            // section people cannot find them: the entries are called Services
+            // and Finder Extensions in System Settings, not "right-click menu",
+            // which is what they are looking for.
             Section {
+                Button("Open Finder Extensions…") {
+                    FIFinderSyncController.showExtensionManagementInterface()
+                }
+                Button("Open Keyboard Shortcuts ▸ Services…") {
+                    NSUpdateDynamicServices()
+                    if let url = URL(string: "x-apple.systempreferences:com.apple.preference.keyboard?Shortcuts") {
+                        NSWorkspace.shared.open(url)
+                    }
+                }
                 Button("Show the setup guide again") {
                     AppCoordinator.shared.showSetupGuide()
                 }
+            } header: {
+                Text("Right-click menu")
+            } footer: {
+                Text("CopyWell's right-click entries are macOS Services, and macOS ships them switched off. Tick the CopyWell entries under Services to get Save to CopyWell, Paste from CopyWell and the rest inside any app. The entry for files in Finder is switched on separately, under Finder Extensions.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
 
             Section {

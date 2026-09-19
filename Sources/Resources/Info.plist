@@ -73,11 +73,6 @@
             <string>saveSelectionToCopyWell</string>
             <key>NSPortName</key>
             <string>CopyWell</string>
-            <key>NSKeyEquivalent</key>
-            <dict>
-                <key>default</key>
-                <string>@$s</string>
-            </dict>
             <key>NSSendTypes</key>
             <array>
                 <string>public.utf8-plain-text</string>

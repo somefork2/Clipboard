@@ -22,7 +22,8 @@ enum ImageStore {
         if CommandLine.arguments.contains("--demo-content") { folder = "CopyWell/DemoImages" }
         #endif
         let base = FileManager.default
-            .urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+            .urls(for: .applicationSupportDirectory, in: .userDomainMask).first
+            ?? URL(fileURLWithPath: NSTemporaryDirectory())
             .appendingPathComponent(folder, isDirectory: true)
         try? FileManager.default.createDirectory(at: base, withIntermediateDirectories: true)
         return base

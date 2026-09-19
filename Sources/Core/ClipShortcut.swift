@@ -106,7 +106,10 @@ enum ShortcutAction: String, CaseIterable, Identifiable {
         case .quickPaste:
             return ClipShortcut(keyCode: UInt32(kVK_ANSI_V), modifiers: UInt32(optionKey | cmdKey))
         case .pastePrevious:
-            return ClipShortcut(keyCode: UInt32(kVK_ANSI_V), modifiers: UInt32(shiftKey | cmdKey))
+            // Not ⇧⌘V: that is "Paste and Match Style" in the Edit menu of
+            // practically every Mac app, and a global hotkey would take it away
+            // everywhere. ⌃⌘V is free.
+            return ClipShortcut(keyCode: UInt32(kVK_ANSI_V), modifiers: UInt32(controlKey | cmdKey))
         case .pastePlainText:
             return ClipShortcut(keyCode: UInt32(kVK_ANSI_V), modifiers: UInt32(controlKey | optionKey | cmdKey))
         case .pinLast:

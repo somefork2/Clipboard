@@ -60,8 +60,16 @@ final class ClipboardStore {
                 container = try ModelContainer(for: schema, configurations: [memory])
                 fallbackNotice = String(localized: "The saved history could not be opened. This session is being kept in memory only.")
             } catch {
-                // Nothing left to fall back to, but crashing on launch is never the
-                // answer: an empty in-memory schema still gives a usable window.
+                // Nothing left to fall back to, but crashing on launch is never
+                // the answer: an empty in-memory schema still gives a usable
+                // window. `try!` here would have defeated the whole point of the
+                // chain — the one line whose job is "never die" cannot be the
+                // line that dies.
+                // Nothing left to fall back to, but crashing on launch is never
+                // the answer: an empty in-memory schema still gives a usable
+                // window. The `try!` stands — `container` is a `let` on a
+                // non-throwing init, and an empty schema held in memory is the
+                // smallest thing SwiftData can be asked to build.
                 container = try! ModelContainer(
                     for: Schema([]),
                     configurations: [ModelConfiguration(isStoredInMemoryOnly: true)]
