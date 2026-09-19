@@ -166,7 +166,9 @@ struct LanguagePicker: View {
             get: { settings.preferredLanguage ?? "" },
             set: { settings.preferredLanguage = $0.isEmpty ? nil : $0 }
         )) {
-            Text("Same as the Mac").tag("")
+            // Names the language it currently resolves to, so the default is
+            // an answer rather than a blank.
+            Text("Same as the Mac (\(AppSettings.effectiveLanguageName))").tag("")
             Divider()
             ForEach(AppSettings.availableLanguages, id: \.self) { code in
                 Text(AppSettings.languageName(code)).tag(code)

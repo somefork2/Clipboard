@@ -54341,211 +54341,211 @@
         }
       }
     },
-    "Same as the Mac": {
+    "Same as the Mac (%@)": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Same as the Mac"
+            "value": "Same as the Mac (%@)"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "كما في الماك"
+            "value": "كما في الماك (%@)"
           }
         },
         "ca": {
           "stringUnit": {
             "state": "translated",
-            "value": "Igual que el Mac"
+            "value": "Igual que el Mac (%@)"
           }
         },
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Stejný jako Mac"
+            "value": "Stejný jako Mac (%@)"
           }
         },
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Samme som Mac'en"
+            "value": "Samme som Mac'en (%@)"
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Wie auf dem Mac"
+            "value": "Wie auf dem Mac (%@)"
           }
         },
         "el": {
           "stringUnit": {
             "state": "translated",
-            "value": "Όπως στο Mac"
+            "value": "Όπως στο Mac (%@)"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Igual que el Mac"
+            "value": "Igual que el Mac (%@)"
           }
         },
         "fi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sama kuin Macissa"
+            "value": "Sama kuin Macissa (%@)"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Comme sur le Mac"
+            "value": "Comme sur le Mac (%@)"
           }
         },
         "he": {
           "stringUnit": {
             "state": "translated",
-            "value": "כמו במק"
+            "value": "כמו במק (%@)"
           }
         },
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mac जैसा"
+            "value": "Mac जैसा (%@)"
           }
         },
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Isto kao na Macu"
+            "value": "Isto kao na Macu (%@)"
           }
         },
         "hu": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mint a Mac"
+            "value": "Mint a Mac (%@)"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sama seperti Mac"
+            "value": "Sama seperti Mac (%@)"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Come sul Mac"
+            "value": "Come sul Mac (%@)"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Macと同じ"
+            "value": "Macと同じ（%@）"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mac와 동일"
+            "value": "Mac와 동일 (%@)"
           }
         },
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sama seperti Mac"
+            "value": "Sama seperti Mac (%@)"
           }
         },
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Samme som Mac-en"
+            "value": "Samme som Mac-en (%@)"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zelfde als de Mac"
+            "value": "Zelfde als de Mac (%@)"
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tak jak na Macu"
+            "value": "Tak jak na Macu (%@)"
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Igual ao Mac"
+            "value": "Igual ao Mac (%@)"
           }
         },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Igual ao Mac"
+            "value": "Igual ao Mac (%@)"
           }
         },
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "La fel ca pe Mac"
+            "value": "La fel ca pe Mac (%@)"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Как на Mac"
+            "value": "Как на Mac (%@)"
           }
         },
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Rovnaký ako Mac"
+            "value": "Rovnaký ako Mac (%@)"
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Samma som Mac"
+            "value": "Samma som Mac (%@)"
           }
         },
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "เหมือนกับ Mac"
+            "value": "เหมือนกับ Mac (%@)"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mac ile aynı"
+            "value": "Mac ile aynı (%@)"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Як на Mac"
+            "value": "Як на Mac (%@)"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Giống như Mac"
+            "value": "Giống như Mac (%@)"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "与 Mac 相同"
+            "value": "与 Mac 相同（%@）"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "與 Mac 相同"
+            "value": "與 Mac 相同（%@）"
           }
         }
       }

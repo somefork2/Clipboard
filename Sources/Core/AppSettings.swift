@@ -31,10 +31,16 @@ final class AppSettings {
 
     /// The language CopyWell runs in, or `nil` to follow the Mac.
     ///
-    /// Written to `AppleLanguages`, which is the setting the system reads when
-    /// the app launches — so a change shows up on the next launch, not this
-    /// one. That is worth saying out loud in the interface rather than leaving
-    /// someone to wonder why nothing happened.
+    /// Kept under our own key, and `AppleLanguages` is written as a consequence
+    /// — not read back as the answer. macOS writes the resolved language into
+    /// every app's container itself, as `ru-RU` rather than `ru`, so reading it
+    /// meant mistaking the system's own bookkeeping for a choice someone made,
+    /// and matching it against a list of plain codes found nothing: the picker
+    /// came up blank.
+    ///
+    /// The change reaches the system on the next launch, because that is when
+    /// it reads the setting. The interface says so rather than leaving someone
+    /// to conclude that nothing happened.
     var preferredLanguage: String? {
         didSet {
             if let preferredLanguage {
@@ -44,6 +50,12 @@ final class AppSettings {
             }
             persist()
         }
+    }
+
+    /// The language actually in use, for showing what "same as the Mac" means.
+    static var effectiveLanguageName: String {
+        let code = Bundle.main.preferredLocalizations.first ?? Locale.current.identifier
+        return languageName(code)
     }
 
     /// The languages CopyWell is translated into, in the Mac's own naming.
@@ -89,7 +101,7 @@ final class AppSettings {
         pasteSound = defaults.string(forKey: "sound_pasted")
             .flatMap(FeedbackSound.init(rawValue:)) ?? .pop
         hasCompletedOnboarding = defaults.bool(forKey: "hasCompletedOnboarding")
-        preferredLanguage = (defaults.array(forKey: "AppleLanguages") as? [String])?.first
+        preferredLanguage = defaults.string(forKey: "preferred_language")
     }
 
     private func persist() {
@@ -104,6 +116,11 @@ final class AppSettings {
         defaults.set(captureSound.rawValue, forKey: SoundEvent.captured.settingKey)
         defaults.set(pasteSound.rawValue, forKey: SoundEvent.pasted.settingKey)
         defaults.set(hasCompletedOnboarding, forKey: "hasCompletedOnboarding")
+        if let preferredLanguage {
+            defaults.set(preferredLanguage, forKey: "preferred_language")
+        } else {
+            defaults.removeObject(forKey: "preferred_language")
+        }
     }
 
     func applyActivationPolicy() {
