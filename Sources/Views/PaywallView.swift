@@ -276,10 +276,10 @@ struct PlanCard: View {
     }
 }
 
-/// Both links are mandatory on the subscription screen and in App Store Connect.
-/// Replace the hosts with your own before submitting.
+/// Both links are mandatory on the subscription screen and in App Store Connect,
+/// and App Review follows them — a page that 404s is a rejection on its own.
 enum LegalLinks {
-    static let privacyPolicy = URL(string: "https://copywell.app/privacy")!
+    static let privacyPolicy = URL(string: "https://somefork2.github.io/CopyWell/privacy.html")!
     static let termsOfUse = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!
-    static let support = URL(string: "https://copywell.app/support")!
+    static let support = URL(string: "https://somefork2.github.io/CopyWell/support.html")!
 }

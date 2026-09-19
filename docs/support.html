@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support — CopyWell</title>
+<meta name="description" content="Help with CopyWell for macOS: shortcuts, right-click menus, sync, subscriptions and how to get in touch.">
+<link rel="icon" href="icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+<header class="site">
+  <img src="icon.png" alt="CopyWell">
+  <span class="name">CopyWell</span>
+  <nav>
+    <a href="index.html">Overview</a>
+    <a href="support.html">Support</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+  </nav>
+</header>
+
+<h1>Support</h1>
+<p class="lede">Answers to the questions that come up most. If yours is not here, write — every message is read by the person who wrote the app.</p>
+
+<div class="card">
+  <h3>Email</h3>
+  <p><a href="mailto:somefork@gmail.com">somefork@gmail.com</a> — usually answered within two working days. Including your macOS version and what you were doing at the time makes a fix much faster.</p>
+</div>
+
+<h2>Keyboard shortcuts</h2>
+<table>
+  <tr><th>Shortcut</th><th>What it does</th></tr>
+  <tr><td><kbd>⌥⌘V</kbd></td><td>Opens the clip palette wherever your cursor is</td></tr>
+  <tr><td><kbd>⌥⌘C</kbd></td><td>Opens the main CopyWell window</td></tr>
+  <tr><td><kbd>↑</kbd> <kbd>↓</kbd></td><td>Moves through clips in the palette</td></tr>
+  <tr><td><kbd>⌘1</kbd> – <kbd>⌘9</kbd></td><td>Jumps straight to one of the first nine clips</td></tr>
+  <tr><td><kbd>⌘Y</kbd></td><td>Previews the selected clip without taking it</td></tr>
+  <tr><td><kbd>⏎</kbd></td><td>Puts the selected clip on the clipboard, ready to paste</td></tr>
+  <tr><td><kbd>⇧⏎</kbd></td><td>Takes the clip as plain text, without formatting</td></tr>
+  <tr><td><kbd>esc</kbd></td><td>Closes the palette</td></tr>
+</table>
+<p>Every shortcut can be changed in Settings ▸ Shortcuts.</p>
+
+<h2>Why does CopyWell not paste for me?</h2>
+<p>By design. Pressing <kbd>⌘V</kbd> on your behalf would require Accessibility access — permission to control your Mac and observe everything on screen. For an app that already sees everything you copy, that is more power than it should ask for, so CopyWell does not ask for it. Choosing a clip puts it on the clipboard and returns you to the app you came from; you press <kbd>⌘V</kbd> yourself.</p>
+
+<h2>The right-click menu items are missing</h2>
+<p>macOS ships third-party menu items switched off. Turn them on once:</p>
+<ul>
+  <li><strong>In any app:</strong> System Settings ▸ Keyboard ▸ Keyboard Shortcuts ▸ Services, then tick the CopyWell entries.</li>
+  <li><strong>In Finder:</strong> System Settings ▸ General ▸ Login Items &amp; Extensions ▸ Finder Extensions, then tick CopyWell.</li>
+</ul>
+
+<h2>Nothing is being recorded</h2>
+<ul>
+  <li>CopyWell only records while it is running. Turn on “Start CopyWell at login” in Settings ▸ General.</li>
+  <li>Items your password manager marks confidential are skipped on purpose, and so is anything shaped like an API key or a private key.</li>
+  <li>If “Ignore this app” is set for the app you copied from, nothing from it is kept. Check Settings ▸ Privacy.</li>
+</ul>
+
+<h2>Sync between Macs</h2>
+<p>Turn on iCloud sync in Settings ▸ Sync on each Mac, signed into the same Apple Account. History then travels through your own private iCloud database — see the <a href="privacy.html">privacy policy</a> for what that means. Confidential items never leave the Mac that captured them, by design. If a Mac is not syncing, check that it is signed into iCloud and that iCloud Drive is enabled.</p>
+
+<h2>The free trial and subscriptions</h2>
+<ul>
+  <li>CopyWell is fully unlocked for 30 days when you first run it. No payment details are needed, and nothing is charged at the end.</li>
+  <li>After the trial, CopyWell keeps working and keeps the last 48 hours of history. Favourites and pinboards are never removed.</li>
+  <li>CopyWell Pro removes the time limit and unlocks unlimited pinboards, the paste stack, smart categorisation, export, iCloud sync, custom shortcuts, statistics and auto-cleanup.</li>
+  <li>Subscriptions are billed by Apple and renew automatically until cancelled. Cancel any time in <a href="https://apps.apple.com/account/subscriptions">App Store ▸ Subscriptions</a>.</li>
+  <li>Changed Macs, or reinstalled? Open CopyWell Pro and choose <strong>Restore Purchases</strong>.</li>
+  <li>Refunds are handled by Apple, at <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>.</li>
+</ul>
+
+<h2>Getting your data out</h2>
+<p>Settings ▸ Export writes your history to JSON, CSV, Markdown or HTML. Nothing is locked in.</p>
+
+<h2>Reporting a bug</h2>
+<p>Email <a href="mailto:somefork@gmail.com">somefork@gmail.com</a> with what happened, what you expected, and your macOS version. If the app quit unexpectedly, the report macOS offers to send is genuinely useful — please include it.</p>
+
+<footer class="site">
+  <p>CopyWell for macOS · <a href="index.html">Overview</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></p>
+</footer>
+
+</div>
+</body>
+</html>

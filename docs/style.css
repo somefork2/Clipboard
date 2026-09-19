@@ -1,0 +1,85 @@
+/* One stylesheet for every page: the support site should look like the app —
+   quiet, legible, and correct in both appearances without a switch. */
+:root {
+  --bg: #ffffff;
+  --surface: #f6f6f7;
+  --text: #1c1c1e;
+  --muted: #6b6b70;
+  --accent: #2f6fed;
+  --border: rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #131315;
+    --surface: #1d1d20;
+    --text: #f2f2f4;
+    --muted: #9a9aa0;
+    --accent: #6f9bff;
+    --border: rgba(255, 255, 255, 0.12);
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0 16px 80px;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.65 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: 720px; margin: 0 auto; }
+
+header.site {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 28px 0 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 36px;
+}
+
+header.site img { width: 40px; height: 40px; border-radius: 9px; }
+header.site .name { font-weight: 600; font-size: 17px; }
+header.site nav { margin-left: auto; display: flex; gap: 18px; }
+header.site nav a { color: var(--muted); text-decoration: none; font-size: 15px; }
+header.site nav a:hover { color: var(--text); }
+
+h1 { font-size: 30px; line-height: 1.2; letter-spacing: -0.4px; margin: 0 0 8px; }
+h2 { font-size: 19px; margin: 36px 0 10px; letter-spacing: -0.2px; }
+p, li { color: var(--text); }
+.lede { color: var(--muted); font-size: 17px; margin: 0 0 28px; }
+.updated { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+
+a { color: var(--accent); }
+
+ul { padding-left: 20px; }
+li { margin: 6px 0; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin: 20px 0;
+}
+
+.card h3 { margin: 0 0 6px; font-size: 16px; }
+.card p { margin: 0; color: var(--muted); font-size: 15px; }
+
+table { border-collapse: collapse; width: 100%; margin: 18px 0; font-size: 15px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { color: var(--muted); font-weight: 600; }
+
+footer.site {
+  margin-top: 56px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 14px;
+}
+
+footer.site a { color: var(--muted); }

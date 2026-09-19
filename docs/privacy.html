@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — CopyWell</title>
+<meta name="description" content="How CopyWell handles clipboard data. Short version: it stays on your Mac, and the developer never receives it.">
+<link rel="icon" href="icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+<header class="site">
+  <img src="icon.png" alt="CopyWell">
+  <span class="name">CopyWell</span>
+  <nav>
+    <a href="index.html">Overview</a>
+    <a href="support.html">Support</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+  </nav>
+</header>
+
+<h1>Privacy Policy</h1>
+<p class="lede">CopyWell records what you copy, which is about as private as data gets. This page explains exactly where it goes.</p>
+<p class="updated">Last updated 19 September 2026. Applies to CopyWell for macOS.</p>
+
+<div class="card">
+  <h3>The short version</h3>
+  <p>Your clipboard history is stored on your Mac. The developer of CopyWell never receives it, cannot read it, and operates no server that it is sent to. There is no analytics, no tracking, and no advertising.</p>
+</div>
+
+<h2>What CopyWell stores</h2>
+<p>To do its job, CopyWell keeps a local history of items you copy. Depending on what you copied, an entry may contain:</p>
+<ul>
+  <li>the copied text, link, or image;</li>
+  <li>text recognised inside a copied image, so you can search it;</li>
+  <li>the name of the app you copied from;</li>
+  <li>the time you copied it, and how often you have reused it;</li>
+  <li>tags CopyWell worked out for the item, such as “email address” or “code”.</li>
+</ul>
+<p>This is held in a database inside the app's own sandboxed container on your Mac, at <code>~/Library/Containers/com.copywell.app</code>. Only CopyWell and you can reach it.</p>
+
+<h2>What CopyWell deliberately does not store</h2>
+<ul>
+  <li><strong>Passwords and secrets.</strong> When a password manager such as 1Password, Bitwarden, or Keychain Access marks a copy as confidential, macOS attaches a marker to it. CopyWell honours that marker and does not record the item at all.</li>
+  <li><strong>Anything that looks like a credential.</strong> Items that match the shape of an API key, a private key, or a labelled secret are skipped even without a marker.</li>
+  <li><strong>Your keystrokes.</strong> CopyWell does not monitor the keyboard and does not use macOS Accessibility features. It never presses keys on your behalf.</li>
+  <li><strong>Your screen.</strong> CopyWell does not take screenshots and does not record the screen.</li>
+</ul>
+
+<h2>Data the developer collects</h2>
+<p>None. CopyWell contains no analytics framework, no crash reporter, no advertising identifier, and no third-party SDK that transmits data. The app makes network connections for exactly two purposes, both to Apple:</p>
+<table>
+  <tr><th>Connection</th><th>Why</th><th>What is sent</th></tr>
+  <tr><td>Apple's App Store</td><td>To show subscription prices and to verify a purchase</td><td>Handled entirely by Apple's StoreKit. CopyWell receives only whether a subscription is active.</td></tr>
+  <tr><td>Apple iCloud (optional)</td><td>To sync history between your own Macs, if you turn sync on</td><td>Your clipboard items, written to your private iCloud database.</td></tr>
+</table>
+
+<h2>iCloud sync</h2>
+<p>iCloud sync is off until you switch it on in Settings. When it is on, clipboard items are stored in the <em>private</em> database of your own iCloud account, using Apple's CloudKit. That database belongs to you:</p>
+<ul>
+  <li>The developer of CopyWell has no access to it and cannot read its contents.</li>
+  <li>Items marked confidential, and anything CopyWell judged to be a secret, are never uploaded — they stay on the Mac that captured them.</li>
+  <li>Apple's handling of the data is covered by the <a href="https://www.apple.com/legal/privacy/">Apple Privacy Policy</a>.</li>
+  <li>Turning sync off stops further uploads. Deleting an item deletes it from iCloud and from your other Macs.</li>
+</ul>
+
+<h2>Text recognition in images</h2>
+<p>When you copy an image, CopyWell reads any text in it so the image can be found by searching. This uses Apple's Vision framework and runs entirely on your Mac. The image is not uploaded for processing.</p>
+
+<h2>How long data is kept</h2>
+<p>You decide. CopyWell can keep history indefinitely, or delete items automatically after an age you choose. Without a subscription, CopyWell keeps the last 48 hours; items you marked as favourites or filed on a pinboard are never removed automatically. You can delete any item, or clear the entire history, at any time from within the app. Deleting is immediate and permanent.</p>
+
+<h2>Children</h2>
+<p>CopyWell is a general-purpose utility and is not directed at children. It collects no personal information from anyone, including children.</p>
+
+<h2>Your rights</h2>
+<p>Because the developer holds none of your data, there is nothing to request, export, or erase from a server. Everything CopyWell knows is on your own Mac and under your control: the app can export your history to JSON, CSV, Markdown, or HTML, and can delete it entirely.</p>
+
+<h2>Changes to this policy</h2>
+<p>If this policy changes, the new version will be posted on this page with a new date. Material changes will also be noted in the app's release notes.</p>
+
+<h2>Contact</h2>
+<p>Questions about privacy, or anything else: <a href="mailto:somefork@gmail.com">somefork@gmail.com</a>.</p>
+
+<footer class="site">
+  <p>CopyWell for macOS · <a href="index.html">Overview</a> · <a href="support.html">Support</a> · <a href="terms.html">Terms</a></p>
+</footer>
+
+</div>
+</body>
+</html>
