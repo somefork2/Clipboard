@@ -390,7 +390,8 @@ struct ClipPreviewSheet: View {
             if !summary.isEmpty { parts.append(summary) }
         }
         if let app = item.sourceApp { parts.append(app) }
-        parts.append(item.createdAt.formatted(date: .abbreviated, time: .shortened))
+        parts.append(item.createdAt.formatted(
+            Date.FormatStyle(date: .abbreviated, time: .shortened, locale: LanguageBundle.locale)))
         return parts.joined(separator: " · ")
     }
 

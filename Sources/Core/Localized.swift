@@ -31,6 +31,21 @@ enum LanguageBundle {
         return storage
     }
 
+    /// The locale that goes with the chosen language.
+    ///
+    /// Strings are only half of it. Dates, relative times and numbers are
+    /// formatted by the system against `Locale.current`, which follows the Mac
+    /// and not the picker — so a list of clips read "2 ч" under an English
+    /// interface until this was passed to every formatter.
+    static var locale: Locale {
+        lock.lock()
+        defer { lock.unlock() }
+        guard storage != .main,
+              let code = storage.bundlePath.split(separator: "/").last?
+                .replacingOccurrences(of: ".lproj", with: "") else { return .current }
+        return Locale(identifier: code)
+    }
+
     /// Bumped on every change, so views keyed on it are rebuilt.
     static var generation: Int {
         lock.lock()

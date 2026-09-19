@@ -250,8 +250,9 @@ extension Date {
     /// after the timestamp is taken.
     var relativeFormatted: String {
         let elapsed = Date().timeIntervalSince(self)
-        if elapsed < 10 { return "now" }
+        if elapsed < 10 { return L("now") }
         let formatter = RelativeDateTimeFormatter()
+        formatter.locale = LanguageBundle.locale
         formatter.unitsStyle = .abbreviated
         return formatter.localizedString(for: self, relativeTo: Date())
     }

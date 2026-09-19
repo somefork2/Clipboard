@@ -74,7 +74,7 @@ enum RetentionPolicy: Codable, Hashable, Identifiable {
     var displayName: String {
         switch self {
         case .count(let n):
-            return L("Last \(n.formatted()) clips")
+            return L("Last \(n.formatted(.number.locale(LanguageBundle.locale))) clips")
         case .days(let n):
             return n == 1 ? L("Last 24 hours") : L("Last \(n) days")
         case .forever:
@@ -85,7 +85,7 @@ enum RetentionPolicy: Codable, Hashable, Identifiable {
     var explanation: String {
         switch self {
         case .count(let n):
-            return L("Once there are more than \(n.formatted()) clips, the oldest are removed.")
+            return L("Once there are more than \(n.formatted(.number.locale(LanguageBundle.locale))) clips, the oldest are removed.")
         case .days(let n):
             return n == 1
                 ? L("Clips older than a day are removed.")
