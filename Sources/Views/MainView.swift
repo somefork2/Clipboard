@@ -25,27 +25,39 @@ struct MainView: View {
     @Environment(AppCoordinator.self) private var coordinator
 
     @State private var section: SidebarSection = .history
+    @State private var showSidebar = true
     @State private var searchText = ""
     @State private var typeFilter: ContentType?
-    @State private var columnVisibility = NavigationSplitViewVisibility.all
     @State private var showingClearConfirmation = false
     @State private var showingWelcome = false
 
     var body: some View {
         @Bindable var subscriptions = subscriptions
 
-        NavigationSplitView(columnVisibility: $columnVisibility) {
-            SidebarView(selection: $section)
-                .navigationSplitViewColumnWidth(min: 190, ideal: 210, max: 280)
-        } detail: {
+        // Not a NavigationSplitView.
+        //
+        // Hiding the sidebar killed the app on every attempt, builds 12 to 18,
+        // always inside AppKit or SwiftUI and never in a frame of ours. Two
+        // distinct stacks came out of it: the split view's column wrapper
+        // changing the hosting view's safe-area insets during the window's
+        // constraints pass, and SwiftUI's own toolbar bridge rebuilding its
+        // items. The collapse and the button that drives it are both framework
+        // machinery, so there was nothing left in it to fix.
+        //
+        // A plain HStack and our own toggle remove that machinery entirely.
+        // What is given up is the system's drag-to-resize divider, which is a
+        // small price for a sidebar that can be closed and opened again.
+        HStack(spacing: 0) {
+            if showSidebar {
+                SidebarView(selection: $section)
+                    .frame(width: 210)
+                    .transition(.move(edge: .leading).combined(with: .opacity))
+                Divider()
+            }
             detail
         }
-        .navigationSplitViewStyle(.balanced)
         .background(Theme.background)
         .themedWindow()
-        // The title bar is a separate AppKit surface; without this it keeps the
-        // default white and floats above a themed window.
-        .toolbarBackground(Theme.background, for: .windowToolbar)
         .frame(minWidth: 860, minHeight: 520)
         .toolbar { toolbar }
         .searchable(text: $searchText, placement: .toolbar, prompt: "Search clips")
@@ -132,6 +144,13 @@ struct MainView: View {
         // forcing the appearance app-wide, which is fixed in ThemeManager, not
         // from the button style.
         ToolbarItemGroup {
+            Button {
+                withAnimation(.easeInOut(duration: 0.18)) { showSidebar.toggle() }
+            } label: {
+                Label("Sidebar", systemImage: "sidebar.left")
+            }
+            .help(showSidebar ? "Hide the sidebar" : "Show the sidebar")
+
             Button {
                 QuickPastePanel.shared.toggle()
             } label: {

@@ -92,7 +92,6 @@ final class ClipboardStore {
         } catch {
             loadError = String(localized: "Could not read the clipboard history.")
         }
-        NotificationCenter.default.post(name: .copyWellHistoryChanged, object: nil)
     }
 
     /// The most recent clips, for the menu bar and the palette.
@@ -171,7 +170,10 @@ final class ClipboardStore {
         item.isFavorite.toggle()
         item.updatedAt = Date()
         save()
-        reload()
+        // No reload. The list's membership and order are unchanged — the flag
+        // lives on the item, and views that read it are told by the model
+        // itself. Re-fetching and re-sorting the whole history to flip one
+        // boolean is work for nothing.
     }
 
     func recordUse(_ item: ClipboardItem) {
@@ -347,7 +349,16 @@ final class ClipboardStore {
 
     /// Deletes image files left behind by clips that no longer exist.
     func pruneOrphanedImages() {
+        #if DEBUG
+        // The demo store holds invented clips in memory. Pruning against it
+        // would delete every real image on disk for not belonging to one.
+        if DemoContent.isActive { return }
+        #endif
         let live = (try? context.fetch(FetchDescriptor<ClipboardItem>())) ?? []
+        // A store that failed to open comes up empty, and pruning against an
+        // empty store deletes everything the user has. Nothing to keep means
+        // nothing to do.
+        guard !live.isEmpty else { return }
         ImageStore.pruneOrphans(keeping: Set(live.compactMap(\.imageFileName)))
     }
 

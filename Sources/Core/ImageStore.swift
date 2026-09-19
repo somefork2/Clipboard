@@ -10,10 +10,20 @@ enum ImageStore {
     static let thumbnailMaxSize: CGFloat = 320
 
     /// Immutable so it is safe to touch from any isolation domain.
+    ///
+    /// Demo runs get their own folder. They use an in-memory database holding
+    /// only the invented clips, and `pruneOrphanedImages` at startup then treats
+    /// every real image file as belonging to no clip and deletes it — which is
+    /// exactly what happened: the rows survived with their text and thumbnails
+    /// while the full-size images were destroyed.
     private static let directory: URL = {
+        var folder = "CopyWell/Images"
+        #if DEBUG
+        if CommandLine.arguments.contains("--demo-content") { folder = "CopyWell/DemoImages" }
+        #endif
         let base = FileManager.default
             .urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("CopyWell/Images", isDirectory: true)
+            .appendingPathComponent(folder, isDirectory: true)
         try? FileManager.default.createDirectory(at: base, withIntermediateDirectories: true)
         return base
     }()

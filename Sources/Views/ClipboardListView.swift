@@ -12,7 +12,11 @@ struct ClipboardListView: View {
     @State private var previewItem: ClipboardItem?
 
     var body: some View {
-        content
+        VStack(spacing: 0) {
+            filterBar
+            Divider()
+            content
+        }
         .sheet(item: $previewItem) { item in
             ClipPreviewSheet(item: item) { previewItem = nil }
         }
@@ -94,8 +98,18 @@ struct ClipboardListView: View {
     }
 
     /// Only offer filters for types that actually occur in the history.
+    ///
+    /// Deliberately over the whole store and not over `items`: `items` is
+    /// already filtered, so building the chips from it would leave only the
+    /// chip for the active filter and no way back to the others. The walk stops
+    /// as soon as every type has been seen, which on a full history is a few
+    /// clips rather than all of them.
     private var availableTypes: [ContentType] {
-        let present = Set(store.items.map(\.type))
+        var present = Set<ContentType>()
+        for item in store.items {
+            present.insert(item.type)
+            if present.count == ContentType.allCases.count { break }
+        }
         return ContentType.allCases.filter { present.contains($0) }
     }
 
@@ -113,30 +127,25 @@ struct ClipboardListView: View {
             )
         } else {
             List(selection: $selection) {
-                Section {
-                    ForEach(Array(items.enumerated()), id: \.element.id) { index, item in
-                        ClipboardItemRow(
+                ForEach(Array(items.enumerated()), id: \.element.id) { index, item in
+                    ClipboardItemRow(
+                        item: item,
+                        onPaste: { paste(item, plainText: false) },
+                        onPreview: { previewItem = item }
+                    )
+                    .tag(item.persistentModelID)
+                    .listRowInsets(EdgeInsets(top: 2, leading: 6, bottom: 2, trailing: 6))
+                    .listRowBackground(Theme.rowBackground(index))
+                    .listRowSeparatorTint(Theme.separator)
+                    .contextMenu {
+                        ClipContextMenu(
                             item: item,
                             onPaste: { paste(item, plainText: false) },
+                            onPastePlain: { paste(item, plainText: true) },
                             onPreview: { previewItem = item }
                         )
-                        .tag(item.persistentModelID)
-                        .listRowInsets(EdgeInsets(top: 2, leading: 6, bottom: 2, trailing: 6))
-                        .listRowBackground(Theme.rowBackground(index))
-                        .listRowSeparatorTint(Theme.separator)
-                        .contextMenu {
-                            ClipContextMenu(
-                                item: item,
-                                onPaste: { paste(item, plainText: false) },
-                                onPastePlain: { paste(item, plainText: true) },
-                                onPreview: { previewItem = item }
-                            )
-                        }
                     }
-                } header: {
-                    filterBar
-                        .listRowInsets(EdgeInsets())
-                }
+                    }
             }
             .listStyle(.inset)
             .themedScrollBackground()

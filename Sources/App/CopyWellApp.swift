@@ -101,7 +101,47 @@ struct CopyWellCommands: Commands {
 }
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
+    /// Where an uncaught exception's description is written, so the next launch
+    /// can say what happened. The crash reports carry the stack but not the
+    /// reason, and the reason is the part that names the bug.
+    static var exceptionLogURL: URL? {
+        FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?
+            .appendingPathComponent("CopyWell/last-exception.txt")
+    }
+
+    /// Survive an exception thrown by AppKit or SwiftUI during layout.
+    ///
+    /// Hiding the sidebar raises inside
+    /// -[NSWindow _postWindowNeedsUpdateConstraints] while SwiftUI invalidates a
+    /// hosting view in the window's own display cycle — five identical reports,
+    /// builds 12 to 16, with no frame of ours anywhere in the stack. SwiftUI
+    /// turns on NSApplicationCrashOnExceptions, which converts that into an
+    /// immediate kill; AppKit's own behaviour is to log it and carry on, and
+    /// carrying on leaves the user with a working app.
+    ///
+    /// This is a mitigation, not a fix: it is here because the fault is not
+    /// reachable from our code. The handler records the reason so it can be.
+    private func survivePlatformExceptions() {
+        UserDefaults.standard.set(false, forKey: "NSApplicationCrashOnExceptions")
+        NSSetUncaughtExceptionHandler { exception in
+            let text = """
+            \(Date())
+            \(exception.name.rawValue)
+            \(exception.reason ?? "no reason")
+
+            \(exception.callStackSymbols.prefix(40).joined(separator: "\n"))
+            """
+            if let url = AppDelegate.exceptionLogURL {
+                try? FileManager.default.createDirectory(
+                    at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+                try? text.write(to: url, atomically: true, encoding: .utf8)
+            }
+            NSLog("CopyWell uncaught exception: %@ — %@", exception.name.rawValue, exception.reason ?? "")
+        }
+    }
+
     func applicationDidFinishLaunching(_ notification: Notification) {
+        survivePlatformExceptions()
         NSApp.servicesProvider = ServiceProvider()
         NSUpdateDynamicServices()
 
@@ -113,6 +153,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             if ScreenshotRenderer.isDiagnosing { ScreenshotRenderer.diagnose() }
             if ScreenshotRenderer.isDiagnosingSettings { ScreenshotRenderer.diagnoseSettings() }
             if ScreenshotRenderer.isDiagnosingSidebar { ScreenshotRenderer.diagnoseSidebar() }
+            if ScreenshotRenderer.isDiagnosingRelayout { ScreenshotRenderer.diagnoseRelayout() }
             #endif
         }
 
@@ -236,4 +277,9 @@ extension Notification.Name {
     static let copyWellRequestPreviewSelection = Notification.Name("copyWellRequestPreviewSelection")
     /// Reopens the first-run guide from Settings.
     static let copyWellRequestSetupWizard = Notification.Name("copyWellRequestSetupWizard")
+    #if DEBUG
+    /// Development only: drives the sidebar the way its toolbar button does,
+    /// which is the only way to reproduce the crash it causes from a harness.
+    static let copyWellDebugToggleSidebar = Notification.Name("copyWellDebugToggleSidebar")
+    #endif
 }

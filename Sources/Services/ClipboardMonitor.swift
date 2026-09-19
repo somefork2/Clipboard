@@ -91,6 +91,9 @@ final class ClipboardMonitor {
         let pasteboard = NSPasteboard.general
         guard pasteboard.changeCount != lastChangeCount else { return }
         lastChangeCount = pasteboard.changeCount
+        // Our own paste. Recording it would move the clip to the top of the
+        // history and count a copy the user did not make.
+        guard pasteboard.changeCount != PasteboardPrivacy.lastSelfWriteChangeCount else { return }
 
         let settings = AppSettings.shared
         // Language, entities and tags are the Pro half of categorisation; type
@@ -101,8 +104,11 @@ final class ClipboardMonitor {
         // Never record what a password manager marked as secret.
         if settings.skipConcealedPasteboard, PasteboardPrivacy.isConcealed(pasteboard) { return }
 
-        let sourceApp = NSWorkspace.shared.frontmostApplication?.localizedName
-        let sourceBundleID = NSWorkspace.shared.frontmostApplication?.bundleIdentifier
+        // One lookup, not two: `frontmostApplication` crosses to the window
+        // server, and this runs on every copy.
+        let frontmost = NSWorkspace.shared.frontmostApplication
+        let sourceApp = frontmost?.localizedName
+        let sourceBundleID = frontmost?.bundleIdentifier
         if PasteboardPrivacy.isExcluded(bundleIdentifier: sourceBundleID) { return }
 
         // Snapshot the pasteboard synchronously — its contents can change under us.

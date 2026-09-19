@@ -31,7 +31,11 @@ final class AppSettings {
 
     private init() {
         defaults.register(defaults: [
-            "showInDock": true,
+            // Off by default: this is a menu bar utility. It is reached from
+            // the strip at the top of the screen and from its shortcut, and a
+            // Dock tile for it only takes up room. Switch it on in Settings ▸
+            // General if you would rather have one.
+            "showInDock": false,
             "showInMenuBar": true,
             "skipPasswords": true,
             "skipConcealedPasteboard": true,
@@ -100,5 +104,4 @@ final class AppSettings {
 
 extension Notification.Name {
     static let copyWellWindowPrivacyChanged = Notification.Name("copyWellWindowPrivacyChanged")
-    static let copyWellHistoryChanged = Notification.Name("copyWellHistoryChanged")
 }

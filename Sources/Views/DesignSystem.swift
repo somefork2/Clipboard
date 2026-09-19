@@ -52,12 +52,17 @@ enum Theme {
     /// whatever the theme put behind it, which left custom themes with system
     /// coloured rows on a themed window. We alternate ourselves and let the
     /// system themes keep the native colours.
+    /// AppKit's pair, fetched once. The colours it returns are dynamic, so a
+    /// cached array still follows light and dark; what is avoided is crossing
+    /// into AppKit for every row of every redraw.
+    @MainActor private static let alternatingRowColors: [Color] =
+        NSColor.alternatingContentBackgroundColors.map(Color.init(nsColor:))
+
     @MainActor
     static func rowBackground(_ index: Int) -> Color {
         if usesSystemMaterials {
-            let colors = NSColor.alternatingContentBackgroundColors
-            guard !colors.isEmpty else { return .clear }
-            return Color(nsColor: colors[index % colors.count])
+            guard !alternatingRowColors.isEmpty else { return .clear }
+            return alternatingRowColors[index % alternatingRowColors.count]
         }
         return index.isMultiple(of: 2) ? palette.background : palette.surface
     }
@@ -239,6 +244,14 @@ private struct WindowThemeApplier: NSViewRepresentable {
         override func viewDidMoveToWindow() {
             super.viewDidMoveToWindow()
             appliedTo = nil
+            // Synchronously, and only here. A window is not on screen yet when
+            // its view tree is attached, so this is the one moment the theme can
+            // land without the window being seen in the system appearance first
+            // — which is what made Settings flash white on a dark theme.
+            //
+            // Deferring this was a guess at the sidebar crash, and the wrong
+            // one: no frame of ours ever appeared in any of those stacks.
+            if let window { ThemeManager.shared.apply(to: window) }
             applyTheme()
         }
 
@@ -249,10 +262,29 @@ private struct WindowThemeApplier: NSViewRepresentable {
             guard stamp != lastApplied || appliedTo != target else { return }
             lastApplied = stamp
             appliedTo = target
-            ThemeManager.shared.apply(to: window)
-            DispatchQueue.main.async { [weak self, weak window] in
-                guard let window, self != nil else { return }
+
+            // Never synchronously. Both callers run inside AppKit's layout
+            // pass — `updateNSView` from the display cycle and
+            // `viewDidMoveToWindow` when the hierarchy is rearranged, which is
+            // exactly what collapsing the sidebar does. Setting the window's
+            // appearance there asks it for a constraints update in the middle
+            // of that cycle, and AppKit throws:
+            //
+            //   -[NSWindow _postWindowNeedsUpdateConstraints]
+            //   -[NSView _informContainerThatSubviewsNeedUpdateConstraints]
+            //   NSHostingView.setNeedsUpdate()
+            //
+            // with +[NSApplication _crashOnException:] on top. Four identical
+            // reports, builds 12 and 13, every time the sidebar was hidden.
+            DispatchQueue.main.async { [weak window] in
+                guard let window else { return }
                 ThemeManager.shared.apply(to: window)
+                // SwiftUI configures the window after us and wipes what we set,
+                // so once more after it has finished.
+                DispatchQueue.main.async { [weak window] in
+                    guard let window else { return }
+                    ThemeManager.shared.apply(to: window)
+                }
             }
         }
 

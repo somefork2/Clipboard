@@ -55,13 +55,29 @@ final class ThemeManager {
         return palette.accent
     }
 
+    /// The appearance the Mac itself is set to, regardless of our theme.
+    @MainActor
+    private static var systemAppearance: NSAppearance? {
+        let dark = UserDefaults.standard.string(forKey: "AppleInterfaceStyle")?
+            .lowercased().contains("dark") ?? false
+        return NSAppearance(named: dark ? .darkAqua : .aqua)
+    }
+
     @MainActor
     func applyStoredTheme() {
-        // Deliberately not `NSApp.appearance`: that also covers the menu bar
-        // item, which lives in the system's own menu bar. Forcing it to light
-        // while the menu bar is dark drew a pale chip behind our icon while
-        // every other icon sat flat. The appearance is applied per window.
-        NSApp.appearance = nil
+        // On the application, so that every window is *born* themed.
+        //
+        // This used to be per-window, to keep the menu bar icon out of it: a
+        // themed status item draws a pale chip behind the icon while every
+        // other icon in the menu bar sits flat. But a window can only be themed
+        // per-window after it exists, and the Settings window was visible
+        // before that happened — it flashed white on a dark theme, whether the
+        // work was done synchronously or deferred. Setting it here means there
+        // is no moment when a window is on screen untheme.
+        //
+        // The status item keeps its old behaviour by being pinned to the Mac's
+        // own appearance below, which is what it inherited before.
+        NSApp.appearance = palette.appearance.map { NSAppearance(named: $0) } ?? nil
 
         applyToAllWindows()
         // Again on the next turn of the run loop. SwiftUI reconfigures its
@@ -75,8 +91,15 @@ final class ThemeManager {
 
     @MainActor
     private func applyToAllWindows() {
-        for window in NSApp.windows where !Self.isSystemOwned(window) {
-            apply(to: window)
+        for window in NSApp.windows {
+            if Self.isSystemOwned(window) {
+                // Pinned, not left to inherit: the app's appearance is now the
+                // theme's, and the menu bar is not ours to colour.
+                let system = Self.systemAppearance
+                if window.appearance?.name != system?.name { window.appearance = system }
+            } else {
+                apply(to: window)
+            }
         }
     }
 

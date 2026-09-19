@@ -27,6 +27,43 @@ enum ScreenshotRenderer {
     /// Toggles the sidebar and reports whether the main thread kept running.
     static var isDiagnosingSidebar: Bool { CommandLine.arguments.contains("--diagnose-sidebar") }
 
+    /// Hammers the window with layout changes.
+    ///
+    /// The sidebar toggle crashes inside `_NSViewLayout`, so anything that
+    /// forces repeated layout passes should hit the same window-mutated-during-
+    /// layout exception.
+    static var isDiagnosingRelayout: Bool { CommandLine.arguments.contains("--diagnose-relayout") }
+
+    static func diagnoseRelayout() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            MainActor.assumeIsolated {
+                guard let window = NSApp.windows.first(where: { $0.canBecomeMain && $0.isVisible }) else {
+                    print("RESULT: no window"); exit(2)
+                }
+                NSApp.activate(ignoringOtherApps: true)
+                let base = window.frame
+                var n = 0
+                let timer = Timer(timeInterval: 0.05, repeats: true) { t in
+                    MainActor.assumeIsolated {
+                        n += 1
+                        var f = base
+                        f.size.width = base.width + CGFloat((n % 12) * 30)
+                        f.size.height = base.height + CGFloat((n % 7) * 25)
+                        window.setFrame(f, display: true, animate: false)
+                        window.contentView?.layoutSubtreeIfNeeded()
+                        ThemeManager.shared.applyStoredTheme()
+                        if n >= 120 {
+                            t.invalidate()
+                            print("RESULT: survived \(n) layout passes")
+                            exit(0)
+                        }
+                    }
+                }
+                RunLoop.main.add(timer, forMode: .common)
+            }
+        }
+    }
+
     /// Clicks the real sidebar toggle. It is a SwiftUI-managed toolbar item
     /// with no action of its own, so the button has to be found and pressed.
     @MainActor
@@ -104,10 +141,13 @@ enum ScreenshotRenderer {
                 }
             }
         }
-        step("hide sidebar", after: 4) { clickSidebarToggle() }
-        step("show sidebar", after: 7) { clickSidebarToggle() }
-        step("hide again", after: 10) { clickSidebarToggle() }
-        step("show again", after: 13) { clickSidebarToggle() }
+        func toggle() {
+            NotificationCenter.default.post(name: .copyWellDebugToggleSidebar, object: nil)
+        }
+        step("hide sidebar", after: 4) { toggle() }
+        step("show sidebar", after: 7) { toggle() }
+        step("hide again", after: 10) { toggle() }
+        step("show again", after: 13) { toggle() }
         DispatchQueue.main.asyncAfter(deadline: .now() + 17) {
             MainActor.assumeIsolated {
                 let ok = watch.worst < 1.0
