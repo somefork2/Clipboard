@@ -129,25 +129,25 @@ enum AppTheme: String, CaseIterable, Identifiable {
 
     var displayName: String {
         switch self {
-        case .system: return "System"
-        case .light: return "Light"
-        case .dark: return "Dark"
-        case .paper: return "Paper"
-        case .graphite: return "Graphite"
-        case .slate: return "Slate"
-        case .ink: return "Ink"
+        case .system: return String(localized: "System")
+        case .light: return String(localized: "Light")
+        case .dark: return String(localized: "Dark")
+        case .paper: return String(localized: "Paper")
+        case .graphite: return String(localized: "Graphite")
+        case .slate: return String(localized: "Slate")
+        case .ink: return String(localized: "Ink")
         }
     }
 
     var summary: String {
         switch self {
-        case .system: return "Follows your macOS appearance setting."
-        case .light: return "Always light."
-        case .dark: return "Always dark."
-        case .paper: return "Warm off-white, easier on the eyes in daylight."
-        case .graphite: return "Neutral dark grey with no colour cast."
-        case .slate: return "Cool blue-grey dark."
-        case .ink: return "Near-black with a muted brass accent."
+        case .system: return String(localized: "Follows your macOS appearance setting.")
+        case .light: return String(localized: "Always light.")
+        case .dark: return String(localized: "Always dark.")
+        case .paper: return String(localized: "Warm off-white, easier on the eyes in daylight.")
+        case .graphite: return String(localized: "Neutral dark grey with no colour cast.")
+        case .slate: return String(localized: "Cool blue-grey dark.")
+        case .ink: return String(localized: "Near-black with a muted brass accent.")
         }
     }
 

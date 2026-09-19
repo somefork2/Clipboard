@@ -10,8 +10,8 @@ struct StatisticsView: View {
         if !subscriptions.checkAccess(for: .statistics) {
             EmptyStateView(
                 icon: "chart.bar",
-                title: "Statistics are part of CopyWell Pro",
-                message: "See what you copy most, which apps you copy from, and how your history grows over time.",
+                title: String(localized: "Statistics are part of CopyWell Pro"),
+                message: String(localized: "See what you copy most, which apps you copy from, and how your history grows over time."),
                 actionTitle: "See CopyWell Pro",
                 action: { subscriptions.showingPaywall = true }
             )
@@ -31,10 +31,10 @@ struct StatisticsView: View {
 
     private var summaryRow: some View {
         HStack(spacing: 12) {
-            StatTile(label: "Clips stored", value: "\(store.items.count)")
-            StatTile(label: "Copied all time", value: "\(tracker.totalCopied)")
-            StatTile(label: "Pasted all time", value: "\(tracker.totalPasted)")
-            StatTile(label: "Copied today", value: "\(tracker.dailyCopies)")
+            StatTile(label: String(localized: "Clips stored"), value: "\(store.items.count)")
+            StatTile(label: String(localized: "Copied all time"), value: "\(tracker.totalCopied)")
+            StatTile(label: String(localized: "Pasted all time"), value: "\(tracker.totalPasted)")
+            StatTile(label: String(localized: "Copied today"), value: "\(tracker.dailyCopies)")
         }
     }
 

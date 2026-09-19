@@ -107,9 +107,9 @@ struct QuickPasteView: View {
         if results.isEmpty {
             EmptyStateView(
                 icon: searchText.isEmpty ? "doc.on.clipboard" : "magnifyingglass",
-                title: searchText.isEmpty ? "Nothing copied yet" : "No matches",
+                title: searchText.isEmpty ? String(localized: "Nothing copied yet") : "No matches",
                 message: searchText.isEmpty
-                    ? "Copy something and it will appear here."
+                    ? String(localized: "Copy something and it will appear here.")
                     : "No clip contains “\(searchText)”."
             )
             .frame(maxHeight: .infinity)
@@ -160,7 +160,7 @@ struct QuickPasteView: View {
         HStack(spacing: 12) {
             ShortcutHint(keys: "↩", label: "Copy")
             ShortcutHint(keys: "⌥↩", label: "Plain")
-            ShortcutHint(keys: "⌘1–9", label: "Jump")
+            ShortcutHint(keys: "⌘1–9", label: String(localized: "Jump"))
             ShortcutHint(keys: "⌘Y", label: "Preview")
             Spacer()
             Text("\(results.count)")
@@ -404,8 +404,8 @@ struct ClipPreviewSheet: View {
         } else if item.type == .image {
             EmptyStateView(
                 icon: "photo.badge.exclamationmark",
-                title: "Image unavailable",
-                message: "The stored file for this clip could not be read."
+                title: String(localized: "Image unavailable"),
+                message: String(localized: "The stored file for this clip could not be read.")
             )
             .frame(height: 160)
         } else if item.isSensitive {

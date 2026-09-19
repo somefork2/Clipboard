@@ -17,11 +17,11 @@ enum TextSizePreference: String, CaseIterable, Identifiable, Codable {
 
     var displayName: String {
         switch self {
-        case .small: return "Small"
-        case .standard: return "Standard"
-        case .large: return "Large"
-        case .larger: return "Larger"
-        case .largest: return "Largest"
+        case .small: return String(localized: "Small")
+        case .standard: return String(localized: "Standard")
+        case .large: return String(localized: "Large")
+        case .larger: return String(localized: "Larger")
+        case .largest: return String(localized: "Largest")
         }
     }
 
@@ -76,9 +76,9 @@ enum RetentionPolicy: Codable, Hashable, Identifiable {
         case .count(let n):
             return "Last \(n.formatted()) clips"
         case .days(let n):
-            return n == 1 ? "Last 24 hours" : "Last \(n) days"
+            return n == 1 ? String(localized: "Last 24 hours") : String(localized: "Last \(n) days")
         case .forever:
-            return "Keep everything"
+            return String(localized: "Keep everything")
         }
     }
 
@@ -88,10 +88,10 @@ enum RetentionPolicy: Codable, Hashable, Identifiable {
             return "Once there are more than \(n.formatted()) clips, the oldest are removed."
         case .days(let n):
             return n == 1
-                ? "Clips older than a day are removed."
+                ? String(localized: "Clips older than a day are removed.")
                 : "Clips older than \(n) days are removed."
         case .forever:
-            return "Nothing is removed automatically. The database grows until you clear it."
+            return String(localized: "Nothing is removed automatically. The database grows until you clear it.")
         }
     }
 

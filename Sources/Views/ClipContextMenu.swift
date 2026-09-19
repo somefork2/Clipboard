@@ -64,7 +64,7 @@ struct ClipContextMenu: View {
 
         if let bundleID = item.sourceAppBundleId,
            let appURL = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleID) {
-            Button("Open \(item.sourceApp ?? "Source App")") {
+            Button("Open \(item.sourceApp ?? String(localized: "Source App"))") {
                 NSWorkspace.shared.openApplication(at: appURL, configuration: NSWorkspace.OpenConfiguration())
             }
         }

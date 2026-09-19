@@ -14,16 +14,16 @@ enum ContentType: String, Codable, CaseIterable, Sendable {
 
     var displayName: String {
         switch self {
-        case .text: return "Text"
-        case .richText: return "Rich Text"
-        case .url: return "Link"
-        case .email: return "Email"
-        case .phoneNumber: return "Phone"
-        case .image: return "Image"
-        case .code: return "Code"
-        case .color: return "Color"
-        case .password: return "Password"
-        case .unknown: return "Unknown"
+        case .text: return String(localized: "Text")
+        case .richText: return String(localized: "Rich Text")
+        case .url: return String(localized: "Link")
+        case .email: return String(localized: "Email")
+        case .phoneNumber: return String(localized: "Phone")
+        case .image: return String(localized: "Image")
+        case .code: return String(localized: "Code")
+        case .color: return String(localized: "Color")
+        case .password: return String(localized: "Password")
+        case .unknown: return String(localized: "Unknown")
         }
     }
 

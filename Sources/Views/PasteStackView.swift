@@ -10,8 +10,8 @@ struct PasteStackView: View {
             if stack.isEmpty {
                 EmptyStateView(
                     icon: "square.stack",
-                    title: "Paste Stack is empty",
-                    message: "Right-click any clip and choose “Add to Paste Stack”, then paste them in order with ⌥⌘S."
+                    title: String(localized: "Paste Stack is empty"),
+                    message: String(localized: "Right-click any clip and choose “Add to Paste Stack”, then paste them in order with ⌥⌘S.")
                 )
             } else {
                 header

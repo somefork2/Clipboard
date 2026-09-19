@@ -5,6 +5,42 @@ options:
     macOS: "14.0"
   createIntermediateGroups: true
   xcodeVersion: "26.0"
+  developmentLanguage: en
+  knownRegions:
+    - ar
+    - ca
+    - cs
+    - da
+    - de
+    - el
+    - en
+    - es
+    - fi
+    - fr
+    - he
+    - hi
+    - hr
+    - hu
+    - id
+    - it
+    - ja
+    - ko
+    - ms
+    - nl
+    - no
+    - pl
+    - pt-BR
+    - pt-PT
+    - ro
+    - ru
+    - sk
+    - sv
+    - th
+    - tr
+    - uk
+    - vi
+    - zh-Hans
+    - zh-Hant
 
 settings:
   base:
@@ -15,6 +51,10 @@ settings:
     CODE_SIGN_STYLE: Automatic
     ENABLE_HARDENED_RUNTIME: YES
     SWIFT_STRICT_CONCURRENCY: complete
+    # Without this the build emits no .stringsdata and the string catalogue
+    # can never be filled from the source.
+    SWIFT_EMIT_LOC_STRINGS: YES
+    LOCALIZATION_PREFERS_STRING_CATALOGS: YES
 
 targets:
   CopyWell:
@@ -26,11 +66,14 @@ targets:
           - "Resources/Info.plist"
           - "Resources/CopyWell.entitlements"
           - "Resources/Assets.xcassets"
+          - "Resources/Localizable.xcstrings"
       # Declared explicitly: picked up by the generic include above it never
       # reached actool, so the app shipped with no icon at all.
       - path: Sources/Resources/Assets.xcassets
         buildPhase: resources
       - path: Sources/Resources/PrivacyInfo.xcprivacy
+        buildPhase: resources
+      - path: Sources/Resources/Localizable.xcstrings
         buildPhase: resources
     dependencies:
       - target: CopyWellFinder

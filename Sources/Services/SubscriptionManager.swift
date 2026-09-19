@@ -32,15 +32,15 @@ enum PremiumFeature: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .unlimitedHistory: return "Unlimited History"
-        case .unlimitedPinboards: return "Unlimited Pinboards"
-        case .pasteStack: return "Paste Stack"
-        case .smartCategorize: return "Smart Categorisation"
-        case .exportImport: return "Export"
-        case .cloudSync: return "iCloud Sync"
-        case .customShortcuts: return "Custom Shortcuts"
-        case .statistics: return "Statistics"
-        case .autoCleanup: return "Auto Cleanup"
+        case .unlimitedHistory: return String(localized: "Unlimited History")
+        case .unlimitedPinboards: return String(localized: "Unlimited Pinboards")
+        case .pasteStack: return String(localized: "Paste Stack")
+        case .smartCategorize: return String(localized: "Smart Categorisation")
+        case .exportImport: return String(localized: "Export")
+        case .cloudSync: return String(localized: "iCloud Sync")
+        case .customShortcuts: return String(localized: "Custom Shortcuts")
+        case .statistics: return String(localized: "Statistics")
+        case .autoCleanup: return String(localized: "Auto Cleanup")
         }
     }
 
@@ -61,15 +61,15 @@ enum PremiumFeature: String, CaseIterable, Identifiable {
     /// Plain, checkable claims — every one of these is implemented.
     var summary: String {
         switch self {
-        case .unlimitedHistory: return "Keep everything, instead of only the last 48 hours."
-        case .unlimitedPinboards: return "Organise clips into as many boards as you need."
-        case .pasteStack: return "Queue several clips and paste them one after another."
-        case .smartCategorize: return "On-device analysis tags clips by type, language and entities."
-        case .exportImport: return "Save your history as JSON, CSV, Markdown or HTML."
-        case .cloudSync: return "Sync history across your Macs through your private iCloud database."
-        case .customShortcuts: return "Rebind every global shortcut to whatever you prefer."
-        case .statistics: return "See what you copy most and from which apps."
-        case .autoCleanup: return "Automatically remove clips older than a chosen age."
+        case .unlimitedHistory: return String(localized: "Keep everything, instead of only the last 48 hours.")
+        case .unlimitedPinboards: return String(localized: "Organise clips into as many boards as you need.")
+        case .pasteStack: return String(localized: "Queue several clips and paste them one after another.")
+        case .smartCategorize: return String(localized: "On-device analysis tags clips by type, language and entities.")
+        case .exportImport: return String(localized: "Save your history as JSON, CSV, Markdown or HTML.")
+        case .cloudSync: return String(localized: "Sync history across your Macs through your private iCloud database.")
+        case .customShortcuts: return String(localized: "Rebind every global shortcut to whatever you prefer.")
+        case .statistics: return String(localized: "See what you copy most and from which apps.")
+        case .autoCleanup: return String(localized: "Automatically remove clips older than a chosen age.")
         }
     }
 }
@@ -160,7 +160,7 @@ final class SubscriptionManager {
             lastError = nil
         } catch {
             products = []
-            lastError = "Could not reach the App Store. Check your connection and try again."
+            lastError = String(localized: "Could not reach the App Store. Check your connection and try again.")
         }
     }
 
@@ -219,7 +219,7 @@ final class SubscriptionManager {
     @discardableResult
     func purchase(_ productID: String) async -> PurchaseOutcome {
         guard let product = product(for: productID) else {
-            lastError = "That plan is unavailable right now."
+            lastError = String(localized: "That plan is unavailable right now.")
             return .unavailable
         }
         purchaseInFlight = true
@@ -236,13 +236,13 @@ final class SubscriptionManager {
                     lastError = nil
                     return .purchased
                 }
-                lastError = "This purchase could not be verified."
+                lastError = String(localized: "This purchase could not be verified.")
                 return .unverified
             case .userCancelled:
                 lastError = nil
                 return .cancelled
             case .pending:
-                lastError = "Your purchase is pending approval."
+                lastError = String(localized: "Your purchase is pending approval.")
                 return .pending
             @unknown default:
                 return .failed("Unknown purchase result.")
@@ -260,7 +260,7 @@ final class SubscriptionManager {
         do {
             try await AppStore.sync()
             await refreshEntitlement()
-            lastError = isPro ? nil : "No active subscription was found for this Apple Account."
+            lastError = isPro ? nil : String(localized: "No active subscription was found for this Apple Account.")
         } catch {
             lastError = error.localizedDescription
         }
@@ -327,10 +327,10 @@ final class SubscriptionManager {
         #if DEBUG
         if simulatedPro { return "Pro (simulated for development)" }
         #endif
-        if isInTrial { return "Pro — subscription trial" }
-        if isPro { return "Pro" }
+        if isInTrial { return String(localized: "Pro — subscription trial") }
+        if isPro { return String(localized: "Pro") }
         if isInFreeTrial { return "Trial — \(TrialManager.shared.daysRemaining) days left" }
-        return "Free"
+        return String(localized: "Free")
     }
 
     /// Returns true when the feature may be used; otherwise surfaces the paywall.

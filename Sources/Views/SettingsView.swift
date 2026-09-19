@@ -33,7 +33,7 @@ struct GeneralSettings: View {
     /// keeps a fixed window of recent history instead.
     private var effectiveRetentionText: String {
         guard subscriptions.checkAccess(for: .autoCleanup) else {
-            return "On the free plan CopyWell keeps the last 48 hours. Favourites and pinboards are never removed."
+            return String(localized: "On the free plan CopyWell keeps the last 48 hours. Favourites and pinboards are never removed.")
         }
         return settings.retention.explanation
     }
@@ -461,8 +461,8 @@ struct SyncSettings: View {
     private func checkAccount() async {
         let available = await CloudKitSyncManager.shared.checkAccountStatus()
         accountStatus = available
-            ? "Connected to your private iCloud database."
-            : "Sign in to iCloud in System Settings to use sync."
+            ? String(localized: "Connected to your private iCloud database.")
+            : String(localized: "Sign in to iCloud in System Settings to use sync.")
     }
 
     /// Writes through an NSSavePanel, which is also how a sandboxed app gets

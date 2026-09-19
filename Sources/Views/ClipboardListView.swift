@@ -99,9 +99,9 @@ struct ClipboardListView: View {
         if items.isEmpty {
             EmptyStateView(
                 icon: searchText.isEmpty ? "doc.on.clipboard" : "magnifyingglass",
-                title: searchText.isEmpty ? "No clips here yet" : "No matches",
+                title: searchText.isEmpty ? String(localized: "No clips here yet") : String(localized: "No matches"),
                 message: searchText.isEmpty
-                    ? "Copy anything and it appears here. Press ⌥⌘V anywhere to paste it back."
+                    ? String(localized: "Copy anything and it appears here. Press ⌥⌘V anywhere to paste it back.")
                     : "Nothing matches “\(searchText)”."
             )
         } else {

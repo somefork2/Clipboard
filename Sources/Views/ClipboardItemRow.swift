@@ -144,7 +144,7 @@ struct ClipboardItemRow: View {
     private var actions: some View {
         HStack(spacing: 2) {
             rowButton("eye", help: "Quick Look", action: onPreview)
-            rowButton(item.isFavorite ? "star.fill" : "star", help: "Favourite") {
+            rowButton(item.isFavorite ? "star.fill" : "star", help: String(localized: "Favourite")) {
                 store.toggleFavorite(item)
             }
             rowButton("doc.on.doc", help: "Copy") {

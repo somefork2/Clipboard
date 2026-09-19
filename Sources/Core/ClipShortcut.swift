@@ -81,18 +81,18 @@ enum ShortcutAction: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .quickPaste: return "Open Clipboard Palette"
-        case .pastePrevious: return "Copy Previous Item"
-        case .pastePlainText: return "Copy Latest as Plain Text"
-        case .pinLast: return "Pin Last Copied Item"
-        case .togglePause: return "Pause / Resume Recording"
-        case .pasteStackNext: return "Copy Next from Stack"
+        case .quickPaste: return String(localized: "Open Clipboard Palette")
+        case .pastePrevious: return String(localized: "Copy Previous Item")
+        case .pastePlainText: return String(localized: "Copy Latest as Plain Text")
+        case .pinLast: return String(localized: "Pin Last Copied Item")
+        case .togglePause: return String(localized: "Pause / Resume Recording")
+        case .pasteStackNext: return String(localized: "Copy Next from Stack")
         }
     }
 
     var subtitle: String {
         switch self {
-        case .quickPaste: return "Floating palette at the cursor; pick a clip and press ⌘V"
+        case .quickPaste: return String(localized: "Floating palette at the cursor; pick a clip and press ⌘V")
         case .pastePrevious: return "Put the item copied before the current one back on the clipboard"
         case .pastePlainText: return "Put the latest clip on the clipboard with formatting stripped"
         case .pinLast: return "Add the most recent clip to Favourites"

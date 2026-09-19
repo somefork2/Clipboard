@@ -61,7 +61,7 @@ final class ServiceProvider: NSObject {
         guard let latest = ClipboardStore.shared.items.first,
               let text = latest.isSensitive ? nil : latest.body,
               !text.isEmpty else {
-            error.pointee = "CopyWell has nothing to paste." as NSString
+            error.pointee = String(localized: "CopyWell has nothing to paste.") as NSString
             return
         }
         pboard.clearContents()
@@ -82,7 +82,7 @@ final class ServiceProvider: NSObject {
         guard let latest = ClipboardStore.shared.items.first,
               !latest.isSensitive,
               let text = latest.body, !text.isEmpty else {
-            error.pointee = "CopyWell has nothing to paste." as NSString
+            error.pointee = String(localized: "CopyWell has nothing to paste.") as NSString
             return
         }
         pboard.clearContents()
@@ -102,7 +102,7 @@ final class ServiceProvider: NSObject {
         guard let image = images(from: pboard).first,
               let data = ImageStore.png(from: image, maxSize: nil),
               let text = OCRService.recognizeSynchronously(in: data) else {
-            error.pointee = "No text was found in that image." as NSString
+            error.pointee = String(localized: "No text was found in that image.") as NSString
             return
         }
         pboard.clearContents()

@@ -92,10 +92,10 @@ struct SetupWizard: View {
 
     private var title: String {
         switch step {
-        case 0: return "Welcome to CopyWell"
-        case 1: return "Two things worth remembering"
-        case 2: return "Make it yours"
-        default: return "One switch in System Settings"
+        case 0: return String(localized: "Welcome to CopyWell")
+        case 1: return String(localized: "Two things worth remembering")
+        case 2: return String(localized: "Make it yours")
+        default: return String(localized: "One switch in System Settings")
         }
     }
 
@@ -132,29 +132,29 @@ struct SetupWizard: View {
 
     private var welcome: some View {
         StepLayout(
-            headline: "CopyWell keeps what you copy, so you can get it back later.",
+            headline: String(localized: "CopyWell keeps what you copy, so you can get it back later."),
             illustration: { AnimatedIn { WizardIllustration.Privacy() } }
         ) {
-            bullet("lock", "Everything stays on this Mac.",
-                   "Nothing is uploaded unless you turn on iCloud sync yourself.")
-            bullet("hand.raised", "No permissions are requested.",
-                   "CopyWell never presses keys for you, so it needs no Accessibility access.")
-            bullet("eye.slash", "Password managers are respected.",
-                   "Copies marked secret by 1Password, Bitwarden or Keychain are never recorded.")
+            bullet("lock", String(localized: "Everything stays on this Mac."),
+                   String(localized: "Nothing is uploaded unless you turn on iCloud sync yourself."))
+            bullet("hand.raised", String(localized: "No permissions are requested."),
+                   String(localized: "CopyWell never presses keys for you, so it needs no Accessibility access."))
+            bullet("eye.slash", String(localized: "Password managers are respected."),
+                   String(localized: "Copies marked secret by 1Password, Bitwarden or Keychain are never recorded."))
         }
     }
 
     private var essentials: some View {
         StepLayout(
-            headline: "Press ⌥⌘V anywhere, pick a clip, press ⌘V.",
+            headline: String(localized: "Press ⌥⌘V anywhere, pick a clip, press ⌘V."),
             illustration: { AnimatedIn { WizardIllustration.Shortcut() } }
         ) {
-            bullet("command", "The palette opens at your cursor.",
-                   "Move with ↑↓ or jump with ⌘1–9. ⌘Y looks at a clip before you take it.")
-            bullet("menubar.arrow.up.rectangle", "The menu bar icon shows recent clips.",
-                   "Click one to put it back on the clipboard without opening the app.")
-            bullet("square.stack", "Pinboards and the paste stack are there when you need them.",
-                   "Keep clips you reuse, or queue several and paste them in order.")
+            bullet("command", String(localized: "The palette opens at your cursor."),
+                   String(localized: "Move with ↑↓ or jump with ⌘1–9. ⌘Y looks at a clip before you take it."))
+            bullet("menubar.arrow.up.rectangle", String(localized: "The menu bar icon shows recent clips."),
+                   String(localized: "Click one to put it back on the clipboard without opening the app."))
+            bullet("square.stack", String(localized: "Pinboards and the paste stack are there when you need them."),
+                   String(localized: "Keep clips you reuse, or queue several and paste them in order."))
         }
     }
 
@@ -163,7 +163,7 @@ struct SetupWizard: View {
         launchAtLogin: Binding<Bool>
     ) -> some View {
         StepLayout(
-            headline: "Pick a look, and decide whether CopyWell makes a sound.",
+            headline: String(localized: "Pick a look, and decide whether CopyWell makes a sound."),
             illustration: { AnimatedIn { WizardIllustration.Personalise() } }
         ) {
             LabeledContent("Theme") {
@@ -193,7 +193,7 @@ struct SetupWizard: View {
 
     private var services: some View {
         StepLayout(
-            headline: "CopyWell adds items to the right-click menu of every app.",
+            headline: String(localized: "CopyWell adds items to the right-click menu of every app."),
             illustration: { AnimatedIn { WizardIllustration.Services() } }
         ) {
             Text("macOS ships third-party menu items switched off. Turn them on once and they stay on.")

@@ -88,8 +88,8 @@ struct MenuBarContentView: View {
         if results.isEmpty {
             EmptyStateView(
                 icon: "doc.on.clipboard",
-                title: searchText.isEmpty ? "Nothing yet" : "No matches",
-                message: searchText.isEmpty ? "Copy something to get started." : "Try another search."
+                title: searchText.isEmpty ? String(localized: "Nothing yet") : String(localized: "No matches"),
+                message: searchText.isEmpty ? String(localized: "Copy something to get started.") : String(localized: "Try another search.")
             )
             .frame(height: 140)
         } else {

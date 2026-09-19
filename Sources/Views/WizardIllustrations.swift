@@ -292,7 +292,7 @@ enum WizardIllustration {
 
         private var submenu: some View {
             VStack(alignment: .leading, spacing: 3) {
-                ForEach(["Save to CopyWell", "Pin to CopyWell", "Copy Text in Image"], id: \.self) { title in
+                ForEach([String(localized: "Save to CopyWell"), String(localized: "Pin to CopyWell"), String(localized: "Copy Text in Image")], id: \.self) { title in
                     HStack(spacing: 5) {
                         Image(systemName: "checkmark")
                             .font(.system(size: 7, weight: .bold))

@@ -34,15 +34,15 @@ enum EntityType: String, Codable, CaseIterable, Sendable {
 
     var displayName: String {
         switch self {
-        case .email: return "Email"
-        case .phoneNumber: return "Phone"
+        case .email: return String(localized: "Email")
+        case .phoneNumber: return String(localized: "Phone")
         case .url: return "URL"
-        case .personalName: return "Name"
-        case .organizationName: return "Organization"
-        case .placeName: return "Place"
-        case .date: return "Date"
-        case .monetaryAmount: return "Money"
-        case .codeSnippet: return "Code"
+        case .personalName: return String(localized: "Name")
+        case .organizationName: return String(localized: "Organization")
+        case .placeName: return String(localized: "Place")
+        case .date: return String(localized: "Date")
+        case .monetaryAmount: return String(localized: "Money")
+        case .codeSnippet: return String(localized: "Code")
         }
     }
 
@@ -322,36 +322,36 @@ actor SmartCategorizer {
     private func suggestTitle(_ text: String, category: ContentCategory, entities: [ExtractedEntity]) -> String {
         switch category {
         case .code:
-            // Попробовать найти имя функции/класса
+            // Prefer the name of the function or class it defines.
             if let funcMatch = text.range(of: #"func\s+(\w+)"#, options: .regularExpression) {
-                return "Function: \(String(text[funcMatch]).replacingOccurrences(of: "func ", with: ""))"
+                return String(localized: "Function: \(String(text[funcMatch]).replacingOccurrences(of: "func ", with: ""))")
             }
             if let classMatch = text.range(of: #"class\s+(\w+)"#, options: .regularExpression) {
-                return "Class: \(String(text[classMatch]).replacingOccurrences(of: "class ", with: ""))"
+                return String(localized: "Class: \(String(text[classMatch]).replacingOccurrences(of: "class ", with: ""))")
             }
-            return "Code Snippet"
+            return String(localized: "Code Snippet")
 
         case .links:
             if let urlEntity = entities.first(where: { $0.type == .url }),
                let url = URL(string: urlEntity.value) {
-                return url.host() ?? "Link"
+                return url.host() ?? String(localized: "Link")
             }
-            return "Link"
+            return String(localized: "Link")
 
         case .contacts:
             if let name = entities.first(where: { $0.type == .personalName }) {
-                return "Contact: \(name.value)"
+                return String(localized: "Contact: \(name.value)")
             }
             if let email = entities.first(where: { $0.type == .email }) {
-                return "Email: \(email.value)"
+                return String(localized: "Email: \(email.value)")
             }
-            return "Contact"
+            return String(localized: "Contact")
 
         case .addresses:
             if let place = entities.first(where: { $0.type == .placeName }) {
                 return "📍 \(place.value)"
             }
-            return "Address"
+            return String(localized: "Address")
 
         case .notes:
             let firstLine = String(text.prefix(60)).replacingOccurrences(of: "\n", with: " ")
@@ -359,7 +359,7 @@ actor SmartCategorizer {
 
         default:
             let preview = String(text.prefix(40))
-            return preview.isEmpty ? "Text" : preview
+            return preview.isEmpty ? String(localized: "Text") : preview
         }
     }
 

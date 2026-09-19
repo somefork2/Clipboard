@@ -21,7 +21,7 @@ struct ShortcutRecorder: View {
             Button {
                 isRecording ? stopRecording() : startRecording()
             } label: {
-                Text(isRecording ? "Press keys…" : manager.shortcut(for: action).displayString)
+                Text(isRecording ? String(localized: "Press keys…") : manager.shortcut(for: action).displayString)
                     .font(.callout.monospaced())
                     .frame(minWidth: 88)
                     .padding(.horizontal, 8)
@@ -92,7 +92,7 @@ struct ShortcutRecorder: View {
         let candidate = ClipShortcut(keyCode: UInt32(event.keyCode), modifiers: modifiers)
 
         guard candidate.isValidGlobalBinding else {
-            errorMessage = "Use at least one of ⌘, ⌥ or ⌃."
+            errorMessage = String(localized: "Use at least one of ⌘, ⌥ or ⌃.")
             return
         }
 
@@ -101,7 +101,7 @@ struct ShortcutRecorder: View {
             stopRecording()
             AppCoordinator.shared.updateConflictMessage()
         } else {
-            errorMessage = "That combination is already taken."
+            errorMessage = String(localized: "That combination is already taken.")
         }
     }
 }

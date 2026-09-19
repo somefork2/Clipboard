@@ -46,7 +46,7 @@ final class ClipboardStore {
             // to memory so the user can still use and export the session.
             do {
                 container = try ModelContainer(for: schema, configurations: [memory])
-                fallbackNotice = "The saved history could not be opened. This session is being kept in memory only."
+                fallbackNotice = String(localized: "The saved history could not be opened. This session is being kept in memory only.")
             } catch {
                 // Nothing left to fall back to, but crashing on launch is never the
                 // answer: an empty in-memory schema still gives a usable window.
@@ -54,7 +54,7 @@ final class ClipboardStore {
                     for: Schema([]),
                     configurations: [ModelConfiguration(isStoredInMemoryOnly: true)]
                 )
-                fallbackNotice = "Clipboard history is unavailable on this Mac."
+                fallbackNotice = String(localized: "Clipboard history is unavailable on this Mac.")
             }
         }
         reload()
@@ -78,7 +78,7 @@ final class ClipboardStore {
             )
             loadError = nil
         } catch {
-            loadError = "Could not read the clipboard history."
+            loadError = String(localized: "Could not read the clipboard history.")
         }
         NotificationCenter.default.post(name: .copyWellHistoryChanged, object: nil)
     }
@@ -354,7 +354,7 @@ final class ClipboardStore {
         do {
             try context.save()
         } catch {
-            loadError = "Could not save the last change."
+            loadError = String(localized: "Could not save the last change.")
         }
     }
 }

@@ -93,7 +93,7 @@ enum ExportManager {
         for item in items {
             output += "## \(item.displayTitle)\n\n"
             output += "- Type: \(item.type.displayName)\n"
-            output += "- Source: \(item.sourceApp ?? "Unknown")\n"
+            output += "- Source: \(item.sourceApp ?? String(localized: "Unknown"))\n"
             output += "- Date: \(item.createdAt.formatted(date: .abbreviated, time: .shortened))\n"
             if !item.tags.isEmpty { output += "- Tags: \(item.tags.joined(separator: ", "))\n" }
             output += "\n"
@@ -127,7 +127,7 @@ enum ExportManager {
         """
         for item in items {
             output += "<div class=\"clip\"><strong>\(escapeHTML(item.displayTitle))</strong>"
-            output += "<div class=\"meta\">\(escapeHTML(item.type.displayName)) · \(escapeHTML(item.sourceApp ?? "Unknown")) · \(escapeHTML(item.createdAt.formatted()))</div>"
+            output += "<div class=\"meta\">\(escapeHTML(item.type.displayName)) · \(escapeHTML(item.sourceApp ?? String(localized: "Unknown"))) · \(escapeHTML(item.createdAt.formatted()))</div>"
             if let body = item.body, !body.isEmpty {
                 output += "<pre>\(escapeHTML(body))</pre>"
             } else if let url = item.url {

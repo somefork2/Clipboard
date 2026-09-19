@@ -99,7 +99,7 @@ struct PaywallView: View {
                 .padding(24)
         } else if manager.products.isEmpty {
             VStack(spacing: 8) {
-                Text(manager.lastError ?? "Plans are unavailable right now.")
+                Text(manager.lastError ?? String(localized: "Plans are unavailable right now."))
                     .font(.callout)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
@@ -183,7 +183,7 @@ struct PaywallView: View {
     }
 
     private var primaryButtonTitle: String {
-        guard let product = manager.product(for: selectedProductID) else { return "Subscribe" }
+        guard let product = manager.product(for: selectedProductID) else { return String(localized: "Subscribe") }
         if let trial = manager.introductoryOffer(for: product.id) {
             return "Start \(trial), then \(product.displayPrice)/\(periodName(product))"
         }
@@ -193,7 +193,7 @@ struct PaywallView: View {
     /// Plain-language renewal terms, stated on the purchase screen itself.
     private var renewalDisclosure: String {
         guard let product = manager.product(for: selectedProductID) else {
-            return "Subscriptions renew automatically until cancelled."
+            return String(localized: "Subscriptions renew automatically until cancelled.")
         }
         let period = periodName(product)
         let trialSentence = manager.introductoryOffer(for: product.id).map {
@@ -267,10 +267,10 @@ struct PlanCard: View {
     private var periodLabel: String {
         guard let unit = product.subscription?.subscriptionPeriod.unit else { return "" }
         switch unit {
-        case .day: return "per day"
-        case .week: return "per week"
-        case .month: return "per month"
-        case .year: return "per year"
+        case .day: return String(localized: "per day")
+        case .week: return String(localized: "per week")
+        case .month: return String(localized: "per month")
+        case .year: return String(localized: "per year")
         @unknown default: return ""
         }
     }
