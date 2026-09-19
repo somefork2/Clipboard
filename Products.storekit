@@ -1,72 +1,62 @@
 {
-  "identifier" : "CopyWellProducts",
-  "nonRenewingSubscriptions" : [],
-  "products" : [],
-  "settings" : {
-    "_failTransactionsEnabled" : false,
-    "_storeKitErrors" : []
+  "identifier": "CopyWellProducts",
+  "nonRenewingSubscriptions": [],
+  "products": [],
+  "settings": {
+    "_failTransactionsEnabled": false,
+    "_storeKitErrors": []
   },
-  "subscriptionGroups" : [
+  "subscriptionGroups": [
     {
-      "id" : "21563421",
-      "localizations" : [],
-      "name" : "CopyWell Pro",
-      "subscriptions" : [
+      "id": "22395304",
+      "localizations": [],
+      "name": "CopyWell Pro",
+      "subscriptions": [
         {
-          "adHocOffers" : [],
-          "codeOffers" : [],
-          "displayPrice" : "2.99",
-          "familyShareable" : false,
-          "groupNumber" : 1,
-          "internalID" : "6001",
-          "introductoryOffer" : {
-            "internalID" : "6101",
-            "paymentMode" : "free",
-            "subscriptionPeriod" : "P1W"
-          },
-          "localizations" : [
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "2.99",
+          "familyShareable": false,
+          "groupNumber": 1,
+          "internalID": "6001",
+          "localizations": [
             {
-              "description" : "Unlimited history, paste stack, iCloud sync and export.",
-              "displayName" : "CopyWell Pro Monthly",
-              "locale" : "en_US"
+              "description": "Unlimited history, paste stack, iCloud sync and export.",
+              "displayName": "CopyWell Pro Monthly",
+              "locale": "en_US"
             }
           ],
-          "productID" : "com.copywell.pro.monthly",
-          "recurringSubscriptionPeriod" : "P1M",
-          "referenceName" : "Pro Monthly",
-          "subscriptionGroupID" : "21563421",
-          "type" : "RecurringSubscription"
+          "productID": "com.copywell.pro.monthly",
+          "recurringSubscriptionPeriod": "P1M",
+          "referenceName": "Pro Monthly",
+          "subscriptionGroupID": "22395304",
+          "type": "RecurringSubscription"
         },
         {
-          "adHocOffers" : [],
-          "codeOffers" : [],
-          "displayPrice" : "24.99",
-          "familyShareable" : false,
-          "groupNumber" : 1,
-          "internalID" : "6002",
-          "introductoryOffer" : {
-            "internalID" : "6102",
-            "paymentMode" : "free",
-            "subscriptionPeriod" : "P1W"
-          },
-          "localizations" : [
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "24.99",
+          "familyShareable": false,
+          "groupNumber": 1,
+          "internalID": "6002",
+          "localizations": [
             {
-              "description" : "Unlimited history, paste stack, iCloud sync and export.",
-              "displayName" : "CopyWell Pro Annual",
-              "locale" : "en_US"
+              "description": "Unlimited history, paste stack, iCloud sync and export.",
+              "displayName": "CopyWell Pro Annual",
+              "locale": "en_US"
             }
           ],
-          "productID" : "com.copywell.pro.annual",
-          "recurringSubscriptionPeriod" : "P1Y",
-          "referenceName" : "Pro Annual",
-          "subscriptionGroupID" : "21563421",
-          "type" : "RecurringSubscription"
+          "productID": "com.copywell.pro.annual",
+          "recurringSubscriptionPeriod": "P1Y",
+          "referenceName": "Pro Annual",
+          "subscriptionGroupID": "22395304",
+          "type": "RecurringSubscription"
         }
       ]
     }
   ],
-  "version" : {
-    "major" : 3,
-    "minor" : 0
+  "version": {
+    "major": 3,
+    "minor": 0
   }
 }

@@ -74,6 +74,10 @@ targets:
     platform: macOS
     sources:
       - Tests
+      # SKTestSession loads the configuration from the test bundle, so the same
+      # file the app runs against is what the purchase tests exercise.
+      - path: Products.storekit
+        buildPhase: resources
     dependencies:
       - target: CopyWell
     settings:
@@ -92,6 +96,7 @@ schemes:
       storeKitConfiguration: Products.storekit
     test:
       config: Debug
+      storeKitConfiguration: Products.storekit
       targets:
         - CopyWellTests
     archive:

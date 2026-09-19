@@ -202,10 +202,25 @@ final class SubscriptionManager {
 
     // MARK: - Purchase
 
-    func purchase(_ productID: String) async {
+    /// What came back from a purchase attempt.
+    ///
+    /// Returned rather than only left in `lastError` so callers — and tests —
+    /// can tell "the customer changed their mind" apart from "the purchase
+    /// broke", which look identical when the only signal is an empty error.
+    enum PurchaseOutcome: Equatable {
+        case purchased
+        case cancelled
+        case pending
+        case unverified
+        case unavailable
+        case failed(String)
+    }
+
+    @discardableResult
+    func purchase(_ productID: String) async -> PurchaseOutcome {
         guard let product = product(for: productID) else {
             lastError = "That plan is unavailable right now."
-            return
+            return .unavailable
         }
         purchaseInFlight = true
         defer { purchaseInFlight = false }
@@ -216,20 +231,25 @@ final class SubscriptionManager {
             case .success(let verification):
                 if case .verified(let transaction) = verification {
                     await transaction.finish()
-                    await refreshEntitlement()
+                    await refreshEntitlement(justPurchased: transaction)
                     showingPaywall = false
-                } else {
-                    lastError = "This purchase could not be verified."
+                    lastError = nil
+                    return .purchased
                 }
+                lastError = "This purchase could not be verified."
+                return .unverified
             case .userCancelled:
                 lastError = nil
+                return .cancelled
             case .pending:
                 lastError = "Your purchase is pending approval."
+                return .pending
             @unknown default:
-                break
+                return .failed("Unknown purchase result.")
             }
         } catch {
             lastError = error.localizedDescription
+            return .failed(error.localizedDescription)
         }
     }
 
@@ -254,17 +274,30 @@ final class SubscriptionManager {
 
     // MARK: - Entitlement
 
-    func refreshEntitlement() async {
+    /// Re-reads what the customer is entitled to, straight from StoreKit.
+    ///
+    /// `justPurchased` is not a convenience. `Transaction.currentEntitlements`
+    /// does not reliably include a transaction that was finished a moment ago,
+    /// so refreshing immediately after a successful purchase could leave the app
+    /// on the free tier until the next launch — money taken, nothing unlocked.
+    /// The verified transaction handed to us by `purchase()` is authoritative,
+    /// so it is folded in alongside whatever the store reports.
+    func refreshEntitlement(justPurchased: StoreKit.Transaction? = nil) async {
         var tier: SubscriptionTier = .free
         var productID: String?
         var expiry: Date?
         var trial = false
 
-        for await entitlement in Transaction.currentEntitlements {
-            guard case .verified(let transaction) = entitlement else { continue }
-            guard Self.productIDs.contains(transaction.productID) else { continue }
-            if let revocation = transaction.revocationDate, revocation <= Date() { continue }
-            if let expiration = transaction.expirationDate, expiration <= Date() { continue }
+        func consider(_ transaction: StoreKit.Transaction) {
+            guard Self.productIDs.contains(transaction.productID) else { return }
+            if let revocation = transaction.revocationDate, revocation <= Date() { return }
+            if let expiration = transaction.expirationDate, expiration <= Date() { return }
+
+            // Keep the entitlement that runs longest, so an upgrade mid-term is
+            // never shortened by an older overlapping one.
+            if let current = expiry, let candidate = transaction.expirationDate, candidate <= current {
+                return
+            }
 
             tier = .pro
             productID = transaction.productID
@@ -273,6 +306,12 @@ final class SubscriptionManager {
                 trial = transaction.offer?.type == .introductory
             }
         }
+
+        for await entitlement in Transaction.currentEntitlements {
+            guard case .verified(let transaction) = entitlement else { continue }
+            consider(transaction)
+        }
+        if let justPurchased { consider(justPurchased) }
 
         currentTier = tier
         activeProductID = productID
