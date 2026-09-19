@@ -1,3 +1,4 @@
+import AppKit
 import Testing
 import Foundation
 @testable import CopyWell
@@ -422,5 +423,51 @@ struct TrialTests {
     func endDateDerived() {
         let trial = TrialManager.shared
         #expect(abs(trial.endDate.timeIntervalSince(trial.startDate) - TrialManager.duration) < 1)
+    }
+}
+
+// MARK: - Image dedupe
+
+@Suite("Image hashing")
+struct ImageHashTests {
+
+    private func picture() -> NSImage {
+        let size = NSSize(width: 60, height: 40)
+        let image = NSImage(size: size)
+        image.lockFocus()
+        NSColor.systemBlue.setFill(); NSRect(origin: .zero, size: size).fill()
+        NSColor.white.setFill(); NSRect(x: 5, y: 5, width: 20, height: 15).fill()
+        image.unlockFocus()
+        return image
+    }
+
+    @Test("The same picture hashes the same whether it arrived as PNG or TIFF")
+    func formatDoesNotChangeTheHash() throws {
+        let image = picture()
+        let tiff = try #require(image.tiffRepresentation)
+        let fromTIFF = try #require(NSImage(data: tiff))
+        let a = try #require(ImageStore.png(from: image, maxSize: nil))
+        let b = try #require(ImageStore.png(from: fromTIFF, maxSize: nil))
+        #expect(ContentHasher.hash(text: nil, url: nil, imageData: a)
+                == ContentHasher.hash(text: nil, url: nil, imageData: b))
+    }
+
+    @Test("Encoding the same picture twice gives the same bytes")
+    func encodingIsStable() throws {
+        let image = picture()
+        let a = try #require(ImageStore.png(from: image, maxSize: nil))
+        let b = try #require(ImageStore.png(from: image, maxSize: nil))
+        #expect(a == b)
+    }
+
+    @Test("Different pictures still hash differently")
+    func differentPicturesDiffer() throws {
+        let one = picture()
+        let two = NSImage(size: NSSize(width: 60, height: 40))
+        two.lockFocus(); NSColor.systemRed.setFill(); NSRect(x: 0, y: 0, width: 60, height: 40).fill(); two.unlockFocus()
+        let a = try #require(ImageStore.png(from: one, maxSize: nil))
+        let b = try #require(ImageStore.png(from: two, maxSize: nil))
+        #expect(ContentHasher.hash(text: nil, url: nil, imageData: a)
+                != ContentHasher.hash(text: nil, url: nil, imageData: b))
     }
 }

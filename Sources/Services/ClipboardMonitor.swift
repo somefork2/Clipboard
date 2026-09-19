@@ -152,14 +152,23 @@ final class ClipboardMonitor {
     ) async -> CapturedClip? {
         // Images first: a copied screenshot also carries a string on some pasteboards.
         if let imageData = snapshot.png ?? snapshot.tiff, let image = NSImage(data: imageData) {
-            let hash = ContentHasher.hash(text: nil, url: nil, imageData: imageData)
+            // Hash the normalised PNG, not the bytes off the pasteboard.
+            //
+            // Apps put the same picture on the pasteboard in whatever format
+            // suits them: PNG from one, TIFF from another, both from a third.
+            // Hashing the raw bytes made the same picture hash differently
+            // depending on which arrived, so it was stored twice instead of
+            // being recognised. Measured: PNG and TIFF of one image hash
+            // differently, and PNG encoding of the same pixels is byte-stable.
+            guard let normalised = ImageStore.png(from: image, maxSize: nil) else { return nil }
+            let hash = ContentHasher.hash(text: nil, url: nil, imageData: normalised)
             let fileName = "\(hash.prefix(32)).png"
-            guard ImageStore.write(image, fileName: fileName) != nil else { return nil }
+            guard ImageStore.write(data: normalised, fileName: fileName) else { return nil }
 
             let thumbnail = ImageStore.thumbnail(from: image)
             let pixels = ImageStore.pixelSize(of: image)
             let storedBytes = ImageStore.read(fileName: fileName)?.count ?? imageData.count
-            let ocrText = await OCRService.shared.recognizeText(in: imageData)
+            let ocrText = await OCRService.shared.recognizeText(in: normalised)
 
             var category = "uncategorized"
             var tags: [String] = []

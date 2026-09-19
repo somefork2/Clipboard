@@ -33,6 +33,21 @@ enum ImageStore {
         directory.appendingPathComponent(fileName)
     }
 
+    /// Saves PNG bytes that have already been encoded.
+    ///
+    /// The capture path hashes the normalised PNG and then stores the very same
+    /// bytes, so encoding twice would be both wasteful and a chance for the two
+    /// to disagree.
+    @discardableResult
+    static func write(data: Data, fileName: String) -> Bool {
+        do {
+            try data.write(to: url(for: fileName), options: .atomic)
+            return true
+        } catch {
+            return false
+        }
+    }
+
     /// Writes the image as PNG and returns the file name to store in the model.
     @discardableResult
     static func write(_ image: NSImage, fileName: String) -> String? {
