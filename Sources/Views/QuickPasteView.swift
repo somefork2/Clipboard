@@ -62,14 +62,8 @@ struct QuickPasteView: View {
         .frame(width: QuickPasteView.panelSize.width, height: QuickPasteView.panelSize.height)
         .elevatedSurface()
         .clipShape(RoundedRectangle(cornerRadius: 12))
-        // No outline. The panel casts a shadow, which is what defines its edge
-        // against whatever is behind it; a hairline on top of that is visible
-        // as a grey ring and nothing else. At half a point it also renders in
-        // patches rather than evenly, which is what made it look scrappy.
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .strokeBorder(Color.clear, lineWidth: 0)
-        )
+        // No outline: the panel's shadow is what separates it from whatever is
+        // behind, and a hairline on top of that only reads as a grey ring.
         .onAppear {
             searchFocused = true
             lastMouseLocation = NSEvent.mouseLocation

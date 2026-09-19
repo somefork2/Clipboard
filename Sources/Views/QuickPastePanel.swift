@@ -15,11 +15,27 @@ final class QuickPastePanel: NSObject, NSWindowDelegate {
     private var localMonitor: Any?
     /// True when the palette was opened while CopyWell itself was in front.
     private var openedFromOurApp = false
+    /// When the palette last closed itself because it lost the keyboard.
+    private var lastDismissalByFocusLoss: Date?
 
     var isVisible: Bool { panel?.isVisible ?? false }
 
     func toggle() {
-        if isVisible { hide() } else { show() }
+        if isVisible {
+            hide()
+            return
+        }
+        // Clicking the toolbar button makes the main window key, which takes
+        // the keyboard off the palette, which closes it — all before this
+        // handler runs. Without this the second click found the palette
+        // already gone and opened it straight back up, so it never appeared to
+        // close at all. A click that arrives on the heels of that dismissal is
+        // the click that caused it.
+        if let closed = lastDismissalByFocusLoss, Date().timeIntervalSince(closed) < 0.35 {
+            lastDismissalByFocusLoss = nil
+            return
+        }
+        show()
     }
 
     func show() {
@@ -39,8 +55,17 @@ final class QuickPastePanel: NSObject, NSWindowDelegate {
         applyPrivacy(to: panel)
         position(panel)
 
+        // Key, but without activating us. The panel is a `.nonactivatingPanel`
+        // that overrides `canBecomeKey`, which is exactly how Spotlight takes
+        // the keyboard while the app underneath stays active — and the whole
+        // reason it is built that way.
+        //
+        // `NSApp.activate` used to follow this line and undid it: taking
+        // activation deactivates the app being typed into, and that app drops
+        // its text selection. The caret survives, the selection does not, so
+        // pasting over selected text did nothing while pasting at a plain
+        // insertion point worked.
         panel.makeKeyAndOrderFront(nil)
-        NSApp.activate(ignoringOtherApps: true)
         installEscapeMonitor()
     }
 
@@ -151,6 +176,7 @@ final class QuickPastePanel: NSObject, NSWindowDelegate {
 
     func windowDidResignKey(_ notification: Notification) {
         // Clicking away dismisses the palette, like Spotlight.
+        lastDismissalByFocusLoss = Date()
         hide()
     }
 }
