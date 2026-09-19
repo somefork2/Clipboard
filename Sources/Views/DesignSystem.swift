@@ -213,22 +213,44 @@ private struct WindowThemeApplier: NSViewRepresentable {
     let themeID: String
     let accentID: String
 
-    func makeNSView(context: Context) -> NSView {
-        let view = NSView(frame: .zero)
-        apply(view)
-        return view
-    }
-
-    func updateNSView(_ nsView: NSView, context: Context) {
-        apply(nsView)
-    }
-
-    private func apply(_ view: NSView) {
-        // The window is attached one run loop turn after the view is made.
-        DispatchQueue.main.async {
-            guard let window = view.window else { return }
-            ThemeManager.shared.apply(to: window)
+    /// Applies the theme the moment AppKit attaches the view to a window.
+    ///
+    /// The old version waited a single turn of the run loop and gave up if the
+    /// window was not there yet. The main window happened to be ready in time;
+    /// the Settings window, which SwiftUI builds lazily when it is first opened,
+    /// was not — so it kept the system appearance. On a Mac set to Light that
+    /// meant a white tab bar and title bar wrapped around dark themed content.
+    /// `viewDidMoveToWindow` is the hook for exactly this and cannot be raced.
+    final class Backing: NSView {
+        override func viewDidMoveToWindow() {
+            super.viewDidMoveToWindow()
+            applyTheme()
         }
+
+        /// Applied twice on purpose.
+        ///
+        /// SwiftUI configures the window after the view is attached and wipes
+        /// the appearance we just set — measured: the applier ran with the right
+        /// palette and the window still reported `appearance = nil` afterwards.
+        /// Setting it again on the next turn of the run loop lands after SwiftUI
+        /// has finished with the window and sticks.
+        func applyTheme() {
+            guard let window else { return }
+            ThemeManager.shared.apply(to: window)
+            DispatchQueue.main.async { [weak window] in
+                guard let window else { return }
+                ThemeManager.shared.apply(to: window)
+            }
+        }
+    }
+
+    func makeNSView(context: Context) -> Backing {
+        Backing(frame: .zero)
+    }
+
+    func updateNSView(_ nsView: Backing, context: Context) {
+        // Reached whenever themeID or accentID changes.
+        nsView.applyTheme()
     }
 }
 

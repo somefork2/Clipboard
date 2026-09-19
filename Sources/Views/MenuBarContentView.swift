@@ -172,7 +172,7 @@ struct MenuBarContentView: View {
 
                 Button {
                     MenuBarPopover.dismiss()
-                    openSettings()
+                    coordinator.openSettingsWindow()
                 } label: {
                     Image(systemName: "gearshape")
                 }

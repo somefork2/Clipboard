@@ -111,6 +111,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             #if DEBUG
             if ScreenshotRenderer.isActive { ScreenshotRenderer.run() }
             if ScreenshotRenderer.isDiagnosing { ScreenshotRenderer.diagnose() }
+            if ScreenshotRenderer.isDiagnosingSettings { ScreenshotRenderer.diagnoseSettings() }
             #endif
         }
 

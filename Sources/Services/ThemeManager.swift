@@ -57,14 +57,25 @@ final class ThemeManager {
 
     @MainActor
     func applyStoredTheme() {
-        let palette = self.palette
-
         // Deliberately not `NSApp.appearance`: that also covers the menu bar
         // item, which lives in the system's own menu bar. Forcing it to light
         // while the menu bar is dark drew a pale chip behind our icon while
         // every other icon sat flat. The appearance is applied per window.
         NSApp.appearance = nil
 
+        applyToAllWindows()
+        // Again on the next turn of the run loop. SwiftUI reconfigures its
+        // windows after we touch them — opening the Settings window wiped the
+        // appearance straight back off the main one, measured as darkAqua
+        // before and nil after — and this lands after it has finished.
+        DispatchQueue.main.async { [weak self] in
+            self?.applyToAllWindows()
+        }
+    }
+
+    @MainActor
+    private func applyToAllWindows() {
+        let palette = self.palette
         let appearance = palette.appearance.map { NSAppearance(named: $0) } ?? nil
         for window in NSApp.windows where !Self.isSystemOwned(window) {
             window.appearance = appearance

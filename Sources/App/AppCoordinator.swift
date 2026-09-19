@@ -126,6 +126,37 @@ final class AppCoordinator {
         paste(item, plainText: false)
     }
 
+    /// Opens the Settings window from anywhere.
+    ///
+    /// The menu bar popover used to call SwiftUI's `openSettings` action the
+    /// moment it dismissed itself, and nothing happened: the popover is still
+    /// being torn down on that turn of the run loop, and the request goes
+    /// nowhere. Activating first matters too — an app with no active window
+    /// opens Settings behind whatever the user was looking at, which reads as a
+    /// dead button just the same.
+    func openSettingsWindow() {
+        // Activating has to happen first and take effect before the action is
+        // sent: `sendAction` walks the responder chain, and an inactive app has
+        // nobody on it to answer, so the click did nothing at all.
+        NSApp.activate(ignoringOtherApps: true)
+        DispatchQueue.main.async {
+            // SwiftUI's `Settings` scene installs its menu item with a private
+            // action and target of its own — the item's action is `menuAction:`,
+            // not `showSettingsWindow:` — so sending the documented selector
+            // down the responder chain reaches nobody and the click does
+            // nothing. Performing the menu item is what actually opens it.
+            //
+            // The item is found by its ⌘, key equivalent rather than by title,
+            // which is the same in all thirty-four languages we ship.
+            guard let appMenu = NSApp.mainMenu?.items.first?.submenu,
+                  let index = appMenu.items.firstIndex(where: {
+                      $0.keyEquivalent == "," && $0.keyEquivalentModifierMask == .command
+                  })
+            else { return }
+            appMenu.performActionForItem(at: index)
+        }
+    }
+
     /// Reopens the first-run guide.
     ///
     /// The guide lives in the main window, so it has to be open and in front

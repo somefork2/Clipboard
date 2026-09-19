@@ -21,6 +21,39 @@ enum ScreenshotRenderer {
     /// what it actually looks like.
     static var isDiagnosing: Bool { CommandLine.arguments.contains("--diagnose-layout") }
 
+    /// Opens Settings the way the menu bar button does and reports the result.
+    static var isDiagnosingSettings: Bool { CommandLine.arguments.contains("--diagnose-settings") }
+
+    static func diagnoseSettings() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            MainActor.assumeIsolated {
+                print("theme=\(ThemeManager.shared.currentTheme.rawValue) wants=\(ThemeManager.shared.palette.appearance?.rawValue ?? "system")")
+                let before = NSApp.windows.filter(\.isVisible)
+                for w in before {
+                    print("  before: '\(w.title)' appearance=\(w.appearance?.name.rawValue ?? "nil (system)")")
+                }
+                AppCoordinator.shared.openSettingsWindow()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    MainActor.assumeIsolated {
+                        let after = NSApp.windows.filter(\.isVisible)
+                        for w in after {
+                            print("  after:  '\(w.title)' appearance=\(w.appearance?.name.rawValue ?? "nil (system)")")
+                        }
+                        let opened = after.count > before.count
+                        let wanted = ThemeManager.shared.palette.appearance?.rawValue
+                        let themed = after
+                            .filter { $0.level == .normal }
+                            .allSatisfy { $0.appearance?.name.rawValue == wanted }
+                        print(opened ? "RESULT: settings window opened" : "RESULT: settings did NOT open")
+                        print(themed ? "RESULT: every ordinary window carries the theme appearance"
+                                     : "RESULT: some window is NOT themed")
+                        exit(opened && themed ? 0 : 1)
+                    }
+                }
+            }
+        }
+    }
+
     static func diagnose() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
             MainActor.assumeIsolated {
