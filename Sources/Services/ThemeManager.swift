@@ -75,14 +75,8 @@ final class ThemeManager {
 
     @MainActor
     private func applyToAllWindows() {
-        let palette = self.palette
-        let appearance = palette.appearance.map { NSAppearance(named: $0) } ?? nil
         for window in NSApp.windows where !Self.isSystemOwned(window) {
-            window.appearance = appearance
-            window.contentView?.appearance = appearance
-            // The title bar is drawn by AppKit, so a themed window has to be
-            // told which colour to use or the toolbar floats on another shade.
-            window.backgroundColor = palette.usesSystemMaterials ? nil : NSColor(palette.background)
+            apply(to: window)
         }
     }
 
@@ -91,17 +85,26 @@ final class ThemeManager {
     /// Looping `NSApp.windows` misses a window that does not exist yet — the
     /// Settings scene builds its window after `onAppear` runs, so it kept the
     /// system appearance while every other window followed the theme.
+    /// Writes only what differs.
+    ///
+    /// Assigning `appearance` or `backgroundColor` makes AppKit redraw and
+    /// SwiftUI update, which comes straight back here; doing it unconditionally
+    /// is a loop waiting for something to start it.
     @MainActor
     func apply(to window: NSWindow) {
         guard !Self.isSystemOwned(window) else { return }
         let palette = self.palette
         let appearance = palette.appearance.map { NSAppearance(named: $0) } ?? nil
+        let wantedBackground = palette.usesSystemMaterials ? nil : NSColor(palette.background)
+        guard window.appearance?.name != appearance?.name
+                || window.backgroundColor != wantedBackground
+        else { return }
         window.appearance = appearance
         // The hosting view does not always pick the window's appearance up: the
         // chrome went dark while the SwiftUI content stayed light. Setting it on
         // the content view too makes the whole hierarchy agree.
         window.contentView?.appearance = appearance
-        window.backgroundColor = palette.usesSystemMaterials ? nil : NSColor(palette.background)
+        window.backgroundColor = wantedBackground
     }
 
     /// The status item's button is hosted in a window the system owns; theming

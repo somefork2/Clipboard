@@ -24,6 +24,99 @@ enum ScreenshotRenderer {
     /// Opens Settings the way the menu bar button does and reports the result.
     static var isDiagnosingSettings: Bool { CommandLine.arguments.contains("--diagnose-settings") }
 
+    /// Toggles the sidebar and reports whether the main thread kept running.
+    static var isDiagnosingSidebar: Bool { CommandLine.arguments.contains("--diagnose-sidebar") }
+
+    /// Clicks the real sidebar toggle. It is a SwiftUI-managed toolbar item
+    /// with no action of its own, so the button has to be found and pressed.
+    @MainActor
+    private static func clickSidebarToggle() {
+        guard let window = NSApp.windows.first(where: { $0.canBecomeMain && $0.isVisible }),
+              let item = window.toolbar?.items.first(where: {
+                  $0.itemIdentifier.rawValue.contains("toggleSidebar")
+              })
+        else { print("  (no sidebar toggle found)"); return }
+
+        func button(in view: NSView) -> NSButton? {
+            if let b = view as? NSButton { return b }
+            for sub in view.subviews { if let b = button(in: sub) { return b } }
+            return nil
+        }
+        if let view = item.view, let b = button(in: view) {
+            b.performClick(nil)
+            return
+        }
+        // SwiftUI items expose no `view`; the button lives in the titlebar.
+        if let themeFrame = window.contentView?.superview {
+            for sub in themeFrame.subviews where sub.className.contains("Titlebar") || sub.className.contains("Toolbar") {
+                if let b = button(in: sub) { b.performClick(nil); return }
+            }
+        }
+        print("  (sidebar toggle button not reachable)")
+    }
+
+    static func diagnoseSidebar() {
+        // A repeating tick on the main queue. If the main thread blocks, the
+        // gap between ticks grows, which is what a hang looks like from inside.
+        final class Watch: @unchecked Sendable {
+            var last = Date()
+            var worst: TimeInterval = 0
+        }
+        let watch = Watch()
+        let timer = Timer(timeInterval: 0.05, repeats: true) { _ in
+            let now = Date()
+            watch.worst = max(watch.worst, now.timeIntervalSince(watch.last))
+            watch.last = now
+        }
+        RunLoop.main.add(timer, forMode: .common)
+
+        func step(_ name: String, after delay: TimeInterval, _ work: @escaping @MainActor () -> Void) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                MainActor.assumeIsolated {
+                    watch.last = Date()
+                    work()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                        MainActor.assumeIsolated {
+                            var widths: [String] = []
+                            func find(_ v: NSView) {
+                                if let split = v as? NSSplitView {
+                                    widths.append(split.arrangedSubviews.map { "\(Int($0.bounds.width))" }.joined(separator: "|"))
+                                }
+                                for sub in v.subviews { find(sub) }
+                            }
+                            if let content = NSApp.windows.first(where: { $0.canBecomeMain && $0.isVisible })?.contentView {
+                                find(content)
+                            }
+                            print("\(name): columns=[\(widths.joined(separator: " , "))] worstGap=\(String(format: "%.2f", watch.worst))s")
+                        }
+                    }
+                }
+            }
+        }
+
+        step("launch", after: 3) {
+            NSApp.activate(ignoringOtherApps: true)
+            watch.worst = 0
+            if let tb = NSApp.windows.first(where: { $0.canBecomeMain && $0.isVisible })?.toolbar {
+                for item in tb.items {
+                    let sel = item.action.map { NSStringFromSelector($0) } ?? "nil"
+                    print("  TOOLBAR id=\(item.itemIdentifier.rawValue) action=\(sel) target=\(String(describing: item.target)) label='\(item.label)'")
+                }
+            }
+        }
+        step("hide sidebar", after: 4) { clickSidebarToggle() }
+        step("show sidebar", after: 7) { clickSidebarToggle() }
+        step("hide again", after: 10) { clickSidebarToggle() }
+        step("show again", after: 13) { clickSidebarToggle() }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 17) {
+            MainActor.assumeIsolated {
+                let ok = watch.worst < 1.0
+                print("RESULT: worst main-thread gap \(String(format: "%.2f", watch.worst))s — \(ok ? "responsive" : "HUNG")")
+                exit(ok ? 0 : 1)
+            }
+        }
+    }
+
     static func diagnoseSettings() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             MainActor.assumeIsolated {

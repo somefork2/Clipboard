@@ -213,43 +213,60 @@ private struct WindowThemeApplier: NSViewRepresentable {
     let themeID: String
     let accentID: String
 
-    /// Applies the theme the moment AppKit attaches the view to a window.
+    /// Applies the theme when the window appears, and only when something has
+    /// actually changed.
     ///
-    /// The old version waited a single turn of the run loop and gave up if the
-    /// window was not there yet. The main window happened to be ready in time;
-    /// the Settings window, which SwiftUI builds lazily when it is first opened,
-    /// was not — so it kept the system appearance. On a Mac set to Light that
-    /// meant a white tab bar and title bar wrapped around dark themed content.
-    /// `viewDidMoveToWindow` is the hook for exactly this and cannot be raced.
+    /// `viewDidMoveToWindow` is the hook for "my window exists now" and cannot
+    /// be raced: the previous version waited a single turn of the run loop and
+    /// gave up if the window was not there, which the lazily built Settings
+    /// window never was — it kept the system appearance, so on a Mac set to
+    /// Light a dark theme got a white tab bar around dark content.
+    ///
+    /// `updateNSView` runs on every SwiftUI update, and writing
+    /// `window.appearance` causes another update, so applying unconditionally
+    /// from there is a feedback loop with itself — a layout change such as
+    /// collapsing the sidebar is enough to start it spinning. Remembering what
+    /// was last applied breaks it: the repeat passes become no-ops.
+    ///
+    /// The repeat is still needed once, because SwiftUI configures the window
+    /// after the view is attached and wipes the appearance we just set —
+    /// measured: the applier ran with the right palette and the window still
+    /// reported `appearance = nil` afterwards.
     final class Backing: NSView {
+        var identity: String = ""
+        private var appliedTo: ObjectIdentifier?
+
         override func viewDidMoveToWindow() {
             super.viewDidMoveToWindow()
+            appliedTo = nil
             applyTheme()
         }
 
-        /// Applied twice on purpose.
-        ///
-        /// SwiftUI configures the window after the view is attached and wipes
-        /// the appearance we just set — measured: the applier ran with the right
-        /// palette and the window still reported `appearance = nil` afterwards.
-        /// Setting it again on the next turn of the run loop lands after SwiftUI
-        /// has finished with the window and sticks.
         func applyTheme() {
             guard let window else { return }
+            let target = ObjectIdentifier(window)
+            let stamp = identity + "|" + String(describing: target)
+            guard stamp != lastApplied || appliedTo != target else { return }
+            lastApplied = stamp
+            appliedTo = target
             ThemeManager.shared.apply(to: window)
-            DispatchQueue.main.async { [weak window] in
-                guard let window else { return }
+            DispatchQueue.main.async { [weak self, weak window] in
+                guard let window, self != nil else { return }
                 ThemeManager.shared.apply(to: window)
             }
         }
+
+        private var lastApplied: String = ""
     }
 
     func makeNSView(context: Context) -> Backing {
-        Backing(frame: .zero)
+        let view = Backing(frame: .zero)
+        view.identity = themeID + "/" + accentID
+        return view
     }
 
     func updateNSView(_ nsView: Backing, context: Context) {
-        // Reached whenever themeID or accentID changes.
+        nsView.identity = themeID + "/" + accentID
         nsView.applyTheme()
     }
 }
