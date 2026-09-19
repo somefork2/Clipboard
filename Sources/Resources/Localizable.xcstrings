@@ -71,6 +71,12 @@
             "value": "%1$@. %2$@"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@. %2$@"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -152,6 +158,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Осталось %1$lld %2$@"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld %2$@ kvar"
           }
         },
         "tr": {
@@ -237,6 +249,12 @@
             "value": "Осталось %1$lld из %2$lld"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld av %2$lld kvar"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -320,6 +338,12 @@
             "value": "Тема «%@»"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Temat %@"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -398,6 +422,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld"
+          }
+        },
+        "sv": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld"
@@ -486,6 +516,12 @@
             "value": "Запись, похожая на пароль, не сохранена."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ett objekt som såg ut som ett lösenord sparades inte."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -567,6 +603,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Цвет акцента"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dekorfärg"
           }
         },
         "tr": {
@@ -652,6 +694,12 @@
             "value": "Универсальный доступ"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tillgänglighet"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -733,6 +781,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "В избранное"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lägg till i favoriter"
           }
         },
         "tr": {
@@ -818,6 +872,12 @@
             "value": "В стопку вставки"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lägg till i klistra in-stacken"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -899,6 +959,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Адрес"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adress"
           }
         },
         "tr": {
@@ -984,6 +1050,12 @@
             "value": "Всегда тёмное."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alltid mörkt."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1065,6 +1137,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Всегда светлое."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alltid ljust."
           }
         },
         "tr": {
@@ -1150,6 +1228,12 @@
             "value": "Это сочетание уже занято другой программой."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ett annat program använder redan den här kombinationen."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1231,6 +1315,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Оформление"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utseende"
           }
         },
         "tr": {
@@ -1316,6 +1406,12 @@
             "value": "Автоочистка"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Automatisk rensning"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1397,6 +1493,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Удаляет записи старше выбранного срока автоматически."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tar automatiskt bort objekt som är äldre än den tid du väljer."
           }
         },
         "tr": {
@@ -1482,6 +1584,12 @@
             "value": "Назад"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tillbaka"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1563,6 +1671,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "По возрасту"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Efter ålder"
           }
         },
         "tr": {
@@ -1648,6 +1762,12 @@
             "value": "По количеству записей"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Efter antal objekt"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1731,6 +1851,12 @@
             "value": "По типу"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Efter typ"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1809,6 +1935,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CSV"
+          }
+        },
+        "sv": {
           "stringUnit": {
             "state": "translated",
             "value": "CSV"
@@ -1897,6 +2029,12 @@
             "value": "Отменить"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avbryt"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -1978,6 +2116,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Класс: %@"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klass: %@"
           }
         },
         "tr": {
@@ -2063,6 +2207,12 @@
             "value": "Очистить"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rensa"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2144,6 +2294,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Очистить историю…"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rensa historik…"
           }
         },
         "tr": {
@@ -2229,6 +2385,12 @@
             "value": "Очистить историю буфера обмена?"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vill du rensa urklippshistoriken?"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2310,6 +2472,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Очистить поиск"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rensa sökningen"
           }
         },
         "tr": {
@@ -2395,6 +2563,12 @@
             "value": "Один щелчок вернёт запись в буфер обмена, не открывая программу."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ett klick lägger tillbaka objektet i urklipp, utan att programmet öppnas."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2476,6 +2650,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Буфер обмена"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Urklipp"
           }
         },
         "tr": {
@@ -2561,6 +2741,12 @@
             "value": "История буфера обмена на этом Mac недоступна."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Urklippshistoriken är inte tillgänglig på den här datorn."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2642,6 +2828,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Записи"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Objekt"
           }
         },
         "tr": {
@@ -2727,6 +2919,12 @@
             "value": "Записи и сохранённые с ними изображения удаляются безвозвратно."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Objekten och de bilder som sparats med dem tas bort permanent."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2808,6 +3006,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Записи старше суток удаляются."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Objekt äldre än ett dygn tas bort."
           }
         },
         "tr": {
@@ -2893,6 +3097,12 @@
             "value": "Записи на этом Mac"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Objekt på den här datorn"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -2974,6 +3184,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сохранено записей"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sparade objekt"
           }
         },
         "tr": {
@@ -3059,6 +3275,12 @@
             "value": "Закрыть"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stäng"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3140,6 +3362,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Закрыть просмотр"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stäng förhandsvisningen"
           }
         },
         "tr": {
@@ -3225,6 +3453,12 @@
             "value": "Код"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kod"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3306,6 +3540,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Фрагмент кода"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kodsnutt"
           }
         },
         "tr": {
@@ -3391,6 +3631,12 @@
             "value": "Цвет"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Färg"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3472,6 +3718,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Цвет"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Färg"
           }
         },
         "tr": {
@@ -3557,6 +3809,12 @@
             "value": "Подключено к вашей личной базе данных iCloud."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ansluten till din egen privata iCloud-databas."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3638,6 +3896,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Контакт"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kontakt"
           }
         },
         "tr": {
@@ -3723,6 +3987,12 @@
             "value": "Контакт: %@"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kontakt: %@"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3804,6 +4074,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Далее"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fortsätt"
           }
         },
         "tr": {
@@ -3889,6 +4165,12 @@
             "value": "Холодный сине-серый, тёмный."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sval blågrå mörk ton."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -3970,6 +4252,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Скопировано"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopierat"
           }
         },
         "tr": {
@@ -4055,6 +4343,12 @@
             "value": "Скопировано всего"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopierat totalt"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4136,6 +4430,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Скопировано сегодня"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopierat i dag"
           }
         },
         "tr": {
@@ -4221,6 +4521,12 @@
             "value": "То, что 1Password, Bitwarden или Связка ключей помечают как секретное, не сохраняется никогда."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Det som 1Password, Bitwarden eller Nyckelhanteraren märker som hemligt sparas aldrig."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4302,6 +4608,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Копировать"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopiera"
           }
         },
         "tr": {
@@ -4387,6 +4699,12 @@
             "value": "Скопировать последнюю запись как обычный текст"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopiera det senaste som vanlig text"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4468,6 +4786,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Скопировать следующую из стопки"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopiera nästa från stacken"
           }
         },
         "tr": {
@@ -4553,6 +4877,12 @@
             "value": "Скопировать предыдущую запись"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopiera föregående objekt"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4634,6 +4964,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Скопировать текст"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopiera texten"
           }
         },
         "tr": {
@@ -4719,6 +5055,12 @@
             "value": "Скопировать текст с изображения"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopiera texten i bilden"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4800,6 +5142,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Скопируйте что угодно — оно появится здесь. ⌥⌘V вернёт его в любом месте."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopiera vad som helst så dyker det upp här. ⌥⌘V hämtar tillbaka det var du än är."
           }
         },
         "tr": {
@@ -4885,6 +5233,12 @@
             "value": "Скопируйте что-нибудь, и оно появится здесь."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopiera något så visas det här."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -4968,6 +5322,12 @@
             "value": "Скопируйте что-нибудь, чтобы начать."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopiera något för att komma igång."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -5046,6 +5406,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell"
+          }
+        },
+        "sv": {
           "stringUnit": {
             "state": "translated",
             "value": "CopyWell"
@@ -5134,6 +5500,12 @@
             "value": "CopyWell Pro"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell Pro"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -5212,6 +5584,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell Pro…"
+          }
+        },
+        "sv": {
           "stringUnit": {
             "state": "translated",
             "value": "CopyWell Pro…"
@@ -5300,6 +5678,12 @@
             "value": "Настройка CopyWell"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWells introduktion"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -5381,6 +5765,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "CopyWell добавляет свои команды в контекстное меню любой программы."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell lägger till sina kommandon i högerklicksmenyn i alla program."
           }
         },
         "tr": {
@@ -5466,6 +5856,12 @@
             "value": "У CopyWell нет разрешения на использование iCloud на этом Mac."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell har inte behörighet att använda iCloud på den här datorn."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -5547,6 +5943,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "CopyWell нечего вставить."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell har inget att klistra in."
           }
         },
         "tr": {
@@ -5632,6 +6034,12 @@
             "value": "CopyWell хранит всё скопированное, чтобы вы могли вернуться к нему позже."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell sparar det du kopierar, så att du kan hämta tillbaka det senare."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -5713,6 +6121,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "CopyWell не нажимает клавиши за вас, поэтому доступ к Универсальному доступу не нужен."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell trycker aldrig på tangenter åt dig och behöver därför ingen tillgång till Tillgänglighet."
           }
         },
         "tr": {
@@ -5798,6 +6212,12 @@
             "value": "CopyWell не нажимает клавиши за вас, поэтому доступ к Универсальному доступу не нужен. Чтобы вставить запись без ⌘V, используйте Службы ▸ Вставить из CopyWell."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell trycker aldrig på tangenter åt dig och behöver därför ingen tillgång till Tillgänglighet. Vill du infoga ett objekt utan ⌘V använder du Tjänster ▸ Klistra in från CopyWell."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -5879,6 +6299,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "CopyWell записывает, только пока запущен. Другие темы, цвета акцента и размер текста — в настройках."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell sparar bara medan programmet är igång. Fler teman, dekorfärger och textstorlek finns i inställningarna."
           }
         },
         "tr": {
@@ -5964,6 +6390,12 @@
             "value": "CopyWell синхронизируется при запуске, при возврате к программе и через несколько секунд после копирования. Изображения и записи, помеченные как конфиденциальные, остаются на этом Mac."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell synkroniserar vid start, när du växlar tillbaka och några sekunder efter att du kopierat något. Bilder och objekt märkta som känsliga stannar på den här datorn."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -6045,6 +6477,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не удалось связаться с App Store. Проверьте подключение и повторите попытку."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Det gick inte att nå App Store. Kontrollera anslutningen och försök igen."
           }
         },
         "tr": {
@@ -6130,6 +6568,12 @@
             "value": "Не удалось прочитать историю буфера обмена."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Det gick inte att läsa urklippshistoriken."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -6211,6 +6655,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не удалось сохранить последнее изменение."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Det gick inte att spara den senaste ändringen."
           }
         },
         "tr": {
@@ -6296,6 +6746,12 @@
             "value": "Создать"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skapa"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -6377,6 +6833,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Свои сочетания клавиш"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Egna kortkommandon"
           }
         },
         "tr": {
@@ -6462,6 +6924,12 @@
             "value": "Тёмная"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mörkt"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -6543,6 +7011,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Дата"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datum"
           }
         },
         "tr": {
@@ -6628,6 +7102,12 @@
             "value": "Удалить"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Radera"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -6709,6 +7189,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Удалить всё, кроме избранного"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Radera allt utom favoriter"
           }
         },
         "tr": {
@@ -6794,6 +7280,12 @@
             "value": "Удалить всё из %@"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Radera allt från %@"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -6875,6 +7367,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Удалить всё"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Radera allt"
           }
         },
         "tr": {
@@ -6960,6 +7458,12 @@
             "value": "Удалить доску"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Radera anslagstavlan"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -7041,6 +7545,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Готово"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klar"
           }
         },
         "tr": {
@@ -7126,6 +7636,12 @@
             "value": "Двойное касание — вставить"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dubbeltryck för att klistra in"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -7207,6 +7723,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Изменить доску"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Redigera anslagstavlan"
           }
         },
         "tr": {
@@ -7292,6 +7814,12 @@
             "value": "Изменить…"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Redigera…"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -7373,6 +7901,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Эл. почта"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "E-post"
           }
         },
         "tr": {
@@ -7458,6 +7992,12 @@
             "value": "Эл. почта: %@"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "E-post: %@"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -7539,6 +8079,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Пусто"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tomt"
           }
         },
         "tr": {
@@ -7624,6 +8170,12 @@
             "value": "Зашифрованные записи"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Krypterade objekt"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -7705,6 +8257,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Весь CopyWell, без ограничений бесплатной версии."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allt i CopyWell, utan gratisversionens gränser."
           }
         },
         "tr": {
@@ -7790,6 +8348,12 @@
             "value": "Всё открыто. Потом CopyWell будет хранить последние 48 часов."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allt är upplåst. Därefter sparar CopyWell de senaste 48 timmarna."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -7871,6 +8435,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Всё остаётся на этом Mac."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allt stannar på den här datorn."
           }
         },
         "tr": {
@@ -7956,6 +8526,12 @@
             "value": "Экспорт"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exportera"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -8037,6 +8613,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Экспортировать историю…"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exportera historik…"
           }
         },
         "tr": {
@@ -8122,6 +8704,12 @@
             "value": "Избранное"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Favorit"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -8203,6 +8791,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Избранное"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Favoriter"
           }
         },
         "tr": {
@@ -8288,6 +8882,12 @@
             "value": "Избранное и записи на досках не удаляются никогда."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Favoriter och objekt på en anslagstavla tas aldrig bort."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -8369,6 +8969,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Плавающая палитра у курсора: выберите запись и нажмите ⌘V"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Svävande palett vid pekaren: välj ett objekt och tryck på ⌘V"
           }
         },
         "tr": {
@@ -8454,6 +9060,12 @@
             "value": "Следует настройке оформления macOS."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Följer utseendeinställningen i macOS."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -8535,6 +9147,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Формат"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Format"
           }
         },
         "tr": {
@@ -8620,6 +9238,12 @@
             "value": "Бесплатно"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gratis"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -8701,6 +9325,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Бесплатный тариф"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gratisversion"
           }
         },
         "tr": {
@@ -8786,6 +9416,12 @@
             "value": "Функция: %@"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Funktion: %@"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -8867,6 +9503,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Основные"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allmänt"
           }
         },
         "tr": {
@@ -8952,6 +9594,12 @@
             "value": "Графит"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grafit"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -9030,6 +9678,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HTML"
+          }
+        },
+        "sv": {
           "stringUnit": {
             "state": "translated",
             "value": "HTML"
@@ -9118,6 +9772,12 @@
             "value": "Скрывать окна CopyWell при записи экрана"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dölj CopyWells fönster i skärminspelningar"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -9199,6 +9859,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "История"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Historik"
           }
         },
         "tr": {
@@ -9284,6 +9950,12 @@
             "value": "Пропускать записи, помеченные другими программами как секретные"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ignorera objekt som andra program märkt som hemliga"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -9365,6 +10037,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Изображение"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bild"
           }
         },
         "tr": {
@@ -9450,6 +10128,12 @@
             "value": "Изображение недоступно"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bilden är inte tillgänglig"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -9531,6 +10215,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Чернила"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bläck"
           }
         },
         "tr": {
@@ -9616,6 +10306,12 @@
             "value": "В палитре: ↑↓ — перемещение, ⌘1–9 — переход, ⏎ копирует запись и возвращает в программу, ⌥⏎ — без форматирования, ⌘Y — просмотр, ⌘⌫ — удалить, ⎋ — закрыть. Вставка — ⌘V."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I paletten: ↑↓ flyttar, ⌘1–9 hoppar, ⏎ kopierar objektet och tar dig tillbaka, ⌥⏎ utan formatering, ⌘Y förhandsvisar, ⌘⌫ raderar, ⎋ stänger. Tryck ⌘V för att klistra in."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -9699,6 +10395,12 @@
             "value": "Аналитика"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Insikter"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -9777,6 +10479,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "JSON"
+          }
+        },
+        "sv": {
           "stringUnit": {
             "state": "translated",
             "value": "JSON"
@@ -9865,6 +10573,12 @@
             "value": "Перейти"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoppa till"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -9946,6 +10660,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Хранить"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Behåll"
           }
         },
         "tr": {
@@ -10031,6 +10751,12 @@
             "value": "Сохраняйте записи, которыми пользуетесь снова, или соберите несколько и вставьте по очереди."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spara objekt du återanvänder, eller ställ flera i kö och klistra in dem i tur och ordning."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -10112,6 +10838,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Хранить всё"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Behåll allt"
           }
         },
         "tr": {
@@ -10197,6 +10929,12 @@
             "value": "Хранить всё, а не только последние 48 часов."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Behåll allt i stället för bara de senaste 48 timmarna."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -10278,6 +11016,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Клавиатура ▸ Сочетания клавиш ▸ Службы, затем отметьте пункты CopyWell. В Finder CopyWell появляется и как отдельное меню — включите его в Основные ▸ Объекты входа и расширения ▸ Расширения Finder."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tangentbord ▸ Kortkommandon ▸ Tjänster, kryssa sedan i CopyWells alternativ. I Finder visas CopyWell även som en egen meny – slå på den under Allmänt ▸ Inloggningsobjekt och tillägg ▸ Findertillägg."
           }
         },
         "tr": {
@@ -10363,6 +11107,12 @@
             "value": "Крупный"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stor"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -10444,6 +11194,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ещё крупнее"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Större"
           }
         },
         "tr": {
@@ -10529,6 +11285,12 @@
             "value": "Самый крупный"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Störst"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -10610,6 +11372,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Последние %lld дн."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Senaste %lld dygnen"
           }
         },
         "tr": {
@@ -10695,6 +11463,12 @@
             "value": "Последние 24 часа"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Senaste 24 timmarna"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -10776,6 +11550,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Последние 48 часов"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Senaste 48 timmarna"
           }
         },
         "tr": {
@@ -10861,6 +11641,12 @@
             "value": "Последний день пробного периода — всё открыто."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sista dagen av din provperiod – allt är upplåst."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -10942,6 +11728,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Запускать CopyWell при входе"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Starta CopyWell vid inloggning"
           }
         },
         "tr": {
@@ -11027,6 +11819,12 @@
             "value": "Правовая информация"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Juridik"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -11108,6 +11906,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Библиотека"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bibliotek"
           }
         },
         "tr": {
@@ -11193,6 +11997,12 @@
             "value": "Светлая"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ljust"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -11274,6 +12084,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ссылка"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Länk"
           }
         },
         "tr": {
@@ -11359,6 +12175,12 @@
             "value": "Под себя"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gör det till ditt"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -11440,6 +12262,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Управление подпиской"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hantera prenumeration"
           }
         },
         "tr": {
@@ -11525,6 +12353,12 @@
             "value": "Пометить как конфиденциальное"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Märk som känsligt"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -11603,6 +12437,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Markdown"
+          }
+        },
+        "sv": {
           "stringUnit": {
             "state": "translated",
             "value": "Markdown"
@@ -11691,6 +12531,12 @@
             "value": "Сумма"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Belopp"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -11772,6 +12618,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Откуда копируете чаще всего"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mest kopierat från"
           }
         },
         "tr": {
@@ -11857,6 +12709,12 @@
             "value": "Переместить на доску"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Flytta till anslagstavla"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -11938,6 +12796,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Перемещайтесь клавишами ↑↓ или переходите через ⌘1–9. ⌘Y покажет запись до того, как вы её возьмёте."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Flytta med ↑↓ eller hoppa med ⌘1–9. ⌘Y visar ett objekt innan du tar det."
           }
         },
         "tr": {
@@ -12023,6 +12887,12 @@
             "value": "Имя"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Namn"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -12104,6 +12974,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Почти чёрный с приглушённым латунным акцентом."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nästan svart med en dämpad mässingston."
           }
         },
         "tr": {
@@ -12189,6 +13065,12 @@
             "value": "Нейтральный тёмно-серый без цветового оттенка."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neutralt mörkgrått utan färgstick."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -12270,6 +13152,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Никогда не сохранять то, что похоже на пароль"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spara aldrig något som ser ut som ett lösenord"
           }
         },
         "tr": {
@@ -12355,6 +13243,12 @@
             "value": "Новая доска"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ny anslagstavla"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -12436,6 +13330,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Новая доска"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ny anslagstavla"
           }
         },
         "tr": {
@@ -12521,6 +13421,12 @@
             "value": "Для этого аккаунта Apple активная подписка не найдена."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingen aktiv prenumeration hittades för det här Apple-kontot."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -12602,6 +13508,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Здесь пока пусто"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Här finns inget ännu"
           }
         },
         "tr": {
@@ -12687,6 +13599,12 @@
             "value": "Ничего не найдено"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inga träffar"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -12768,6 +13686,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Нет подключения к сети. Синхронизация продолжится, когда связь восстановится."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingen nätverksanslutning. Synkroniseringen fortsätter när du är uppkopplad igen."
           }
         },
         "tr": {
@@ -12853,6 +13777,12 @@
             "value": "Никакие разрешения не запрашиваются."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inga behörigheter begärs."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -12934,6 +13864,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Программы-источники пока не записаны."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inga källprogram har registrerats ännu."
           }
         },
         "tr": {
@@ -13019,6 +13955,12 @@
             "value": "На этом изображении текст не найден."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingen text hittades i den bilden."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -13100,6 +14042,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "На этом изображении текст не найден."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingen text hittades i den här bilden."
           }
         },
         "tr": {
@@ -13185,6 +14133,12 @@
             "value": "Нет"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingen"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -13266,6 +14220,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Пока ничего не скопировано"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inget kopierat ännu"
           }
         },
         "tr": {
@@ -13351,6 +14311,12 @@
             "value": "Автоматически ничего не удаляется. База растёт, пока вы её не очистите."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inget tas bort automatiskt. Databasen växer tills du rensar den."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -13432,6 +14398,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ничего не выгружается, пока вы сами не включите синхронизацию с iCloud."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inget överförs om du inte själv slår på iCloud-synkronisering."
           }
         },
         "tr": {
@@ -13517,6 +14489,12 @@
             "value": "Пока ничего не записано."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inget registrerat ännu."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -13598,6 +14576,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Пока пусто"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inget ännu"
           }
         },
         "tr": {
@@ -13683,6 +14667,12 @@
             "value": "После установки выключено. При смене звук проигрывается."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avstängt efter installationen. När du byter ljud spelas det upp."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -13764,6 +14754,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "По умолчанию выключено. Программу, которая пищит при каждом копировании, удаляют."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avstängt som standard. Ett program som piper varje gång du kopierar blir avinstallerat."
           }
         },
         "tr": {
@@ -13849,6 +14845,12 @@
             "value": "На бесплатном тарифе CopyWell хранит последние 48 часов. Избранное и доски не удаляются никогда."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I gratisversionen sparar CopyWell de senaste 48 timmarna. Favoriter och anslagstavlor tas aldrig bort."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -13930,6 +14932,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Анализ прямо на устройстве отмечает записи по типу, языку и найденным данным."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analys i datorn märker objekt efter typ, språk och det som känns igen."
           }
         },
         "tr": {
@@ -14015,6 +15023,12 @@
             "value": "Один переключатель в Системных настройках"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En inställning i Systeminställningar"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -14096,6 +15110,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Открыть %@"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öppna %@"
           }
         },
         "tr": {
@@ -14181,6 +15201,12 @@
             "value": "Открыть палитру буфера обмена"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öppna urklippspaletten"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -14262,6 +15288,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Открыть CopyWell"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öppna CopyWell"
           }
         },
         "tr": {
@@ -14347,6 +15379,12 @@
             "value": "Открыть сочетания клавиш…"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öppna kortkommandon…"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -14428,6 +15466,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Открыть ссылку"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öppna länken"
           }
         },
         "tr": {
@@ -14513,6 +15557,12 @@
             "value": "Открыть палитру"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öppna paletten"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -14594,6 +15644,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Открыть палитру буфера обмена (⌥⌘V)"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öppna urklippspaletten (⌥⌘V)"
           }
         },
         "tr": {
@@ -14679,6 +15735,12 @@
             "value": "Необязательно"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valfritt"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -14760,6 +15822,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Раскладывайте записи по стольким доскам, сколько нужно."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ordna objekt på så många anslagstavlor du behöver."
           }
         },
         "tr": {
@@ -14845,6 +15913,12 @@
             "value": "Организация"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Organisation"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -14926,6 +16000,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Палитра"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Palett"
           }
         },
         "tr": {
@@ -15011,6 +16091,12 @@
             "value": "Бумага"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Papper"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -15092,6 +16178,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Пароль"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lösenord"
           }
         },
         "tr": {
@@ -15177,6 +16269,12 @@
             "value": "Менеджеры паролей учитываются."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lösenordshanterare respekteras."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -15258,6 +16356,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Менеджеры паролей помечают скопированное стандартным флагом org.nspasteboard.ConcealedType; CopyWell пропускает такие записи и никогда не сохраняет то, что скопировано в известных менеджерах паролей. То, что вы сами пометили как конфиденциальное, шифруется ключом из вашей связки ключей входа."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lösenordshanterare märker det som kopieras med standardflaggan org.nspasteboard.ConcealedType. CopyWell hoppar över dem och sparar aldrig det som kopieras i kända lösenordshanterare. Det du själv märker som känsligt krypteras med en nyckel i din inloggningsnyckelring."
           }
         },
         "tr": {
@@ -15343,6 +16447,12 @@
             "value": "Вставить"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klistra in"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -15424,6 +16534,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Стопка вставки"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klistra in-stack"
           }
         },
         "tr": {
@@ -15509,6 +16625,12 @@
             "value": "Стопка вставки пуста"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klistra in-stacken är tom"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -15590,6 +16712,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вставить как обычный текст"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klistra in som vanlig text"
           }
         },
         "tr": {
@@ -15675,6 +16803,12 @@
             "value": "Вставлено всего"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inklistrat totalt"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -15756,6 +16890,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Приостановить"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pausa"
           }
         },
         "tr": {
@@ -15841,6 +16981,12 @@
             "value": "Приостановить или продолжить запись"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pausa eller återuppta sparandet"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -15922,6 +17068,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Приостановить запись"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pausa sparandet"
           }
         },
         "tr": {
@@ -16007,6 +17159,12 @@
             "value": "Приостановить запись"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pausa sparandet"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -16088,6 +17246,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Телефон"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Telefon"
           }
         },
         "tr": {
@@ -16173,6 +17337,12 @@
             "value": "Выберите внешний вид и решите, издавать ли CopyWell звук."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Välj ett utseende och bestäm om CopyWell ska låta."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -16254,6 +17424,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Закрепить последнюю скопированную запись"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fäst det senast kopierade objektet"
           }
         },
         "tr": {
@@ -16339,6 +17515,12 @@
             "value": "Закрепить в CopyWell"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fäst i CopyWell"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -16420,6 +17602,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Доски"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anslagstavlor"
           }
         },
         "tr": {
@@ -16505,6 +17693,12 @@
             "value": "Доски и стопка вставки всегда под рукой."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anslagstavlorna och klistra in-stacken finns där när du behöver dem."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -16586,6 +17780,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Место"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plats"
           }
         },
         "tr": {
@@ -16671,6 +17871,12 @@
             "value": "Тариф"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abonnemang"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -16752,6 +17958,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Тарифы сейчас недоступны."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abonnemangen är inte tillgängliga just nu."
           }
         },
         "tr": {
@@ -16837,6 +18049,12 @@
             "value": "Звук при копировании"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spela upp ett ljud när något kopieras"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -16918,6 +18136,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Воспроизводить звуки"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spela upp ljud"
           }
         },
         "tr": {
@@ -17003,6 +18227,12 @@
             "value": "Нажмите клавиши…"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tryck på tangenter…"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -17084,6 +18314,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Нажмите ⌥⌘V где угодно, выберите запись, нажмите ⌘V."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tryck ⌥⌘V var som helst, välj ett objekt, tryck ⌘V."
           }
         },
         "tr": {
@@ -17169,6 +18405,12 @@
             "value": "Конфиденциальность"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Integritet"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -17252,6 +18494,12 @@
             "value": "Политика конфиденциальности"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Integritetspolicy"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -17330,6 +18578,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pro"
+          }
+        },
+        "sv": {
           "stringUnit": {
             "state": "translated",
             "value": "Pro"
@@ -17418,6 +18672,12 @@
             "value": "Pro — пробный период подписки"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pro – provperiod för prenumerationen"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -17499,6 +18759,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Защищённая запись"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skyddat objekt"
           }
         },
         "tr": {
@@ -17584,6 +18850,12 @@
             "value": "Соберите несколько записей и вставляйте их одну за другой."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ställ flera objekt i kö och klistra in dem ett efter ett."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -17665,6 +18937,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Быстрый просмотр"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Snabbtitt"
           }
         },
         "tr": {
@@ -17750,6 +19028,12 @@
             "value": "Завершить CopyWell"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avsluta CopyWell"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -17831,6 +19115,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Переназначьте любое глобальное сочетание клавиш как вам удобно."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ändra varje globalt kortkommando till det du föredrar."
           }
         },
         "tr": {
@@ -17916,6 +19206,12 @@
             "value": "Переназначение всех сочетаний входит в CopyWell Pro. Сочетания для палитры и паузы можно менять и на бесплатном тарифе."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Att ändra alla kortkommandon ingår i CopyWell Pro. Kommandona för paletten och pausen går att ändra även i gratisversionen."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -17997,6 +19293,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Распознанный текст"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Igenkänd text"
           }
         },
         "tr": {
@@ -18082,6 +19384,12 @@
             "value": "Запись приостановлена"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sparandet är pausat"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -18163,6 +19471,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Убрать из избранного"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ta bort från favoriter"
           }
         },
         "tr": {
@@ -18248,6 +19562,12 @@
             "value": "Убрать это сочетание"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ta bort det här kortkommandot"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -18329,6 +19649,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Продлится"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Förnyas"
           }
         },
         "tr": {
@@ -18414,6 +19740,12 @@
             "value": "Сбросить все сочетания"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Återställ alla kortkommandon"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -18495,6 +19827,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Восстановить покупки"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Återskapa köp"
           }
         },
         "tr": {
@@ -18580,6 +19918,12 @@
             "value": "Продолжить"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Återuppta"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -18661,6 +20005,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Продолжить запись"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Återuppta sparandet"
           }
         },
         "tr": {
@@ -18746,6 +20096,12 @@
             "value": "Продолжить запись"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Återuppta sparandet"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -18827,6 +20183,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Показать изображение в Finder"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Visa bilden i Finder"
           }
         },
         "tr": {
@@ -18912,6 +20274,12 @@
             "value": "Назад"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tillbaka"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -18993,6 +20361,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Форматированный текст"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formaterad text"
           }
         },
         "tr": {
@@ -19078,6 +20452,12 @@
             "value": "Нажмите на запись правой кнопкой, выберите «В стопку вставки», затем вставляйте по порядку через ⌥⌘S."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Högerklicka på ett objekt och välj ”Lägg till i klistra in-stacken”, klistra sedan in dem i ordning med ⌥⌘S."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -19159,6 +20539,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сохранить"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spara"
           }
         },
         "tr": {
@@ -19244,6 +20630,12 @@
             "value": "Сохранить изображение как…"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spara bilden som…"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -19325,6 +20717,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сохранить в CopyWell"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spara i CopyWell"
           }
         },
         "tr": {
@@ -19410,6 +20808,12 @@
             "value": "Сохраняйте историю в JSON, CSV, Markdown или HTML."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spara historiken som JSON, CSV, Markdown eller HTML."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -19491,6 +20895,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Меняет размер всех надписей в CopyWell, строки растут вместе с ними. Не зависит от системной настройки."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skalar all text i CopyWell, och raderna växer med den. Oberoende av systemets inställning."
           }
         },
         "tr": {
@@ -19576,6 +20986,12 @@
             "value": "Поиск"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sök"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -19657,6 +21073,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Поиск по записям"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sök bland objekt"
           }
         },
         "tr": {
@@ -19742,6 +21164,12 @@
             "value": "Узнать о CopyWell Pro"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se CopyWell Pro"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -19823,6 +21251,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Посмотрите, что и откуда вы копируете чаще всего."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se vad du kopierar mest och från vilka program."
           }
         },
         "tr": {
@@ -19908,6 +21342,12 @@
             "value": "Посмотрите, что вы копируете чаще всего, из каких программ и как растёт ваша история."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se vad du kopierar mest, vilka program det kommer från och hur historiken växer med tiden."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -19989,6 +21429,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Конфиденциальные записи никогда не попадают в экспорт."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Känsliga objekt kommer aldrig med i exporter."
           }
         },
         "tr": {
@@ -20074,6 +21520,12 @@
             "value": "Службы"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tjänster"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -20155,6 +21607,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Настройки"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inställningar"
           }
         },
         "tr": {
@@ -20240,6 +21698,12 @@
             "value": "Настройки (⌘,)"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inställningar (⌘,)"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -20321,6 +21785,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Настройка"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Introduktion"
           }
         },
         "tr": {
@@ -20406,6 +21876,12 @@
             "value": "Сочетания клавиш"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kortkommandon"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -20487,6 +21963,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Показать запись"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Visa objektet"
           }
         },
         "tr": {
@@ -20572,6 +22054,12 @@
             "value": "Показывать значок в Dock"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Visa symbolen i Dock"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -20653,6 +22141,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Показывать значок в строке меню"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Visa symbolen i menyraden"
           }
         },
         "tr": {
@@ -20738,6 +22232,12 @@
             "value": "Показать изображение"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Visa bilden"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -20819,6 +22319,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Показать настройку снова"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Visa introduktionen igen"
           }
         },
         "tr": {
@@ -20904,6 +22410,12 @@
             "value": "Показать эту запись"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Visa det här objektet"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -20985,6 +22497,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Показать это изображение"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Visa den här bilden"
           }
         },
         "tr": {
@@ -21070,6 +22588,12 @@
             "value": "Войдите в iCloud в Системных настройках, чтобы включить синхронизацию."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Logga in på iCloud i Systeminställningar för att synkronisera."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -21151,6 +22675,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Пропустить настройку"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoppa över introduktionen"
           }
         },
         "tr": {
@@ -21236,6 +22766,12 @@
             "value": "Пропущено как конфиденциальное"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoppades över som känsligt"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -21317,6 +22853,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сланец"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skiffer"
           }
         },
         "tr": {
@@ -21402,6 +22944,12 @@
             "value": "Мелкий"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liten"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -21483,6 +23031,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Умная разметка"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Smart indelning"
           }
         },
         "tr": {
@@ -21568,6 +23122,12 @@
             "value": "Звук"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ljud"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -21649,6 +23209,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Программа-источник"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Källprogram"
           }
         },
         "tr": {
@@ -21734,6 +23300,12 @@
             "value": "Обычный"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Normal"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -21815,6 +23387,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Запускать CopyWell при входе"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Starta CopyWell vid inloggning"
           }
         },
         "tr": {
@@ -21900,6 +23478,12 @@
             "value": "Начать работу с CopyWell"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Börja använda CopyWell"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -21981,6 +23565,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Статистика"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Statistik"
           }
         },
         "tr": {
@@ -22066,6 +23656,12 @@
             "value": "Статистика входит в CopyWell Pro"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Statistiken ingår i CopyWell Pro"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -22147,6 +23743,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Состояние"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Status"
           }
         },
         "tr": {
@@ -22232,6 +23834,12 @@
             "value": "Шаг %1$lld из %2$lld"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Steg %1$lld av %2$lld"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -22313,6 +23921,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сохраняемые данные"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sparade data"
           }
         },
         "tr": {
@@ -22398,6 +24012,12 @@
             "value": "Хранится в зашифрованном виде и не показывается в просмотре."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sparas krypterat och visas inte i förhandsvisningar."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -22479,6 +24099,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Оформить подписку"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prenumerera"
           }
         },
         "tr": {
@@ -22564,6 +24190,12 @@
             "value": "Подписка"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prenumeration"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -22645,6 +24277,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Подписка продлевается автоматически, пока вы её не отмените."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prenumerationer förnyas automatiskt tills de sägs upp."
           }
         },
         "tr": {
@@ -22730,6 +24368,12 @@
             "value": "Поддержка"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Support"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -22811,6 +24455,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Символ"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Symbol"
           }
         },
         "tr": {
@@ -22896,6 +24546,12 @@
             "value": "Синхронизация и экспорт"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Synkronisering och export"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -22977,6 +24633,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Синхронизировать"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Synkronisera nu"
           }
         },
         "tr": {
@@ -23062,6 +24724,12 @@
             "value": "Синхронизировать историю между моими Mac"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Synkronisera historiken mellan mina datorer"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -23143,6 +24811,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Синхронизирует историю между вашими Mac через вашу личную базу данных iCloud."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Synkroniserar historiken mellan dina datorer via din egen privata iCloud-databas."
           }
         },
         "tr": {
@@ -23228,6 +24902,12 @@
             "value": "Синхронизация…"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Synkroniserar…"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -23309,6 +24989,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Системная"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "System"
           }
         },
         "tr": {
@@ -23394,6 +25080,12 @@
             "value": "Условия использования"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Användarvillkor"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -23475,6 +25167,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Текст"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Text"
           }
         },
         "tr": {
@@ -23560,6 +25258,12 @@
             "value": "Текст, распознанный на этом изображении"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Text som känts igen i den här bilden"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -23641,6 +25345,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Размер текста"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Textstorlek"
           }
         },
         "tr": {
@@ -23726,6 +25436,12 @@
             "value": "Это сочетание уже занято."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Den kombinationen är redan upptagen."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -23807,6 +25523,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Этот тариф сейчас недоступен."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Det abonnemanget är inte tillgängligt just nu."
           }
         },
         "tr": {
@@ -23892,6 +25614,12 @@
             "value": "Хранятся последние 48 часов. Избранное и доски не удаляются никогда."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De senaste 48 timmarna sparas. Favoriter och anslagstavlor tas aldrig bort."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -23973,6 +25701,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Значок в строке меню показывает последние записи."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Symbolen i menyraden visar de senaste objekten."
           }
         },
         "tr": {
@@ -24058,6 +25792,12 @@
             "value": "Палитра открывается там, где курсор."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paletten öppnas vid pekaren."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -24139,6 +25879,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не удалось открыть сохранённую историю. Этот сеанс хранится только в памяти."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Den sparade historiken kunde inte öppnas. Den här omgången hålls bara i minnet."
           }
         },
         "tr": {
@@ -24224,6 +25970,12 @@
             "value": "Не удалось прочитать файл, сохранённый для этой записи."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Filen som sparats för det här objektet kunde inte läsas."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -24305,6 +26057,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не удалось прочитать файл, сохранённый для этого изображения."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Filen som sparats för den här bilden kunde inte läsas."
           }
         },
         "tr": {
@@ -24390,6 +26148,12 @@
             "value": "Тема"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tema"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -24471,6 +26235,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Акцент темы"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Temats dekorfärg"
           }
         },
         "tr": {
@@ -24556,6 +26326,12 @@
             "value": "Эта запись хранится в зашифрованном виде и не показывается в просмотре."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Det här objektet sparas krypterat och visas inte i förhandsvisningar."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -24637,6 +26413,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Записи и сохранённые с ними изображения будут удалены безвозвратно. Отменить это нельзя."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Det här tar bort objekten och bilderna som sparats med dem permanent. Det går inte att ångra."
           }
         },
         "tr": {
@@ -24722,6 +26504,12 @@
             "value": "Не удалось подтвердить эту покупку."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Det gick inte att verifiera det här köpet."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -24803,6 +26591,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Пробный период"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Provperiod"
           }
         },
         "tr": {
@@ -24888,6 +26682,12 @@
             "value": "Пробный период закончится"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Provperioden slutar"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -24969,6 +26769,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Повторить"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Försök igen"
           }
         },
         "tr": {
@@ -25054,6 +26860,12 @@
             "value": "Попробуйте другой запрос."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prova att söka på något annat."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -25135,6 +26947,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сначала включите синхронизацию с iCloud в настройках."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slå först på iCloud-synkronisering i inställningarna."
           }
         },
         "tr": {
@@ -25220,6 +27038,12 @@
             "value": "Две вещи, которые стоит запомнить"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Två saker värda att minnas"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -25301,6 +27125,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Тип"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Typ"
           }
         },
         "tr": {
@@ -25386,6 +27216,12 @@
             "value": "Неизвестно"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Okänt"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -25467,6 +27303,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Неограниченная история"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obegränsad historik"
           }
         },
         "tr": {
@@ -25552,6 +27394,12 @@
             "value": "Неограниченные доски"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obegränsat med anslagstavlor"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -25633,6 +27481,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Перейти на Pro"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uppgradera"
           }
         },
         "tr": {
@@ -25718,6 +27572,12 @@
             "value": "Используйте хотя бы одну из клавиш ⌘, ⌥ или ⌃."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Använd minst en av ⌘, ⌥ och ⌃."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -25801,6 +27661,12 @@
             "value": "Использовать цвет, под который создана тема"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Använd färgen temat är byggt kring"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -25879,6 +27745,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "V"
+          }
+        },
+        "sv": {
           "stringUnit": {
             "state": "translated",
             "value": "V"
@@ -25967,6 +27839,12 @@
             "value": "Тёплый молочно-белый, при дневном свете глазам легче."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Varm brutet vit, skonsammare för ögonen i dagsljus."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -26048,6 +27926,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Добро пожаловать в CopyWell"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Välkommen till CopyWell"
           }
         },
         "tr": {
@@ -26133,6 +28017,12 @@
             "value": "При сохранении записи"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "När ett objekt sparas"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -26214,6 +28104,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "При использовании записи"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "När ett objekt används"
           }
         },
         "tr": {
@@ -26299,6 +28195,12 @@
             "value": "Даже со скрытым значком в Dock пункт в строке меню остаётся, так что CopyWell всегда под рукой."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Även med symbolen i Dock dold finns menyraden kvar, så att CopyWell alltid går att nå."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -26380,6 +28282,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ваш 30-дневный пробный период закончился. CopyWell хранит последние 48 часов истории."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Din provperiod på 30 dagar är slut. CopyWell sparar de senaste 48 timmarnas historik."
           }
         },
         "tr": {
@@ -26465,6 +28373,12 @@
             "value": "В вашем хранилище iCloud нет места."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ditt iCloud-utrymme är fullt."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -26548,6 +28462,12 @@
             "value": "Ваша покупка ожидает подтверждения."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ditt köp väntar på godkännande."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -26626,6 +28546,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud"
+          }
+        },
+        "sv": {
           "stringUnit": {
             "state": "translated",
             "value": "iCloud"
@@ -26714,6 +28640,12 @@
             "value": "Синхронизация с iCloud"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud-synkronisering"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -26795,6 +28727,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "iCloud занят. CopyWell скоро повторит попытку."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud är upptaget. CopyWell försöker igen snart."
           }
         },
         "tr": {
@@ -26880,6 +28818,12 @@
             "value": "В этой сборке синхронизация с iCloud не настроена."
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud-synkronisering är inte inställd i den här versionen."
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -26961,6 +28905,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "В macOS пункты меню от сторонних разработчиков выключены. Включите их один раз — и они останутся включёнными."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS levererar menyalternativ från andra utvecklare avstängda. Slå på dem en gång så stannar de på."
           }
         },
         "tr": {
@@ -27046,6 +28996,12 @@
             "value": "текст не распознан"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ingen text kändes igen"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -27127,6 +29083,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "в день"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "per dygn"
           }
         },
         "tr": {
@@ -27212,6 +29174,12 @@
             "value": "в месяц"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "per månad"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -27293,6 +29261,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "в неделю"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "per vecka"
           }
         },
         "tr": {
@@ -27378,6 +29352,12 @@
             "value": "в год"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "per år"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -27461,6 +29441,12 @@
             "value": "·"
           }
         },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "·"
+          }
+        },
         "tr": {
           "stringUnit": {
             "state": "translated",
@@ -27539,6 +29525,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⌘"
+          }
+        },
+        "sv": {
           "stringUnit": {
             "state": "translated",
             "value": "⌘"
