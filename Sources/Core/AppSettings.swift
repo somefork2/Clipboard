@@ -29,6 +29,36 @@ final class AppSettings {
     var pasteSound: FeedbackSound { didSet { persist() } }
     var hasCompletedOnboarding: Bool { didSet { persist() } }
 
+    /// The language CopyWell runs in, or `nil` to follow the Mac.
+    ///
+    /// Written to `AppleLanguages`, which is the setting the system reads when
+    /// the app launches — so a change shows up on the next launch, not this
+    /// one. That is worth saying out loud in the interface rather than leaving
+    /// someone to wonder why nothing happened.
+    var preferredLanguage: String? {
+        didSet {
+            if let preferredLanguage {
+                defaults.set([preferredLanguage], forKey: "AppleLanguages")
+            } else {
+                defaults.removeObject(forKey: "AppleLanguages")
+            }
+            persist()
+        }
+    }
+
+    /// The languages CopyWell is translated into, in the Mac's own naming.
+    static let availableLanguages: [String] = [
+        "en", "ar", "ca", "cs", "da", "de", "el", "es", "fi", "fr", "he", "hi",
+        "hr", "hu", "id", "it", "ja", "ko", "ms", "nb", "nl", "pl", "pt-BR",
+        "pt-PT", "ro", "ru", "sk", "sv", "th", "tr", "uk", "vi", "zh-Hans", "zh-Hant",
+    ]
+
+    /// A language's name in that language, which is how people recognise it.
+    static func languageName(_ code: String) -> String {
+        let locale = Locale(identifier: code)
+        return locale.localizedString(forIdentifier: code)?.capitalized(with: locale) ?? code
+    }
+
     private init() {
         defaults.register(defaults: [
             // Off by default: this is a menu bar utility. It is reached from
@@ -59,6 +89,7 @@ final class AppSettings {
         pasteSound = defaults.string(forKey: "sound_pasted")
             .flatMap(FeedbackSound.init(rawValue:)) ?? .pop
         hasCompletedOnboarding = defaults.bool(forKey: "hasCompletedOnboarding")
+        preferredLanguage = (defaults.array(forKey: "AppleLanguages") as? [String])?.first
     }
 
     private func persist() {

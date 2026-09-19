@@ -152,6 +152,29 @@ struct ShortcutHint: View {
     }
 }
 
+/// Picks the language CopyWell runs in.
+///
+/// The change lands on the next launch, because the system reads the setting
+/// when the app starts. Saying so beats leaving someone to conclude it did not
+/// work.
+struct LanguagePicker: View {
+    @Environment(AppSettings.self) private var settings
+
+    var body: some View {
+        @Bindable var settings = settings
+        Picker("Language", selection: Binding(
+            get: { settings.preferredLanguage ?? "" },
+            set: { settings.preferredLanguage = $0.isEmpty ? nil : $0 }
+        )) {
+            Text("Same as the Mac").tag("")
+            Divider()
+            ForEach(AppSettings.availableLanguages, id: \.self) { code in
+                Text(AppSettings.languageName(code)).tag(code)
+            }
+        }
+    }
+}
+
 /// Empty states, consistent everywhere.
 struct EmptyStateView: View {
     let icon: String

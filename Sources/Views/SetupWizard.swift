@@ -15,7 +15,10 @@ struct SetupWizard: View {
     @State private var goingForward = true
     @State private var theme = ThemeManager.shared
 
-    private let stepCount = 4
+    // Three. The Services step moved into Settings ▸ General: a first-run
+    // screen about switching things on in System Settings reads as being told
+    // what to do before the app has done anything for you.
+    private let stepCount = 3
 
     var body: some View {
         @Bindable var bindableSettings = settings
@@ -28,11 +31,10 @@ struct SetupWizard: View {
                 switch step {
                 case 0: welcome
                 case 1: essentials
-                case 2: personalise(
+                default: personalise(
                     soundsEnabled: $bindableSettings.soundsEnabled,
                     launchAtLogin: $bindableSettings.launchAtLogin
                 )
-                default: services
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -94,8 +96,7 @@ struct SetupWizard: View {
         switch step {
         case 0: return String(localized: "Welcome to CopyWell")
         case 1: return String(localized: "Two things worth remembering")
-        case 2: return String(localized: "Make it yours")
-        default: return String(localized: "One switch in System Settings")
+        default: return String(localized: "Make it yours")
         }
     }
 
@@ -163,9 +164,15 @@ struct SetupWizard: View {
         launchAtLogin: Binding<Bool>
     ) -> some View {
         StepLayout(
-            headline: String(localized: "Pick a look, and decide whether CopyWell makes a sound."),
+            headline: String(localized: "A language, a look, and whether CopyWell makes a sound."),
             illustration: { AnimatedIn { WizardIllustration.Personalise() } }
         ) {
+            LabeledContent("Language") {
+                LanguagePicker()
+                    .labelsHidden()
+                    .frame(width: 150)
+            }
+
             LabeledContent("Theme") {
                 Picker("", selection: Binding(
                     get: { theme.currentTheme },
@@ -185,32 +192,9 @@ struct SetupWizard: View {
                 .foregroundStyle(.secondary)
 
             Toggle("Start CopyWell at login", isOn: launchAtLogin)
-            Text("CopyWell only records while it is running. More themes, accent colours and text size are in Settings.")
+            Text("A change of language takes effect the next time CopyWell opens. It only records while it is running. More themes, accent colours and text size are in Settings.")
                 .font(.caption)
                 .foregroundStyle(.secondary)
-        }
-    }
-
-    private var services: some View {
-        StepLayout(
-            headline: String(localized: "CopyWell adds items to the right-click menu of every app."),
-            illustration: { AnimatedIn { WizardIllustration.Services() } }
-        ) {
-            Text("macOS ships third-party menu items switched off. Turn them on once and they stay on.")
-                .font(.callout)
-                .foregroundStyle(.secondary)
-                .fixedSize(horizontal: false, vertical: true)
-
-            Button("Open Keyboard Shortcuts…") {
-                if let url = URL(string: "x-apple.systempreferences:com.apple.preference.keyboard?Shortcuts") {
-                    NSWorkspace.shared.open(url)
-                }
-            }
-
-            Text("Keyboard ▸ Keyboard Shortcuts ▸ Services. The groups there start collapsed: open Text, Images and Files and Folders with the arrow on the left, and tick the CopyWell entries inside. In Finder, CopyWell also appears as its own menu — enable it in General ▸ Login Items & Extensions ▸ Finder Extensions.")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                .fixedSize(horizontal: false, vertical: true)
         }
     }
 

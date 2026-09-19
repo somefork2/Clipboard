@@ -87,10 +87,10 @@ struct GeneralSettings: View {
             // and Finder Extensions in System Settings, not "right-click menu",
             // which is what they are looking for.
             Section {
-                Button("Open Finder Extensions…") {
+                Button("Finder Extensions…") {
                     FIFinderSyncController.showExtensionManagementInterface()
                 }
-                Button("Open Keyboard Shortcuts ▸ Services…") {
+                Button("Keyboard Shortcuts ▸ Services…") {
                     NSUpdateDynamicServices()
                     if let url = URL(string: "x-apple.systempreferences:com.apple.preference.keyboard?Shortcuts") {
                         NSWorkspace.shared.open(url)
@@ -102,12 +102,13 @@ struct GeneralSettings: View {
             } header: {
                 Text("Right-click menu")
             } footer: {
-                Text("CopyWell's right-click entries are macOS Services, and macOS ships them switched off. The list there is grouped and the groups start collapsed — open Text, Images and Files and Folders with the arrow on the left, and tick the CopyWell entries inside. The entry for files in Finder is switched on separately, under Finder Extensions.")
+                Text("CopyWell's right-click entries are macOS Services, which macOS keeps switched off until someone chooses otherwise. In that list the groups start collapsed; the CopyWell entries live under Text, Images, and Files and Folders. The Finder menu is a separate switch, under Finder Extensions.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
 
             Section {
+                LanguagePicker()
                 Picker("Text size", selection: $settings.textSize) {
                     ForEach(TextSizePreference.allCases) { size in
                         Text(size.displayName).tag(size)
@@ -116,7 +117,7 @@ struct GeneralSettings: View {
             } header: {
                 Text("Accessibility")
             } footer: {
-                Text("Scales every label in CopyWell, and the rows grow with it. Independent of the system-wide setting.")
+                Text("The language takes effect the next time CopyWell opens. Text size scales every label, and the rows grow with it; it is independent of the system-wide setting.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
