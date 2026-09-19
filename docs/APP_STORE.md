@@ -38,6 +38,9 @@ Everything below is done and verified in App Store Connect for version 1.0
   https://somefork2.github.io/CopyWell/
 - App price set to free; CopyWell Pro at 2.99/24.99 USD in high-income
   territories and 0.99/7.99 USD equivalents everywhere else.
+- Access is all or nothing: the 30-day trial and a subscription unlock
+  everything, and without either the app locks rather than degrading. Nothing
+  is deleted while it is locked.
 - Content rights declared; subscription review screenshot attached to both
   products.
 

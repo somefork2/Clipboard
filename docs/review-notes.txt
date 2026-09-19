@@ -2,8 +2,10 @@ No account and no sign-in is required. Everything in CopyWell is available on fi
 
 TRIAL AND SUBSCRIPTION
 - On first launch every feature is unlocked for 30 days. No payment details are asked for and nothing is charged when the trial ends.
-- After the trial the app keeps working and retains the last 48 hours of history. Favourites and pinboards are never removed.
-- CopyWell Pro (com.copywell.pro.monthly, com.copywell.pro.annual) removes the time limit. The purchase screen shows the price, the period, the renewal terms, Restore Purchases, and links to the privacy policy and to Apple's standard EULA.
+- After the trial an active subscription is required. Without one CopyWell locks: it stops recording, the palette does not open, and every window shows a screen offering the subscription with Restore Purchases beside it. This is stated in the App Store description and on the app's website.
+- Nothing the user saved is deleted while the app is locked. The history stays on their Mac and is available again the moment a subscription is active.
+- CopyWell Pro (com.copywell.pro.monthly, com.copywell.pro.annual). The purchase screen shows the price, the period, the renewal terms, Restore Purchases, and links to the privacy policy and to Apple's standard EULA.
+- To see the locked state yourself, the trial can simply be allowed to lapse; the app is fully usable during review either way.
 
 PERMISSIONS
 - CopyWell requests no permissions at all. In particular it does not use Accessibility: it never sends keystrokes, so a clip is placed on the clipboard and the user presses Command-V themselves.
