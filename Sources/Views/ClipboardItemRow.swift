@@ -41,18 +41,18 @@ struct ClipboardItemRow: View {
                     if item.type == .image {
                         let summary = item.imageSummary
                         if !summary.isEmpty {
-                            Text("·")
+                            Text(verbatim: "·")
                             Text(summary)
                         }
                     }
                     if let app = item.sourceApp {
-                        Text("·")
+                        Text(verbatim: "·")
                         Text(app)
                     }
-                    Text("·")
+                    Text(verbatim: "·")
                     Text(item.createdAt.relativeFormatted)
                     if item.type != .image, !item.tags.isEmpty {
-                        Text("·")
+                        Text(verbatim: "·")
                         Text(item.tags.prefix(2).joined(separator: ", "))
                     }
                 }

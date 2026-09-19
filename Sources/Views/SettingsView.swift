@@ -203,7 +203,7 @@ struct PrivacySettings: View {
         .formStyle(.grouped)
         .themedScrollBackground()
         .confirmationDialog(
-            "Clear clipboard history?",
+            L("Clear clipboard history?"),
             isPresented: $showingClearConfirmation,
             titleVisibility: .visible
         ) {

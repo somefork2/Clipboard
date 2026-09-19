@@ -82,7 +82,7 @@ struct CopyWellCommands: Commands {
         // Every item here goes through `unlocked`, which either runs the action
         // or brings the subscription wall forward. A menu item that quietly
         // does nothing reads as a broken app.
-        CommandMenu("Clipboard") {
+        CommandMenu(L("Clipboard")) {
             Button(L("Open Palette")) { AppCoordinator.unlocked { QuickPastePanel.shared.toggle() } }
                 .keyboardShortcut("v", modifiers: [.option, .command])
             Button(L("Quick Look")) {
@@ -159,6 +159,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             if ScreenshotRenderer.isDiagnosing { ScreenshotRenderer.diagnose() }
             if ScreenshotRenderer.isDiagnosingSettings { ScreenshotRenderer.diagnoseSettings() }
             if ScreenshotRenderer.isDiagnosingSidebar { ScreenshotRenderer.diagnoseSidebar() }
+            if ScreenshotRenderer.isDiagnosingToolbar { ScreenshotRenderer.diagnoseToolbar() }
             if ScreenshotRenderer.isDiagnosingRelayout { ScreenshotRenderer.diagnoseRelayout() }
             if ScreenshotRenderer.isDiagnosingFileRead { ScreenshotRenderer.diagnoseFileRead() }
             if ScreenshotRenderer.isDiagnosingLanguage { ScreenshotRenderer.diagnoseLanguage() }

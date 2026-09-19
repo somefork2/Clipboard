@@ -60,7 +60,7 @@ struct MainView: View {
         .themedWindow()
         .frame(minWidth: 860, minHeight: 520)
         .toolbar { toolbar }
-        .searchable(text: $searchText, placement: .toolbar, prompt: "Search clips")
+        .searchable(text: $searchText, placement: .toolbar, prompt: L("Search clips"))
         .sheet(isPresented: $showingWelcome) {
             SetupWizard { showingWelcome = false }
         }
@@ -72,7 +72,7 @@ struct MainView: View {
                 .environment(subscriptions)
         }
         .confirmationDialog(
-            "Clear clipboard history?",
+            L("Clear clipboard history?"),
             isPresented: $showingClearConfirmation,
             titleVisibility: .visible
         ) {
@@ -139,18 +139,27 @@ struct MainView: View {
 
     @ToolbarContentBuilder
     private var toolbar: some ToolbarContent {
-        // Both icon buttons keep the system's toolbar styling so they match each
-        // other and the Upgrade button. The stray patch behind them came from
-        // forcing the appearance app-wide, which is fixed in ThemeManager, not
-        // from the button style.
-        ToolbarItemGroup {
+        // On its own, at the leading edge, where every Mac app puts this.
+        //
+        // It used to sit in the group with the rest. A toolbar that runs out of
+        // room sweeps its trailing items into the » overflow menu, and the one
+        // button whose whole job is to make room was the first to disappear
+        // into it — exactly when it was needed. `.navigation` keeps it beside
+        // the window controls, out of the overflow's reach.
+        ToolbarItem(placement: .navigation) {
             Button {
                 withAnimation(.easeInOut(duration: 0.18)) { showSidebar.toggle() }
             } label: {
                 Label(L("Sidebar"), systemImage: "sidebar.left")
             }
-            .help(showSidebar ? "Hide the sidebar" : "Show the sidebar")
+            .help(showSidebar ? L("Hide the sidebar") : L("Show the sidebar"))
+        }
 
+        // Both icon buttons keep the system's toolbar styling so they match each
+        // other and the Upgrade button. The stray patch behind them came from
+        // forcing the appearance app-wide, which is fixed in ThemeManager, not
+        // from the button style.
+        ToolbarItemGroup {
             Button {
                 QuickPastePanel.shared.toggle()
             } label: {
@@ -162,11 +171,11 @@ struct MainView: View {
                 coordinator.togglePause()
             } label: {
                 Label(
-                    coordinator.isPaused ? "Resume" : "Pause",
+                    coordinator.isPaused ? L("Resume") : L("Pause"),
                     systemImage: coordinator.isPaused ? "play" : "pause"
                 )
             }
-            .help(coordinator.isPaused ? "Resume recording" : "Pause recording")
+            .help(coordinator.isPaused ? L("Resume recording") : L("Pause recording"))
 
             if !subscriptions.isPro {
                 Button(L("Upgrade")) { subscriptions.showingPaywall = true }

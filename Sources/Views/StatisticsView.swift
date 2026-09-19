@@ -53,8 +53,8 @@ struct StatisticsView: View {
             } else {
                 Chart(counts, id: \.type) { entry in
                     BarMark(
-                        x: .value("Clips", entry.count),
-                        y: .value("Type", entry.type.displayName)
+                        x: .value(L("Clips"), entry.count),
+                        y: .value(L("Type"), entry.type.displayName)
                     )
                     .foregroundStyle(Theme.accent)
                     .cornerRadius(3)

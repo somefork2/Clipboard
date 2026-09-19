@@ -222,7 +222,7 @@ enum WizardIllustration {
                         }
                     )
                 HStack(spacing: 3) {
-                    Text("⌘")
+                    Text(verbatim: "⌘")
                     Text(L("V"))
                 }
                 .font(.system(size: 11, weight: .medium, design: .rounded))

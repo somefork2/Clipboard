@@ -87,7 +87,7 @@ struct QuickPasteView: View {
         HStack(spacing: 8) {
             Image(systemName: "magnifyingglass")
                 .foregroundStyle(.secondary)
-            TextField("Search clips", text: $searchText)
+            TextField(L("Search clips"), text: $searchText)
                 .textFieldStyle(.plain)
                 .font(.title3)
                 .focused($searchFocused)
@@ -297,12 +297,12 @@ struct QuickPasteRow: View {
                         let summary = item.imageSummary
                         if !summary.isEmpty {
                             Text(summary)
-                            Text("·")
+                            Text(verbatim: "·")
                         }
                     }
                     if let app = item.sourceApp {
                         Text(app)
-                        Text("·")
+                        Text(verbatim: "·")
                     }
                     Text(item.createdAt.relativeFormatted)
                 }

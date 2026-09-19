@@ -76,7 +76,7 @@ struct MenuBarContentView: View {
             Image(systemName: "magnifyingglass")
                 .foregroundStyle(.secondary)
                 .font(.callout)
-            TextField("Search", text: $searchText)
+            TextField(L("Search"), text: $searchText)
                 .textFieldStyle(.plain)
         }
         .padding(.horizontal, 12)
@@ -235,7 +235,7 @@ struct MenuBarRow: View {
                         let summary = item.imageSummary
                         if !summary.isEmpty {
                             Text(summary)
-                            Text("·")
+                            Text(verbatim: "·")
                         }
                     }
                     Text(item.createdAt.relativeFormatted)

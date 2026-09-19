@@ -36,7 +36,7 @@ struct ClipContextMenu: View {
         }
 
         if !store.pinboards.isEmpty || SubscriptionManager.shared.hasFullAccess {
-            Menu("Move to Pinboard") {
+            Menu(L("Move to Pinboard")) {
                 Button(L("None")) { store.assign(item, to: nil) }
                 if !store.pinboards.isEmpty { Divider() }
                 ForEach(store.pinboards) { board in

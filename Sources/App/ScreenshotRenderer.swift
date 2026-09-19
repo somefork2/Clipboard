@@ -189,6 +189,49 @@ enum ScreenshotRenderer {
         }
     }
 
+    /// Reports which toolbar items survive a narrow window.
+    ///
+    /// A toolbar short of room sweeps its trailing items into the » overflow
+    /// menu, and the sidebar toggle — the one button whose job is to make room
+    /// — went first. This measures it rather than trusting the eye: it squeezes
+    /// the window to its minimum and prints what is still on show.
+    static var isDiagnosingToolbar: Bool { CommandLine.arguments.contains("--diagnose-toolbar") }
+
+    static func diagnoseToolbar() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            MainActor.assumeIsolated {
+                guard let window = NSApp.windows.first(where: { $0.canBecomeMain && $0.isVisible }),
+                      let toolbar = window.toolbar else {
+                    print("RESULT: no window with a toolbar"); exit(2)
+                }
+
+                func report(_ label: String) {
+                    let all = toolbar.items.map(\.itemIdentifier.rawValue)
+                    let shown = toolbar.visibleItems?.map(\.itemIdentifier.rawValue) ?? []
+                    let hidden = all.filter { !shown.contains($0) }
+                    print("\(label) — window \(Int(window.frame.width))pt")
+                    print("   visible : \(shown.joined(separator: ", "))")
+                    print("   overflow: \(hidden.isEmpty ? "none" : hidden.joined(separator: ", "))")
+                    let sidebarHidden = hidden.contains { $0.localizedCaseInsensitiveContains("sidebar") }
+                    print("   sidebar button in overflow: \(sidebarHidden)")
+                }
+
+                var frame = window.frame
+                frame.size = NSSize(width: 1400, height: 800)
+                window.setFrame(frame, display: true)
+                spin(for: 0.8)
+                report("wide")
+
+                // The narrowest the window can go: `minWidth` on the content.
+                frame.size = NSSize(width: 200, height: 800)
+                window.setFrame(frame, display: true)
+                spin(for: 1.0)
+                report("as narrow as it goes")
+                exit(0)
+            }
+        }
+    }
+
     /// Clicks the real sidebar toggle. It is a SwiftUI-managed toolbar item
     /// with no action of its own, so the button has to be found and pressed.
     @MainActor
