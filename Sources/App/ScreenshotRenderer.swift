@@ -75,11 +75,21 @@ enum ScreenshotRenderer {
                     // Anything drawn in the top 60 points of the window is either
                     // the toolbar or something hiding underneath it.
                     if let content = window.contentView {
-                        print("--- views intersecting the top 130 pt ---")
+                        print("--- scroll views in the detail column ---")
+                        func scrolls(_ view: NSView) {
+                            if let sv = view as? NSScrollView {
+                                let f = sv.convert(sv.bounds, to: nil)
+                                let top = content.bounds.height - f.maxY
+                                print("  \(type(of: sv)) top=\(Int(top)) h=\(Int(sv.bounds.height)) x=\(Int(f.minX)) inset.top=\(sv.contentInsets.top) auto=\(sv.automaticallyAdjustsContentInsets)")
+                            }
+                            for sub in view.subviews { scrolls(sub) }
+                        }
+                        scrolls(content)
+                        print("--- views intersecting the top 260 pt ---")
                         func walk(_ view: NSView, depth: Int) {
                             let inWindow = view.convert(view.bounds, to: nil)
                             let topOfWindow = content.bounds.height - inWindow.maxY
-                            if topOfWindow < 130, view.bounds.height > 8, view.bounds.width > 40 {
+                            if topOfWindow < 260, view.bounds.height > 8, view.bounds.width > 40 {
                                 let pad = String(repeating: "  ", count: depth)
                                 print("\(pad)\(type(of: view)) top=\(Int(topOfWindow)) h=\(Int(view.bounds.height)) w=\(Int(view.bounds.width)) x=\(Int(inWindow.minX))")
                             }

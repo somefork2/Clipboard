@@ -12,23 +12,7 @@ struct ClipboardListView: View {
     @State private var previewItem: ClipboardItem?
 
     var body: some View {
-        VStack(spacing: 0) {
-            filterBar
-            Divider()
-            content
-        }
-        // One point, and it has to be there.
-        //
-        // The window draws its content under a unified toolbar, and SwiftUI
-        // hands this pane a 52-point top safe area to keep clear of it. With the
-        // chip row's horizontal ScrollView flush against the top of the VStack,
-        // the ScrollView swallowed that inset instead: it came out 91 points
-        // tall rather than 39, the chips sat at y=8, and the title bar was drawn
-        // straight over them. Any non-zero top padding stops the ScrollView
-        // claiming the safe area, and SwiftUI then applies the 52 points itself
-        // — which is why this is 1 rather than 52. Measured: chips at y=61, the
-        // title bar ending at y=52.
-        .padding(.top, 1)
+        content
         .sheet(item: $previewItem) { item in
             ClipPreviewSheet(item: item) { previewItem = nil }
         }
@@ -81,13 +65,11 @@ struct ClipboardListView: View {
     /// The chips, in a horizontal scroller because there can be more of them
     /// than fit.
     ///
-    /// Two things a `ScrollView` does on macOS have to be undone here. It paints
-    /// no background of its own, so the strip stayed the same near-black
-    /// whatever the theme — indistinguishable under the dark themes, a black bar
-    /// across the top under Light and Paper. And it takes the height it is
-    /// offered rather than the height its content needs, which left the row a
-    /// few points short and sliced the top off every capsule. `fixedSize` makes
-    /// it ask for its content's height instead.
+    /// The background is ours because a `ScrollView` paints none of its own: the
+    /// strip stayed the same near-black whatever the theme, indistinguishable
+    /// under the dark themes and a black bar across the top under Light and
+    /// Paper. It is needed twice over now that this is a pinned header — rows
+    /// scroll underneath it, and a transparent header would show them through.
     private var filterBar: some View {
         ScrollView(.horizontal) {
             HStack(spacing: 6) {
@@ -131,24 +113,28 @@ struct ClipboardListView: View {
             )
         } else {
             List(selection: $selection) {
-                ForEach(Array(items.enumerated()), id: \.element.id) { index, item in
-                    ClipboardItemRow(
-                        item: item,
-                        onPaste: { paste(item, plainText: false) },
-                        onPreview: { previewItem = item }
-                    )
-                    .tag(item.persistentModelID)
-                    .listRowInsets(EdgeInsets(top: 2, leading: 6, bottom: 2, trailing: 6))
-                    .listRowBackground(Theme.rowBackground(index))
-                    .listRowSeparatorTint(Theme.separator)
-                    .contextMenu {
-                        ClipContextMenu(
+                Section {
+                    ForEach(Array(items.enumerated()), id: \.element.id) { index, item in
+                        ClipboardItemRow(
                             item: item,
                             onPaste: { paste(item, plainText: false) },
-                            onPastePlain: { paste(item, plainText: true) },
                             onPreview: { previewItem = item }
                         )
+                        .tag(item.persistentModelID)
+                        .listRowInsets(EdgeInsets(top: 2, leading: 6, bottom: 2, trailing: 6))
+                        .listRowBackground(Theme.rowBackground(index))
+                        .listRowSeparatorTint(Theme.separator)
+                        .contextMenu {
+                            ClipContextMenu(
+                                item: item,
+                                onPaste: { paste(item, plainText: false) },
+                                onPastePlain: { paste(item, plainText: true) },
+                                onPreview: { previewItem = item }
+                            )
+                        }
                     }
+                } header: {
+                    filterBar
                 }
             }
             .listStyle(.inset)

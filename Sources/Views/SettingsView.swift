@@ -18,7 +18,10 @@ struct SettingsView: View {
             SubscriptionSettings()
                 .tabItem { Label("Subscription", systemImage: "creditcard") }
         }
-        .frame(width: 560)
+        // Six tabs, and the labels are long in several of the languages we
+        // ship: at 560 the last two fell into the ">>" overflow menu and could
+        // not be reached at all. Sized for the longest of them.
+        .frame(width: 780)
         .themedWindow()
     }
 }
