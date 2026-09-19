@@ -141,7 +141,12 @@ final class AppCoordinator {
     // MARK: - Windows
 
     func openMainWindow() {
-        NSApp.setActivationPolicy(AppSettings.shared.showInDock ? .regular : .regular)
+        // Both branches of the old ternary here were `.regular`, so every time a
+        // window was opened the Dock icon came back and "Show icon in the Dock"
+        // could never be turned off. The setting already knows the right policy;
+        // an accessory app shows windows perfectly well, it simply has no Dock
+        // tile, so there is nothing to override.
+        AppSettings.shared.applyActivationPolicy()
         NSApp.activate(ignoringOtherApps: true)
         for window in NSApp.windows where window is NSPanel == false {
             window.makeKeyAndOrderFront(nil)

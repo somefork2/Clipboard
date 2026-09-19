@@ -110,6 +110,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             ThemeManager.shared.applyStoredTheme()
             #if DEBUG
             if ScreenshotRenderer.isActive { ScreenshotRenderer.run() }
+            if ScreenshotRenderer.isDiagnosing { ScreenshotRenderer.diagnose() }
             #endif
         }
 

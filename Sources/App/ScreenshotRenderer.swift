@@ -14,6 +14,54 @@ import SwiftUI
 enum ScreenshotRenderer {
     static var isActive: Bool { CommandLine.arguments.contains("--render-screenshots") }
 
+    /// Prints the real window's geometry.
+    ///
+    /// A toolbar overlapping the content is invisible to the offscreen renderer,
+    /// which draws views without any window chrome. This asks the running window
+    /// what it actually looks like.
+    static var isDiagnosing: Bool { CommandLine.arguments.contains("--diagnose-layout") }
+
+    static func diagnose() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            MainActor.assumeIsolated {
+                for window in NSApp.windows where window.canBecomeMain && window.isVisible {
+                    print("window            frame            \(window.frame)")
+                    print("window            contentLayoutRect \(window.contentLayoutRect)")
+                    print("window            styleMask         \(window.styleMask.rawValue)")
+                    print("window            titlebarAppears   \(window.titlebarAppearsTransparent)")
+                    if let content = window.contentView {
+                        print("contentView       bounds            \(content.bounds)")
+                        print("contentView       safeAreaInsets    \(content.safeAreaInsets)")
+                        let underlap = content.bounds.height - window.contentLayoutRect.height
+                        print("=> content extends \(underlap) pt beyond the layout rect")
+                        print("=> safe area top is \(content.safeAreaInsets.top) pt")
+                    }
+                    if let toolbar = window.toolbar {
+                        print("toolbar           visible           \(toolbar.isVisible)")
+                    }
+                    // Anything drawn in the top 60 points of the window is either
+                    // the toolbar or something hiding underneath it.
+                    if let content = window.contentView {
+                        print("--- views intersecting the top 130 pt ---")
+                        func walk(_ view: NSView, depth: Int) {
+                            let inWindow = view.convert(view.bounds, to: nil)
+                            let topOfWindow = content.bounds.height - inWindow.maxY
+                            if topOfWindow < 130, view.bounds.height > 8, view.bounds.width > 40 {
+                                let pad = String(repeating: "  ", count: depth)
+                                print("\(pad)\(type(of: view)) top=\(Int(topOfWindow)) h=\(Int(view.bounds.height)) w=\(Int(view.bounds.width)) x=\(Int(inWindow.minX))")
+                            }
+                            guard depth < 12 else { return }
+                            for sub in view.subviews { walk(sub, depth: depth + 1) }
+                        }
+                        walk(content, depth: 0)
+                    }
+                    break
+                }
+                exit(0)
+            }
+        }
+    }
+
     private static var outputDirectory: URL? {
         FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
             .first?
@@ -68,6 +116,14 @@ enum ScreenshotRenderer {
             ("wall", CGSize(width: 900, height: 620), false, dressed(SubscriptionWallView())),
             ("appearance", CGSize(width: 560, height: 420), false,
              dressed(AppearanceSettings().background(Theme.background))),
+            // The whole window, tab bar and all: the panes on their own looked
+            // right while the chrome around them did not.
+            ("settings-window", CGSize(width: 560, height: 620), true,
+             dressed(SettingsView())),
+            ("settings-general", CGSize(width: 560, height: 560), false,
+             dressed(GeneralSettings().background(Theme.background))),
+            ("settings-privacy", CGSize(width: 560, height: 520), false,
+             dressed(PrivacySettings().background(Theme.background))),
             // Sized to nothing on purpose: `.zero` means "ask the view how tall
             // it wants to be", which is what MenuBarExtra does. Forcing a size
             // here is exactly what hid the popover's footer being pushed out.

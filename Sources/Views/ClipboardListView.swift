@@ -17,6 +17,18 @@ struct ClipboardListView: View {
             Divider()
             content
         }
+        // One point, and it has to be there.
+        //
+        // The window draws its content under a unified toolbar, and SwiftUI
+        // hands this pane a 52-point top safe area to keep clear of it. With the
+        // chip row's horizontal ScrollView flush against the top of the VStack,
+        // the ScrollView swallowed that inset instead: it came out 91 points
+        // tall rather than 39, the chips sat at y=8, and the title bar was drawn
+        // straight over them. Any non-zero top padding stops the ScrollView
+        // claiming the safe area, and SwiftUI then applies the 52 points itself
+        // — which is why this is 1 rather than 52. Measured: chips at y=61, the
+        // title bar ending at y=52.
+        .padding(.top, 1)
         .sheet(item: $previewItem) { item in
             ClipPreviewSheet(item: item) { previewItem = nil }
         }
