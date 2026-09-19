@@ -45,7 +45,7 @@ final class TrialManager {
 
     var summary: String {
         guard isActive else {
-            return String(localized: "Your 30-day trial has ended. CopyWell keeps the last 48 hours of history.")
+            return String(localized: "Your 30-day trial has ended. Subscribe to carry on using CopyWell.")
         }
         let days = daysRemaining
         return days == 1

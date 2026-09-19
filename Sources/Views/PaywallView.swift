@@ -52,7 +52,7 @@ struct PaywallView: View {
             Text("CopyWell Pro")
                 .font(.title2.weight(.semibold))
 
-            Text("Everything in CopyWell, without the free-tier limits.")
+            Text("Everything in CopyWell, for as long as you subscribe.")
                 .font(.callout)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)

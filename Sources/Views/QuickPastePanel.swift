@@ -21,6 +21,9 @@ final class QuickPastePanel: NSObject, NSWindowDelegate {
     }
 
     func show() {
+        // Locked means locked: the palette is the whole product, so it does not
+        // appear at all until a subscription is active.
+        guard SubscriptionManager.shared.hasFullAccess else { return }
         PasteService.rememberFrontmostApp()
 
         let panel = self.panel ?? makePanel()

@@ -53,15 +53,30 @@ final class AppCoordinator {
     // MARK: - Shortcuts
 
     private func registerShortcuts() {
-        shortcuts.setHandler(for: .quickPaste) { QuickPastePanel.shared.toggle() }
-        shortcuts.setHandler(for: .pastePrevious) { [weak self] in self?.pastePrevious() }
-        shortcuts.setHandler(for: .pastePlainText) { [weak self] in self?.pastePlainText() }
-        shortcuts.setHandler(for: .pinLast) { [weak self] in self?.pinLast() }
-        shortcuts.setHandler(for: .togglePause) { [weak self] in self?.togglePause() }
-        shortcuts.setHandler(for: .pasteStackNext) { [weak self] in self?.pasteStackNext() }
+        shortcuts.setHandler(for: .quickPaste) { Self.unlocked { QuickPastePanel.shared.toggle() } }
+        shortcuts.setHandler(for: .pastePrevious) { [weak self] in Self.unlocked { self?.pastePrevious() } }
+        shortcuts.setHandler(for: .pastePlainText) { [weak self] in Self.unlocked { self?.pastePlainText() } }
+        shortcuts.setHandler(for: .pinLast) { [weak self] in Self.unlocked { self?.pinLast() } }
+        shortcuts.setHandler(for: .togglePause) { [weak self] in Self.unlocked { self?.togglePause() } }
+        shortcuts.setHandler(for: .pasteStackNext) { [weak self] in Self.unlocked { self?.pasteStackNext() } }
 
         shortcuts.registerAll()
         updateConflictMessage()
+    }
+
+    /// Runs `action` only while the app is unlocked. A shortcut that silently
+    /// does nothing reads as a broken app, so the locked case opens the window
+    /// with the subscription wall instead.
+    static func unlocked(_ action: () -> Void) {
+        guard SubscriptionManager.shared.isLocked else {
+            action()
+            return
+        }
+        NSApp.activate(ignoringOtherApps: true)
+        for window in NSApp.windows where window.canBecomeMain {
+            window.makeKeyAndOrderFront(nil)
+            break
+        }
     }
 
     func updateConflictMessage() {

@@ -139,14 +139,14 @@ struct SidebarView: View {
                         total: TrialManager.duration
                     )
                     .progressViewStyle(.linear)
-                    Text("Everything is unlocked. Afterwards CopyWell keeps the last 48 hours.")
+                    Text("Everything is unlocked. A subscription keeps it that way afterwards.")
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
                 } else {
-                    Text("Free plan")
+                    Text("Locked")
                         .font(.caption.weight(.medium))
-                    Text("The last 48 hours are kept. Favourites and pinboards are never removed.")
+                    Text("CopyWell is locked. Nothing has been deleted.")
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                         .fixedSize(horizontal: false, vertical: true)

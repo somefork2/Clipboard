@@ -12,7 +12,7 @@ struct CopyWellApp: App {
 
     var body: some Scene {
         WindowGroup(id: "main") {
-            MainView()
+            SubscriptionGate { MainView() }
                 .environment(store)
                 .environment(coordinator)
                 .environment(settings)
@@ -26,7 +26,8 @@ struct CopyWellApp: App {
         .commands { CopyWellCommands() }
 
         MenuBarExtra("CopyWell", systemImage: coordinator.isPaused ? "clipboard" : "clipboard.fill", isInserted: menuBarBinding) {
-            MenuBarContentView()
+            SubscriptionGate { MenuBarContentView() }
+                .frame(minWidth: 320, minHeight: 280)
                 .environment(store)
                 .environment(coordinator)
                 .environment(subscriptions)

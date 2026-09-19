@@ -14423,6 +14423,633 @@
         }
       }
     },
+    "CopyWell is locked without a subscription: it stops recording, and the window asks you to subscribe. Nothing is deleted.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell is locked without a subscription: it stops recording, and the window asks you to subscribe. Nothing is deleted."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بدون اشتراك يُقفل CopyWell: يتوقف عن الحفظ، وتدعوك النافذة إلى الاشتراك. ولا يُحذف أي شيء."
+          }
+        },
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sense subscripció el CopyWell queda bloquejat: deixa de desar i la finestra et convida a subscriure’t. No s’esborra res."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bez předplatného je CopyWell zamčený: přestane ukládat a okno vás vyzve k předplatnému. Nic se nemaže."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uden abonnement er CopyWell låst: det holder op med at gemme, og vinduet beder dig tegne et abonnement. Intet bliver slettet."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ohne Abo ist CopyWell gesperrt: Es zeichnet nichts mehr auf, und das Fenster bittet um ein Abo. Gelöscht wird nichts."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Χωρίς συνδρομή το CopyWell κλειδώνει: σταματά να καταγράφει και το παράθυρο σάς ζητά να εγγραφείτε. Δεν διαγράφεται τίποτα."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin suscripción, CopyWell queda bloqueado: deja de registrar y la ventana te propone suscribirte. No se borra nada."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ilman tilausta CopyWell on lukittu: se lakkaa tallentamasta, ja ikkuna pyytää tilaamaan. Mitään ei poisteta."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sans abonnement, CopyWell est verrouillé : il n’enregistre plus rien et la fenêtre vous propose de vous abonner. Rien n’est supprimé."
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "בלי מינוי CopyWell ננעל: הוא מפסיק לשמור, והחלון מזמין אתכם להירשם. שום דבר לא נמחק."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "बिना सदस्यता के CopyWell बंद हो जाता है: यह सहेजना रोक देता है और विंडो सदस्यता लेने को कहती है। कुछ भी मिटाया नहीं जाता।"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bez pretplate CopyWell je zaključan: prestaje spremati, a prozor vas poziva na pretplatu. Ništa se ne briše."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Előfizetés nélkül a CopyWell zárolva van: nem ment tovább, az ablak pedig előfizetést ajánl. Semmi nem törlődik."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tanpa langganan CopyWell terkunci: ia berhenti menyimpan, dan jendelanya mengajak Anda berlangganan. Tidak ada yang dihapus."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Senza abbonamento CopyWell è bloccato: smette di registrare e la finestra ti propone di abbonarti. Non viene cancellato nulla."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "サブスクリプションがないとCopyWellはロックされ、記録を止めて登録をご案内します。削除は行いません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "구독이 없으면 CopyWell은 잠깁니다. 기록을 멈추고 창에서 구독을 안내합니다. 삭제되는 것은 없습니다."
+          }
+        },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tanpa langganan CopyWell dikunci: ia berhenti menyimpan, dan tetingkapnya mengajak anda melanggan. Tiada apa-apa dipadam."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zonder abonnement is CopyWell vergrendeld: het bewaart niets meer en het venster vraagt om een abonnement. Er wordt niets verwijderd."
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uten abonnement er CopyWell låst: det slutter å lagre, og vinduet ber deg abonnere. Ingenting blir slettet."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bez subskrypcji CopyWell jest zablokowany: przestaje zapisywać, a okno proponuje subskrypcję. Nic nie jest usuwane."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem assinatura o CopyWell fica bloqueado: ele para de registrar e a janela convida você a assinar. Nada é apagado."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem subscrição o CopyWell fica bloqueado: deixa de registar e a janela convida-o a subscrever. Nada é apagado."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fără abonament, CopyWell este blocat: nu mai înregistrează, iar fereastra vă invită să vă abonați. Nu se șterge nimic."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без подписки CopyWell заблокирован: он перестаёт записывать, а окно предлагает оформить подписку. Ничего не удаляется."
+          }
+        },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bez predplatného je CopyWell zamknutý: prestane ukladať a okno vás vyzve na predplatné. Nič sa nemaže."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utan prenumeration är CopyWell låst: det slutar spara och fönstret ber dig prenumerera. Ingenting tas bort."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ถ้าไม่มีการสมัครสมาชิก CopyWell จะถูกล็อก คือหยุดบันทึก และหน้าต่างจะชวนให้สมัคร โดยไม่ลบอะไรทั้งสิ้น"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aboneliksiz CopyWell kilitlenir: kaydetmeyi bırakır ve pencere abone olmanızı ister. Hiçbir şey silinmez."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без передплати CopyWell заблоковано: він припиняє записувати, а вікно пропонує оформити передплату. Нічого не вилучається."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không có gói đăng ký, CopyWell sẽ khoá: nó ngừng ghi và cửa sổ mời bạn đăng ký. Không có gì bị xoá."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "没有订阅时 CopyWell 会锁定：停止记录，窗口会请你订阅。不会删除任何内容。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "沒有訂閱時 CopyWell 會鎖定：停止記錄，視窗會請你訂閱。不會刪除任何內容。"
+          }
+        }
+      }
+    },
+    "CopyWell is locked. Nothing has been deleted.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell is locked. Nothing has been deleted."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell مُقفل. لم يُحذف أي شيء."
+          }
+        },
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El CopyWell està bloquejat. No s’ha esborrat res."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell je zamčený. Nic nebylo smazáno."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell er låst. Intet er blevet slettet."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell ist gesperrt. Es wurde nichts gelöscht."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Το CopyWell είναι κλειδωμένο. Δεν έχει διαγραφεί τίποτα."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell está bloqueado. No se ha borrado nada."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell on lukittu. Mitään ei ole poistettu."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell est verrouillé. Rien n’a été supprimé."
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell נעול. שום דבר לא נמחק."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell बंद है। कुछ भी मिटाया नहीं गया।"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell je zaključan. Ništa nije izbrisano."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A CopyWell zárolva van. Semmi nem törlődött."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell terkunci. Tidak ada yang dihapus."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell è bloccato. Non è stato cancellato nulla."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWellはロックされています。何も削除していません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell이 잠겼습니다. 삭제된 것은 없습니다."
+          }
+        },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell dikunci. Tiada apa-apa dipadam."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell is vergrendeld. Er is niets verwijderd."
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell er låst. Ingenting er slettet."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell jest zablokowany. Nic nie zostało usunięte."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O CopyWell está bloqueado. Nada foi apagado."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O CopyWell está bloqueado. Nada foi apagado."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell este blocat. Nu s-a șters nimic."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell заблокирован. Ничего не удалено."
+          }
+        },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell je zamknutý. Nič nebolo odstránené."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell är låst. Ingenting har tagits bort."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell ถูกล็อกอยู่ ไม่มีอะไรถูกลบ"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell kilitli. Hiçbir şey silinmedi."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell заблоковано. Нічого не вилучено."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell đang khoá. Không có gì bị xoá."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell 已锁定。没有删除任何内容。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell 已鎖定。沒有刪除任何內容。"
+          }
+        }
+      }
+    },
+    "CopyWell is locked. Subscribe to carry on using it.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell is locked. Subscribe to carry on using it."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell مُقفل. اشترك لمواصلة استخدامه."
+          }
+        },
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El CopyWell està bloquejat. Subscriu-t’hi per continuar fent-lo servir."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell je zamčený. Pro další používání si pořiďte předplatné."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell er låst. Tegn et abonnement for at fortsætte."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell ist gesperrt. Schließe ein Abo ab, um weiterzumachen."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Το CopyWell είναι κλειδωμένο. Εγγραφείτε για να συνεχίσετε να το χρησιμοποιείτε."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell está bloqueado. Suscríbete para seguir usándolo."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell on lukittu. Tilaa jatkaaksesi sen käyttöä."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell est verrouillé. Abonnez-vous pour continuer."
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell נעול. הירשמו כדי להמשיך להשתמש בו."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell बंद है। आगे इस्तेमाल करने के लिए सदस्यता लें।"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell je zaključan. Pretplatite se da biste ga i dalje koristili."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A CopyWell zárolva van. Fizessen elő a további használathoz."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell terkunci. Berlanggananlah untuk terus memakainya."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell è bloccato. Abbonati per continuare a usarlo."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWellはロックされています。続けるには登録してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell이 잠겼습니다. 계속 쓰려면 구독하세요."
+          }
+        },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell dikunci. Langganlah untuk terus menggunakannya."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell is vergrendeld. Neem een abonnement om verder te gaan."
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell er låst. Abonner for å fortsette å bruke det."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell jest zablokowany. Wykup subskrypcję, aby korzystać dalej."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O CopyWell está bloqueado. Assine para continuar usando."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O CopyWell está bloqueado. Subscreva para continuar a usá-lo."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell este blocat. Abonați-vă pentru a-l folosi în continuare."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell заблокирован. Оформите подписку, чтобы продолжить."
+          }
+        },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell je zamknutý. Na ďalšie používanie si predplaťte."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell är låst. Prenumerera för att fortsätta använda det."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell ถูกล็อกอยู่ สมัครสมาชิกเพื่อใช้งานต่อ"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell kilitli. Kullanmaya devam etmek için abone olun."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell заблоковано. Оформіть передплату, щоб продовжити."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell đang khoá. Hãy đăng ký để tiếp tục dùng."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell 已锁定。订阅后即可继续使用。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell 已鎖定。訂閱後即可繼續使用。"
+          }
+        }
+      }
+    },
     "CopyWell keeps what you copy, so you can get it back later.": {
       "extractionState": "manual",
       "localizations": {
@@ -19648,6 +20275,424 @@
         }
       }
     },
+    "Every clip you copy, kept for as long as you want it.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Every clip you copy, kept for as long as you want it."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "كل عنصر تنسخه، محفوظ ما دمت تريده."
+          }
+        },
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cada element que copies, guardat tant de temps com vulguis."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Každá zkopírovaná položka, uchovaná tak dlouho, jak chcete."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hvert emne, du kopierer, gemt så længe du vil."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jeder Eintrag, den du kopierst, bleibt so lange, wie du willst."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Κάθε στοιχείο που αντιγράφετε, φυλαγμένο όσο θέλετε."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cada elemento que copias, guardado el tiempo que quieras."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jokainen kopioimasi kohde, tallessa niin kauan kuin haluat."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chaque élément que vous copiez, gardé aussi longtemps que vous voulez."
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "כל פריט שאתם מעתיקים, נשמר כל עוד תרצו."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "आपकी कॉपी की हर चीज़, जब तक चाहें तब तक।"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Svaka stavka koju kopirate, sačuvana koliko god želite."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Minden másolt elem, addig megőrizve, ameddig csak szeretné."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Setiap item yang Anda salin, disimpan selama Anda mau."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ogni elemento che copi, conservato finché vuoi."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "コピーしたものは、必要なだけずっと残ります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "복사한 모든 항목을, 원하는 만큼 오래."
+          }
+        },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Setiap item yang anda salin, disimpan selama yang anda mahu."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elk item dat je kopieert, bewaard zolang je wilt."
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hvert objekt du kopierer, tatt vare på så lenge du vil."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Każdy skopiowany wpis, przechowywany tak długo, jak chcesz."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cada item que você copia, guardado pelo tempo que quiser."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cada item que copia, guardado o tempo que quiser."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fiecare element pe care îl copiați, păstrat cât timp doriți."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Каждая скопированная запись — столько, сколько нужно вам."
+          }
+        },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Každá skopírovaná položka, uchovaná tak dlho, ako chcete."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Varje objekt du kopierar, sparat så länge du vill."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ทุกรายการที่คุณคัดลอก เก็บไว้นานเท่าที่คุณต้องการ"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopyaladığınız her öğe, istediğiniz sürece saklanır."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кожен скопійований запис — стільки, скільки потрібно вам."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mọi mục bạn sao chép, giữ lại bao lâu tuỳ bạn."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你复制的每一条，想留多久就留多久。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你拷貝的每一則，想留多久就留多久。"
+          }
+        }
+      }
+    },
+    "Everything in CopyWell, for as long as you subscribe.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Everything in CopyWell, for as long as you subscribe."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "كل ما في CopyWell، ما دام اشتراكك سارياً."
+          }
+        },
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tot el CopyWell, mentre duri la teva subscripció."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Celý CopyWell, dokud trvá vaše předplatné."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hele CopyWell, så længe dit abonnement løber."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alles in CopyWell, solange dein Abo läuft."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Όλο το CopyWell, όσο διαρκεί η συνδρομή σας."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todo CopyWell, mientras dure tu suscripción."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Koko CopyWell, niin kauan kuin tilauksesi on voimassa."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tout CopyWell, aussi longtemps que dure votre abonnement."
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "כל CopyWell, כל עוד המינוי שלכם בתוקף."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "जब तक सदस्यता चले, पूरा CopyWell।"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cijeli CopyWell, dok traje vaša pretplata."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A teljes CopyWell, amíg az előfizetése tart."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seluruh CopyWell, selama langganan Anda berjalan."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tutto CopyWell, finché dura il tuo abbonamento."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWellのすべてを、登録している間ずっと。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "구독하는 동안 CopyWell의 모든 기능을."
+          }
+        },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seluruh CopyWell, selagi langganan anda berjalan."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alles van CopyWell, zolang je abonnement loopt."
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hele CopyWell, så lenge abonnementet ditt varer."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cały CopyWell, dopóki trwa subskrypcja."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todo o CopyWell, enquanto durar sua assinatura."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todo o CopyWell, enquanto durar a sua subscrição."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tot CopyWell, cât timp durează abonamentul."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Весь CopyWell, пока действует подписка."
+          }
+        },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Celý CopyWell, kým trvá vaše predplatné."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hela CopyWell, så länge din prenumeration gäller."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ทุกอย่างใน CopyWell ตราบที่การสมัครสมาชิกยังอยู่"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aboneliğiniz sürdüğü sürece CopyWell’in tamamı."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Увесь CopyWell, поки діє передплата."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toàn bộ CopyWell, chừng nào gói đăng ký còn hiệu lực."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell 的全部功能，只要订阅有效。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell 的全部功能，只要訂閱有效。"
+          }
+        }
+      }
+    },
     "Everything in CopyWell, without the free-tier limits.": {
       "extractionState": "manual",
       "localizations": {
@@ -19853,6 +20898,215 @@
           "stringUnit": {
             "state": "translated",
             "value": "CopyWell 的全部功能，沒有免費版的限制。"
+          }
+        }
+      }
+    },
+    "Everything is unlocked. A subscription keeps it that way afterwards.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Everything is unlocked. A subscription keeps it that way afterwards."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "كل شيء مفتوح الآن. وبعد ذلك يُبقيه الاشتراك كما هو."
+          }
+        },
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tot està obert. Després, una subscripció ho manté així."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vše je otevřené. Potom to udrží předplatné."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alt er åbent. Bagefter holder et abonnement det sådan."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alles ist freigeschaltet. Ein Abo hält es danach so."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Όλα είναι ανοιχτά. Έπειτα το κρατά έτσι μια συνδρομή."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todo está abierto. Una suscripción lo mantiene así después."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaikki on auki. Sen jälkeen tilaus pitää sen niin."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tout est ouvert. Un abonnement le garde ainsi ensuite."
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "הכול פתוח. אחר כך מינוי שומר על זה ככה."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "अभी सब कुछ खुला है। उसके बाद सदस्यता इसे ऐसे ही रखती है।"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sve je otvoreno. Poslije to održava pretplata."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Most minden nyitva áll. Utána ezt az előfizetés tartja fenn."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Semuanya terbuka. Setelah itu langganan yang menjaganya."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "È tutto aperto. Un abbonamento lo mantiene così anche dopo."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "すべて利用できます。期間後はサブスクリプションで同じ状態が続きます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "모든 기능이 열려 있습니다. 이후에는 구독이 그대로 유지해 줍니다."
+          }
+        },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Semuanya terbuka. Selepas itu langganan yang mengekalkannya."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alles staat open. Daarna houdt een abonnement het zo."
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alt er åpent. Etterpå holder et abonnement det slik."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wszystko jest otwarte. Potem utrzymuje to subskrypcja."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Está tudo liberado. Depois, a assinatura mantém assim."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Está tudo aberto. Depois, a subscrição mantém assim."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Totul este deschis. Apoi, abonamentul îl menține așa."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сейчас открыто всё. Дальше это сохраняет подписка."
+          }
+        },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Všetko je otvorené. Potom to udrží predplatné."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allt är öppet. Sedan håller en prenumeration det så."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ตอนนี้เปิดใช้ได้ทั้งหมด หลังจากนั้นการสมัครสมาชิกจะรักษาไว้แบบนี้"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Her şey açık. Sonrasında bunu abonelik sürdürür."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зараз відкрито все. Далі це зберігає передплата."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiện mọi thứ đều mở. Sau đó gói đăng ký giữ nguyên như vậy."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所有功能都已开放。之后由订阅继续保持。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所有功能都已開放。之後由訂閱繼續保持。"
           }
         }
       }
@@ -28844,6 +30098,215 @@
         }
       }
     },
+    "Locked": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Locked"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مُقفل"
+          }
+        },
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bloquejat"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zamčeno"
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Låst"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gesperrt"
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Κλειδωμένο"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bloqueado"
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lukittu"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verrouillé"
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "נעול"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "बंद"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zaključano"
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zárolva"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terkunci"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bloccato"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ロック中"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "잠김"
+          }
+        },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dikunci"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vergrendeld"
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Låst"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zablokowany"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bloqueado"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bloqueado"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Blocat"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заблокировано"
+          }
+        },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zamknuté"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Låst"
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ล็อกอยู่"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilitli"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заблоковано"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đang khoá"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已锁定"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已鎖定"
+          }
+        }
+      }
+    },
     "Make it yours": {
       "extractionState": "manual",
       "localizations": {
@@ -34274,6 +35737,215 @@
           "stringUnit": {
             "state": "translated",
             "value": "除非你自己打開 iCloud 同步，否則不會上傳任何內容。"
+          }
+        }
+      }
+    },
+    "Nothing new is recorded while CopyWell is locked.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing new is recorded while CopyWell is locked."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ما دام CopyWell مُقفلاً، لا يُحفظ أي شيء جديد."
+          }
+        },
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mentre el CopyWell està bloquejat, no es desa res de nou."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dokud je CopyWell zamčený, nic nového se neukládá."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Så længe CopyWell er låst, bliver intet nyt gemt."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solange CopyWell gesperrt ist, wird nichts Neues aufgezeichnet."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Όσο το CopyWell είναι κλειδωμένο, δεν καταγράφεται τίποτα καινούριο."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mientras CopyWell está bloqueado, no se registra nada nuevo."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Niin kauan kuin CopyWell on lukittu, mitään uutta ei tallenneta."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tant que CopyWell est verrouillé, rien de nouveau n’est enregistré."
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "כל עוד CopyWell נעול, שום דבר חדש לא נשמר."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "जब तक CopyWell बंद है, कुछ भी नया नहीं सहेजा जाता।"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dok je CopyWell zaključan, ništa se novo ne sprema."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Amíg a CopyWell zárolva van, semmi új nem kerül mentésre."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selama CopyWell terkunci, tidak ada yang baru disimpan."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finché CopyWell è bloccato, non viene registrato nulla di nuovo."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ロック中は新しく記録されません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "잠겨 있는 동안에는 아무것도 새로 기록되지 않습니다."
+          }
+        },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selagi CopyWell dikunci, tiada apa-apa baharu disimpan."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zolang CopyWell vergrendeld is, wordt er niets nieuws bewaard."
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Så lenge CopyWell er låst, lagres ingenting nytt."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dopóki CopyWell jest zablokowany, nic nowego nie jest zapisywane."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enquanto o CopyWell está bloqueado, nada novo é registrado."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enquanto o CopyWell está bloqueado, nada de novo é registado."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cât timp CopyWell este blocat, nu se înregistrează nimic nou."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пока CopyWell заблокирован, ничего нового не записывается."
+          }
+        },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kým je CopyWell zamknutý, nič nové sa neukladá."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Så länge CopyWell är låst sparas inget nytt."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ระหว่างที่ CopyWell ถูกล็อก จะไม่มีการบันทึกอะไรใหม่"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell kilitliyken yeni hiçbir şey kaydedilmez."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поки CopyWell заблоковано, нічого нового не записується."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khi CopyWell đang khoá, không có gì mới được ghi lại."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "锁定期间不会记录任何新内容。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "鎖定期間不會記錄任何新內容。"
           }
         }
       }
@@ -57895,6 +59567,215 @@
         }
       }
     },
+    "Subscribe to carry on using CopyWell. Nothing has been deleted — your history comes back the moment a subscription is active.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subscribe to carry on using CopyWell. Nothing has been deleted — your history comes back the moment a subscription is active."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اشترك لمواصلة استخدام CopyWell. لم يُحذف أي شيء — يعود سجلك في اللحظة التي يصبح فيها الاشتراك سارياً."
+          }
+        },
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subscriu-t’hi per continuar fent servir el CopyWell. No s’ha esborrat res: l’historial torna en el moment que hi hagi una subscripció activa."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pořiďte si předplatné, abyste mohli CopyWell používat dál. Nic nebylo smazáno – historie se vrátí ve chvíli, kdy bude předplatné aktivní."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tegn et abonnement for at blive ved med at bruge CopyWell. Intet er blevet slettet – din historik er tilbage i samme øjeblik, et abonnement er aktivt."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schließe ein Abo ab, um CopyWell weiter zu nutzen. Es wurde nichts gelöscht – dein Verlauf ist sofort wieder da, sobald ein Abo aktiv ist."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Εγγραφείτε για να συνεχίσετε να χρησιμοποιείτε το CopyWell. Δεν έχει διαγραφεί τίποτα — το ιστορικό σας επιστρέφει τη στιγμή που ενεργοποιείται μια συνδρομή."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suscríbete para seguir usando CopyWell. No se ha borrado nada: tu historial vuelve en cuanto haya una suscripción activa."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tilaa jatkaaksesi CopyWellin käyttöä. Mitään ei ole poistettu – historiasi palaa heti, kun tilaus on voimassa."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abonnez-vous pour continuer à utiliser CopyWell. Rien n’a été supprimé : votre historique revient dès qu’un abonnement est actif."
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "הירשמו כדי להמשיך להשתמש ב-CopyWell. שום דבר לא נמחק — ההיסטוריה שלכם חוזרת ברגע שמינוי הופך לפעיל."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell इस्तेमाल करते रहने के लिए सदस्यता लें। कुछ भी मिटाया नहीं गया — सदस्यता चालू होते ही आपका इतिहास लौट आता है।"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pretplatite se kako biste i dalje koristili CopyWell. Ništa nije izbrisano — povijest se vraća onog trenutka kad pretplata postane aktivna."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fizessen elő, hogy tovább használhassa a CopyWellt. Semmi nem törlődött – az előzményei abban a pillanatban visszatérnek, amint az előfizetés él."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Berlanggananlah untuk terus memakai CopyWell. Tidak ada yang dihapus — riwayat Anda kembali begitu langganan aktif."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abbonati per continuare a usare CopyWell. Non è stato cancellato nulla: la cronologia torna appena un abbonamento è attivo."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWellを使い続けるには登録してください。何も削除していません。登録すれば履歴はすぐに戻ります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell을 계속 쓰려면 구독하세요. 삭제된 것은 없습니다. 구독이 활성화되는 순간 기록이 돌아옵니다."
+          }
+        },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Langganlah untuk terus menggunakan CopyWell. Tiada apa-apa dipadam — sejarah anda kembali sebaik sahaja langganan aktif."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neem een abonnement om CopyWell te blijven gebruiken. Er is niets verwijderd — je geschiedenis is er weer zodra een abonnement actief is."
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abonner for å fortsette å bruke CopyWell. Ingenting er slettet – historikken er tilbake i samme øyeblikk som et abonnement er aktivt."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wykup subskrypcję, aby dalej korzystać z CopyWell. Nic nie zostało usunięte — historia wróci w chwili, gdy subskrypcja stanie się aktywna."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Assine para continuar usando o CopyWell. Nada foi apagado — seu histórico volta assim que houver uma assinatura ativa."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subscreva para continuar a usar o CopyWell. Nada foi apagado — o seu histórico volta assim que houver uma subscrição ativa."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abonați-vă pentru a folosi CopyWell în continuare. Nu s-a șters nimic — istoricul revine în clipa în care abonamentul devine activ."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оформите подписку, чтобы продолжить пользоваться CopyWell. Ничего не удалено — история вернётся в тот же момент, как подписка станет активной."
+          }
+        },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Predplaťte si, aby ste mohli CopyWell používať ďalej. Nič nebolo odstránené – história sa vráti vo chvíli, keď bude predplatné aktívne."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prenumerera för att fortsätta använda CopyWell. Ingenting har tagits bort – din historik är tillbaka i samma stund som en prenumeration gäller."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "สมัครสมาชิกเพื่อใช้ CopyWell ต่อ ไม่มีอะไรถูกลบ — ประวัติของคุณจะกลับมาทันทีที่การสมัครสมาชิกมีผล"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CopyWell’i kullanmaya devam etmek için abone olun. Hiçbir şey silinmedi — abonelik etkinleştiği anda geçmişiniz geri gelir."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оформіть передплату, щоб продовжити користуватися CopyWell. Нічого не вилучено — історія повернеться тієї ж миті, щойно передплата стане активною."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hãy đăng ký để tiếp tục dùng CopyWell. Không có gì bị xoá — lịch sử của bạn trở lại ngay khi gói đăng ký có hiệu lực."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "订阅后可继续使用 CopyWell。没有删除任何内容——订阅生效的那一刻，历史就回来了。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "訂閱後可繼續使用 CopyWell。沒有刪除任何內容——訂閱生效的那一刻，記錄就回來了。"
+          }
+        }
+      }
+    },
     "Subscription": {
       "extractionState": "manual",
       "localizations": {
@@ -67718,6 +69599,424 @@
         }
       }
     },
+    "Your 30-day trial has ended. Subscribe to carry on using CopyWell.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your 30-day trial has ended. Subscribe to carry on using CopyWell."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "انتهت فترتك التجريبية البالغة ٣٠ يوماً. اشترك لمواصلة الاستخدام."
+          }
+        },
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La teva prova de 30 dies s’ha acabat. Subscriu-t’hi per continuar."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vaše 30denní zkušební doba skončila. Pro další používání si pořiďte předplatné."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Din prøveperiode på 30 dage er slut. Tegn et abonnement for at fortsætte."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deine 30-tägige Testphase ist vorbei. Schließe ein Abo ab, um CopyWell weiter zu nutzen."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Η δοκιμή των 30 ημερών τελείωσε. Εγγραφείτε για να συνεχίσετε."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu prueba de 30 días ha terminado. Suscríbete para seguir usando CopyWell."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 päivän kokeilujaksosi on päättynyt. Tilaa jatkaaksesi CopyWellin käyttöä."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Votre essai de 30 jours est terminé. Abonnez-vous pour continuer à utiliser CopyWell."
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "תקופת הניסיון בת 30 הימים הסתיימה. הירשמו כדי להמשיך."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "आपकी 30 दिन की आज़माइश ख़त्म हो गई। आगे इस्तेमाल करने के लिए सदस्यता लें।"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vaše 30-dnevno probno razdoblje je završilo. Pretplatite se da biste nastavili."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A 30 napos próbaideje véget ért. Fizessen elő a további használathoz."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Masa coba 30 hari Anda telah berakhir. Berlanggananlah untuk terus memakainya."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La tua prova di 30 giorni è finita. Abbonati per continuare a usare CopyWell."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30日間の無料期間が終了しました。使い続けるには登録してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30일 체험이 끝났습니다. 계속 쓰려면 구독하세요."
+          }
+        },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Masa percubaan 30 hari anda telah tamat. Langganlah untuk terus menggunakannya."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je proefperiode van 30 dagen is voorbij. Neem een abonnement om CopyWell te blijven gebruiken."
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prøveperioden din på 30 dager er over. Abonner for å fortsette å bruke CopyWell."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Twój 30-dniowy okres próbny dobiegł końca. Wykup subskrypcję, aby korzystać dalej."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seu teste de 30 dias terminou. Assine para continuar usando o CopyWell."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O seu período experimental de 30 dias terminou. Subscreva para continuar a usar o CopyWell."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Perioada dvs. de probă de 30 de zile s-a încheiat. Abonați-vă pentru a continua."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ваш 30-дневный пробный период закончился. Оформите подписку, чтобы продолжить."
+          }
+        },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vaša 30-dňová skúšobná doba sa skončila. Na ďalšie používanie si predplaťte."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Din provperiod på 30 dagar är slut. Prenumerera för att fortsätta använda CopyWell."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "การทดลองใช้ 30 วันของคุณสิ้นสุดแล้ว สมัครสมาชิกเพื่อใช้งานต่อ"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 günlük deneme süreniz bitti. Kullanmaya devam etmek için abone olun."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ваш 30-денний пробний період завершився. Оформіть передплату, щоб продовжити."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thời gian dùng thử 30 ngày của bạn đã kết thúc. Hãy đăng ký để tiếp tục."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的 30 天试用已结束。订阅后可继续使用 CopyWell。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的 30 天試用已結束。訂閱後可繼續使用 CopyWell。"
+          }
+        }
+      }
+    },
+    "Your free trial has ended.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your free trial has ended."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "انتهت فترتك التجريبية المجانية."
+          }
+        },
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La teva prova gratuïta s’ha acabat."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vaše bezplatná zkušební doba skončila."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Din gratis prøveperiode er slut."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deine kostenlose Testphase ist vorbei."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Η δωρεάν δοκιμή σας τελείωσε."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu prueba gratuita ha terminado."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ilmainen kokeilujaksosi on päättynyt."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Votre essai gratuit est terminé."
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "תקופת הניסיון החינמית שלכם הסתיימה."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "आपकी मुफ़्त आज़माइश ख़त्म हो गई।"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vaše besplatno probno razdoblje je završilo."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Az ingyenes próbaideje véget ért."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Masa coba gratis Anda telah berakhir."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La tua prova gratuita è finita."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無料期間が終了しました。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "무료 체험이 끝났습니다."
+          }
+        },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Masa percubaan percuma anda telah tamat."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je gratis proefperiode is voorbij."
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Den gratis prøveperioden din er over."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Twój bezpłatny okres próbny dobiegł końca."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seu teste gratuito terminou."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O seu período experimental gratuito terminou."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Perioada dvs. de probă gratuită s-a încheiat."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ваш пробный период закончился."
+          }
+        },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vaša bezplatná skúšobná doba sa skončila."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Din kostnadsfria provperiod är slut."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "การทดลองใช้ฟรีของคุณสิ้นสุดแล้ว"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ücretsiz deneme süreniz bitti."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ваш пробний період завершився."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thời gian dùng thử miễn phí của bạn đã kết thúc."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的免费试用已结束。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的免費試用已結束。"
+          }
+        }
+      }
+    },
     "Your iCloud storage is full.": {
       "extractionState": "manual",
       "localizations": {
@@ -68132,6 +70431,215 @@
           "stringUnit": {
             "state": "translated",
             "value": "你的購買正在等待核准。"
+          }
+        }
+      }
+    },
+    "Your subscription has ended.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your subscription has ended."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "انتهى اشتراكك."
+          }
+        },
+        "ca": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La teva subscripció s’ha acabat."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vaše předplatné skončilo."
+          }
+        },
+        "da": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dit abonnement er udløbet."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dein Abo ist abgelaufen."
+          }
+        },
+        "el": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Η συνδρομή σας έληξε."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu suscripción ha terminado."
+          }
+        },
+        "fi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tilauksesi on päättynyt."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Votre abonnement a pris fin."
+          }
+        },
+        "he": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "המינוי שלכם הסתיים."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "आपकी सदस्यता ख़त्म हो गई।"
+          }
+        },
+        "hr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vaša pretplata je završila."
+          }
+        },
+        "hu": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Az előfizetése véget ért."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Langganan Anda telah berakhir."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il tuo abbonamento è terminato."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "サブスクリプションが終了しました。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "구독이 종료되었습니다."
+          }
+        },
+        "ms": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Langganan anda telah tamat."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je abonnement is afgelopen."
+          }
+        },
+        "no": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abonnementet ditt er avsluttet."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Twoja subskrypcja dobiegła końca."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sua assinatura terminou."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A sua subscrição terminou."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abonamentul dvs. s-a încheiat."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ваша подписка закончилась."
+          }
+        },
+        "sk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vaše predplatné sa skončilo."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Din prenumeration har upphört."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "การสมัครสมาชิกของคุณสิ้นสุดแล้ว"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aboneliğiniz sona erdi."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ваша передплата завершилася."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gói đăng ký của bạn đã kết thúc."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的订阅已结束。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的訂閱已結束。"
           }
         }
       }

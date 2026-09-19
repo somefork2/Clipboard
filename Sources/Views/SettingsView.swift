@@ -33,7 +33,7 @@ struct GeneralSettings: View {
     /// keeps a fixed window of recent history instead.
     private var effectiveRetentionText: String {
         guard subscriptions.checkAccess(for: .autoCleanup) else {
-            return String(localized: "On the free plan CopyWell keeps the last 48 hours. Favourites and pinboards are never removed.")
+            return String(localized: "CopyWell is locked without a subscription: it stops recording, and the window asks you to subscribe. Nothing is deleted.")
         }
         return settings.retention.explanation
     }
@@ -122,9 +122,9 @@ struct GeneralSettings: View {
                     .foregroundStyle(.secondary)
 
                 if !subscriptions.hasFullAccess {
-                    LabeledContent("Free plan") {
+                    LabeledContent("Status") {
                         HStack {
-                            Text("Last 48 hours")
+                            Text("Locked")
                                 .foregroundStyle(.secondary)
                             Button("See CopyWell Pro") { subscriptions.showingPaywall = true }
                                 .buttonStyle(.link)

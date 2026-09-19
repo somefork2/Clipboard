@@ -26,7 +26,9 @@ enum ScreenshotRenderer {
 
         let store = ClipboardStore.shared
         let subscriptions = SubscriptionManager.shared
-        subscriptions.simulatedPro = true
+        let locked = CommandLine.arguments.contains("--locked")
+        subscriptions.simulatedPro = !locked
+        subscriptions.forcedLock = locked
         let settings = AppSettings.shared
         settings.hasCompletedOnboarding = true
         let coordinator = AppCoordinator.shared
@@ -63,6 +65,7 @@ enum ScreenshotRenderer {
              dressed(StatisticsView().background(Theme.background))),
             ("wizard", CGSize(width: 660, height: 600), false, dressed(SetupWizard(onFinish: {}))),
             ("paywall", CGSize(width: 460, height: 660), false, dressed(PaywallView())),
+            ("wall", CGSize(width: 900, height: 620), false, dressed(SubscriptionWallView())),
         ]
 
         for (theme, name, look) in [(AppTheme.light, "light", NSAppearance.Name.aqua),

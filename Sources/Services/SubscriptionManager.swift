@@ -3,18 +3,11 @@ import Foundation
 import Observation
 import StoreKit
 
+/// There is no reduced tier any more: either the trial or a subscription is
+/// running and everything works, or CopyWell is locked and does nothing but
+/// offer a subscription. Nothing is deleted while it is locked.
 enum SubscriptionTier: String, CaseIterable {
     case free, pro
-
-    /// How far back the free tier keeps history.
-    ///
-    /// Replaces the old cap of 100 clips, which ran out in a couple of days and
-    /// stopped the app being useful exactly when the habit was still forming. An
-    /// age limit degrades instead of blocking: recent clips always work, and the
-    /// day someone needs something older is the day a subscription makes sense.
-    var historyWindow: TimeInterval? { self == .free ? 48 * 60 * 60 : nil }
-
-    var maxPinboards: Int { self == .free ? 1 : -1 }
 }
 
 enum PremiumFeature: String, CaseIterable, Identifiable {
@@ -61,7 +54,7 @@ enum PremiumFeature: String, CaseIterable, Identifiable {
     /// Plain, checkable claims — every one of these is implemented.
     var summary: String {
         switch self {
-        case .unlimitedHistory: return String(localized: "Keep everything, instead of only the last 48 hours.")
+        case .unlimitedHistory: return String(localized: "Every clip you copy, kept for as long as you want it.")
         case .unlimitedPinboards: return String(localized: "Organise clips into as many boards as you need.")
         case .pasteStack: return String(localized: "Queue several clips and paste them one after another.")
         case .smartCategorize: return String(localized: "On-device analysis tags clips by type, language and entities.")
@@ -120,9 +113,20 @@ final class SubscriptionManager {
     /// True while the 30-day trial is running.
     var isInFreeTrial: Bool { TrialManager.shared.isActive }
 
+    #if DEBUG
+    /// Forces the locked state for screenshots and manual checks, without
+    /// touching the real trial date in the keychain. Release has no such flag.
+    var forcedLock = false
+    #endif
+
     /// Everything is unlocked while the trial runs, without anyone having to
     /// subscribe first.
-    var hasFullAccess: Bool { isPro || isInFreeTrial }
+    var hasFullAccess: Bool {
+        #if DEBUG
+        if forcedLock { return false }
+        #endif
+        return isPro || isInFreeTrial
+    }
 
     /// True only when the active subscription is still inside its introductory
     /// free-trial period. Never assumed — StoreKit tells us.
@@ -302,6 +306,7 @@ final class SubscriptionManager {
             tier = .pro
             productID = transaction.productID
             expiry = transaction.expirationDate
+            UserDefaults.standard.set(true, forKey: "has_ever_subscribed")
             if #available(macOS 15.0, *) {
                 trial = transaction.offer?.type == .introductory
             }
@@ -341,11 +346,17 @@ final class SubscriptionManager {
         return false
     }
 
-    /// `nil` means unlimited.
-    var historyWindow: TimeInterval? {
-        hasFullAccess ? nil : SubscriptionTier.free.historyWindow
+    /// True when neither the trial nor a subscription is running. The app shows
+    /// the subscription wall and stops recording; the database is left alone.
+    var isLocked: Bool { !hasFullAccess }
+
+    /// Distinguishes "your trial ran out" from "your subscription lapsed", which
+    /// are different messages to the same person at different times.
+    var hasEverSubscribed: Bool {
+        UserDefaults.standard.bool(forKey: "has_ever_subscribed")
     }
 
-    var pinboardLimit: Int { hasFullAccess ? -1 : SubscriptionTier.free.maxPinboards }
+    /// Pinboards are unlimited whenever the app is usable at all.
+    var pinboardLimit: Int { -1 }
 }
 

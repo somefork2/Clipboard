@@ -110,7 +110,7 @@ struct PurchaseTests {
         for feature in PremiumFeature.allCases {
             #expect(manager.checkAccess(for: feature), "\(feature.title) stayed locked for a subscriber")
         }
-        #expect(manager.historyWindow == nil)
+        #expect(manager.isLocked == false)
         #expect(manager.pinboardLimit == -1)
     }
 
@@ -135,6 +135,13 @@ struct PurchaseTests {
 
         #expect(await waitForTier(.free, on: manager) == .free)
         #expect(manager.activeProductID == nil)
+        // Locked, not reduced: without the trial there is no lesser tier left.
+        if !manager.isInFreeTrial {
+            #expect(manager.isLocked)
+            for feature in PremiumFeature.allCases {
+                #expect(manager.checkAccess(for: feature) == false)
+            }
+        }
     }
 
     /// A refunded subscription must not keep working: Apple checks this, and so

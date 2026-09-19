@@ -85,6 +85,9 @@ final class ClipboardMonitor {
     // MARK: - Capture
 
     private func tick() {
+        // A locked app records nothing. The history already on disk is left
+        // untouched, so subscribing brings it all back.
+        guard SubscriptionManager.shared.hasFullAccess else { return }
         let pasteboard = NSPasteboard.general
         guard pasteboard.changeCount != lastChangeCount else { return }
         lastChangeCount = pasteboard.changeCount

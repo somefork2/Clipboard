@@ -283,7 +283,7 @@ final class ClipboardStore {
 
     // MARK: - Retention
 
-    /// Applies the retention policy, and the free tier's age window on top of it.
+    /// Applies the retention policy the user chose.
     ///
     /// Favourites and anything filed on a pinboard are never removed: those are
     /// the clips the user deliberately kept.
@@ -308,14 +308,6 @@ final class ClipboardStore {
             case .forever:
                 break
             }
-        }
-
-        // The free tier keeps a window of recent history rather than a fixed
-        // number of clips: nothing is ever refused, old clips simply age out.
-        if let window = subscriptions.historyWindow {
-            let cutoff = Date().addingTimeInterval(-window)
-            let doomedIDs = Set(doomed.map(\.persistentModelID))
-            doomed += keepable.filter { $0.createdAt < cutoff && !doomedIDs.contains($0.persistentModelID) }
         }
 
         guard !doomed.isEmpty else { return }

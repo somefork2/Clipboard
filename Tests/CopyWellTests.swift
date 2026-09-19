@@ -171,14 +171,18 @@ struct ClipShortcutTests {
 @Suite("Subscription tiers")
 struct SubscriptionTierTests {
 
-    /// The free tier keeps a window of recent history rather than a fixed
-    /// number of clips, so nothing is ever refused — old clips age out.
-    @Test("Free tier keeps a 48-hour window, Pro keeps everything")
-    func limits() {
-        #expect(SubscriptionTier.free.historyWindow == TimeInterval(48 * 60 * 60))
-        #expect(SubscriptionTier.pro.historyWindow == nil)
-        #expect(SubscriptionTier.free.maxPinboards == 1)
-        #expect(SubscriptionTier.pro.maxPinboards == -1)
+    /// Access is all or nothing: the trial and a subscription unlock everything,
+    /// and without either the app is locked rather than reduced.
+    @Test("Access is all or nothing")
+    @MainActor
+    func accessIsAllOrNothing() {
+        let manager = SubscriptionManager.shared
+        let unlocked = manager.hasFullAccess
+        for feature in PremiumFeature.allCases {
+            #expect(manager.checkAccess(for: feature) == unlocked)
+        }
+        #expect(manager.isLocked == !unlocked)
+        #expect(manager.pinboardLimit == -1)
     }
 
     /// Every advertised feature must have a description; blank marketing copy on

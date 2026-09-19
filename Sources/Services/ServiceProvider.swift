@@ -58,6 +58,10 @@ final class ServiceProvider: NSObject {
         userData: String,
         error: AutoreleasingUnsafeMutablePointer<NSString>
     ) {
+        guard SubscriptionManager.shared.hasFullAccess else {
+            error.pointee = String(localized: "CopyWell is locked. Subscribe to carry on using it.") as NSString
+            return
+        }
         guard let latest = ClipboardStore.shared.items.first,
               let text = latest.isSensitive ? nil : latest.body,
               !text.isEmpty else {
@@ -116,6 +120,8 @@ final class ServiceProvider: NSObject {
         favorite: Bool,
         then completion: (@MainActor (ClipboardItem) -> Void)? = nil
     ) {
+        // A locked app takes nothing in, the same as automatic capture.
+        if SubscriptionManager.shared.isLocked { return }
         // Respect the same privacy rules as automatic capture.
         if AppSettings.shared.skipConcealedPasteboard, PasteboardPrivacy.isConcealed(pboard) { return }
 
