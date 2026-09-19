@@ -22,17 +22,45 @@ final class ClipboardStore {
     private(set) var loadError: String?
 
     private init() {
+        var fallbackNotice: String?
         let schema = Schema([ClipboardItem.self, Pinboard.self])
-        let configuration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        // `.none` is deliberate. The iCloud entitlement makes SwiftData's default
+        // `.automatic` switch CloudKit mirroring on, which then refuses to open
+        // the store at all because mirroring requires every attribute to be
+        // optional or defaulted. Sync is ours: `CloudKitSyncManager` owns its own
+        // record zone, so SwiftData must stay a purely local store.
+        let configuration = ModelConfiguration(
+            schema: schema,
+            isStoredInMemoryOnly: false,
+            cloudKitDatabase: .none
+        )
+        let memory = ModelConfiguration(
+            schema: schema,
+            isStoredInMemoryOnly: true,
+            cloudKitDatabase: .none
+        )
         do {
             container = try ModelContainer(for: schema, configurations: [configuration])
         } catch {
             // A corrupt or incompatible store must not take the app down; fall back
             // to memory so the user can still use and export the session.
-            let memory = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
-            container = try! ModelContainer(for: schema, configurations: [memory])
+            do {
+                container = try ModelContainer(for: schema, configurations: [memory])
+                fallbackNotice = "The saved history could not be opened. This session is being kept in memory only."
+            } catch {
+                // Nothing left to fall back to, but crashing on launch is never the
+                // answer: an empty in-memory schema still gives a usable window.
+                container = try! ModelContainer(
+                    for: Schema([]),
+                    configurations: [ModelConfiguration(isStoredInMemoryOnly: true)]
+                )
+                fallbackNotice = "Clipboard history is unavailable on this Mac."
+            }
         }
         reload()
+        // `reload()` clears `loadError` when the fetch works, and against an empty
+        // in-memory store it always does — so the notice goes on afterwards.
+        if let fallbackNotice { loadError = fallbackNotice }
     }
 
     // MARK: - Reading
