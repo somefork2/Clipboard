@@ -27,11 +27,11 @@ final class FinderMenu: FIFinderSync {
         root.image = NSImage(systemSymbolName: "clipboard", accessibilityDescription: nil)
 
         let submenu = NSMenu(title: "CopyWell")
-        submenu.addItem(item("Save to CopyWell", #selector(saveToCopyWell(_:))))
-        submenu.addItem(item("Copy Path", #selector(copyPath(_:))))
-        submenu.addItem(item("Copy Text Contents", #selector(copyContents(_:))))
+        submenu.addItem(item(String(localized: "Save to CopyWell"), #selector(saveToCopyWell(_:))))
+        submenu.addItem(item(String(localized: "Copy Path"), #selector(copyPath(_:))))
+        submenu.addItem(item(String(localized: "Copy Text Contents"), #selector(copyContents(_:))))
         submenu.addItem(.separator())
-        submenu.addItem(item("Open CopyWell", #selector(openApp(_:))))
+        submenu.addItem(item(String(localized: "Open CopyWell"), #selector(openApp(_:))))
 
         root.submenu = submenu
         menu.addItem(root)

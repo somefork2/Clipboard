@@ -104,6 +104,13 @@ targets:
         excludes:
           - "Info.plist"
           - "CopyWellFinder.entitlements"
+          - "Localizable.xcstrings"
+      # Its own small catalogue. The extension runs inside Finder, not inside
+      # CopyWell, so it looks strings up in its own bundle — without this its
+      # three alerts were English in all 34 languages. Kept separate rather
+      # than shipping the app's whole catalogue twice.
+      - path: FinderExtension/Localizable.xcstrings
+        buildPhase: resources
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.copywell.app.finder
