@@ -6,8 +6,8 @@ import Security
 ///
 /// Not a StoreKit introductory offer, which would require committing to a
 /// subscription before trying the app. This is a plain local period: no payment,
-/// no account, nothing to cancel. When it ends the app does not stop working —
-/// it falls back to the free tier.
+/// no account, nothing to cancel. When it ends the app locks and asks for a
+/// subscription; nothing the user saved is deleted.
 ///
 /// The start date lives in the keychain rather than in preferences, because a
 /// keychain item survives deleting the app. In preferences a reinstall would

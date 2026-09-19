@@ -283,7 +283,7 @@ final class SubscriptionManager {
     /// `justPurchased` is not a convenience. `Transaction.currentEntitlements`
     /// does not reliably include a transaction that was finished a moment ago,
     /// so refreshing immediately after a successful purchase could leave the app
-    /// on the free tier until the next launch — money taken, nothing unlocked.
+    /// locked until the next launch — money taken, nothing unlocked.
     /// The verified transaction handed to us by `purchase()` is authoritative,
     /// so it is folded in alongside whatever the store reports.
     func refreshEntitlement(justPurchased: StoreKit.Transaction? = nil) async {

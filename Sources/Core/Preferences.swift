@@ -95,8 +95,8 @@ enum RetentionPolicy: Codable, Hashable, Identifiable {
         }
     }
 
-    /// The free tier keeps a fixed window of recent history, so choosing any
-    /// policy at all is a paid choice.
+    /// A locked app is not cleaning anything up, so choosing a retention
+    /// policy at all only means something while the app is unlocked.
     var requiresPro: Bool { true }
 
     // MARK: Persistence

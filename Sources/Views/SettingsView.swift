@@ -29,8 +29,8 @@ struct GeneralSettings: View {
     @Environment(AppSettings.self) private var settings
     @Environment(SubscriptionManager.self) private var subscriptions
 
-    /// What is actually in force: the free tier ignores the chosen policy and
-    /// keeps a fixed window of recent history instead.
+    /// What is actually in force: a locked app cleans nothing up, so the chosen
+    /// policy is replaced by an explanation of the lock.
     private var effectiveRetentionText: String {
         guard subscriptions.checkAccess(for: .autoCleanup) else {
             return String(localized: "CopyWell is locked without a subscription: it stops recording, and the window asks you to subscribe. Nothing is deleted.")
