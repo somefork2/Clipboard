@@ -140,6 +140,13 @@ struct ShortcutHint: View {
             Text(label)
                 .font(.caption)
                 .foregroundStyle(.secondary)
+                // One line, and shrink rather than hyphenate. The hints sit in
+                // a fixed-width row along the foot of the palette, and in the
+                // longer languages SwiftUI was breaking words across lines —
+                // "Без фор-матирова-ния" — which is unreadable at caption size.
+                .lineLimit(1)
+                .minimumScaleFactor(0.75)
+                .fixedSize(horizontal: true, vertical: false)
         }
     }
 }

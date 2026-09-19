@@ -13,6 +13,8 @@ final class QuickPastePanel: NSObject, NSWindowDelegate {
 
     private var panel: NSPanel?
     private var localMonitor: Any?
+    /// True when the palette was opened while CopyWell itself was in front.
+    private var openedFromOurApp = false
 
     var isVisible: Bool { panel?.isVisible ?? false }
 
@@ -24,6 +26,8 @@ final class QuickPastePanel: NSObject, NSWindowDelegate {
         // Locked means locked: the palette is the whole product, so it does not
         // appear at all until a subscription is active.
         guard SubscriptionManager.shared.hasFullAccess else { return }
+        openedFromOurApp = NSWorkspace.shared.frontmostApplication?.processIdentifier
+            == NSRunningApplication.current.processIdentifier
         PasteService.rememberFrontmostApp()
 
         let panel = self.panel ?? makePanel()
@@ -43,7 +47,11 @@ final class QuickPastePanel: NSObject, NSWindowDelegate {
     func hide() {
         removeEscapeMonitor()
         panel?.orderOut(nil)
-        // Hand focus back to where the user came from.
+        // Hand focus back to where the user came from — but only if that was
+        // somewhere else. Opened from CopyWell's own window, activating the
+        // previous app pushes that window behind everything, and with no Dock
+        // tile there is nothing left to click to get it back.
+        guard !openedFromOurApp else { return }
         PasteService.previousApp?.activate()
     }
 
