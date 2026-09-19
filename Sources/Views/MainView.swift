@@ -139,27 +139,23 @@ struct MainView: View {
 
     @ToolbarContentBuilder
     private var toolbar: some ToolbarContent {
-        // On its own, at the leading edge, where every Mac app puts this.
+        // Every item in one trailing group, on the right.
         //
-        // It used to sit in the group with the rest. A toolbar that runs out of
-        // room sweeps its trailing items into the » overflow menu, and the one
-        // button whose whole job is to make room was the first to disappear
-        // into it — exactly when it was needed. `.navigation` keeps it beside
-        // the window controls, out of the overflow's reach.
-        ToolbarItem(placement: .navigation) {
+        // The sidebar toggle was briefly moved to `.navigation` so the toolbar
+        // could never sweep it into the » overflow. That placement puts it
+        // beside the window controls — which on this window means on top of the
+        // sidebar itself, dragging the neighbouring icons and the window title
+        // over with it. Measured afterwards: at 860pt, the narrowest this
+        // window goes, nothing overflows anyway, so there was nothing to buy
+        // with that trade.
+        ToolbarItemGroup {
             Button {
                 withAnimation(.easeInOut(duration: 0.18)) { showSidebar.toggle() }
             } label: {
                 Label(L("Sidebar"), systemImage: "sidebar.left")
             }
             .help(showSidebar ? L("Hide the sidebar") : L("Show the sidebar"))
-        }
 
-        // Both icon buttons keep the system's toolbar styling so they match each
-        // other and the Upgrade button. The stray patch behind them came from
-        // forcing the appearance app-wide, which is fixed in ThemeManager, not
-        // from the button style.
-        ToolbarItemGroup {
             Button {
                 QuickPastePanel.shared.toggle()
             } label: {
