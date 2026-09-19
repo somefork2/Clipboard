@@ -135,6 +135,7 @@ struct ClipboardListView: View {
                     }
                 } header: {
                     filterBar
+                        .listRowInsets(EdgeInsets())
                 }
             }
             .listStyle(.inset)
@@ -184,7 +185,15 @@ struct FilterChip: View {
                 isSelected ? AnyShapeStyle(Theme.accent.opacity(0.18)) : AnyShapeStyle(Theme.secondaryBackground),
                 in: Capsule()
             )
-            .overlay(Capsule().stroke(isSelected ? Theme.accent.opacity(0.5) : Theme.separator, lineWidth: 0.5))
+            // strokeBorder at a full point, not stroke at half of one.
+            //
+            // `stroke` centres the line on the outline, so half of a hairline
+            // falls outside the view and is clipped; what was left rendered only
+            // where the capsule's edge runs vertical, as two short bars either
+            // side of every chip with nothing along the top. It read exactly
+            // like the chips had their tops cut off. `strokeBorder` keeps the
+            // whole line inside, and a full point actually covers the curve.
+            .overlay(Capsule().strokeBorder(isSelected ? Theme.accent.opacity(0.5) : Theme.separator, lineWidth: 1))
         }
         .buttonStyle(.plain)
     }

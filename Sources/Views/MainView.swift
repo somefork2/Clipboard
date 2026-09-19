@@ -165,7 +165,7 @@ struct MainView: View {
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
                 .background(.regularMaterial, in: Capsule())
-                .overlay(Capsule().stroke(Theme.separator, lineWidth: 0.5))
+                .overlay(Capsule().strokeBorder(Theme.separator, lineWidth: 1))
                 .padding(.bottom, 12)
                 .transition(.move(edge: .bottom).combined(with: .opacity))
         }
@@ -179,7 +179,7 @@ struct MainView: View {
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
                 .background(.regularMaterial, in: Capsule())
-                .overlay(Capsule().stroke(Theme.separator, lineWidth: 0.5))
+                .overlay(Capsule().strokeBorder(Theme.separator, lineWidth: 1))
                 .padding(.top, 8)
                 .transition(.move(edge: .top).combined(with: .opacity))
         }
