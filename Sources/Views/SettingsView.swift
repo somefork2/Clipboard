@@ -7,17 +7,17 @@ struct SettingsView: View {
     var body: some View {
         TabView {
             GeneralSettings()
-                .tabItem { Label("General", systemImage: "gearshape") }
+                .tabItem { Label(L("General"), systemImage: "gearshape") }
             PrivacySettings()
-                .tabItem { Label("Privacy", systemImage: "hand.raised") }
+                .tabItem { Label(L("Privacy"), systemImage: "hand.raised") }
             ShortcutSettings()
-                .tabItem { Label("Shortcuts", systemImage: "command") }
+                .tabItem { Label(L("Shortcuts"), systemImage: "command") }
             AppearanceSettings()
-                .tabItem { Label("Appearance", systemImage: "paintbrush") }
+                .tabItem { Label(L("Appearance"), systemImage: "paintbrush") }
             SyncSettings()
-                .tabItem { Label("Sync & Export", systemImage: "icloud") }
+                .tabItem { Label(L("Sync & Export"), systemImage: "icloud") }
             SubscriptionSettings()
-                .tabItem { Label("Subscription", systemImage: "creditcard") }
+                .tabItem { Label(L("Subscription"), systemImage: "creditcard") }
         }
         // Six tabs, and the labels are long in several of the languages we
         // ship: at 560 the last two fell into the ">>" overflow menu and could
@@ -37,7 +37,7 @@ struct GeneralSettings: View {
     /// policy is replaced by an explanation of the lock.
     private var effectiveRetentionText: String {
         guard subscriptions.checkAccess(for: .autoCleanup) else {
-            return String(localized: "CopyWell is locked without a subscription: it stops recording, and the window asks you to subscribe. Nothing is deleted.")
+            return L("CopyWell is locked without a subscription: it stops recording, and the window asks you to subscribe. Nothing is deleted.")
         }
         return settings.retention.explanation
     }
@@ -47,18 +47,18 @@ struct GeneralSettings: View {
 
         Form {
             Section {
-                Toggle("Launch CopyWell at login", isOn: $settings.launchAtLogin)
-                Toggle("Show icon in the Dock", isOn: $settings.showInDock)
-                Toggle("Show icon in the menu bar", isOn: $settings.showInMenuBar)
+                Toggle(L("Launch CopyWell at login"), isOn: $settings.launchAtLogin)
+                Toggle(L("Show icon in the Dock"), isOn: $settings.showInDock)
+                Toggle(L("Show icon in the menu bar"), isOn: $settings.showInMenuBar)
             } footer: {
-                Text("With the Dock icon hidden, the menu bar item stays available so CopyWell is always reachable.")
+                Text(L("With the Dock icon hidden, the menu bar item stays available so CopyWell is always reachable."))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
 
             Section {
-                Toggle("Play sounds", isOn: $settings.soundsEnabled)
-                Picker("When a clip is captured", selection: $settings.captureSound) {
+                Toggle(L("Play sounds"), isOn: $settings.soundsEnabled)
+                Picker(L("When a clip is captured"), selection: $settings.captureSound) {
                     ForEach(FeedbackSound.allCases) { sound in
                         Text(sound.displayName).tag(sound)
                     }
@@ -66,7 +66,7 @@ struct GeneralSettings: View {
                 .disabled(!settings.soundsEnabled)
                 .onChange(of: settings.captureSound) { _, new in new.play() }
 
-                Picker("When a clip is used", selection: $settings.pasteSound) {
+                Picker(L("When a clip is used"), selection: $settings.pasteSound) {
                     ForEach(FeedbackSound.allCases) { sound in
                         Text(sound.displayName).tag(sound)
                     }
@@ -74,9 +74,9 @@ struct GeneralSettings: View {
                 .disabled(!settings.soundsEnabled)
                 .onChange(of: settings.pasteSound) { _, new in new.play() }
             } header: {
-                Text("Sound")
+                Text(L("Sound"))
             } footer: {
-                Text("Off after installation. Changing a sound plays it.")
+                Text(L("Off after installation. Changing a sound plays it."))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -87,49 +87,49 @@ struct GeneralSettings: View {
             // and Finder Extensions in System Settings, not "right-click menu",
             // which is what they are looking for.
             Section {
-                Button("Finder Extensions…") {
+                Button(L("Finder Extensions…")) {
                     FIFinderSyncController.showExtensionManagementInterface()
                 }
-                Button("Keyboard Shortcuts ▸ Services…") {
+                Button(L("Keyboard Shortcuts ▸ Services…")) {
                     NSUpdateDynamicServices()
                     if let url = URL(string: "x-apple.systempreferences:com.apple.preference.keyboard?Shortcuts") {
                         NSWorkspace.shared.open(url)
                     }
                 }
-                Button("Show the setup guide again") {
+                Button(L("Show the setup guide again")) {
                     AppCoordinator.shared.showSetupGuide()
                 }
             } header: {
-                Text("Right-click menu")
+                Text(L("Right-click menu"))
             } footer: {
-                Text("CopyWell's right-click entries are macOS Services, which macOS keeps switched off until someone chooses otherwise. In that list the groups start collapsed; the CopyWell entries live under Text, Images, and Files and Folders. The Finder menu is a separate switch, under Finder Extensions.")
+                Text(L("CopyWell's right-click entries are macOS Services, which macOS keeps switched off until someone chooses otherwise. In that list the groups start collapsed; the CopyWell entries live under Text, Images, and Files and Folders. The Finder menu is a separate switch, under Finder Extensions."))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
 
             Section {
                 LanguagePicker()
-                Picker("Text size", selection: $settings.textSize) {
+                Picker(L("Text size"), selection: $settings.textSize) {
                     ForEach(TextSizePreference.allCases) { size in
                         Text(size.displayName).tag(size)
                     }
                 }
             } header: {
-                Text("Accessibility")
+                Text(L("Accessibility"))
             } footer: {
-                Text("The language takes effect the next time CopyWell opens. Text size scales every label, and the rows grow with it; it is independent of the system-wide setting.")
+                Text(L("The language changes as soon as it is picked. Text size scales every label, and the rows grow with it; it is independent of the system-wide setting."))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
 
             Section {
-                Picker("Keep", selection: $settings.retention) {
-                    Section("By number of clips") {
+                Picker(L("Keep"), selection: $settings.retention) {
+                    Section(L("By number of clips")) {
                         ForEach(RetentionPolicy.presets.filter { if case .count = $0 { return true }; return false }) { policy in
                             Text(policy.displayName).tag(policy)
                         }
                     }
-                    Section("By age") {
+                    Section(L("By age")) {
                         ForEach(RetentionPolicy.presets.filter { if case .days = $0 { return true }; return false }) { policy in
                             Text(policy.displayName).tag(policy)
                         }
@@ -142,22 +142,22 @@ struct GeneralSettings: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
 
-                Text("Favourites and clips on a pinboard are never removed.")
+                Text(L("Favourites and clips on a pinboard are never removed."))
                     .font(.caption)
                     .foregroundStyle(.secondary)
 
                 if !subscriptions.hasFullAccess {
-                    LabeledContent("Status") {
+                    LabeledContent(L("Status")) {
                         HStack {
-                            Text("Locked")
+                            Text(L("Locked"))
                                 .foregroundStyle(.secondary)
-                            Button("See CopyWell Pro") { subscriptions.showingPaywall = true }
+                            Button(L("See CopyWell Pro")) { subscriptions.showingPaywall = true }
                                 .buttonStyle(.link)
                         }
                     }
                 }
             } header: {
-                Text("History")
+                Text(L("History"))
             }
         }
         .formStyle(.grouped)
@@ -177,9 +177,9 @@ struct PrivacySettings: View {
 
         Form {
             Section {
-                Toggle("Ignore items marked secret by other apps", isOn: $settings.skipConcealedPasteboard)
-                Toggle("Never record anything that looks like a password", isOn: $settings.skipPasswords)
-                Toggle("Hide CopyWell windows from screen recordings", isOn: $settings.hideFromScreenCapture)
+                Toggle(L("Ignore items marked secret by other apps"), isOn: $settings.skipConcealedPasteboard)
+                Toggle(L("Never record anything that looks like a password"), isOn: $settings.skipPasswords)
+                Toggle(L("Hide CopyWell windows from screen recordings"), isOn: $settings.hideFromScreenCapture)
             } footer: {
                 Text("""
                 Password managers mark their copies with the standard \
@@ -191,11 +191,11 @@ struct PrivacySettings: View {
                 .foregroundStyle(.secondary)
             }
 
-            Section("Stored data") {
-                LabeledContent("Clips on this Mac", value: "\(store.items.count)")
-                LabeledContent("Encrypted clips", value: "\(store.items.count(where: \.isSensitive))")
-                LabeledContent("Skipped as sensitive", value: "\(PrivacyLog.shared.skippedTotal)")
-                Button("Clear History…", role: .destructive) {
+            Section(L("Stored data")) {
+                LabeledContent(L("Clips on this Mac"), value: "\(store.items.count)")
+                LabeledContent(L("Encrypted clips"), value: "\(store.items.count(where: \.isSensitive))")
+                LabeledContent(L("Skipped as sensitive"), value: "\(PrivacyLog.shared.skippedTotal)")
+                Button(L("Clear History…"), role: .destructive) {
                     showingClearConfirmation = true
                 }
             }
@@ -207,15 +207,15 @@ struct PrivacySettings: View {
             isPresented: $showingClearConfirmation,
             titleVisibility: .visible
         ) {
-            Button("Delete All Except Favourites", role: .destructive) {
+            Button(L("Delete All Except Favourites"), role: .destructive) {
                 store.clearHistory(keepingFavorites: true)
             }
-            Button("Delete Everything", role: .destructive) {
+            Button(L("Delete Everything"), role: .destructive) {
                 store.clearHistory(keepingFavorites: false)
             }
-            Button("Cancel", role: .cancel) {}
+            Button(L("Cancel"), role: .cancel) {}
         } message: {
-            Text("Clips and their stored images are removed permanently.")
+            Text(L("Clips and their stored images are removed permanently."))
         }
     }
 }
@@ -244,15 +244,15 @@ struct ShortcutSettings: View {
                 }
             } footer: {
                 VStack(alignment: .leading, spacing: 6) {
-                    Text("Inside the palette: ↑↓ to move, ⌘1–9 to jump, ⏎ to copy the clip and return to your app, ⌥⏎ without formatting, ⌘Y to preview, ⌘⌫ to delete, ⎋ to close. Press ⌘V to paste.")
-                    Text("CopyWell never presses keys for you, so it needs no Accessibility access. To insert a clip without pressing ⌘V, use Services ▸ Paste from CopyWell.")
+                    Text(L("Inside the palette: ↑↓ to move, ⌘1–9 to jump, ⏎ to copy the clip and return to your app, ⌥⏎ without formatting, ⌘Y to preview, ⌘⌫ to delete, ⎋ to close. Press ⌘V to paste."))
+                    Text(L("CopyWell never presses keys for you, so it needs no Accessibility access. To insert a clip without pressing ⌘V, use Services ▸ Paste from CopyWell."))
                 }
                 .font(.caption)
                 .foregroundStyle(.secondary)
             }
 
             Section {
-                Button("Reset All Shortcuts") { manager.resetToDefaults() }
+                Button(L("Reset All Shortcuts")) { manager.resetToDefaults() }
             }
         }
         .formStyle(.grouped)
@@ -271,7 +271,7 @@ struct AppearanceSettings: View {
         @Bindable var theme = theme
 
         Form {
-            Section("Theme") {
+            Section(L("Theme")) {
                 LazyVGrid(columns: columns, spacing: 10) {
                     ForEach(AppTheme.allCases) { option in
                         ThemeSwatch(theme: option, isSelected: theme.currentTheme == option) {
@@ -286,7 +286,7 @@ struct AppearanceSettings: View {
                     .foregroundStyle(.secondary)
             }
 
-            Section("Accent colour") {
+            Section(L("Accent colour")) {
                 HStack(spacing: 8) {
                     // "Theme" means each theme keeps the accent it was designed
                     // around; picking a colour overrides that everywhere.
@@ -303,8 +303,8 @@ struct AppearanceSettings: View {
                             )
                     }
                     .buttonStyle(.plain)
-                    .help("Use the colour this theme was designed around")
-                    .accessibilityLabel("Theme accent")
+                    .help(L("Use the colour this theme was designed around"))
+                    .accessibilityLabel(L("Theme accent"))
 
                     Divider().frame(height: 18)
 
@@ -367,7 +367,7 @@ struct ThemeSwatch: View {
             )
         }
         .buttonStyle(.plain)
-        .accessibilityLabel("\(theme.displayName) theme")
+        .accessibilityLabel(L("\(theme.displayName) theme"))
         .accessibilityAddTraits(isSelected ? [.isSelected] : [])
     }
 
@@ -437,8 +437,8 @@ struct SyncSettings: View {
         @Bindable var settings = settings
 
         Form {
-            Section("iCloud") {
-                Toggle("Sync history across my Macs", isOn: $settings.iCloudSync)
+            Section(L("iCloud")) {
+                Toggle(L("Sync history across my Macs"), isOn: $settings.iCloudSync)
                     .disabled(!subscriptions.hasFullAccess)
                     .onChange(of: settings.iCloudSync) { _, enabled in
                         sync.settingsChanged()
@@ -457,26 +457,26 @@ struct SyncSettings: View {
                     if sync.status == .syncing {
                         ProgressView().controlSize(.small)
                     } else {
-                        Text("Sync Now")
+                        Text(L("Sync Now"))
                     }
                 }
                 .disabled(!settings.iCloudSync || sync.status == .syncing || !subscriptions.hasFullAccess)
 
-                Text("CopyWell syncs on launch, when you switch back to it, and a few seconds after you copy something. Images and items marked sensitive stay on this Mac.")
+                Text(L("CopyWell syncs on launch, when you switch back to it, and a few seconds after you copy something. Images and items marked sensitive stay on this Mac."))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
 
-            Section("Export") {
-                Picker("Format", selection: $exportFormat) {
-                    Text("JSON").tag(ExportFormat.json)
-                    Text("CSV").tag(ExportFormat.csv)
-                    Text("Markdown").tag(ExportFormat.markdown)
-                    Text("HTML").tag(ExportFormat.html)
+            Section(L("Export")) {
+                Picker(L("Format"), selection: $exportFormat) {
+                    Text(L("JSON")).tag(ExportFormat.json)
+                    Text(L("CSV")).tag(ExportFormat.csv)
+                    Text(L("Markdown")).tag(ExportFormat.markdown)
+                    Text(L("HTML")).tag(ExportFormat.html)
                 }
-                Button("Export History…") { export() }
+                Button(L("Export History…")) { export() }
                     .disabled(store.items.isEmpty)
-                Text("Sensitive clips are never included in exports.")
+                Text(L("Sensitive clips are never included in exports."))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -488,8 +488,8 @@ struct SyncSettings: View {
     private func checkAccount() async {
         let available = await CloudKitSyncManager.shared.checkAccountStatus()
         accountStatus = available
-            ? String(localized: "Connected to your private iCloud database.")
-            : String(localized: "Sign in to iCloud in System Settings to use sync.")
+            ? L("Connected to your private iCloud database.")
+            : L("Sign in to iCloud in System Settings to use sync.")
     }
 
     /// Writes through an NSSavePanel, which is also how a sandboxed app gets
@@ -518,8 +518,8 @@ struct SubscriptionSettings: View {
 
     var body: some View {
         Form {
-            Section("Plan") {
-                LabeledContent("Status", value: statusText)
+            Section(L("Plan")) {
+                LabeledContent(L("Status"), value: statusText)
                 if let expiry = manager.expirationDate {
                     LabeledContent(
                         manager.isInTrial ? "Trial ends" : "Renews",
@@ -527,12 +527,12 @@ struct SubscriptionSettings: View {
                     )
                 }
                 if !manager.isPro {
-                    Button("See CopyWell Pro") { manager.showingPaywall = true }
+                    Button(L("See CopyWell Pro")) { manager.showingPaywall = true }
                 }
-                Button("Restore Purchases") {
+                Button(L("Restore Purchases")) {
                     Task { await manager.restorePurchases() }
                 }
-                Button("Manage Subscription") { manager.showManageSubscriptions() }
+                Button(L("Manage Subscription")) { manager.showManageSubscriptions() }
                 if let error = manager.lastError {
                     Text(error)
                         .font(.caption)
@@ -552,10 +552,10 @@ struct SubscriptionSettings: View {
             }
             #endif
 
-            Section("Legal") {
-                Link("Privacy Policy", destination: LegalLinks.privacyPolicy)
-                Link("Terms of Use", destination: LegalLinks.termsOfUse)
-                Link("Support", destination: LegalLinks.support)
+            Section(L("Legal")) {
+                Link(L("Privacy Policy"), destination: LegalLinks.privacyPolicy)
+                Link(L("Terms of Use"), destination: LegalLinks.termsOfUse)
+                Link(L("Support"), destination: LegalLinks.support)
             }
         }
         .formStyle(.grouped)

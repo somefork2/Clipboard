@@ -86,7 +86,7 @@ final class AppCoordinator {
             return
         }
         let names = conflicted.map(\.title).sorted().joined(separator: ", ")
-        shortcutConflictMessage = String(localized: "Another app already uses the shortcut for: \(names). Pick a different one in Settings ▸ Shortcuts.")
+        shortcutConflictMessage = L("Another app already uses the shortcut for: \(names). Pick a different one in Settings ▸ Shortcuts.")
     }
 
     // MARK: - Actions

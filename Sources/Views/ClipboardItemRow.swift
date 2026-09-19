@@ -32,7 +32,7 @@ struct ClipboardItemRow: View {
                         Image(systemName: "text.viewfinder")
                             .font(.caption)
                             .foregroundStyle(.tertiary)
-                            .help("Text recognised in this image")
+                            .help(L("Text recognised in this image"))
                     }
                 }
 
@@ -84,8 +84,10 @@ struct ClipboardItemRow: View {
         }
         .onTapGesture(count: 2) { onPaste() }
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(item.type.displayName). \(item.previewText)")
-        .accessibilityHint("Double-tap to paste")
+        .accessibilityLabel(L("\(item.type.displayName). \(item.previewText)"))
+        // A Mac is clicked, not tapped. VoiceOver read the iOS wording out
+        // loud to people who have no touchscreen.
+        .accessibilityHint(L("Double-click to paste"))
     }
 
     @ViewBuilder
@@ -116,8 +118,8 @@ struct ClipboardItemRow: View {
                     }
             }
             .buttonStyle(.plain)
-            .help("Show this image")
-            .accessibilityLabel("Show image")
+            .help(L("Show this image"))
+            .accessibilityLabel(L("Show image"))
         } else {
             // Not only images: clicking the badge of any clip opens its preview,
             // which is the only way to read a long clip in full.
@@ -136,18 +138,18 @@ struct ClipboardItemRow: View {
                     }
             }
             .buttonStyle(.plain)
-            .help("Show this clip")
-            .accessibilityLabel("Show clip")
+            .help(L("Show this clip"))
+            .accessibilityLabel(L("Show clip"))
         }
     }
 
     private var actions: some View {
         HStack(spacing: 2) {
-            rowButton("eye", help: "Quick Look", action: onPreview)
-            rowButton(item.isFavorite ? "star.fill" : "star", help: String(localized: "Favourite")) {
+            rowButton("eye", help: L("Quick Look"), action: onPreview)
+            rowButton(item.isFavorite ? "star.fill" : "star", help: L("Favourite")) {
                 store.toggleFavorite(item)
             }
-            rowButton("doc.on.doc", help: "Copy") {
+            rowButton("doc.on.doc", help: L("Copy")) {
                 guard let content = item.pasteContent else { return }
                 PasteService.write(content)
                 store.recordUse(item)
@@ -156,7 +158,7 @@ struct ClipboardItemRow: View {
                     withAnimation { showCopiedTick = false }
                 }
             }
-            rowButton("trash", help: "Delete") { store.delete(item) }
+            rowButton("trash", help: L("Delete")) { store.delete(item) }
         }
     }
 

@@ -12,16 +12,16 @@ struct SidebarView: View {
 
     var body: some View {
         List(selection: $selection) {
-            Section("Library") {
-                Label("History", systemImage: "clock")
+            Section(L("Library")) {
+                Label(L("History"), systemImage: "clock")
                     .badge(store.items.count)
                     .tag(SidebarSection.history)
 
-                Label("Favourites", systemImage: "star")
+                Label(L("Favourites"), systemImage: "star")
                     .badge(store.items.count(where: \.isFavorite))
                     .tag(SidebarSection.favorites)
 
-                Label("Paste Stack", systemImage: "square.stack")
+                Label(L("Paste Stack"), systemImage: "square.stack")
                     .badge(PasteStackManager.shared.stackItems.count)
                     .tag(SidebarSection.pasteStack)
             }
@@ -37,8 +37,8 @@ struct SidebarView: View {
                     .badge(board.items.count)
                     .tag(SidebarSection.pinboard(board.id))
                     .contextMenu {
-                        Button("Edit…") { editingBoard = board }
-                        Button("Delete Pinboard", role: .destructive) {
+                        Button(L("Edit…")) { editingBoard = board }
+                        Button(L("Delete Pinboard"), role: .destructive) {
                             store.deletePinboard(board)
                         }
                     }
@@ -46,7 +46,7 @@ struct SidebarView: View {
                 .onMove { store.movePinboards(from: $0, to: $1) }
             } header: {
                 HStack {
-                    Text("Pinboards")
+                    Text(L("Pinboards"))
                     Spacer()
                     Button {
                         startCreatingPinboard()
@@ -54,12 +54,12 @@ struct SidebarView: View {
                         Image(systemName: "plus")
                     }
                     .buttonStyle(.plain)
-                    .help("New pinboard")
+                    .help(L("New pinboard"))
                 }
             }
 
-            Section("Insights") {
-                Label("Statistics", systemImage: "chart.bar")
+            Section(L("Insights")) {
+                Label(L("Statistics"), systemImage: "chart.bar")
                     .tag(SidebarSection.statistics)
             }
         }
@@ -93,12 +93,12 @@ struct SidebarView: View {
                 Button {
                     openSettings()
                 } label: {
-                    Label("Settings", systemImage: "gearshape")
+                    Label(L("Settings"), systemImage: "gearshape")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
-                .help("Settings (⌘,)")
+                .help(L("Settings (⌘,)"))
 
                 Button {
                     AppCoordinator.shared.showSetupGuide()
@@ -107,7 +107,7 @@ struct SidebarView: View {
                         .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
-                .help("Setup guide")
+                .help(L("Setup guide"))
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
@@ -127,10 +127,10 @@ struct SidebarView: View {
                 if subscriptions.isInFreeTrial {
                     let trial = TrialManager.shared
                     HStack {
-                        Text("Trial")
+                        Text(L("Trial"))
                             .font(.caption.weight(.medium))
                         Spacer()
-                        Text("\(trial.daysRemaining) \(trial.daysRemaining == 1 ? "day" : "days") left")
+                        Text(L("\(trial.daysRemaining) days left"))
                             .font(.caption.monospacedDigit())
                             .foregroundStyle(.secondary)
                     }
@@ -139,20 +139,20 @@ struct SidebarView: View {
                         total: TrialManager.duration
                     )
                     .progressViewStyle(.linear)
-                    Text("Everything is unlocked. A subscription keeps it that way afterwards.")
+                    Text(L("Everything is unlocked. A subscription keeps it that way afterwards."))
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
                 } else {
-                    Text("Locked")
+                    Text(L("Locked"))
                         .font(.caption.weight(.medium))
-                    Text("CopyWell is locked. Nothing has been deleted.")
+                    Text(L("CopyWell is locked. Nothing has been deleted."))
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
                 }
 
-                Button("See CopyWell Pro") { subscriptions.showingPaywall = true }
+                Button(L("See CopyWell Pro")) { subscriptions.showingPaywall = true }
                     .buttonStyle(.link)
                     .font(.caption)
             }

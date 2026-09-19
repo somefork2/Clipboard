@@ -141,10 +141,10 @@ actor CloudKitSyncManager {
     func sync(localItems: [CloudClip?], deletedHashes: [String] = []) async -> SyncResult {
         let local = localItems.compactMap { $0 }
         guard let database = resolveDatabase() else {
-            return .failure(String(localized: "iCloud sync is not configured for this build."))
+            return .failure(L("iCloud sync is not configured for this build."))
         }
         guard await checkAccountStatus() else {
-            return .failure(String(localized: "Sign in to iCloud in System Settings to use sync."))
+            return .failure(L("Sign in to iCloud in System Settings to use sync."))
         }
 
         do {
@@ -172,17 +172,17 @@ actor CloudKitSyncManager {
     private func describe(_ error: CKError) -> String {
         switch error.code {
         case .networkUnavailable, .networkFailure:
-            return String(localized: "No network connection. Sync will resume when you are back online.")
+            return L("No network connection. Sync will resume when you are back online.")
         case .notAuthenticated:
-            return String(localized: "Sign in to iCloud in System Settings to use sync.")
+            return L("Sign in to iCloud in System Settings to use sync.")
         case .quotaExceeded:
-            return String(localized: "Your iCloud storage is full.")
+            return L("Your iCloud storage is full.")
         case .permissionFailure:
-            return String(localized: "CopyWell does not have permission to use iCloud on this Mac.")
+            return L("CopyWell does not have permission to use iCloud on this Mac.")
         case .serviceUnavailable, .requestRateLimited:
-            return String(localized: "iCloud is busy. CopyWell will try again shortly.")
+            return L("iCloud is busy. CopyWell will try again shortly.")
         default:
-            return String(localized: "Sync failed: \(error.localizedDescription)")
+            return L("Sync failed: \(error.localizedDescription)")
         }
     }
 

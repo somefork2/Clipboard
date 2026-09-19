@@ -41,7 +41,7 @@ struct PaywallView: View {
                         .foregroundStyle(.secondary)
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel("Close")
+                .accessibilityLabel(L("Close"))
             }
 
             Image(systemName: "clipboard")
@@ -49,10 +49,10 @@ struct PaywallView: View {
                 .symbolRenderingMode(.hierarchical)
                 .foregroundStyle(Theme.accent)
 
-            Text("CopyWell Pro")
+            Text(L("CopyWell Pro"))
                 .font(.title2.weight(.semibold))
 
-            Text("Everything in CopyWell, for as long as you subscribe.")
+            Text(L("Everything in CopyWell, for as long as you subscribe."))
                 .font(.callout)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
@@ -99,11 +99,11 @@ struct PaywallView: View {
                 .padding(24)
         } else if manager.products.isEmpty {
             VStack(spacing: 8) {
-                Text(manager.lastError ?? String(localized: "Plans are unavailable right now."))
+                Text(manager.lastError ?? L("Plans are unavailable right now."))
                     .font(.callout)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
-                Button("Try Again") {
+                Button(L("Try Again")) {
                     Task { await manager.loadProducts() }
                 }
             }
@@ -149,7 +149,7 @@ struct PaywallView: View {
             .disabled(manager.products.isEmpty || manager.purchaseInFlight)
 
             // Required by App Review: restoring must always be possible.
-            Button("Restore Purchases") {
+            Button(L("Restore Purchases")) {
                 Task { await manager.restorePurchases() }
             }
             .buttonStyle(.link)
@@ -169,11 +169,11 @@ struct PaywallView: View {
                 .fixedSize(horizontal: false, vertical: true)
 
             HStack(spacing: 10) {
-                Link("Privacy Policy", destination: LegalLinks.privacyPolicy)
+                Link(L("Privacy Policy"), destination: LegalLinks.privacyPolicy)
                 Text("·").foregroundStyle(.secondary)
-                Link("Terms of Use", destination: LegalLinks.termsOfUse)
+                Link(L("Terms of Use"), destination: LegalLinks.termsOfUse)
                 Text("·").foregroundStyle(.secondary)
-                Button("Manage Subscription") { manager.showManageSubscriptions() }
+                Button(L("Manage Subscription")) { manager.showManageSubscriptions() }
                     .buttonStyle(.link)
             }
             .font(.caption2)
@@ -183,33 +183,33 @@ struct PaywallView: View {
     }
 
     private var primaryButtonTitle: String {
-        guard let product = manager.product(for: selectedProductID) else { return String(localized: "Subscribe") }
+        guard let product = manager.product(for: selectedProductID) else { return L("Subscribe") }
         if let trial = manager.introductoryOffer(for: product.id) {
-            return String(localized: "Start \(trial), then \(product.displayPrice)/\(periodName(product))")
+            return L("Start \(trial), then \(product.displayPrice)/\(periodName(product))")
         }
-        return String(localized: "Subscribe — \(product.displayPrice)/\(periodName(product))")
+        return L("Subscribe — \(product.displayPrice)/\(periodName(product))")
     }
 
     /// Plain-language renewal terms, stated on the purchase screen itself.
     private var renewalDisclosure: String {
         guard let product = manager.product(for: selectedProductID) else {
-            return String(localized: "Subscriptions renew automatically until cancelled.")
+            return L("Subscriptions renew automatically until cancelled.")
         }
         let period = periodName(product)
         let trialSentence = manager.introductoryOffer(for: product.id).map {
-            String(localized: " The \($0) trial converts to a paid subscription unless cancelled at least 24 hours before it ends.")
+            L(" The \($0) trial converts to a paid subscription unless cancelled at least 24 hours before it ends.")
         } ?? ""
-        return String(localized: "\(product.displayPrice) per \(period), billed through your Apple Account and renewed automatically until cancelled.\(trialSentence) Manage or cancel in App Store ▸ Subscriptions.")
+        return L("\(product.displayPrice) per \(period), billed through your Apple Account and renewed automatically until cancelled.\(trialSentence) Manage or cancel in App Store ▸ Subscriptions.")
     }
 
     private func periodName(_ product: Product) -> String {
-        guard let unit = product.subscription?.subscriptionPeriod.unit else { return String(localized: "period") }
+        guard let unit = product.subscription?.subscriptionPeriod.unit else { return L("period") }
         switch unit {
-        case .day: return "day"
-        case .week: return "week"
-        case .month: return "month"
-        case .year: return "year"
-        @unknown default: return "period"
+        case .day: return L("day")
+        case .week: return L("week")
+        case .month: return L("month")
+        case .year: return L("year")
+        @unknown default: return L("period")
         }
     }
 }
@@ -267,10 +267,10 @@ struct PlanCard: View {
     private var periodLabel: String {
         guard let unit = product.subscription?.subscriptionPeriod.unit else { return "" }
         switch unit {
-        case .day: return String(localized: "per day")
-        case .week: return String(localized: "per week")
-        case .month: return String(localized: "per month")
-        case .year: return String(localized: "per year")
+        case .day: return L("per day")
+        case .week: return L("per week")
+        case .month: return L("per month")
+        case .year: return L("per year")
         @unknown default: return ""
         }
     }

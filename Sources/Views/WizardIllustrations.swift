@@ -8,7 +8,54 @@ import SwiftUI
 /// read.
 enum WizardIllustration {
 
-    // MARK: Step 1 — what it keeps and what it never does
+    // MARK: Step 1 — the language the rest of the guide is read in
+
+    /// The same word, written the way several of the languages on offer write
+    /// it. The subject of this step is text, so text is what it draws: shapes
+    /// would say nothing about a choice of language.
+    struct Language: View {
+        /// Fixed on purpose. The picture is about the range on offer, not about
+        /// whichever language happens to be selected while it is drawn — and it
+        /// should not change under the reader as they try the picker.
+        private static let rows = [
+            ["Copy", "Copier", "Kopieren", "Copiar"],
+            ["Копировать", "コピー", "복사", "نسخ", "复制"],
+        ]
+
+        var body: some View {
+            VStack(spacing: 10) {
+                Image(systemName: "globe")
+                    .font(.title2)
+                    .symbolRenderingMode(.hierarchical)
+                    .foregroundStyle(Theme.accent)
+
+                // Two rows, so the long words and the short ones both sit
+                // comfortably instead of one line scaling itself into a smear.
+                VStack(spacing: 6) {
+                    ForEach(Self.rows, id: \.self) { row in
+                        HStack(spacing: 6) {
+                            ForEach(row, id: \.self) { word in
+                                Text(word)
+                                    .font(.caption)
+                                    .lineLimit(1)
+                                    .foregroundStyle(.secondary)
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 4)
+                                    // The neutral used by the other drawings
+                                    // here. `Theme.secondaryBackground` sat a
+                                    // shade off the card on a light theme and
+                                    // the chips disappeared into it.
+                                    .background(Color.secondary.opacity(0.14), in: Capsule())
+                            }
+                        }
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity)
+        }
+    }
+
+    // MARK: Step 2 — what it keeps and what it never does
 
     struct Privacy: View {
         var body: some View {
@@ -72,7 +119,7 @@ enum WizardIllustration {
         }
     }
 
-    // MARK: Step 2 — the two shortcuts
+    // MARK: Step 3 — the two shortcuts
 
     struct Shortcut: View {
         var body: some View {
@@ -176,7 +223,7 @@ enum WizardIllustration {
                     )
                 HStack(spacing: 3) {
                     Text("⌘")
-                    Text("V")
+                    Text(L("V"))
                 }
                 .font(.system(size: 11, weight: .medium, design: .rounded))
                 .foregroundStyle(.secondary)
@@ -184,19 +231,19 @@ enum WizardIllustration {
         }
     }
 
-    // MARK: Step 3 — themes and sound
+    // MARK: Step 4 — themes and sound
 
     struct Personalise: View {
         var body: some View {
             HStack(spacing: 14) {
-                miniWindow(background: Color(hex: "FBF9F4"), surface: Color(hex: "F4F1EA"), line: Color(hex: "CFC7B6"), label: "Light")
-                miniWindow(background: Color(hex: "212832"), surface: Color(hex: "191E25"), line: Color(hex: "3A4553"), label: "Dark")
+                miniWindow(background: Color(hex: "FBF9F4"), surface: Color(hex: "F4F1EA"), line: Color(hex: "CFC7B6"), label: L("Light"))
+                miniWindow(background: Color(hex: "212832"), surface: Color(hex: "191E25"), line: Color(hex: "3A4553"), label: L("Dark"))
                 VStack(spacing: 8) {
                     Image(systemName: "speaker.wave.2")
                         .font(.title2)
                         .symbolRenderingMode(.hierarchical)
                         .foregroundStyle(.secondary)
-                    Text("Optional")
+                    Text(L("Optional"))
                         .font(.caption2)
                         .foregroundStyle(.tertiary)
                 }
@@ -248,7 +295,7 @@ enum WizardIllustration {
         }
     }
 
-    // MARK: Step 4 — where the right-click items live
+    // MARK: No longer a step — the Services guidance moved into Settings
 
     struct Services: View {
         var body: some View {
@@ -270,7 +317,7 @@ enum WizardIllustration {
                 Divider().padding(.vertical, 2)
                 row(width: 44, highlighted: false)
                 HStack(spacing: 5) {
-                    Text("Services")
+                    Text(L("Services"))
                         .font(.system(size: 9, weight: .medium))
                     Spacer(minLength: 0)
                     Image(systemName: "chevron.right")
@@ -292,7 +339,7 @@ enum WizardIllustration {
 
         private var submenu: some View {
             VStack(alignment: .leading, spacing: 3) {
-                ForEach([String(localized: "Save to CopyWell"), String(localized: "Pin to CopyWell"), String(localized: "Copy Text in Image")], id: \.self) { title in
+                ForEach([L("Save to CopyWell"), L("Pin to CopyWell"), L("Copy Text in Image")], id: \.self) { title in
                     HStack(spacing: 5) {
                         Image(systemName: "checkmark")
                             .font(.system(size: 7, weight: .bold))

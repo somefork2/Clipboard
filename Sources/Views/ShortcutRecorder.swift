@@ -21,7 +21,7 @@ struct ShortcutRecorder: View {
             Button {
                 isRecording ? stopRecording() : startRecording()
             } label: {
-                Text(isRecording ? String(localized: "Press keys…") : manager.shortcut(for: action).displayString)
+                Text(isRecording ? L("Press keys…") : manager.shortcut(for: action).displayString)
                     .font(.callout.monospaced())
                     .frame(minWidth: 88)
                     .padding(.horizontal, 8)
@@ -45,13 +45,13 @@ struct ShortcutRecorder: View {
                         .foregroundStyle(.tertiary)
                 }
                 .buttonStyle(.plain)
-                .help("Remove this shortcut")
+                .help(L("Remove this shortcut"))
             }
 
             if manager.conflicts.contains(action) {
                 Image(systemName: "exclamationmark.triangle.fill")
                     .foregroundStyle(.orange)
-                    .help("Another app is already using this combination.")
+                    .help(L("Another app is already using this combination."))
             }
         }
         .overlay(alignment: .bottomLeading) {
@@ -92,7 +92,7 @@ struct ShortcutRecorder: View {
         let candidate = ClipShortcut(keyCode: UInt32(event.keyCode), modifiers: modifiers)
 
         guard candidate.isValidGlobalBinding else {
-            errorMessage = String(localized: "Use at least one of ⌘, ⌥ or ⌃.")
+            errorMessage = L("Use at least one of ⌘, ⌥ or ⌃.")
             return
         }
 
@@ -101,7 +101,7 @@ struct ShortcutRecorder: View {
             stopRecording()
             AppCoordinator.shared.updateConflictMessage()
         } else {
-            errorMessage = String(localized: "That combination is already taken.")
+            errorMessage = L("That combination is already taken.")
         }
     }
 }

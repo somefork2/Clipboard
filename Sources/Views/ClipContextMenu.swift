@@ -13,12 +13,12 @@ struct ClipContextMenu: View {
 
     var body: some View {
         if let onPaste {
-            Button("Paste", action: onPaste)
+            Button(L("Paste"), action: onPaste)
         }
         if let onPastePlain, item.type != .image {
-            Button("Paste as Plain Text", action: onPastePlain)
+            Button(L("Paste as Plain Text"), action: onPastePlain)
         }
-        Button("Copy") {
+        Button(L("Copy")) {
             guard let content = item.pasteContent else { return }
             PasteService.write(content)
             store.recordUse(item)
@@ -26,18 +26,18 @@ struct ClipContextMenu: View {
 
         Divider()
 
-        Button(item.isFavorite ? "Remove from Favourites" : "Add to Favourites") {
+        Button(item.isFavorite ? L("Remove from Favourites") : L("Add to Favourites")) {
             store.toggleFavorite(item)
         }
 
-        Button("Add to Paste Stack") {
+        Button(L("Add to Paste Stack")) {
             guard SubscriptionManager.shared.requestAccess(for: .pasteStack) else { return }
             PasteStackManager.shared.add(item)
         }
 
         if !store.pinboards.isEmpty || SubscriptionManager.shared.hasFullAccess {
             Menu("Move to Pinboard") {
-                Button("None") { store.assign(item, to: nil) }
+                Button(L("None")) { store.assign(item, to: nil) }
                 if !store.pinboards.isEmpty { Divider() }
                 ForEach(store.pinboards) { board in
                     Button(board.name) { store.assign(item, to: board) }
@@ -48,29 +48,29 @@ struct ClipContextMenu: View {
         Divider()
 
         if let onPreview {
-            Button("Quick Look", action: onPreview)
+            Button(L("Quick Look"), action: onPreview)
         }
 
         if item.type == .url, let urlString = item.url, let url = URL(string: urlString) {
-            Button("Open Link") { NSWorkspace.shared.open(url) }
+            Button(L("Open Link")) { NSWorkspace.shared.open(url) }
         }
 
         if item.type == .image, let fileName = item.imageFileName {
-            Button("Reveal Image in Finder") {
+            Button(L("Reveal Image in Finder")) {
                 NSWorkspace.shared.activateFileViewerSelecting([ImageStore.url(for: fileName)])
             }
-            Button("Save Image As…") { saveImage(fileName: fileName) }
+            Button(L("Save Image As…")) { saveImage(fileName: fileName) }
         }
 
         if let bundleID = item.sourceAppBundleId,
            let appURL = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleID) {
-            Button("Open \(item.sourceApp ?? String(localized: "Source App"))") {
+            Button(L("Open \(item.sourceApp ?? L("Source App"))")) {
                 NSWorkspace.shared.openApplication(at: appURL, configuration: NSWorkspace.OpenConfiguration())
             }
         }
 
         if !item.isSensitive {
-            Button("Mark as Sensitive") {
+            Button(L("Mark as Sensitive")) {
                 item.markSensitive()
                 store.save()
                 store.reload()
@@ -79,9 +79,9 @@ struct ClipContextMenu: View {
 
         Divider()
 
-        Button("Delete", role: .destructive) { store.delete(item) }
+        Button(L("Delete"), role: .destructive) { store.delete(item) }
         if let app = item.sourceApp {
-            Button("Delete All from \(app)", role: .destructive) { store.deleteAll(fromApp: app) }
+            Button(L("Delete All from \(app)"), role: .destructive) { store.deleteAll(fromApp: app) }
         }
     }
 

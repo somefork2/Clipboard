@@ -76,15 +76,15 @@ struct MainView: View {
             isPresented: $showingClearConfirmation,
             titleVisibility: .visible
         ) {
-            Button("Delete All Except Favourites", role: .destructive) {
+            Button(L("Delete All Except Favourites"), role: .destructive) {
                 store.clearHistory(keepingFavorites: true)
             }
-            Button("Delete Everything", role: .destructive) {
+            Button(L("Delete Everything"), role: .destructive) {
                 store.clearHistory(keepingFavorites: false)
             }
-            Button("Cancel", role: .cancel) {}
+            Button(L("Cancel"), role: .cancel) {}
         } message: {
-            Text("This permanently removes the clips and any images stored with them. It cannot be undone.")
+            Text(L("This permanently removes the clips and any images stored with them. It cannot be undone."))
         }
         .onReceive(NotificationCenter.default.publisher(for: .copyWellRequestClearHistory)) { _ in
             showingClearConfirmation = true
@@ -147,16 +147,16 @@ struct MainView: View {
             Button {
                 withAnimation(.easeInOut(duration: 0.18)) { showSidebar.toggle() }
             } label: {
-                Label("Sidebar", systemImage: "sidebar.left")
+                Label(L("Sidebar"), systemImage: "sidebar.left")
             }
             .help(showSidebar ? "Hide the sidebar" : "Show the sidebar")
 
             Button {
                 QuickPastePanel.shared.toggle()
             } label: {
-                Label("Palette", systemImage: "rectangle.and.text.magnifyingglass")
+                Label(L("Palette"), systemImage: "rectangle.and.text.magnifyingglass")
             }
-            .help("Open the clipboard palette (⌥⌘V)")
+            .help(L("Open the clipboard palette (⌥⌘V)"))
 
             Button {
                 coordinator.togglePause()
@@ -169,7 +169,7 @@ struct MainView: View {
             .help(coordinator.isPaused ? "Resume recording" : "Pause recording")
 
             if !subscriptions.isPro {
-                Button("Upgrade") { subscriptions.showingPaywall = true }
+                Button(L("Upgrade")) { subscriptions.showingPaywall = true }
             }
         }
     }
@@ -179,7 +179,7 @@ struct MainView: View {
     @ViewBuilder
     private var skipNotice: some View {
         if PrivacyLog.shared.hasRecentSkip {
-            Label("A clip that looked like a password was not recorded.", systemImage: "lock")
+            Label(L("A clip that looked like a password was not recorded."), systemImage: "lock")
                 .font(.callout)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)

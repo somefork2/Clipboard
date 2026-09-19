@@ -27,6 +27,103 @@ enum ScreenshotRenderer {
     /// Toggles the sidebar and reports whether the main thread kept running.
     static var isDiagnosingSidebar: Bool { CommandLine.arguments.contains("--diagnose-sidebar") }
 
+    /// Reports which localisation the app actually launched in.
+    static var isDiagnosingLanguage: Bool { CommandLine.arguments.contains("--diagnose-language") }
+
+    /// Proves the language changes while the app runs.
+    ///
+    /// One window, one hosting view, built once. The language is then changed
+    /// under it and the pixels are taken again. Rendering each language into a
+    /// fresh window would have proved nothing — the question is whether an
+    /// interface already on screen follows.
+    static func diagnoseLanguage() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            MainActor.assumeIsolated {
+                let settings = AppSettings.shared
+                // Everything this diagnostic touches is a real preference of
+                // the person running it, written straight to their defaults.
+                // Noted first and put back before exiting — a diagnostic that
+                // leaves the app in Japanese on a light theme is a bug of its
+                // own.
+                let originalLanguage = settings.preferredLanguage
+                let originalTheme = ThemeManager.shared.currentTheme
+                let originalOnboarding = settings.hasCompletedOnboarding
+                settings.hasCompletedOnboarding = true
+
+                let root = AnyView(
+                    LanguageProbe()
+                        .environment(ClipboardStore.shared)
+                        .environment(SubscriptionManager.shared)
+                        .environment(settings)
+                        .environment(AppCoordinator.shared)
+                        .environment(\.controlActiveState, .key)
+                )
+                let window = NSWindow(
+                    contentRect: NSRect(x: 0, y: 0, width: 660, height: 620),
+                    styleMask: [.borderless], backing: .buffered, defer: false
+                )
+                let hosting = NSHostingView(rootView: root)
+                window.contentView = hosting
+                // Pinned to the light theme for the duration. Left alone, the
+                // capture mixed the two: the window took the system appearance
+                // while `Theme.*` kept answering from whichever theme is
+                // stored, so a dark theme drew dark chips on a light window and
+                // looked like a bug that was not there.
+                ThemeManager.shared.currentTheme = .light
+                window.appearance = NSAppearance(named: .aqua)
+                window.setFrameOrigin(NSPoint(x: -20000, y: -20000))
+                window.orderFront(nil)
+                spin(for: 1.0)
+
+                let identity = ObjectIdentifier(hosting)
+                let directory = outputDirectory ?? URL(fileURLWithPath: NSTemporaryDirectory())
+                try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+
+                for code in ["en", "ru", "ja", "ar"] {
+                    settings.preferredLanguage = code
+                    spin(for: 0.8)
+                    window.contentView?.layoutSubtreeIfNeeded()
+                    window.displayIfNeeded()
+                    spin(for: 0.3)
+                    print("\(code): generation=\(settings.languageGeneration) " +
+                          "bundle=\((LanguageBundle.current.bundlePath as NSString).lastPathComponent) " +
+                          "sample=\(L("Choose a language")) / \(L("Copy"))")
+                    guard let content = window.contentView,
+                          let rep = content.bitmapImageRepForCachingDisplay(in: content.bounds) else { continue }
+                    rep.size = content.bounds.size
+                    content.cacheDisplay(in: content.bounds, to: rep)
+                    if let png = rep.representation(using: .png, properties: [:]) {
+                        let url = directory.appendingPathComponent("language-\(code).png")
+                        try? png.write(to: url)
+                        print("  wrote \(url.lastPathComponent)")
+                    }
+                }
+
+                print("same hosting view throughout: \(identity == ObjectIdentifier(window.contentView!))")
+
+                settings.preferredLanguage = originalLanguage
+                ThemeManager.shared.currentTheme = originalTheme
+                settings.hasCompletedOnboarding = originalOnboarding
+                print("restored: language=\(originalLanguage ?? "system") theme=\(originalTheme.rawValue)")
+                exit(0)
+            }
+        }
+    }
+
+    /// The wizard, with the picker that drives it, so a screenshot shows both
+    /// the choice and what the choice did.
+    private struct LanguageProbe: View {
+        @Environment(AppSettings.self) private var settings
+
+        var body: some View {
+            VStack(spacing: 0) {
+                SetupWizard(onFinish: {})
+            }
+            .frame(width: 660, height: 620)
+            .id(settings.languageGeneration)
+        }
+    }
+
     /// Tries to read a file by path, the way the Finder extension's "Save to
     /// CopyWell" makes the app do. Answers whether the sandbox permits it.
     static var isDiagnosingFileRead: Bool { CommandLine.arguments.contains("--diagnose-fileread") }

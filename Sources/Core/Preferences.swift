@@ -17,11 +17,11 @@ enum TextSizePreference: String, CaseIterable, Identifiable, Codable {
 
     var displayName: String {
         switch self {
-        case .small: return String(localized: "Small")
-        case .standard: return String(localized: "Standard")
-        case .large: return String(localized: "Large")
-        case .larger: return String(localized: "Larger")
-        case .largest: return String(localized: "Largest")
+        case .small: return L("Small")
+        case .standard: return L("Standard")
+        case .large: return L("Large")
+        case .larger: return L("Larger")
+        case .largest: return L("Largest")
         }
     }
 
@@ -74,24 +74,24 @@ enum RetentionPolicy: Codable, Hashable, Identifiable {
     var displayName: String {
         switch self {
         case .count(let n):
-            return String(localized: "Last \(n.formatted()) clips")
+            return L("Last \(n.formatted()) clips")
         case .days(let n):
-            return n == 1 ? String(localized: "Last 24 hours") : String(localized: "Last \(n) days")
+            return n == 1 ? L("Last 24 hours") : L("Last \(n) days")
         case .forever:
-            return String(localized: "Keep everything")
+            return L("Keep everything")
         }
     }
 
     var explanation: String {
         switch self {
         case .count(let n):
-            return String(localized: "Once there are more than \(n.formatted()) clips, the oldest are removed.")
+            return L("Once there are more than \(n.formatted()) clips, the oldest are removed.")
         case .days(let n):
             return n == 1
-                ? String(localized: "Clips older than a day are removed.")
-                : String(localized: "Clips older than \(n) days are removed.")
+                ? L("Clips older than a day are removed.")
+                : L("Clips older than \(n) days are removed.")
         case .forever:
-            return String(localized: "Nothing is removed automatically. The database grows until you clear it.")
+            return L("Nothing is removed automatically. The database grows until you clear it.")
         }
     }
 

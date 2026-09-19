@@ -19,6 +19,10 @@ struct CopyWellApp: App {
                 .environment(subscriptions)
                 .tint(ThemeManager.shared.accentColor)
                 .dynamicTypeSize(settings.textSize.dynamicTypeSize)
+                // Rebuilds the whole tree when the language changes. Every
+                // string is read inside a `body`, so re-running them is what
+                // translates the interface on the spot.
+                .id(settings.languageGeneration)
         }
         .windowStyle(.titleBar)
         .windowToolbarStyle(.unified)
@@ -36,6 +40,7 @@ struct CopyWellApp: App {
                 .environment(subscriptions)
                 .tint(ThemeManager.shared.accentColor)
                 .dynamicTypeSize(settings.textSize.dynamicTypeSize)
+                .id(settings.languageGeneration)
         }
         .menuBarExtraStyle(.window)
 
@@ -47,6 +52,7 @@ struct CopyWellApp: App {
                 .environment(subscriptions)
                 .tint(ThemeManager.shared.accentColor)
                 .dynamicTypeSize(settings.textSize.dynamicTypeSize)
+                .id(settings.languageGeneration)
         }
     }
 
@@ -63,35 +69,35 @@ struct CopyWellApp: App {
 struct CopyWellCommands: Commands {
     var body: some Commands {
         CommandGroup(after: .appInfo) {
-            Button("CopyWell Pro…") { SubscriptionManager.shared.showingPaywall = true }
+            Button(L("CopyWell Pro…")) { SubscriptionManager.shared.showingPaywall = true }
         }
         CommandGroup(replacing: .help) {
-            Button("CopyWell Setup Guide") {
+            Button(L("CopyWell Setup Guide")) {
                 AppCoordinator.shared.showSetupGuide()
             }
             Divider()
-            Link("Support", destination: LegalLinks.support)
-            Link("Privacy Policy", destination: LegalLinks.privacyPolicy)
+            Link(L("Support"), destination: LegalLinks.support)
+            Link(L("Privacy Policy"), destination: LegalLinks.privacyPolicy)
         }
         // Every item here goes through `unlocked`, which either runs the action
         // or brings the subscription wall forward. A menu item that quietly
         // does nothing reads as a broken app.
         CommandMenu("Clipboard") {
-            Button("Open Palette") { AppCoordinator.unlocked { QuickPastePanel.shared.toggle() } }
+            Button(L("Open Palette")) { AppCoordinator.unlocked { QuickPastePanel.shared.toggle() } }
                 .keyboardShortcut("v", modifiers: [.option, .command])
-            Button("Quick Look") {
+            Button(L("Quick Look")) {
                 AppCoordinator.unlocked {
                     NotificationCenter.default.post(name: .copyWellRequestPreviewSelection, object: nil)
                 }
             }
             .keyboardShortcut("y", modifiers: .command)
             Divider()
-            Button(AppCoordinator.shared.isPaused ? "Resume Recording" : "Pause Recording") {
+            Button(AppCoordinator.shared.isPaused ? L("Resume Recording") : L("Pause Recording")) {
                 AppCoordinator.unlocked { AppCoordinator.shared.togglePause() }
             }
             .keyboardShortcut("p", modifiers: [.control, .option])
             Divider()
-            Button("Clear History…") {
+            Button(L("Clear History…")) {
                 AppCoordinator.unlocked {
                     NotificationCenter.default.post(name: .copyWellRequestClearHistory, object: nil)
                 }
@@ -155,6 +161,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             if ScreenshotRenderer.isDiagnosingSidebar { ScreenshotRenderer.diagnoseSidebar() }
             if ScreenshotRenderer.isDiagnosingRelayout { ScreenshotRenderer.diagnoseRelayout() }
             if ScreenshotRenderer.isDiagnosingFileRead { ScreenshotRenderer.diagnoseFileRead() }
+            if ScreenshotRenderer.isDiagnosingLanguage { ScreenshotRenderer.diagnoseLanguage() }
             #endif
         }
 

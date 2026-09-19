@@ -144,3 +144,92 @@ struct AccessStateTests {
         }
     }
 }
+
+// MARK: - Language
+
+/// Serialized: these tests change the language for the whole process, and one
+/// of them reading `Bundle.main` while another had just pointed the process at
+/// Russian is how this suite first went red.
+@Suite("Language", .serialized)
+@MainActor
+struct LanguageTests {
+
+    @Test("Every shipped language resolves to a bundle in the app")
+    func everyLanguageResolves() {
+        for code in AppSettings.availableLanguages where code != "en" {
+            let path = Bundle.main.path(forResource: code, ofType: "lproj")
+                ?? Bundle.main.path(forResource: String(code.split(separator: "-")[0]), ofType: "lproj")
+            #expect(path != nil, "\(code) has no .lproj in the built app")
+        }
+    }
+
+    @Test("Each language has a name to show in the picker")
+    func everyLanguageHasAName() {
+        for code in AppSettings.availableLanguages {
+            let name = AppSettings.languageName(code)
+            #expect(!name.isEmpty)
+            #expect(name != code, "\(code) fell back to showing its own code")
+        }
+    }
+
+    /// The `locale:` argument does not do this: it formats interpolations and
+    /// leaves the table alone. Measured — every language came back "Copy".
+    /// An explicit bundle is the lever that works.
+    private func bundle(_ code: String) -> Bundle? {
+        Bundle.main.path(forResource: code, ofType: "lproj").flatMap(Bundle.init(path:))
+    }
+
+    @Test("A language's own bundle returns that language's strings")
+    func bundleArgumentSwitchesStrings() throws {
+        let en = try #require(bundle("en"))
+        let ru = try #require(bundle("ru"))
+        let de = try #require(bundle("de"))
+        // Named explicitly rather than taken from `Bundle.main`: any test that
+        // has already chosen a language moves what main resolves to, and this
+        // one then compared Russian against Russian and failed.
+        let english = String(localized: "Copy", bundle: en)
+        let russian = String(localized: "Copy", bundle: ru)
+        let german = String(localized: "Copy", bundle: de)
+        #expect(russian != english, "ru bundle returned the English string")
+        #expect(german != english, "de bundle returned the English string")
+        #expect(russian != german)
+    }
+
+    /// The point of the whole mechanism: a language chosen now changes what
+    /// `L(_:)` returns now. Relaunching is not an acceptable answer for an app
+    /// that lives in the menu bar and is almost never quit.
+    @Test("Switching the language changes strings without a relaunch")
+    func switchingIsImmediate() {
+        let settings = AppSettings.shared
+        let before = settings.preferredLanguage
+        defer { settings.preferredLanguage = before }
+
+        settings.preferredLanguage = "en"
+        let english = L("Copy")
+        let generationAfterEnglish = settings.languageGeneration
+
+        settings.preferredLanguage = "ru"
+        let russian = L("Copy")
+
+        #expect(russian != english, "the string did not follow the language")
+        #expect(settings.languageGeneration != generationAfterEnglish,
+                "nothing told the views to rebuild")
+
+        settings.preferredLanguage = "de"
+        #expect(L("Copy") != russian)
+        #expect(L("Copy") != english)
+    }
+
+    /// A code we no longer ship exactly should land on the nearest thing rather
+    /// than silently falling back to English.
+    @Test("A regional code falls back to its base language")
+    func regionalFallback() {
+        let settings = AppSettings.shared
+        let before = settings.preferredLanguage
+        defer { settings.preferredLanguage = before }
+
+        settings.preferredLanguage = "de-AT"
+        #expect(LanguageBundle.current != Bundle.main, "de-AT did not reach de")
+        #expect(L("Copy") == String(localized: "Copy", bundle: LanguageBundle.current))
+    }
+}

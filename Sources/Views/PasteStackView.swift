@@ -10,8 +10,8 @@ struct PasteStackView: View {
             if stack.isEmpty {
                 EmptyStateView(
                     icon: "square.stack",
-                    title: String(localized: "Paste Stack is empty"),
-                    message: String(localized: "Right-click any clip and choose “Add to Paste Stack”, then paste them in order with ⌥⌘S.")
+                    title: L("Paste Stack is empty"),
+                    message: L("Right-click any clip and choose “Add to Paste Stack”, then paste them in order with ⌥⌘S.")
                 )
             } else {
                 header
@@ -24,15 +24,15 @@ struct PasteStackView: View {
     private var header: some View {
         HStack(spacing: 12) {
             VStack(alignment: .leading, spacing: 2) {
-                Text("\(stack.remaining) of \(stack.stackItems.count) remaining")
+                Text(L("\(stack.remaining) of \(stack.stackItems.count) remaining"))
                     .font(.callout)
                 ProgressView(value: stack.progress)
                     .frame(width: 180)
             }
             Spacer()
-            Button("Rewind") { stack.rewind() }
+            Button(L("Rewind")) { stack.rewind() }
                 .disabled(stack.currentIndex == 0)
-            Button("Clear", role: .destructive) { stack.reset() }
+            Button(L("Clear"), role: .destructive) { stack.reset() }
         }
         .padding(Theme.Metric.gutter)
     }
@@ -41,7 +41,7 @@ struct PasteStackView: View {
         List {
             ForEach(Array(stack.stackItems.enumerated()), id: \.element.id) { index, item in
                 HStack(spacing: 10) {
-                    Text("\(index + 1)")
+                    Text(L("\(index + 1)"))
                         .font(.caption.monospacedDigit())
                         .foregroundStyle(index < stack.currentIndex ? .tertiary : .secondary)
                         .frame(width: 18)

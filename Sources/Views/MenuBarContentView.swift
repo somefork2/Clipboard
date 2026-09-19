@@ -88,8 +88,8 @@ struct MenuBarContentView: View {
         if results.isEmpty {
             EmptyStateView(
                 icon: "doc.on.clipboard",
-                title: searchText.isEmpty ? String(localized: "Nothing yet") : String(localized: "No matches"),
-                message: searchText.isEmpty ? String(localized: "Copy something to get started.") : String(localized: "Try another search.")
+                title: searchText.isEmpty ? L("Nothing yet") : L("No matches"),
+                message: searchText.isEmpty ? L("Copy something to get started.") : L("Try another search.")
             )
             .frame(height: 140)
         } else {
@@ -140,7 +140,7 @@ struct MenuBarContentView: View {
     private var footer: some View {
         VStack(spacing: 0) {
             if coordinator.isPaused {
-                Label("Recording paused", systemImage: "pause.circle")
+                Label(L("Recording paused"), systemImage: "pause.circle")
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -148,13 +148,13 @@ struct MenuBarContentView: View {
                     .padding(.top, 6)
             }
             HStack(spacing: 10) {
-                Button("Open CopyWell") {
+                Button(L("Open CopyWell")) {
                     MenuBarPopover.dismiss()
                     coordinator.openMainWindow()
                 }
                 .buttonStyle(.link)
 
-                Button(coordinator.isPaused ? "Resume" : "Pause") {
+                Button(coordinator.isPaused ? L("Resume") : L("Pause")) {
                     coordinator.togglePause()
                 }
                 .buttonStyle(.link)
@@ -168,7 +168,7 @@ struct MenuBarContentView: View {
                     Image(systemName: "questionmark.circle")
                 }
                 .buttonStyle(.plain)
-                .help("Setup guide")
+                .help(L("Setup guide"))
 
                 Button {
                     MenuBarPopover.dismiss()
@@ -177,7 +177,7 @@ struct MenuBarContentView: View {
                     Image(systemName: "gearshape")
                 }
                 .buttonStyle(.plain)
-                .help("Settings")
+                .help(L("Settings"))
 
                 Button {
                     NSApp.terminate(nil)
@@ -185,7 +185,7 @@ struct MenuBarContentView: View {
                     Image(systemName: "power")
                 }
                 .buttonStyle(.plain)
-                .help("Quit CopyWell")
+                .help(L("Quit CopyWell"))
             }
             .font(.callout)
             .padding(.horizontal, 12)
@@ -221,7 +221,7 @@ struct MenuBarRow: View {
                         .clipShape(RoundedRectangle(cornerRadius: 4))
                 }
                 .buttonStyle(.plain)
-                .help("Show this image")
+                .help(L("Show this image"))
             } else {
                 TypeBadge(type: item.type, size: 22)
             }

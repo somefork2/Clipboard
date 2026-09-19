@@ -25,7 +25,7 @@ struct PinboardEditor: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
-            Text(board == nil ? "New Pinboard" : "Edit Pinboard")
+            Text(board == nil ? L("New Pinboard") : L("Edit Pinboard"))
                 .font(.headline)
 
             TextField("Name", text: $name)
@@ -33,7 +33,7 @@ struct PinboardEditor: View {
                 .onSubmit(commit)
 
             VStack(alignment: .leading, spacing: 6) {
-                Text("Colour")
+                Text(L("Colour"))
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 HStack(spacing: 8) {
@@ -57,7 +57,7 @@ struct PinboardEditor: View {
             }
 
             VStack(alignment: .leading, spacing: 6) {
-                Text("Symbol")
+                Text(L("Symbol"))
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 LazyVGrid(columns: columns, spacing: 8) {
@@ -85,9 +85,9 @@ struct PinboardEditor: View {
 
             HStack {
                 Spacer()
-                Button("Cancel", role: .cancel, action: onDismiss)
+                Button(L("Cancel"), role: .cancel, action: onDismiss)
                     .keyboardShortcut(.cancelAction)
-                Button(board == nil ? "Create" : "Save", action: commit)
+                Button(board == nil ? L("Create") : L("Save"), action: commit)
                     .keyboardShortcut(.defaultAction)
                     .disabled(name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             }

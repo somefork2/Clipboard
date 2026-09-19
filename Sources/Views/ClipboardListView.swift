@@ -77,7 +77,7 @@ struct ClipboardListView: View {
     private var filterBar: some View {
         ScrollView(.horizontal) {
             HStack(spacing: 6) {
-                FilterChip(title: String(localized: "All"), isSelected: typeFilter == nil) { typeFilter = nil }
+                FilterChip(title: L("All"), isSelected: typeFilter == nil) { typeFilter = nil }
                 ForEach(availableTypes, id: \.self) { type in
                     FilterChip(
                         title: type.displayName,
@@ -120,9 +120,9 @@ struct ClipboardListView: View {
         if items.isEmpty {
             EmptyStateView(
                 icon: searchText.isEmpty ? "doc.on.clipboard" : "magnifyingglass",
-                title: searchText.isEmpty ? String(localized: "No clips here yet") : String(localized: "No matches"),
+                title: searchText.isEmpty ? L("No clips here yet") : L("No matches"),
                 message: searchText.isEmpty
-                    ? String(localized: "Copy anything and it appears here. Press ⌥⌘V anywhere to paste it back.")
+                    ? L("Copy anything and it appears here. Press ⌥⌘V anywhere to paste it back.")
                     : "Nothing matches “\(searchText)”."
             )
         } else {
@@ -150,7 +150,7 @@ struct ClipboardListView: View {
             .listStyle(.inset)
             .themedScrollBackground()
             .contextMenu {
-                Button("Clear History…") {
+                Button(L("Clear History…")) {
                     NotificationCenter.default.post(name: .copyWellRequestClearHistory, object: nil)
                 }
             }

@@ -100,7 +100,7 @@ struct QuickPasteView: View {
                         .foregroundStyle(.tertiary)
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel("Clear search")
+                .accessibilityLabel(L("Clear search"))
             }
         }
         .padding(.horizontal, 14)
@@ -112,9 +112,9 @@ struct QuickPasteView: View {
         if results.isEmpty {
             EmptyStateView(
                 icon: searchText.isEmpty ? "doc.on.clipboard" : "magnifyingglass",
-                title: searchText.isEmpty ? String(localized: "Nothing copied yet") : "No matches",
+                title: searchText.isEmpty ? L("Nothing copied yet") : "No matches",
                 message: searchText.isEmpty
-                    ? String(localized: "Copy something and it will appear here.")
+                    ? L("Copy something and it will appear here.")
                     : "No clip contains “\(searchText)”."
             )
             .frame(maxHeight: .infinity)
@@ -163,12 +163,12 @@ struct QuickPasteView: View {
 
     private var footer: some View {
         HStack(spacing: 12) {
-            ShortcutHint(keys: "↩", label: String(localized: "Copy"))
-            ShortcutHint(keys: "⌥↩", label: String(localized: "Plain"))
-            ShortcutHint(keys: "⌘1–9", label: String(localized: "Jump"))
-            ShortcutHint(keys: "⌘Y", label: String(localized: "Preview"))
+            ShortcutHint(keys: "↩", label: L("Copy"))
+            ShortcutHint(keys: "⌥↩", label: L("Plain"))
+            ShortcutHint(keys: "⌘1–9", label: L("Jump"))
+            ShortcutHint(keys: "⌘Y", label: L("Preview"))
             Spacer()
-            Text("\(results.count)")
+            Text(L("\(results.count)"))
                 .font(.caption.monospacedDigit())
                 .foregroundStyle(.secondary)
         }
@@ -254,7 +254,7 @@ struct QuickPasteRow: View {
     var body: some View {
         HStack(spacing: 10) {
             if index < 9 {
-                Text("\(index + 1)")
+                Text(L("\(index + 1)"))
                     .font(.caption.monospacedDigit())
                     .foregroundStyle(isSelected ? .primary : .tertiary)
                     .frame(width: 14)
@@ -275,7 +275,7 @@ struct QuickPasteRow: View {
                         )
                 }
                 .buttonStyle(.plain)
-                .help("Show this image")
+                .help(L("Show this image"))
             } else {
                 TypeBadge(type: item.type)
             }
@@ -374,11 +374,11 @@ struct ClipPreviewSheet: View {
 
             Spacer()
 
-            Button("Copy") {
+            Button(L("Copy")) {
                 guard let content = item.pasteContent else { return }
                 PasteService.write(content)
             }
-            Button("Done", action: onClose)
+            Button(L("Done"), action: onClose)
                 .keyboardShortcut(.defaultAction)
         }
     }
@@ -409,12 +409,12 @@ struct ClipPreviewSheet: View {
         } else if item.type == .image {
             EmptyStateView(
                 icon: "photo.badge.exclamationmark",
-                title: String(localized: "Image unavailable"),
-                message: String(localized: "The stored file for this clip could not be read.")
+                title: L("Image unavailable"),
+                message: L("The stored file for this clip could not be read.")
             )
             .frame(height: 160)
         } else if item.isSensitive {
-            Text("This item is stored encrypted and is not shown in previews.")
+            Text(L("This item is stored encrypted and is not shown in previews."))
                 .font(.callout)
                 .foregroundStyle(.secondary)
         } else {
@@ -429,12 +429,12 @@ struct ClipPreviewSheet: View {
     private var recognisedTextSection: some View {
         Divider()
         HStack {
-            Label("Recognised text", systemImage: "text.viewfinder")
+            Label(L("Recognised text"), systemImage: "text.viewfinder")
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(.secondary)
             Spacer()
             if let recognised = item.extractedText, !recognised.isEmpty {
-                Button(copiedRecognisedText ? "Copied" : "Copy Text") {
+                Button(copiedRecognisedText ? L("Copied") : L("Copy Text")) {
                     PasteService.write(.text(recognised))
                     copiedRecognisedText = true
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
@@ -454,7 +454,7 @@ struct ClipPreviewSheet: View {
                 .padding(10)
                 .background(Theme.secondaryBackground, in: RoundedRectangle(cornerRadius: 6))
         } else {
-            Text("No text was found in this image.")
+            Text(L("No text was found in this image."))
                 .font(.callout)
                 .foregroundStyle(.secondary)
         }
@@ -508,7 +508,7 @@ struct InlineClipPreview: View {
                     .foregroundStyle(.tertiary)
             }
             .buttonStyle(.plain)
-            .help("Close preview")
+            .help(L("Close preview"))
         }
         .padding(.horizontal, 10)
     }
@@ -538,11 +538,11 @@ struct InlineClipPreview: View {
                         .stroke(Theme.separator, lineWidth: 0.5)
                 )
         } else if item.type == .image {
-            Text("The stored file for this image could not be read.")
+            Text(L("The stored file for this image could not be read."))
                 .font(.caption)
                 .foregroundStyle(.secondary)
         } else if item.isSensitive {
-            Text("Stored encrypted; not shown in previews.")
+            Text(L("Stored encrypted; not shown in previews."))
                 .font(.caption)
                 .foregroundStyle(.secondary)
         } else {
@@ -557,12 +557,12 @@ struct InlineClipPreview: View {
     private var recognisedText: some View {
         if item.type == .image {
             HStack(spacing: 5) {
-                Label("Recognised text", systemImage: "text.viewfinder")
+                Label(L("Recognised text"), systemImage: "text.viewfinder")
                     .font(.caption2.weight(.semibold))
                     .foregroundStyle(.secondary)
                 Spacer()
                 if let recognised = item.extractedText, !recognised.isEmpty {
-                    Button(copied ? "Copied" : "Copy") {
+                    Button(copied ? L("Copied") : L("Copy")) {
                         PasteService.write(.text(recognised))
                         copied = true
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { copied = false }
@@ -578,7 +578,7 @@ struct InlineClipPreview: View {
                     .textSelection(.enabled)
                     .frame(maxWidth: .infinity, alignment: .leading)
             } else {
-                Text("No text was found in this image.")
+                Text(L("No text was found in this image."))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }

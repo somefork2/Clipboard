@@ -158,7 +158,7 @@ final class ClipboardItem {
     /// there is any, otherwise its dimensions.
     var imageHeadline: String {
         if let first = recognizedFirstLine { return first }
-        if let dimensions = imageDimensionsText { return String(localized: "Image · \(dimensions)") }
+        if let dimensions = imageDimensionsText { return L("Image · \(dimensions)") }
         return "Image"
     }
 
@@ -199,7 +199,7 @@ final class ClipboardItem {
         if words > 0 {
             parts.append("\(words) word\(words == 1 ? "" : "s") recognised")
         } else if extractedText == nil {
-            parts.append(String(localized: "no text recognised"))
+            parts.append(L("no text recognised"))
         }
         return parts.joined(separator: " · ")
     }
@@ -208,14 +208,14 @@ final class ClipboardItem {
         switch type {
         case .url: return urlTitle ?? URL(string: url ?? "")?.host() ?? "Link"
         case .image: return "Image"
-        case .code: return String(localized: "Code Snippet")
-        case .password: return String(localized: "Protected Item")
+        case .code: return L("Code Snippet")
+        case .password: return L("Protected Item")
         default:
             let preview = displayBody
                 .replacingOccurrences(of: "\n", with: " ")
                 .trimmingCharacters(in: .whitespacesAndNewlines)
                 .prefix(60)
-            return preview.isEmpty ? String(localized: "Empty") : String(preview)
+            return preview.isEmpty ? L("Empty") : String(preview)
         }
     }
 

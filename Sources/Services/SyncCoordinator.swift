@@ -23,9 +23,9 @@ final class SyncCoordinator {
         var message: String? {
             switch self {
             case .idle: return nil
-            case .syncing: return String(localized: "Syncing…")
+            case .syncing: return L("Syncing…")
             case .synced(let date):
-                return String(localized: "Last synced \(date.formatted(date: .omitted, time: .shortened)).")
+                return L("Last synced \(date.formatted(date: .omitted, time: .shortened)).")
             case .unavailable(let reason), .failed(let reason): return reason
             }
         }
@@ -110,7 +110,7 @@ final class SyncCoordinator {
     func syncNow(userInitiated: Bool) async {
         guard isEnabled else {
             if userInitiated {
-                status = .unavailable(String(localized: "Turn on iCloud sync in Settings first."))
+                status = .unavailable(L("Turn on iCloud sync in Settings first."))
             }
             return
         }

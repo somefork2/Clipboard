@@ -38,19 +38,32 @@ final class AppSettings {
     /// and matching it against a list of plain codes found nothing: the picker
     /// came up blank.
     ///
-    /// The change reaches the system on the next launch, because that is when
-    /// it reads the setting. The interface says so rather than leaving someone
-    /// to conclude that nothing happened.
+    /// The change lands at once: `LanguageBundle` starts reading from that
+    /// language's own `.lproj`, `languageGeneration` moves, and the scenes
+    /// keyed on it rebuild. `AppleLanguages` is written too, so anything the
+    /// system draws for us — the standard menus, open and save panels — comes
+    /// up in the same language on the next launch.
     var preferredLanguage: String? {
         didSet {
+            guard preferredLanguage != oldValue else { return }
             if let preferredLanguage {
                 defaults.set([preferredLanguage], forKey: "AppleLanguages")
             } else {
                 defaults.removeObject(forKey: "AppleLanguages")
             }
+            LanguageBundle.use(preferredLanguage)
+            languageGeneration = LanguageBundle.generation
             persist()
         }
     }
+
+    /// Moves whenever the language does. Views carry it as their `id`, so
+    /// SwiftUI throws the old tree away and runs every `body` again — which is
+    /// what makes the new language appear without a relaunch.
+    ///
+    /// It exists separately from `LanguageBundle.generation` because only a
+    /// property of an `@Observable` is watched; a static on an enum is not.
+    private(set) var languageGeneration = 0
 
     /// The language actually in use, for showing what "same as the Mac" means.
     static var effectiveLanguageName: String {

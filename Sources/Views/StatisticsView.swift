@@ -10,8 +10,8 @@ struct StatisticsView: View {
         if !subscriptions.checkAccess(for: .statistics) {
             EmptyStateView(
                 icon: "chart.bar",
-                title: String(localized: "Statistics are part of CopyWell Pro"),
-                message: String(localized: "See what you copy most, which apps you copy from, and how your history grows over time."),
+                title: L("Statistics are part of CopyWell Pro"),
+                message: L("See what you copy most, which apps you copy from, and how your history grows over time."),
                 actionTitle: "See CopyWell Pro",
                 action: { subscriptions.showingPaywall = true }
             )
@@ -31,10 +31,10 @@ struct StatisticsView: View {
 
     private var summaryRow: some View {
         HStack(spacing: 12) {
-            StatTile(label: String(localized: "Clips stored"), value: "\(store.items.count)")
-            StatTile(label: String(localized: "Copied all time"), value: "\(tracker.totalCopied)")
-            StatTile(label: String(localized: "Pasted all time"), value: "\(tracker.totalPasted)")
-            StatTile(label: String(localized: "Copied today"), value: "\(tracker.dailyCopies)")
+            StatTile(label: L("Clips stored"), value: "\(store.items.count)")
+            StatTile(label: L("Copied all time"), value: "\(tracker.totalCopied)")
+            StatTile(label: L("Pasted all time"), value: "\(tracker.totalPasted)")
+            StatTile(label: L("Copied today"), value: "\(tracker.dailyCopies)")
         }
     }
 
@@ -44,10 +44,10 @@ struct StatisticsView: View {
             .sorted { $0.count > $1.count }
 
         return VStack(alignment: .leading, spacing: 8) {
-            Text("By type")
+            Text(L("By type"))
                 .font(.headline)
             if counts.isEmpty {
-                Text("Nothing recorded yet.")
+                Text(L("Nothing recorded yet."))
                     .font(.callout)
                     .foregroundStyle(.secondary)
             } else {
@@ -68,10 +68,10 @@ struct StatisticsView: View {
     private var topApps: some View {
         let apps = tracker.getTopApps(limit: 8)
         return VStack(alignment: .leading, spacing: 8) {
-            Text("Most copied from")
+            Text(L("Most copied from"))
                 .font(.headline)
             if apps.isEmpty {
-                Text("No source apps recorded yet.")
+                Text(L("No source apps recorded yet."))
                     .font(.callout)
                     .foregroundStyle(.secondary)
             } else {
@@ -79,7 +79,7 @@ struct StatisticsView: View {
                     HStack {
                         Text(entry.app)
                         Spacer()
-                        Text("\(entry.count)")
+                        Text(L("\(entry.count)"))
                             .font(.callout.monospacedDigit())
                             .foregroundStyle(.secondary)
                     }

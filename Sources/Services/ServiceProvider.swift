@@ -59,13 +59,13 @@ final class ServiceProvider: NSObject {
         error: AutoreleasingUnsafeMutablePointer<NSString>
     ) {
         guard SubscriptionManager.shared.hasFullAccess else {
-            error.pointee = String(localized: "CopyWell is locked. Subscribe to carry on using it.") as NSString
+            error.pointee = L("CopyWell is locked. Subscribe to carry on using it.") as NSString
             return
         }
         guard let latest = ClipboardStore.shared.items.first,
               let text = latest.isSensitive ? nil : latest.body,
               !text.isEmpty else {
-            error.pointee = String(localized: "CopyWell has nothing to paste.") as NSString
+            error.pointee = L("CopyWell has nothing to paste.") as NSString
             return
         }
         pboard.clearContents()
@@ -84,13 +84,13 @@ final class ServiceProvider: NSObject {
         error: AutoreleasingUnsafeMutablePointer<NSString>
     ) {
         guard SubscriptionManager.shared.hasFullAccess else {
-            error.pointee = String(localized: "CopyWell is locked. Subscribe to carry on using it.") as NSString
+            error.pointee = L("CopyWell is locked. Subscribe to carry on using it.") as NSString
             return
         }
         guard let latest = ClipboardStore.shared.items.first,
               !latest.isSensitive,
               let text = latest.body, !text.isEmpty else {
-            error.pointee = String(localized: "CopyWell has nothing to paste.") as NSString
+            error.pointee = L("CopyWell has nothing to paste.") as NSString
             return
         }
         pboard.clearContents()
@@ -108,13 +108,13 @@ final class ServiceProvider: NSObject {
         error: AutoreleasingUnsafeMutablePointer<NSString>
     ) {
         guard SubscriptionManager.shared.hasFullAccess else {
-            error.pointee = String(localized: "CopyWell is locked. Subscribe to carry on using it.") as NSString
+            error.pointee = L("CopyWell is locked. Subscribe to carry on using it.") as NSString
             return
         }
         guard let image = images(from: pboard).first,
               let data = ImageStore.png(from: image, maxSize: nil),
               let text = OCRService.recognizeSynchronously(in: data) else {
-            error.pointee = String(localized: "No text was found in that image.") as NSString
+            error.pointee = L("No text was found in that image.") as NSString
             return
         }
         pboard.clearContents()

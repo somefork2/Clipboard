@@ -24,7 +24,7 @@ struct SubscriptionWallView: View {
                         .font(.title2.weight(.semibold))
                         .multilineTextAlignment(.center)
 
-                    Text("Subscribe to carry on using CopyWell. Nothing has been deleted — your history comes back the moment a subscription is active.")
+                    Text(L("Subscribe to carry on using CopyWell. Nothing has been deleted — your history comes back the moment a subscription is active."))
                         .font(.callout)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
@@ -33,11 +33,11 @@ struct SubscriptionWallView: View {
                 }
 
                 VStack(spacing: 10) {
-                    Button("See CopyWell Pro") { subscriptions.showingPaywall = true }
+                    Button(L("See CopyWell Pro")) { subscriptions.showingPaywall = true }
                         .buttonStyle(.borderedProminent)
                         .controlSize(.large)
 
-                    Button("Restore Purchases") {
+                    Button(L("Restore Purchases")) {
                         Task { await subscriptions.restorePurchases() }
                     }
                     .buttonStyle(.link)
@@ -52,7 +52,7 @@ struct SubscriptionWallView: View {
                         .frame(maxWidth: 380)
                 }
 
-                Label("Nothing new is recorded while CopyWell is locked.", systemImage: "pause.circle")
+                Label(L("Nothing new is recorded while CopyWell is locked."), systemImage: "pause.circle")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -70,8 +70,8 @@ struct SubscriptionWallView: View {
 
     private var title: String {
         subscriptions.hasEverSubscribed
-            ? String(localized: "Your subscription has ended.")
-            : String(localized: "Your free trial has ended.")
+            ? L("Your subscription has ended.")
+            : L("Your free trial has ended.")
     }
 }
 

@@ -154,21 +154,21 @@ struct ShortcutHint: View {
 
 /// Picks the language CopyWell runs in.
 ///
-/// The change lands on the next launch, because the system reads the setting
-/// when the app starts. Saying so beats leaving someone to conclude it did not
-/// work.
+/// The change lands immediately: `AppSettings` points `LanguageBundle` at the
+/// chosen `.lproj` and moves `languageGeneration`, which every scene carries as
+/// its `id`, so SwiftUI rebuilds and each string is read again.
 struct LanguagePicker: View {
     @Environment(AppSettings.self) private var settings
 
     var body: some View {
         @Bindable var settings = settings
-        Picker("Language", selection: Binding(
+        Picker(L("Language"), selection: Binding<String>(
             get: { settings.preferredLanguage ?? "" },
             set: { settings.preferredLanguage = $0.isEmpty ? nil : $0 }
         )) {
             // Names the language it currently resolves to, so the default is
             // an answer rather than a blank.
-            Text("Same as the Mac (\(AppSettings.effectiveLanguageName))").tag("")
+            Text(L("Same as the Mac (\(AppSettings.effectiveLanguageName))")).tag("")
             Divider()
             ForEach(AppSettings.availableLanguages, id: \.self) { code in
                 Text(AppSettings.languageName(code)).tag(code)
