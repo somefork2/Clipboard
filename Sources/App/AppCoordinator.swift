@@ -30,7 +30,13 @@ final class AppCoordinator {
         monitor.onClipCaptured = { [weak self] clip in
             self?.store.insert(clip)
         }
+        #if DEBUG
+        // Demo mode shows invented content; recording the real clipboard on top
+        // of it would both pollute the screenshots and capture private data.
+        if !DemoContent.isActive { monitor.startMonitoring() }
+        #else
         monitor.startMonitoring()
+        #endif
 
         registerShortcuts()
         SubscriptionManager.shared.start()

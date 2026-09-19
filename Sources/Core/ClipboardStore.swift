@@ -24,6 +24,18 @@ final class ClipboardStore {
     private init() {
         var fallbackNotice: String?
         let schema = Schema([ClipboardItem.self, Pinboard.self])
+
+        #if DEBUG
+        // Screenshot runs must never touch, or show, the real history.
+        if DemoContent.isActive {
+            let demo = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true, cloudKitDatabase: .none)
+            container = try! ModelContainer(for: schema, configurations: [demo])
+            DemoContent.seed(into: container.mainContext)
+            reload()
+            return
+        }
+        #endif
+
         // `.none` is deliberate. The iCloud entitlement makes SwiftData's default
         // `.automatic` switch CloudKit mirroring on, which then refuses to open
         // the store at all because mirroring requires every attribute to be

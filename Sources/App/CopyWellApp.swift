@@ -97,6 +97,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         MainActor.assumeIsolated {
             AppCoordinator.shared.start()
             ThemeManager.shared.applyStoredTheme()
+            #if DEBUG
+            if ScreenshotRenderer.isActive { ScreenshotRenderer.run() }
+            #endif
         }
 
         observeWindowPrivacy()
