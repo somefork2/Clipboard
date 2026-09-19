@@ -1,0 +1,18 @@
+No account and no sign-in is required. Everything in CopyWell is available on first launch.
+
+TRIAL AND SUBSCRIPTION
+- On first launch every feature is unlocked for 30 days. No payment details are asked for and nothing is charged when the trial ends.
+- After the trial the app keeps working and retains the last 48 hours of history. Favourites and pinboards are never removed.
+- CopyWell Pro (com.copywell.pro.monthly, com.copywell.pro.annual) removes the time limit. The purchase screen shows the price, the period, the renewal terms, Restore Purchases, and links to the privacy policy and to Apple's standard EULA.
+
+PERMISSIONS
+- CopyWell requests no permissions at all. In particular it does not use Accessibility: it never sends keystrokes, so a clip is placed on the clipboard and the user presses Command-V themselves.
+- Copies that a password manager marks with org.nspasteboard.ConcealedType are not recorded, and neither is anything shaped like an API key or a private key.
+
+HOW TO TRY IT
+1. Copy a few different things - some text, a link, an image.
+2. Press Option-Command-V anywhere. The palette opens at the cursor. Arrow keys or Command-1 to 9 select, Return copies the clip, Command-Y previews it.
+3. The menu bar icon lists recent clips.
+4. The right-click entries are macOS Services, which macOS ships switched off. To see them: System Settings > Keyboard > Keyboard Shortcuts > Services, then tick the CopyWell entries. The Finder extension is enabled in System Settings > General > Login Items & Extensions > Finder Extensions.
+
+iCLOUD SYNC is off by default. When switched on it uses the user's own private CloudKit database; the developer has no access to it.

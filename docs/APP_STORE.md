@@ -24,6 +24,30 @@ committed to the repository.
 - Every feature advertised on the paywall is implemented. Nothing is sold that
   does not work.
 
+## Submission status — 19 September 2026
+
+Everything below is done and verified in App Store Connect for version 1.0
+(build 2, App ID 6813555231).
+
+- Build 2 uploaded and attached, containing all 33 languages.
+- 34 store localisations, each with description, keywords, promotional text,
+  support and marketing URLs, and four 2880x1800 screenshots.
+- Subtitle, categories (Productivity / Utilities), copyright, age rating.
+- App Privacy published as **Data Not Collected**.
+- Privacy policy, support and terms pages live at
+  https://somefork2.github.io/CopyWell/
+- App price set to free; CopyWell Pro at 2.99/24.99 USD in high-income
+  territories and 0.99/7.99 USD equivalents everywhere else.
+- Content rights declared; subscription review screenshot attached to both
+  products.
+
+**One field is left, and only you can fill it.** App Store Connect refuses to
+open a review submission until *App Review Information > Contact Information*
+is complete, and it requires a phone number, which is yours to give. Open the
+version page, type your name, phone and email under "Контактная информация",
+paste the reviewer notes from `docs/review-notes.txt`, leave "sign-in
+required" unticked, press Save, then **Add for Review**.
+
 ## Still yours
 
 ### 1. Identifiers and signing
