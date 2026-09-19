@@ -69,7 +69,7 @@ struct ClipboardListView: View {
     private var filterBar: some View {
         ScrollView(.horizontal) {
             HStack(spacing: 6) {
-                FilterChip(title: "All", isSelected: typeFilter == nil) { typeFilter = nil }
+                FilterChip(title: String(localized: "All"), isSelected: typeFilter == nil) { typeFilter = nil }
                 ForEach(availableTypes, id: \.self) { type in
                     FilterChip(
                         title: type.displayName,

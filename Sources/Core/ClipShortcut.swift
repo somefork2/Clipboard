@@ -95,9 +95,9 @@ enum ShortcutAction: String, CaseIterable, Identifiable {
         case .quickPaste: return String(localized: "Floating palette at the cursor; pick a clip and press ⌘V")
         case .pastePrevious: return "Put the item copied before the current one back on the clipboard"
         case .pastePlainText: return "Put the latest clip on the clipboard with formatting stripped"
-        case .pinLast: return "Add the most recent clip to Favourites"
-        case .togglePause: return "Stop recording clipboard activity"
-        case .pasteStackNext: return "Put the next queued item on the clipboard"
+        case .pinLast: return String(localized: "Add the most recent clip to Favourites")
+        case .togglePause: return String(localized: "Stop recording clipboard activity")
+        case .pasteStackNext: return String(localized: "Put the next queued item on the clipboard")
         }
     }
 

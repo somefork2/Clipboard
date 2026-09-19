@@ -158,10 +158,10 @@ struct QuickPasteView: View {
 
     private var footer: some View {
         HStack(spacing: 12) {
-            ShortcutHint(keys: "↩", label: "Copy")
-            ShortcutHint(keys: "⌥↩", label: "Plain")
+            ShortcutHint(keys: "↩", label: String(localized: "Copy"))
+            ShortcutHint(keys: "⌥↩", label: String(localized: "Plain"))
             ShortcutHint(keys: "⌘1–9", label: String(localized: "Jump"))
-            ShortcutHint(keys: "⌘Y", label: "Preview")
+            ShortcutHint(keys: "⌘Y", label: String(localized: "Preview"))
             Spacer()
             Text("\(results.count)")
                 .font(.caption.monospacedDigit())
