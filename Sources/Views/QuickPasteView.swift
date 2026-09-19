@@ -60,8 +60,15 @@ struct QuickPasteView: View {
         // reports the fitting size of a ScrollView — which is nothing — and the
         // borderless panel shrinks to a stub.
         .frame(width: QuickPasteView.panelSize.width, height: QuickPasteView.panelSize.height)
-        .elevatedSurface()
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        // A solid surface, not `.regularMaterial`. AppKit's visual effect view
+        // draws its own hairline along the edge, and clipped to a rounded
+        // rectangle that reads as a grey ring traced round the palette. The
+        // panel's shadow is what should separate it from the desktop.
+        .background(Theme.elevated)
+        // The rounding is done by the panel's layer, not here. A SwiftUI
+        // `clipShape` antialiases its own cut, and against a light background
+        // that half-covered pixel reads as a grey line traced round the whole
+        // palette — measured at #808080, one pixel wide, following the curve.
         // No outline: the panel's shadow is what separates it from whatever is
         // behind, and a hairline on top of that only reads as a grey ring.
         .onAppear {

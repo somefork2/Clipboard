@@ -154,6 +154,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             if ScreenshotRenderer.isDiagnosingSettings { ScreenshotRenderer.diagnoseSettings() }
             if ScreenshotRenderer.isDiagnosingSidebar { ScreenshotRenderer.diagnoseSidebar() }
             if ScreenshotRenderer.isDiagnosingRelayout { ScreenshotRenderer.diagnoseRelayout() }
+            if ScreenshotRenderer.isDiagnosingFileRead { ScreenshotRenderer.diagnoseFileRead() }
             #endif
         }
 
@@ -169,47 +170,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             switch url.host {
             case "open":
                 MainActor.assumeIsolated { AppCoordinator.shared.openMainWindow() }
-            case "save":
-                let paths = URLComponents(url: url, resolvingAgainstBaseURL: false)?
-                    .queryItems?
-                    .filter { $0.name == "path" }
-                    .compactMap(\.value) ?? []
-                MainActor.assumeIsolated { Self.ingest(paths: paths) }
             default:
                 break
             }
         }
     }
 
-    @MainActor
-    private static func ingest(paths: [String]) {
-        // The Finder extension is a capture route like any other, so a locked
-        // app has to refuse it too — otherwise the wall's promise that nothing
-        // new is recorded is simply untrue.
-        guard SubscriptionManager.shared.hasFullAccess else { return }
-        for path in paths {
-            let fileURL = URL(fileURLWithPath: path)
-            Task {
-                if let image = NSImage(contentsOf: fileURL),
-                   let clip = await ClipboardMonitor.makeClip(
-                        image: image,
-                        sourceApp: "Finder",
-                        sourceBundleID: "com.apple.finder"
-                   ) {
-                    ClipboardStore.shared.insert(clip)
-                    return
-                }
-                let body = (try? String(contentsOf: fileURL, encoding: .utf8)) ?? fileURL.path
-                if let clip = await ClipboardMonitor.makeClip(
-                    text: body,
-                    sourceApp: "Finder",
-                    sourceBundleID: "com.apple.finder"
-                ) {
-                    ClipboardStore.shared.insert(clip)
-                }
-            }
-        }
-    }
+    // `copywell://save?path=…` is gone. A sandboxed app may not read a file it
+    // was only told the path of, and the code that handled it fell back to
+    // storing the path as though it were the file's contents. The Finder
+    // extension reads what the user selected and puts it on the pasteboard,
+    // which is a route that exists and works.
 
     func applicationWillTerminate(_ notification: Notification) {
         MainActor.assumeIsolated {

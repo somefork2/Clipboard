@@ -27,6 +27,34 @@ enum ScreenshotRenderer {
     /// Toggles the sidebar and reports whether the main thread kept running.
     static var isDiagnosingSidebar: Bool { CommandLine.arguments.contains("--diagnose-sidebar") }
 
+    /// Tries to read a file by path, the way the Finder extension's "Save to
+    /// CopyWell" makes the app do. Answers whether the sandbox permits it.
+    static var isDiagnosingFileRead: Bool { CommandLine.arguments.contains("--diagnose-fileread") }
+
+    static func diagnoseFileRead() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            MainActor.assumeIsolated {
+                guard let i = CommandLine.arguments.firstIndex(of: "--diagnose-fileread"),
+                      i + 1 < CommandLine.arguments.count else {
+                    print("RESULT: no path given"); exit(2)
+                }
+                let path = CommandLine.arguments[i + 1]
+                let url = URL(fileURLWithPath: path)
+                print("path: \(path)")
+                print("exists (FileManager): \(FileManager.default.fileExists(atPath: path))")
+                print("isReadable: \(FileManager.default.isReadableFile(atPath: path))")
+                do {
+                    let text = try String(contentsOf: url, encoding: .utf8)
+                    print("RESULT: read \(text.count) characters — the sandbox allows it")
+                    exit(0)
+                } catch {
+                    print("RESULT: could not read — \(error)")
+                    exit(1)
+                }
+            }
+        }
+    }
+
     /// Hammers the window with layout changes.
     ///
     /// The sidebar toggle crashes inside `_NSViewLayout`, so anything that

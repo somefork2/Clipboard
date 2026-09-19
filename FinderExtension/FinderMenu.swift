@@ -40,18 +40,22 @@ final class FinderMenu: FIFinderSync {
 
     // MARK: - Actions
 
-    /// Hands the selection to the main app through its URL scheme. The extension
-    /// cannot write to the app's store itself.
+    /// Puts the files themselves on the pasteboard.
+    ///
+    /// The file, not what is inside it: pasted into Finder it copies the file,
+    /// into Mail it attaches it. "Copy Text Contents" is the item for the text
+    /// inside, and the two are deliberately different.
+    ///
+    /// It used to send the app a `copywell://save?path=…` URL. The app is
+    /// sandboxed and has no right to read a file it was merely told the path of
+    /// — measured: `isReadable` false, "Operation not permitted" — and its
+    /// fallback quietly stored the path as though it were the contents.
     @objc func saveToCopyWell(_ sender: AnyObject?) {
         let urls = selectedURLs()
         guard !urls.isEmpty else { return }
-
-        var components = URLComponents()
-        components.scheme = "copywell"
-        components.host = "save"
-        components.queryItems = urls.map { URLQueryItem(name: "path", value: $0.path) }
-        guard let url = components.url else { return }
-        NSWorkspace.shared.open(url)
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.writeObjects(urls as [NSURL])
     }
 
     @objc func copyPath(_ sender: AnyObject?) {
@@ -60,12 +64,54 @@ final class FinderMenu: FIFinderSync {
         write(paths.joined(separator: "\n"))
     }
 
-    /// Reads the file only when it is plain text; anything else is skipped
-    /// rather than pasted as mojibake.
+    /// Reads the file as text, whatever encoding it turns out to be in.
+    ///
+    /// This used to insist on UTF-8 and swallow the error, so a file saved in
+    /// UTF-16 or a Windows codepage — or any binary at all — made the menu item
+    /// do nothing whatsoever, with no way to tell why.
     @objc func copyContents(_ sender: AnyObject?) {
-        let texts = selectedURLs().compactMap { try? String(contentsOf: $0, encoding: .utf8) }
-        guard !texts.isEmpty else { return }
+        let urls = selectedURLs()
+        guard !urls.isEmpty else { return }
+
+        var texts: [String] = []
+        var unreadable: [String] = []
+        for url in urls {
+            if let text = Self.readText(at: url) {
+                texts.append(text)
+            } else {
+                unreadable.append(url.lastPathComponent)
+            }
+        }
+
+        guard !texts.isEmpty else {
+            report(unreadable: unreadable)
+            return
+        }
         write(texts.joined(separator: "\n\n"))
+    }
+
+    /// Text out of a file, trying the encodings that actually turn up.
+    private static func readText(at url: URL) -> String? {
+        var detected = String.Encoding.utf8
+        if let text = try? String(contentsOf: url, usedEncoding: &detected) { return text }
+        for encoding in [String.Encoding.utf8, .utf16, .utf16LittleEndian, .utf16BigEndian,
+                         .isoLatin1, .windowsCP1251, .windowsCP1252, .macOSRoman] {
+            if let text = try? String(contentsOf: url, encoding: encoding), !text.isEmpty {
+                return text
+            }
+        }
+        return nil
+    }
+
+    /// Says so, rather than looking broken.
+    private func report(unreadable: [String]) {
+        let alert = NSAlert()
+        alert.messageText = String(localized: "Nothing to copy")
+        alert.informativeText = unreadable.count == 1
+            ? String(localized: "“\(unreadable[0])” is not a text file, so there is no text in it to copy.")
+            : String(localized: "None of the selected files contain text.")
+        alert.alertStyle = .informational
+        alert.runModal()
     }
 
     @objc func openApp(_ sender: AnyObject?) {

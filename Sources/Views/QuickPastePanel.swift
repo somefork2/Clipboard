@@ -119,6 +119,12 @@ final class QuickPastePanel: NSObject, NSWindowDelegate {
         let hosting = NSHostingView(rootView: root)
         hosting.frame = NSRect(origin: .zero, size: size)
         hosting.autoresizingMask = [.width, .height]
+        // AppKit rounds the corners, so the edge is a clean layer mask rather
+        // than an antialiased SwiftUI clip with a grey seam along it.
+        hosting.wantsLayer = true
+        hosting.layer?.cornerRadius = 12
+        hosting.layer?.cornerCurve = .continuous
+        hosting.layer?.masksToBounds = true
         panel.contentView = hosting
         panel.setContentSize(size)
         return panel
