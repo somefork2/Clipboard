@@ -335,7 +335,9 @@ final class SubscriptionManager {
         if isInTrial { return String(localized: "Pro — subscription trial") }
         if isPro { return String(localized: "Pro") }
         if isInFreeTrial { return "Trial — \(TrialManager.shared.daysRemaining) days left" }
-        return String(localized: "Free")
+        // There is no free tier any more, so "Free" would be a lie: this state
+        // is the app locked and waiting for a subscription.
+        return String(localized: "Locked — subscription needed")
     }
 
     /// Returns true when the feature may be used; otherwise surfaces the paywall.

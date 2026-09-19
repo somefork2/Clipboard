@@ -70,21 +70,28 @@ struct CopyWellCommands: Commands {
             Link("Support", destination: LegalLinks.support)
             Link("Privacy Policy", destination: LegalLinks.privacyPolicy)
         }
+        // Every item here goes through `unlocked`, which either runs the action
+        // or brings the subscription wall forward. A menu item that quietly
+        // does nothing reads as a broken app.
         CommandMenu("Clipboard") {
-            Button("Open Palette") { QuickPastePanel.shared.toggle() }
+            Button("Open Palette") { AppCoordinator.unlocked { QuickPastePanel.shared.toggle() } }
                 .keyboardShortcut("v", modifiers: [.option, .command])
             Button("Quick Look") {
-                NotificationCenter.default.post(name: .copyWellRequestPreviewSelection, object: nil)
+                AppCoordinator.unlocked {
+                    NotificationCenter.default.post(name: .copyWellRequestPreviewSelection, object: nil)
+                }
             }
             .keyboardShortcut("y", modifiers: .command)
             Divider()
             Button(AppCoordinator.shared.isPaused ? "Resume Recording" : "Pause Recording") {
-                AppCoordinator.shared.togglePause()
+                AppCoordinator.unlocked { AppCoordinator.shared.togglePause() }
             }
             .keyboardShortcut("p", modifiers: [.control, .option])
             Divider()
             Button("Clear History…") {
-                NotificationCenter.default.post(name: .copyWellRequestClearHistory, object: nil)
+                AppCoordinator.unlocked {
+                    NotificationCenter.default.post(name: .copyWellRequestClearHistory, object: nil)
+                }
             }
         }
     }
@@ -129,6 +136,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     @MainActor
     private static func ingest(paths: [String]) {
+        // The Finder extension is a capture route like any other, so a locked
+        // app has to refuse it too — otherwise the wall's promise that nothing
+        // new is recorded is simply untrue.
+        guard SubscriptionManager.shared.hasFullAccess else { return }
         for path in paths {
             let fileURL = URL(fileURLWithPath: path)
             Task {

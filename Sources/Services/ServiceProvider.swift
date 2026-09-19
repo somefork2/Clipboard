@@ -83,6 +83,10 @@ final class ServiceProvider: NSObject {
         userData: String,
         error: AutoreleasingUnsafeMutablePointer<NSString>
     ) {
+        guard SubscriptionManager.shared.hasFullAccess else {
+            error.pointee = String(localized: "CopyWell is locked. Subscribe to carry on using it.") as NSString
+            return
+        }
         guard let latest = ClipboardStore.shared.items.first,
               !latest.isSensitive,
               let text = latest.body, !text.isEmpty else {
@@ -103,6 +107,10 @@ final class ServiceProvider: NSObject {
         userData: String,
         error: AutoreleasingUnsafeMutablePointer<NSString>
     ) {
+        guard SubscriptionManager.shared.hasFullAccess else {
+            error.pointee = String(localized: "CopyWell is locked. Subscribe to carry on using it.") as NSString
+            return
+        }
         guard let image = images(from: pboard).first,
               let data = ImageStore.png(from: image, maxSize: nil),
               let text = OCRService.recognizeSynchronously(in: data) else {
