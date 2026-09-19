@@ -66,6 +66,16 @@ struct ClipboardListView: View {
 
     // MARK: - Filter bar
 
+    /// The chips, in a horizontal scroller because there can be more of them
+    /// than fit.
+    ///
+    /// Two things a `ScrollView` does on macOS have to be undone here. It paints
+    /// no background of its own, so the strip stayed the same near-black
+    /// whatever the theme — indistinguishable under the dark themes, a black bar
+    /// across the top under Light and Paper. And it takes the height it is
+    /// offered rather than the height its content needs, which left the row a
+    /// few points short and sliced the top off every capsule. `fixedSize` makes
+    /// it ask for its content's height instead.
     private var filterBar: some View {
         ScrollView(.horizontal) {
             HStack(spacing: 6) {
@@ -84,6 +94,9 @@ struct ClipboardListView: View {
             .padding(.vertical, 8)
         }
         .scrollIndicators(.never)
+        .scrollContentBackground(.hidden)
+        .fixedSize(horizontal: false, vertical: true)
+        .background(Theme.background)
     }
 
     /// Only offer filters for types that actually occur in the history.

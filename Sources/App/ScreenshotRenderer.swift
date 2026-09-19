@@ -66,13 +66,28 @@ enum ScreenshotRenderer {
             ("wizard", CGSize(width: 660, height: 600), false, dressed(SetupWizard(onFinish: {}))),
             ("paywall", CGSize(width: 460, height: 660), false, dressed(PaywallView())),
             ("wall", CGSize(width: 900, height: 620), false, dressed(SubscriptionWallView())),
+            ("appearance", CGSize(width: 560, height: 420), false,
+             dressed(AppearanceSettings().background(Theme.background))),
+            // Sized to nothing on purpose: `.zero` means "ask the view how tall
+            // it wants to be", which is what MenuBarExtra does. Forcing a size
+            // here is exactly what hid the popover's footer being pushed out.
+            ("menubar-natural", .zero, false,
+             dressed(SubscriptionGate { MenuBarContentView() }.frame(minWidth: 320, minHeight: 280))),
         ]
 
-        for (theme, name, look) in [(AppTheme.light, "light", NSAppearance.Name.aqua),
-                                    (AppTheme.dark, "dark", NSAppearance.Name.darkAqua)] {
+        // `--all-themes` renders every theme, which is how a theme that only
+        // half-applies gets noticed: the custom palettes are the ones where a
+        // stray system colour shows up.
+        let everyTheme = CommandLine.arguments.contains("--all-themes")
+        let passes: [(AppTheme, String, NSAppearance.Name?)] = everyTheme
+            ? AppTheme.allCases.map { ($0, $0.rawValue, $0.palette.appearance) }
+            : [(AppTheme.light, "light", NSAppearance.Name.aqua),
+               (AppTheme.dark, "dark", NSAppearance.Name.darkAqua)]
+
+        for (theme, name, look) in passes {
             ThemeManager.shared.currentTheme = theme
             ThemeManager.shared.applyStoredTheme()
-            let appearance = NSAppearance(named: look)
+            let appearance = look.flatMap { NSAppearance(named: $0) }
             for (key, size, titled, view) in shots {
                 capture(view, size: size, titled: titled, appearance: appearance,
                         to: directory.appendingPathComponent("\(key)-\(name).png"))
@@ -93,10 +108,12 @@ enum ScreenshotRenderer {
             backing: .buffered,
             defer: false
         )
-        window.contentView = NSHostingView(rootView: view)
+        let hosting = NSHostingView(rootView: view)
+        window.contentView = hosting
         window.appearance = appearance
         window.title = "CopyWell"
-        window.setContentSize(size)
+        let resolved = size == .zero ? hosting.fittingSize : size
+        window.setContentSize(resolved)
         // Far off the left edge of any real display, so the user never sees it.
         window.setFrameOrigin(NSPoint(x: -20000, y: -20000))
         window.orderFront(nil)

@@ -26,8 +26,11 @@ struct CopyWellApp: App {
         .commands { CopyWellCommands() }
 
         MenuBarExtra("CopyWell", systemImage: coordinator.isPaused ? "clipboard" : "clipboard.fill", isInserted: menuBarBinding) {
+            // No frame here. `MenuBarContentView` states its own width and
+            // computes its own height; an outer minHeight fought that and cut
+            // the footer — with it, the "Open CopyWell" button — off the
+            // bottom of the popover. The wall carries its own size instead.
             SubscriptionGate { MenuBarContentView() }
-                .frame(minWidth: 320, minHeight: 280)
                 .environment(store)
                 .environment(coordinator)
                 .environment(subscriptions)

@@ -125,10 +125,16 @@ struct MenuBarContentView: View {
 
     /// Tall enough for the rows we have, capped so the popover never runs off
     /// the screen.
+    ///
+    /// The cap has to come down when the inline preview is open, because that
+    /// adds its own 210 points below the list. Without this the popover asked
+    /// for more height than the screen has under the menu bar, and what fell
+    /// off the bottom was the footer.
     private var listHeight: CGFloat {
         let rows = CGFloat(results.count)
         let content = rows * (Theme.Metric.compactRowHeight + 1) + 12
-        return min(max(content, Theme.Metric.compactRowHeight + 12), 420)
+        let cap: CGFloat = previewItem == nil ? 420 : 210
+        return min(max(content, Theme.Metric.compactRowHeight + 12), cap)
     }
 
     private var footer: some View {

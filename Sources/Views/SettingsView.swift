@@ -136,6 +136,7 @@ struct GeneralSettings: View {
             }
         }
         .formStyle(.grouped)
+        .themedScrollBackground()
     }
 }
 
@@ -175,6 +176,7 @@ struct PrivacySettings: View {
             }
         }
         .formStyle(.grouped)
+        .themedScrollBackground()
         .confirmationDialog(
             "Clear clipboard history?",
             isPresented: $showingClearConfirmation,
@@ -229,6 +231,7 @@ struct ShortcutSettings: View {
             }
         }
         .formStyle(.grouped)
+        .themedScrollBackground()
     }
 }
 
@@ -301,6 +304,7 @@ struct AppearanceSettings: View {
             }
         }
         .formStyle(.grouped)
+        .themedScrollBackground()
     }
 }
 
@@ -329,7 +333,11 @@ struct ThemeSwatch: View {
             .padding(6)
             .background(
                 RoundedRectangle(cornerRadius: 8)
-                    .stroke(isSelected ? Color.accentColor : Color(nsColor: .separatorColor),
+                    // Theme.accent, not Color.accentColor: the latter is the
+                    // system accent from macOS settings and ignores `.tint`, so
+                    // the ring round the chosen theme came out system blue next
+                    // to a swatch painted in the theme's own colour.
+                    .stroke(isSelected ? Theme.accent : Theme.separator,
                             lineWidth: isSelected ? 2 : 0.5)
             )
         }
@@ -449,6 +457,7 @@ struct SyncSettings: View {
             }
         }
         .formStyle(.grouped)
+        .themedScrollBackground()
     }
 
     private func checkAccount() async {
@@ -525,6 +534,7 @@ struct SubscriptionSettings: View {
             }
         }
         .formStyle(.grouped)
+        .themedScrollBackground()
         .task { await manager.refreshEntitlement() }
     }
 

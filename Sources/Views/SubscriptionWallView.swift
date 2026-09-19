@@ -60,7 +60,11 @@ struct SubscriptionWallView: View {
 
             Spacer(minLength: 0)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        // An ideal size as well as a maximum: in the main window the wall fills
+        // whatever it is given, but in the menu bar popover there is nothing to
+        // fill, and a view that only says "as big as possible" collapses.
+        .frame(minWidth: 320, idealWidth: 420, maxWidth: .infinity,
+               minHeight: 300, idealHeight: 420, maxHeight: .infinity)
         .background(Theme.background)
     }
 
