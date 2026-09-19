@@ -182,7 +182,7 @@ actor CloudKitSyncManager {
         case .serviceUnavailable, .requestRateLimited:
             return String(localized: "iCloud is busy. CopyWell will try again shortly.")
         default:
-            return "Sync failed: \(error.localizedDescription)"
+            return String(localized: "Sync failed: \(error.localizedDescription)")
         }
     }
 

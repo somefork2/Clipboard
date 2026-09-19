@@ -158,7 +158,7 @@ final class ClipboardItem {
     /// there is any, otherwise its dimensions.
     var imageHeadline: String {
         if let first = recognizedFirstLine { return first }
-        if let dimensions = imageDimensionsText { return "Image · \(dimensions)" }
+        if let dimensions = imageDimensionsText { return String(localized: "Image · \(dimensions)") }
         return "Image"
     }
 

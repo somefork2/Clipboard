@@ -185,9 +185,9 @@ struct PaywallView: View {
     private var primaryButtonTitle: String {
         guard let product = manager.product(for: selectedProductID) else { return String(localized: "Subscribe") }
         if let trial = manager.introductoryOffer(for: product.id) {
-            return "Start \(trial), then \(product.displayPrice)/\(periodName(product))"
+            return String(localized: "Start \(trial), then \(product.displayPrice)/\(periodName(product))")
         }
-        return "Subscribe — \(product.displayPrice)/\(periodName(product))"
+        return String(localized: "Subscribe — \(product.displayPrice)/\(periodName(product))")
     }
 
     /// Plain-language renewal terms, stated on the purchase screen itself.
@@ -197,13 +197,13 @@ struct PaywallView: View {
         }
         let period = periodName(product)
         let trialSentence = manager.introductoryOffer(for: product.id).map {
-            " The \($0) trial converts to a paid subscription unless cancelled at least 24 hours before it ends."
+            String(localized: " The \($0) trial converts to a paid subscription unless cancelled at least 24 hours before it ends.")
         } ?? ""
-        return "\(product.displayPrice) per \(period), billed through your Apple Account and renewed automatically until cancelled.\(trialSentence) Manage or cancel in App Store ▸ Subscriptions."
+        return String(localized: "\(product.displayPrice) per \(period), billed through your Apple Account and renewed automatically until cancelled.\(trialSentence) Manage or cancel in App Store ▸ Subscriptions.")
     }
 
     private func periodName(_ product: Product) -> String {
-        guard let unit = product.subscription?.subscriptionPeriod.unit else { return "period" }
+        guard let unit = product.subscription?.subscriptionPeriod.unit else { return String(localized: "period") }
         switch unit {
         case .day: return "day"
         case .week: return "week"

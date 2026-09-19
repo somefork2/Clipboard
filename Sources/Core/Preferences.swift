@@ -74,7 +74,7 @@ enum RetentionPolicy: Codable, Hashable, Identifiable {
     var displayName: String {
         switch self {
         case .count(let n):
-            return "Last \(n.formatted()) clips"
+            return String(localized: "Last \(n.formatted()) clips")
         case .days(let n):
             return n == 1 ? String(localized: "Last 24 hours") : String(localized: "Last \(n) days")
         case .forever:
@@ -85,11 +85,11 @@ enum RetentionPolicy: Codable, Hashable, Identifiable {
     var explanation: String {
         switch self {
         case .count(let n):
-            return "Once there are more than \(n.formatted()) clips, the oldest are removed."
+            return String(localized: "Once there are more than \(n.formatted()) clips, the oldest are removed.")
         case .days(let n):
             return n == 1
                 ? String(localized: "Clips older than a day are removed.")
-                : "Clips older than \(n) days are removed."
+                : String(localized: "Clips older than \(n) days are removed.")
         case .forever:
             return String(localized: "Nothing is removed automatically. The database grows until you clear it.")
         }

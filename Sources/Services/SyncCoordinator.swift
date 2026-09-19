@@ -25,7 +25,7 @@ final class SyncCoordinator {
             case .idle: return nil
             case .syncing: return String(localized: "Syncing…")
             case .synced(let date):
-                return "Last synced \(date.formatted(date: .omitted, time: .shortened))."
+                return String(localized: "Last synced \(date.formatted(date: .omitted, time: .shortened)).")
             case .unavailable(let reason), .failed(let reason): return reason
             }
         }

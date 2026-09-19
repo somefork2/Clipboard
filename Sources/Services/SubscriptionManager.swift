@@ -183,13 +183,13 @@ final class SubscriptionManager {
               offer.paymentMode == .freeTrial else { return nil }
         let unit: String
         switch offer.period.unit {
-        case .day: unit = offer.period.value == 1 ? "day" : "days"
-        case .week: unit = offer.period.value == 1 ? "week" : "weeks"
-        case .month: unit = offer.period.value == 1 ? "month" : "months"
-        case .year: unit = offer.period.value == 1 ? "year" : "years"
-        @unknown default: unit = "days"
+        case .day: unit = offer.period.value == 1 ? String(localized: "day") : String(localized: "days")
+        case .week: unit = offer.period.value == 1 ? String(localized: "week") : String(localized: "weeks")
+        case .month: unit = offer.period.value == 1 ? String(localized: "month") : String(localized: "months")
+        case .year: unit = offer.period.value == 1 ? String(localized: "year") : String(localized: "years")
+        @unknown default: unit = String(localized: "days")
         }
-        return "\(offer.period.value) \(unit) free"
+        return String(localized: "\(offer.period.value) \(unit) free")
     }
 
     /// Savings of the annual plan versus twelve monthly payments, computed from
@@ -334,7 +334,7 @@ final class SubscriptionManager {
         #endif
         if isInTrial { return String(localized: "Pro — subscription trial") }
         if isPro { return String(localized: "Pro") }
-        if isInFreeTrial { return "Trial — \(TrialManager.shared.daysRemaining) days left" }
+        if isInFreeTrial { return String(localized: "Trial — \(TrialManager.shared.daysRemaining) days left") }
         // There is no free tier any more, so "Free" would be a lie: this state
         // is the app locked and waiting for a subscription.
         return String(localized: "Locked — subscription needed")
