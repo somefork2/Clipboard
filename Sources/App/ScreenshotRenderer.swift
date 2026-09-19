@@ -209,7 +209,8 @@ enum ScreenshotRenderer {
                     let all = toolbar.items.map(\.itemIdentifier.rawValue)
                     let shown = toolbar.visibleItems?.map(\.itemIdentifier.rawValue) ?? []
                     let hidden = all.filter { !shown.contains($0) }
-                    print("\(label) — window \(Int(window.frame.width))pt")
+                    print("\(label) — window \(Int(window.frame.width))pt " +
+                          "title=\(window.titleVisibility == .hidden ? "hidden" : "visible \u{27}\(window.title)\u{27}")")
                     print("   visible : \(shown.joined(separator: ", "))")
                     print("   overflow: \(hidden.isEmpty ? "none" : hidden.joined(separator: ", "))")
                     let sidebarHidden = hidden.contains { $0.localizedCaseInsensitiveContains("sidebar") }
@@ -416,6 +417,16 @@ enum ScreenshotRenderer {
         guard let directory = outputDirectory else { exit(2) }
         try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
 
+        // Store screenshots belong to a store locale, not to whoever is running
+        // the renderer. Without this the shots came out in whatever language
+        // the Mac happened to be set to.
+        let language = CommandLine.arguments.firstIndex(of: "--language")
+            .map { $0 + 1 }
+            .flatMap { $0 < CommandLine.arguments.count ? CommandLine.arguments[$0] : nil }
+            ?? "en"
+        LanguageBundle.use(language)
+        print("language: \(language)")
+
         let store = ClipboardStore.shared
         let subscriptions = SubscriptionManager.shared
         let locked = CommandLine.arguments.contains("--locked")
@@ -439,11 +450,15 @@ enum ScreenshotRenderer {
             )
         }
 
-        // The two panes of the main window are captured separately and placed
-        // side by side by the composer. `NavigationSplitView` puts its sidebar
-        // in a visual-effect view, which `cacheDisplay` draws as blank white —
-        // the panes themselves draw perfectly.
+        // The whole window in one piece, at exactly the 2880×1800 the store
+        // asks for once the Retina backing is counted.
+        //
+        // This only became possible when `NavigationSplitView` went. Its
+        // sidebar sat inside a visual-effect view, which `cacheDisplay` draws
+        // as blank white, and that is why the two panes below are captured
+        // separately and glued together by the composer. A plain HStack draws.
         let shots: [(String, CGSize, Bool, AnyView)] = [
+            ("main-window", CGSize(width: 1440, height: 900), true, dressed(MainView())),
             ("sidebar", CGSize(width: 232, height: 700), false,
              dressed(SidebarView(selection: .constant(.history)).background(Theme.secondaryBackground))),
             ("list", CGSize(width: 948, height: 700), false,

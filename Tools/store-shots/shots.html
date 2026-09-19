@@ -225,6 +225,45 @@ const frames = {
     <div style="padding:8px 14px">Paste from CopyWell</div>
   </div>
 </section>`,
+
+// Frames 7 and 8 are the app itself, not a drawing of it: a real capture of
+// the whole window, rendered by `CopyWell --demo-content --render-screenshots
+// --all-themes --language en`. The other frames stage the palette over a mock
+// app, which shows the moment the product earns its keep but never shows the
+// window — which is what the listing was missing.
+7: () => `<section class="frame light">
+  <div class="copy center" style="top:56px">
+    <div class="eyebrow">All of it, in one window</div>
+    <h1>Everything you copied, still there</h1>
+  </div>
+  <div class="win" style="left:230px; top:222px; width:980px;">
+    ${bar('CopyWell')}
+    <!-- The capture has no toolbar: a plain NSHostingView is not a window that
+         SwiftUI will attach one to. The empty strip that leaves under the title
+         bar is cropped off here rather than filled with a drawing of a toolbar
+         that would not quite match the real one. -->
+    <div style="height:545px; overflow:hidden">
+      <img src="out/window/paper.png" style="display:block; width:100%; margin-top:-30px">
+    </div>
+  </div>
+</section>`,
+
+8: () => `<section class="frame dark">
+  <div class="copy center" style="top:56px">
+    <div class="eyebrow">Seven themes</div>
+    <h1>Including one that is almost black</h1>
+  </div>
+  <div class="win" style="left:230px; top:222px; width:980px;">
+    ${bar('CopyWell')}
+    <!-- The capture has no toolbar: a plain NSHostingView is not a window that
+         SwiftUI will attach one to. The empty strip that leaves under the title
+         bar is cropped off here rather than filled with a drawing of a toolbar
+         that would not quite match the real one. -->
+    <div style="height:545px; overflow:hidden">
+      <img src="out/window/ink.png" style="display:block; width:100%; margin-top:-30px">
+    </div>
+  </div>
+</section>`,
 };
 document.body.innerHTML = (frames[N] || frames[1])();
 </script>
