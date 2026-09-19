@@ -205,7 +205,7 @@ struct ShortcutSettings: View {
                 ForEach(ShortcutAction.allCases) { action in
                     LabeledContent {
                         ShortcutRecorder(action: action)
-                            .disabled(!subscriptions.isPro && !isFreeAction(action))
+                            .disabled(!subscriptions.hasFullAccess)
                     } label: {
                         VStack(alignment: .leading, spacing: 1) {
                             Text(action.title)
@@ -217,9 +217,6 @@ struct ShortcutSettings: View {
                 }
             } footer: {
                 VStack(alignment: .leading, spacing: 6) {
-                    if !subscriptions.isPro {
-                        Text("Rebinding every shortcut is part of CopyWell Pro. The palette and pause shortcuts stay editable on the free plan.")
-                    }
                     Text("Inside the palette: ↑↓ to move, ⌘1–9 to jump, ⏎ to copy the clip and return to your app, ⌥⏎ without formatting, ⌘Y to preview, ⌘⌫ to delete, ⎋ to close. Press ⌘V to paste.")
                     Text("CopyWell never presses keys for you, so it needs no Accessibility access. To insert a clip without pressing ⌘V, use Services ▸ Paste from CopyWell.")
                 }
@@ -232,10 +229,6 @@ struct ShortcutSettings: View {
             }
         }
         .formStyle(.grouped)
-    }
-
-    private func isFreeAction(_ action: ShortcutAction) -> Bool {
-        action == .quickPaste || action == .togglePause
     }
 }
 
@@ -413,7 +406,7 @@ struct SyncSettings: View {
         Form {
             Section("iCloud") {
                 Toggle("Sync history across my Macs", isOn: $settings.iCloudSync)
-                    .disabled(!subscriptions.isPro)
+                    .disabled(!subscriptions.hasFullAccess)
                     .onChange(of: settings.iCloudSync) { _, enabled in
                         sync.settingsChanged()
                         if enabled { Task { await checkAccount() } }
@@ -434,7 +427,7 @@ struct SyncSettings: View {
                         Text("Sync Now")
                     }
                 }
-                .disabled(!settings.iCloudSync || sync.status == .syncing || !subscriptions.isPro)
+                .disabled(!settings.iCloudSync || sync.status == .syncing || !subscriptions.hasFullAccess)
 
                 Text("CopyWell syncs on launch, when you switch back to it, and a few seconds after you copy something. Images and items marked sensitive stay on this Mac.")
                     .font(.caption)
@@ -467,8 +460,12 @@ struct SyncSettings: View {
 
     /// Writes through an NSSavePanel, which is also how a sandboxed app gets
     /// permission to write where the user chose.
+    ///
+    /// Deliberately not gated. The subscription wall promises that nothing the
+    /// user saved is deleted; holding their own history hostage behind a lapsed
+    /// subscription would make that promise worthless, and someone who cannot
+    /// get their data out asks for a refund rather than resubscribing.
     private func export() {
-        guard subscriptions.requestAccess(for: .exportImport) else { return }
         guard let data = ExportManager.export(items: store.items, format: exportFormat) else { return }
 
         let panel = NSSavePanel()

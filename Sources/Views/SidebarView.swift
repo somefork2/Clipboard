@@ -116,8 +116,8 @@ struct SidebarView: View {
 
     /// Where the user stands, stated plainly and without a modal.
     ///
-    /// During the trial it counts down; afterwards it says what the free plan
-    /// actually keeps. Nothing is shown to a subscriber.
+    /// During the trial it counts down; afterwards it says the app is locked and
+    /// that nothing was deleted. Nothing is shown to a subscriber.
     @ViewBuilder
     private var statusFooter: some View {
         if !subscriptions.isPro {
